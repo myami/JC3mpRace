@@ -103,6 +103,11 @@ jcmp.events.CallRemote('ShowMenuServer',player);
 createrace.id = 0;
 
 }))
+
+.add(new Command('ResetUI').description('Reset the UI').handler(function(player) {
+jcmp.events.CallRemote('ResetUI',null);
+
+}))
 .add(new Command('HideMenu').description('Hide the menu').handler(function(player) {
 jcmp.events.CallRemote('HideMenuServer',player);
 

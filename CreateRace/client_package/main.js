@@ -13,6 +13,11 @@ jcmp.events.AddRemoteCallable('HideMenuServer',function(){
   jcmp.ui.CallEvent('HideMenu');
 });
 
+jcmp.events.AddRemoteCallable('ResetUI',function(){
+  CreateRace.Reload(true);
+});
+
+
 
 
 let poiid = 0;
