@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>race - Leaderboard </title>
+
+    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+      <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+
+    #leaderboard{
+      position: fixed;
+      top : 40%;
+      right: 15%;
+      width:55%;
+      height: 40%;
+      overflow: auto;
+    }
+    table {
+        font-family: 'Passion One', cursive;
+        border-collapse: collapse;
+        width: 100%;
+        color: white;
+        font-size: 20pt;
+
+    }
+
+    td, th {
+        border: 1px solid #dddddd;
+        text-align: left;
+        padding: 8px;
+    }
+
+    tr:nth-child(even) {
+        background-color: #2f342f;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #3b423b;
+    }
+    </style>
+</head>
+<body>
+  <div id="leaderboard">
+    <table id= "tableLeaderboard">
+       <tr id="toplist">
+        <th>Name</th>
+        <th>Places</th>
+        <th>Time</th>
+       </tr>
+
+ </table>
+
+   </div>
+
+    <script>
+$("#leaderboard").hide();
+jcmp.AddEvent('AddPlayerOnLeaderboard',function(playername){
+  var $submenu = $("<tr></tr>").attr("id", playername);
+  var $name = $("<td></td>").attr({"id": playername + "1" });
+  $($name).text(playername);
+  var $place = $("<td></td>").attr({"id": playername + "2" });
+  $($place).text(" ");
+  var $time = $("<td></td>").attr({"id": playername + "3" });
+  $($time).text("0 M 0 s");
+
+  $($submenu).append($name);
+ $($submenu).append($place);
+ $($submenu).append($time);
+ $("#tableLeaderboard").append($submenu);
+
+});
+
+jcmp.AddEvent('RemovePlayerOnLeaderboard',function(playername){
+$("#" + playername + "1").remove ;
+});
+jcmp.AddEvent('Leaderboard_update_time',function(playername,minute,seconds){
+  // update the time
+
+  $('tr').each(function() {
+  let idname =  $(this).attr('id');
+    if (idname == playername){
+      $("#" + playername + "3").text(`${minute} M ${seconds} s`) ;
+
+    }
+ });
+});
+
+jcmp.AddEvent('Leaderboard_update_end',function(playername,leaderboardplace,minute,seconds){
+  // update the leaderboard place and time when a player and the race
+  $('tr').each(function() {
+  let idname =  $(this).attr('id');
+    if (idname == playername){
+      $("#" + playername + "2").text(`${leaderboardplace}`) ;
+      $("#" + playername + "3").text(`${minute} M ${seconds} s`) ;
+
+    }
+
+
+ });
+
+});
+
+jcmp.AddEvent('Leaderboard_remove_all',function(){
+  $('tr').each(function() {
+  let idname =  $(this).attr('id');
+  console.log(idname);
+    if (idname == "toplist"){
+      return;
+    }
+   $(this).remove();
+   console.log(this + "removed");
+
+ });
+});
+
+
+
+$(window).keyup(function(event) {
+
+               const key = event.which;
+               if (key === 76) {
+                $("#leaderboard").hide();
+                jcmp.HideCursor();
+              } else if (key === 75) {
+                   $("#leaderboard").show();
+                   jcmp.ShowCursor();
+               }
+           });
+
+
+    </script>
+</body>
+</html>

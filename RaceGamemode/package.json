@@ -1,0 +1,11 @@
+{
+    "authors":"Myami",
+    "jcmp_dependencies": [
+        "chat",
+        "command-manager",
+        "jcmp-toast"
+    ],
+    "license":"MIT",
+    "name":"Race",
+    "version":"1.0.0"
+}

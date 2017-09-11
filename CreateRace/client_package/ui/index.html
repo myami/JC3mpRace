@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+
+
+</body>
+<script>
+let SimpleToolv = false;
+
+  jcmp.AddEvent('ShowMenu', function() {
+    jcmp.ShowCursor();
+    // show first menu to create name without space
+    $("#Menu").show();
+    $("#ToolDiv").show();
+
+  })
+  jcmp.AddEvent('HideMenu', function() {
+    jcmp.HideCursor();
+    $("#Menu").hide();
+  })
+
+
+  $(document).ready(function() {
+    $("#Menu").hide();
+    $("#ToolDiv").hide();
+    $("#CreateRacediv").hide();
+    $("#VehicleSelectdiv").hide();
+    $("#Timediv").hide();
+    $("#WeatherSelectdiv").hide();
+    $("#defaultVehiclediv").hide();
+    $("#AddingYatrespawndiv").hide();
+    $("#CheckpointHashdiv").hide();
+    $("#ChekpointTypediv").hide();
+    $("#PoiTypediv").hide();
+    $("#GhostPoiTypediv").hide();
+    $("#NitroEnableddiv").hide();
+    $("#MaxPlayerdiv").hide();
+    $("#StartingPointdiv").hide();
+    $("#CheckpointPointdiv").hide();
+    $('#VehicleTypes').material_select();
+    $('#weatherselect').material_select();
+    $('#nitroselect').material_select();
+
+  });
+
+
+
+<<<<<<< HEAD
+function AdvancedTool(){
+SimpleToolv = false;
+$("#ToolDiv").hide();
+$("#CreateRacediv").show();
+}
+function SimpleTool (){
+  SimpleToolv = true;
+  $("#ToolDiv").hide();
+  $("#CreateRacediv").show();
+}
+
+  var nameoftherace;
+  function CreateRacebutton() {
+    let name = $("#Racenamev").val();
+    let namewithoutspace = name.split(" ").join("")
+    nameoftherace = namewithoutspace;
+    jcmp.CallEvent('Create_race_name_button', namewithoutspace);
+    jcmp.CallEvent('race_name', name, nameoftherace);
+    $("#CreateRacediv").hide();
+    $("#VehicleSelectdiv").show();
+  }
+
+
+
+  function VehicleTypechange() {
+    var x = document.getElementById("VehicleTypes");
+    var i = x.selectedIndex;
+    let vehicletype = x.options[i].text;
+    jcmp.CallEvent('Add_Vehicle_type', vehicletype, nameoftherace);
+  }
+
+  function hidevehicletype() {
+    $("#VehicleSelectdiv").hide();
+    $("#Timediv").show();
+  }
+
+  function AddTimeonrace() {
+    let hours = $("#hours").val();
+    let minute = $("#minute").val();
+    jcmp.CallEvent('Add_Minute_second', parseInt(hours), parseInt(minute), nameoftherace);
+    $("#Timediv").hide();
+    $("#WeatherSelectdiv").show();
+  }
+
+
+  function WeatherChange() {
+    var x = document.getElementById("weatherselect");
+    var i = x.selectedIndex;
+    let weather = x.options[i].text;
+    jcmp.CallEvent('Add_Weather', weather, nameoftherace);
+
+  }
+
+  function hideweather() {
+    if (SimpleToolv){
+      $("#WeatherSelectdiv").hide();
+      $("#NitroEnableddiv").show();
+    }
+    else{
+      $("#WeatherSelectdiv").hide();
+      $("#defaultVehiclediv").show();
+    }
+  }
+=======
+    </form>
+  </div>
+
+</body>
+<script>
+  jcmp.AddEvent('ShowMenu', function() {
+    jcmp.ShowCursor();
+    // show first menu to create name without space
+    $("#Menu").show();
+    $("#CreateRacediv").show();
+
+  })
+  jcmp.AddEvent('HideMenu', function() {
+    jcmp.HideCursor();
+    $("#Menu").hide();
+  })
+
+
+  $(document).ready(function() {
+    $("#Menu").hide();
+    $("#CreateRacediv").hide();
+    $("#NameWithoutSpacediv").hide();
+    $("#VehicleSelectdiv").hide();
+    $("#Timediv").hide();
+    $("#WeatherSelectdiv").hide();
+    $("#defaultVehiclediv").hide();
+    $("#AddingYatrespawndiv").hide();
+    $("#CheckpointHashdiv").hide();
+    $("#ChekpointTypediv").hide();
+    $("#PoiTypediv").hide();
+    $("#GhostPoiTypediv").hide();
+    $("#NitroEnableddiv").hide();
+    $("#MaxPlayerdiv").hide();
+    $("#StartingPointdiv").hide();
+    $("#CheckpointPointdiv").hide();
+>>>>>>> origin/master
+
+  function AddVehicleHash() {
+    let vehiclehash = $("#vehiclehashid").val();
+    jcmp.CallEvent('Add_vehicle_hash', parseInt(vehiclehash), nameoftherace);
+    $("#defaultVehiclediv").hide();
+    $("#AddingYatrespawndiv").show();
+
+
+  }
+
+  function AddYatRespawn() {
+    let yatrespawn = $("#Yatrespawnv").val();
+    jcmp.CallEvent('Add_Yatrespawn', parseInt(yatrespawn), nameoftherace);
+    $("#AddingYatrespawndiv").hide();
+    $("#CheckpointHashdiv").show();
+
+
+  }
+
+  function AddCheckpointHash() {
+    let checkpointhash = $("#CheckpointHashv").val();
+    jcmp.CallEvent('Add_CheckpointHash', parseInt(checkpointhash), nameoftherace);
+    $("#CheckpointHashdiv").hide();
+    $("#ChekpointTypediv").show();
+
+
+  }
+
+  function AddCheckpointTypev() {
+    let CheckpointType = $("#CheckpointTypev").val();
+    jcmp.CallEvent('Add_CheckpointType', parseInt(CheckpointType), nameoftherace);
+    $("#ChekpointTypediv").hide();
+    $("#PoiTypediv").show();
+
+
+  }
+
+  function AddPoiType() {
+    let PoiType = $("#PoiTypev").val();
+    jcmp.CallEvent('Add_PoiType', parseInt(PoiType), nameoftherace);
+    $("#PoiTypediv").hide();
+    $("#GhostPoiTypediv").show();
+
+
+  }
+
+  function AddGhostPoiType() {
+    let GhostPoiType = $("#GhostPoiTypev").val();
+    jcmp.CallEvent('Add_GhostPoiType', parseInt(GhostPoiType), nameoftherace);
+    $("#GhostPoiTypediv").hide();
+    $("#NitroEnableddiv").show();
+
+
+  }
+
+  function NitroChange() {
+    var x = document.getElementById("nitroselect");
+    var i = x.selectedIndex;
+    let nitro = x.options[i].text;
+    jcmp.CallEvent('Add_NitroChange', nitro, nameoftherace);
+  }
+
+  function hidenitro() {
+    $("#NitroEnableddiv").hide();
+    $("#MaxPlayerdiv").show();
+  }
+
+  function MaxPlayerf() {
+    let MaxPlayer = $("#MaxPlayerv").val();
+    jcmp.CallEvent('Add_MaxPlayer', parseInt(MaxPlayer), nameoftherace);
+    $("#MaxPlayerdiv").hide();
+    $("#StartingPointdiv").show();
+  }
+
+  function CreateStartingPoint() {
+    jcmp.CallEvent('CreateStartingPoint', nameoftherace);
+  }
+
+  function showcheckpointhidestatingpoint() {
+    $("#StartingPointdiv").hide();
+    $("#CheckpointPointdiv").show();
+  }
+
+  function CreateCheckpoint() {
+    jcmp.CallEvent('CreateCheckpoint', nameoftherace);
+
+  }
+
+  function finishit() {
+    resetalltohide();
+    jcmp.HideCursor();
+    jcmp.CallEvent('DeletePOI');
+    jcmp.CallEvent('DeleteCheckpoint');
+
+  }
+
+  function resetalltohide() {
+    $("#Menu").hide();
+<<<<<<< HEAD
+    $("#ToolDiv").hide();
+    $("#CreateRacediv").hide();
+=======
+    $("#CreateRacediv").hide();
+    $("#NameWithoutSpacediv").hide();
+>>>>>>> origin/master
+    $("#VehicleSelectdiv").hide();
+    $("#Timediv").hide();
+    $("#WeatherSelectdiv").hide();
+    $("#defaultVehiclediv").hide();
+    $("#AddingYatrespawndiv").hide();
+    $("#CheckpointHashdiv").hide();
+    $("#ChekpointTypediv").hide();
+    $("#PoiTypediv").hide();
+    $("#GhostPoiTypediv").hide();
+    $("#NitroEnableddiv").hide();
+    $("#MaxPlayerdiv").hide();
+    $("#StartingPointdiv").hide();
+    $("#CheckpointPointdiv").hide();
+<<<<<<< HEAD
+=======
+
+
+
+>>>>>>> origin/master
+  }
+</script>
+
+</html>

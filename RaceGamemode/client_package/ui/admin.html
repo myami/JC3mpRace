@@ -1,0 +1,86 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>race - votingmenu </title>
+    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+      <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <style type="text/css">
+    #container{
+      position:fixed;
+      top : 30%;
+      right: 40%;
+      list-style-type: none;
+      overflow: auto;
+
+    }
+
+
+   #menu{
+     list-style-type: none;
+       font-family: 'Passion One', cursive;
+       font-size: 15pt;
+       background-color: rgba(0, 149, 255, 0.3);
+
+   }
+
+    </style>
+</head>
+<body>
+  <div id="container">
+      <ul id="menu" class="menu"></ul>
+  </div>
+
+
+    <script>
+    $(document).ready(function(){
+      $("#container").hide();
+  });
+      jcmp.AddEvent('Race_name_index_cef_admin',function(index,namew,name){
+        console.log(index + name);
+        var $submenu = $("<li></li>").attr("id", namew);
+        var $subbutton = $("<button></button>").attr("id", namew + "button" );
+        $($subbutton).val(index);
+        $($subbutton).on("click",onclickfunction);
+        $($subbutton).text(name)
+       $("#menu").after($submenu);
+       $("#" + name).val(index);
+    //   $("#" + name).text(name);
+      $($submenu).append($subbutton);
+       $("#menu").append($submenu);
+
+
+      });
+
+
+
+
+jcmp.AddEvent("Open_admin_menu", function() {
+$("#container").show();
+    jcmp.ShowCursor();
+     // make appear the list
+});
+
+
+        function  onclickfunction(){
+               var x = $(this).val() ;
+               console.log(x);
+               $("#container").hide();
+               jcmp.CallEvent('Race_Index_cef',x);
+               jcmp.HideCursor();
+               }
+
+
+
+
+
+
+
+
+
+
+    </script>
+</body>
+</html>

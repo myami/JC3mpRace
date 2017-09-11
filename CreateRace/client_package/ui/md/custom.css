@@ -1,0 +1,24 @@
+<<<<<<< HEAD
+
+=======
+#Menu{
+  position: fixed; /* make fixed */
+  right:35%;
+  top:35%;
+  overflow: auto;
+  font-size: 20px;
+  font-family: 'Titillium Web', sans-serif;
+  color:white;
+  max-width: 500px;
+  max-height:200px;
+}
+form{
+  padding:5px;
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
+.input-field:focus {
+     border-bottom: 1px solid #ffc107!important;
+     box-shadow: 0 1px 0 0 #ffc107!important;
+}
+>>>>>>> origin/master
