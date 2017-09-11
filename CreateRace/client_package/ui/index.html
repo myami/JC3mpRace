@@ -1,6 +1,186 @@
 <!DOCTYPE html>
 <html lang="en">
 
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - CreateRace </title>
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="./md/materialize.min.css" rel="stylesheet">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./md/materialize.min.js"></script>
+
+
+  <style>
+  #Menu{
+    position: fixed; /* make fixed */
+    right:35%;
+    top:35%;
+    overflow: auto;
+    font-size: 20px;
+    font-family: 'Titillium Web', sans-serif;
+    color:white;
+    max-width: 500px;
+
+    /*max-height:200px;*/ /* uncomment */
+  }
+  form{
+    padding:5px;
+    background-color: rgba(0, 0, 0, 0.7);
+  }
+
+  .input-field:focus {
+       border-bottom: 1px solid #ffc107!important;
+       box-shadow: 0 1px 0 0 #ffc107!important;
+  }
+  select{
+    max-width: 300px;
+    max-height:200px;
+  }
+  #VehicleSelectdiv{
+    max-height:200px;
+  }
+
+  </style>
+</head>
+
+<body>
+
+  <div id="Menu">
+
+    <form>
+      <div id="Basics">
+        <div id="ToolDiv">
+          Which tool do you want to use :<br>
+          <button class="waves-effect waves-light btn amber" type="button" id="Simpletoolb" onclick="SimpleTool()">Simple Tool</button>
+          <button class="waves-effect waves-light btn amber" type="button" id="Advancedtoolb" onclick="AdvancedTool()">AdvancedTool</button>
+        </div>
+        <div id="CreateRacediv">
+          Race name without space:<br>
+          <input class="input-field" type="text" name="Racename" placeholder="Racename" id="Racenamev">
+          <button class="waves-effect waves-light btn amber" type="button" id="RaceCreate" onclick="CreateRacebutton()">Create Race</button>
+        </div>
+
+      </div>
+
+      <div id= "RaceSetting">
+
+        <div id="VehicleSelectdiv">
+          <p>Select the vehicle type for the race you want to create: (Select on the menu before clicking next)</p>
+            <select id="VehicleTypes" onchange="VehicleTypechange()"class="input-field">
+              <option selected value="car">Car</option>
+              <option value="airplane">Airplane</option>
+              <option value="boats">Boats</option>
+              <option value="helicopter">Helicopter</option>
+              <option value="motorbike">Motorbike</option>
+              <option value="wingsuit">Wingsuit</option>
+            </select>
+          <button class="waves-effect waves-light btn amber" type="button" id="vehicletypeb" onclick="hidevehicletype()">Next</button>
+        </div>
+        <div id="Timediv">
+          <p>Time of the race : </p>
+          <input class="input-field" type="text" name="Minute" placeholder="Hours" id="hours">
+          <input class="input-field" type="text" name="Seconds" placeholder="Minutes" id="minute">
+          <button class="waves-effect waves-light btn amber" type="button" id="TimeButon" onclick="AddTimeonrace()">Add time</button>
+        </div>
+
+        <div id="WeatherSelectdiv">
+          <p>Select the weather you want: (select on the menu before clicking next)</p>
+          <select id="weatherselect" onchange="WeatherChange()"class="input-field">
+            <option value="base">base</option>
+            <option value="fog">fog</option>
+            <option value="rain">rain</option>
+            <option value="thunderstorm">thunderstorm</option>
+            <option value="snow">snow</option>
+            <option value="overcast">overcast</option>
+          </select>
+          <button class="waves-effect waves-light btn amber" type="button" id="weatherb" onclick="hideweather()">Next</button>
+        </div>
+        <div id="MaxPlayerdiv">
+          <p>MaxPlayer:</p>
+          <input class="input-field" type="text" name="MaxPlayer" value="20" id="MaxPlayerv">
+          <button class="waves-effect waves-light btn amber" type="button" id="maxplayerb" onclick="MaxPlayerf()">ChangeMaxPlayer</button>
+        </div>
+
+      </div>
+
+
+
+      <div id="AdvancedOption">
+
+        <div id="defaultVehiclediv">
+          <p>Default Vehicle Hash</p>
+          <input class="input-field" type="text" name="VehicleHash" placeholder="VehicleHash" id="vehiclehashid">
+          <button class="waves-effect waves-light btn amber" type="button" id="Hashvehicleb" onclick="AddVehicleHash()">Add Hash</button>
+
+        </div>
+        <div id="AddingYatrespawndiv">
+          <p>Adding Y at respawn : (more fore airplane,helicopter)</p>
+          <input class="input-field" type="text" name="Yatrespawn" value="0" id="Yatrespawnv">
+          <button class="waves-effect waves-light btn amber" type="button" id="Yatrespawnb" onclick="AddYatRespawn()">AddY</button>
+        </div>
+        <div id="CheckpointHashdiv">
+          <p>CheckpointHash:</p>
+          <input class="input-field" type="text" name="CheckpointHash" value="0x301477DB" id="CheckpointHashv">
+          <button class="waves-effect waves-light btn amber" type="button" id="CheckpointHashb" onclick="AddCheckpointHash()">AddCheckpointHash</button>
+        </div>
+
+        <div id="ChekpointTypediv">
+          <p>ChekpointType(0 is wingsuit and 1 vehicle):</p>
+          <input class="input-field" type="text" name="CheckpointType" value="1" id="CheckpointTypev">
+          <button class="waves-effect waves-light btn amber" type="button" id="CheckpointTypeb" onclick="AddCheckpointTypev()">AddCheckpointType</button>
+        </div>
+
+        <div id="PoiTypediv">
+          <p>PoiType:</p>
+          <input class="input-field" type="text" name="PoiType" value="10" id="PoiTypev">
+          <button class="waves-effect waves-light btn amber" type="button" id="PoiTypeb" onclick="AddPoiType()">AddPoiType</button>
+        </div>
+
+        <div id="GhostPoiTypediv">
+          <p>GhostPoiType:</p>
+          <input class="input-field" type="text" name="GhostPoiType" value="23" id="GhostPoiTypev">
+          <button class="waves-effect waves-light btn amber" type="button" id="GhostPoiTypeb" onclick="AddGhostPoiType()">AddGhostPoiType</button>
+        </div>
+
+        <div id="NitroEnableddiv">
+          <p>Nitroenabled: (select on the menu before clicking next)</p>
+          <select id="nitroselect" onchange="NitroChange()"class="input-field">
+   <option value="true">true</option>
+   <option value="false">false</option>
+  </select>
+          <button class="waves-effect waves-light btn amber" type="button" id="nitrob" onclick="hidenitro()">Next</button>
+        </div>
+      </div>
+
+
+
+
+
+
+
+      <div id = "SpawningElement">
+
+        <div id="StartingPointdiv">
+          <p>Go at the position you want the starting point and press the StartingPoint button</p>
+          <button class="waves-effect waves-light btn amber" type="button" id="StartingPointRace" onclick="CreateStartingPoint()">Starting Point</button>
+          <button class="waves-effect waves-light btn amber" type="button" id="hidestatingpoint" onclick="showcheckpointhidestatingpoint()">Next</button>
+        </div>
+
+        <div id="CheckpointPointdiv">
+          <p>Press this button at every position you want to add a checkpoint</p>
+          <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpoint()">Checkpoint</button>
+        </div>
+        <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
+
+      </div>
+
+
+
+
+    </form>
+  </div>
 
 </body>
 <script>
@@ -44,7 +224,6 @@ let SimpleToolv = false;
 
 
 
-<<<<<<< HEAD
 function AdvancedTool(){
 SimpleToolv = false;
 $("#ToolDiv").hide();
@@ -108,43 +287,6 @@ function SimpleTool (){
       $("#defaultVehiclediv").show();
     }
   }
-=======
-    </form>
-  </div>
-
-</body>
-<script>
-  jcmp.AddEvent('ShowMenu', function() {
-    jcmp.ShowCursor();
-    // show first menu to create name without space
-    $("#Menu").show();
-    $("#CreateRacediv").show();
-
-  })
-  jcmp.AddEvent('HideMenu', function() {
-    jcmp.HideCursor();
-    $("#Menu").hide();
-  })
-
-
-  $(document).ready(function() {
-    $("#Menu").hide();
-    $("#CreateRacediv").hide();
-    $("#NameWithoutSpacediv").hide();
-    $("#VehicleSelectdiv").hide();
-    $("#Timediv").hide();
-    $("#WeatherSelectdiv").hide();
-    $("#defaultVehiclediv").hide();
-    $("#AddingYatrespawndiv").hide();
-    $("#CheckpointHashdiv").hide();
-    $("#ChekpointTypediv").hide();
-    $("#PoiTypediv").hide();
-    $("#GhostPoiTypediv").hide();
-    $("#NitroEnableddiv").hide();
-    $("#MaxPlayerdiv").hide();
-    $("#StartingPointdiv").hide();
-    $("#CheckpointPointdiv").hide();
->>>>>>> origin/master
 
   function AddVehicleHash() {
     let vehiclehash = $("#vehiclehashid").val();
@@ -243,13 +385,8 @@ function SimpleTool (){
 
   function resetalltohide() {
     $("#Menu").hide();
-<<<<<<< HEAD
     $("#ToolDiv").hide();
     $("#CreateRacediv").hide();
-=======
-    $("#CreateRacediv").hide();
-    $("#NameWithoutSpacediv").hide();
->>>>>>> origin/master
     $("#VehicleSelectdiv").hide();
     $("#Timediv").hide();
     $("#WeatherSelectdiv").hide();
@@ -263,12 +400,6 @@ function SimpleTool (){
     $("#MaxPlayerdiv").hide();
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
-<<<<<<< HEAD
-=======
-
-
-
->>>>>>> origin/master
   }
 </script>
 
