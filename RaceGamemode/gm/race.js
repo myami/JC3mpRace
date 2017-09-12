@@ -19,6 +19,7 @@ module.exports = class Race {
     this.ghostpoi = ghostpoi;
     this.nitro = nitrobool;
     this.leaderboard = [];
+    this.playersname = [];
   }
 
 Start(){
@@ -41,6 +42,7 @@ Start(){
         player.race.time = 0;
         player.race.hasfinish = false;
 
+          this.playersname.push(player.name);
 
         if (this.alldefaultvehicle){
          player.race.vehicle = this.defaultvehicle;
@@ -61,8 +63,7 @@ Start(){
         }else{
         //  jcmp.events.CallRemote('race_vehicle_choice_menu',player);
         }
-        let playername = player.name;
-        this.AddPlayerOnLeaderboard(playername);
+
 
         jcmp.events.CallRemote('race_Freeze_player',player);
         jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
@@ -90,17 +91,10 @@ Start(){
     }
   }
 
-AddPlayerOnLeaderboard(playername){
-  for(let player of this.players) {
-    jcmp.events.CallRemote('Add_Player_On_Leaderboard',player,playername);
-  }
+AddPlayerOnLeaderboard(player){
+    jcmp.events.CallRemote('Add_Player_On_Leaderboard',player,JSON.stringify(this.playersname));
 }
 
-UpdateTimeOnLeaderboard (playername,minute,seconds){
-  for(let player of this.players) {
-    jcmp.events.CallRemote('leaderboard_Update_time',player,playername,minute,seconds);
-  }
-}
 
 UpdateEndLeaderboard (playername,leaderboardplace,minute,seconds){
   for(let player of this.players) {

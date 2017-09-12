@@ -47,7 +47,7 @@
       font-size: 60pt;
     }
     body{
-      user-select: none; 
+      user-select: none;
     }
 
     </style>
@@ -78,6 +78,9 @@
       if (timer > 0){
         timer --;
           document.getElementById("timer").innerText = (timer);
+      }
+      if (timer == 15){
+        jcmp.CallEvent('AddPlayerLeaderboard');
       }
       if (timer == 0){
         jcmp.CallEvent('race_countdown_end');

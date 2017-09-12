@@ -23,10 +23,9 @@ jcmp.ui.AddEvent('chat_input_state', s => {
   // Ask the main menu to stop opening. It will still open at the second time (in a short period), though
   jcmp.ui.CallEvent('mainui_prevent_open_menu', s);
   if (s) {
-    jcmp.localPlayer.controlsEnabled = true;
-    jcmp.localPlayer.controlsEnabled = false;
+
   } else {
-    jcmp.localPlayer.controlsEnabled = true;
+
   }
 });
 

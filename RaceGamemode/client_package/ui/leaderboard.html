@@ -56,44 +56,36 @@
 
     <script>
 $("#leaderboard").hide();
-jcmp.AddEvent('AddPlayerOnLeaderboard',function(playername){
-  var $submenu = $("<tr></tr>").attr("id", playername);
-  var $name = $("<td></td>").attr({"id": playername + "1" });
-  $($name).text(playername);
-  var $place = $("<td></td>").attr({"id": playername + "2" });
-  $($place).text(" ");
-  var $time = $("<td></td>").attr({"id": playername + "3" });
-  $($time).text("0 M 0 s");
+jcmp.AddEvent('AddPlayerOnLeaderboard',function(playerlist){
+  let playerl = JSON.parse(playerlist);
+  for(var i = 0; i < playerl.length; i++) {
+    let playername = playerl[i];
+    let namewithoutspace =  playername.split(" ").join("");
+    var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+    var $name = $("<td></td>").attr({"id":  namewithoutspace + "1" });
+    $($name).text(playername);
+    var $place = $("<td></td>").attr({"id": namewithoutspace + "2" });
+    $($place).text(" ");
+    var $time = $("<td></td>").attr({"id": namewithoutspace + "3" });
+    
 
-  $($submenu).append($name);
- $($submenu).append($place);
- $($submenu).append($time);
- $("#tableLeaderboard").append($submenu);
+    $($submenu).append($name);
+   $($submenu).append($place);
+   $($submenu).append($time);
+   $("#tableLeaderboard").append($submenu);
+  }
 
-});
 
-jcmp.AddEvent('RemovePlayerOnLeaderboard',function(playername){
-$("#" + playername + "1").remove ;
-});
-jcmp.AddEvent('Leaderboard_update_time',function(playername,minute,seconds){
-  // update the time
-
-  $('tr').each(function() {
-  let idname =  $(this).attr('id');
-    if (idname == playername){
-      $("#" + playername + "3").text(`${minute} M ${seconds} s`) ;
-
-    }
- });
 });
 
 jcmp.AddEvent('Leaderboard_update_end',function(playername,leaderboardplace,minute,seconds){
   // update the leaderboard place and time when a player and the race
   $('tr').each(function() {
   let idname =  $(this).attr('id');
-    if (idname == playername){
-      $("#" + playername + "2").text(`${leaderboardplace}`) ;
-      $("#" + playername + "3").text(`${minute} M ${seconds} s`) ;
+  let namewithoutspace =  playername.split(" ").join("");
+    if (idname == namewithoutspace){
+      $("#" + namewithoutspace + "2").text(`${leaderboardplace}`) ;
+      $("#" + namewithoutspace + "3").text(`${minute} M ${seconds} s`) ;
 
     }
 

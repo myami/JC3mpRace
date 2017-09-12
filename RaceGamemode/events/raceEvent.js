@@ -145,7 +145,11 @@ jcmp.events.Add('race_end_point', function (player)
 // if he is not the last tell him is rank and show him the leaderboard || made a spectator mode the time the last as this event
 
 });
-
+jcmp.events.AddRemoteCallable('AddPlayerLeaderboard',function(player){
+  const Race = player.race.game;
+  Race.AddPlayerOnLeaderboard(player);
+  console.log("event AddPlayerOnLeaderboard launch");
+});
 jcmp.events.Add('race_player_leave_game', function (player,destroy)
 {
 //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
@@ -254,13 +258,6 @@ jcmp.events.AddRemoteCallable('Race_player_timer_start',(player)=> {
   if (player != undefined && player.name != undefined)
     if(player.race.ingame)
     player.race.time ++ ;
-    let minute = Math.floor(player.race.time / 60);
-    let seconds = player.race.time % 60
-    let playername = player.name ;
-    Race.UpdateTimeOnLeaderboard(playername,minute,seconds);
-    console.log(player.name + "timerupdate");
-
-
   }, 1000);
 player.race.timerinterval = timerinterval;
 

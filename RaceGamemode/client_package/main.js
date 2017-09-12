@@ -404,6 +404,9 @@ jcmp.ui.AddEvent('race_countdown_end', function() {
   jcmp.events.CallRemote('Race_player_timer_start');
 
 });
+jcmp.ui.AddEvent('AddPlayerLeaderboard',function(){
+  jcmp.events.CallRemote('AddPlayerLeaderboard');
+})
 
 jcmp.ui.AddEvent('Update_All_Client',function(name,value){
   jcmp.events.CallRemote('Update_All_Client_server',name,value);
@@ -423,10 +426,6 @@ jcmp.events.AddRemoteCallable('race_set_weather', weather => {
     jcmp.world.weather = weather;
 });
 
-
-jcmp.events.AddRemoteCallable('leaderboard_Update_time',function(playername,minute,seconds){
-  jcmp.ui.CallEvent('Leaderboard_update_time',playername,minute,seconds);
-});
 
 jcmp.events.AddRemoteCallable('Update_leaderboard_all',function(playername,leaderboardplace,minutes,seconds){
   jcmp.ui.CallEvent('Leaderboard_update_end',playername,leaderboardplace,minutes,seconds);
