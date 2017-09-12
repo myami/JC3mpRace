@@ -22,10 +22,8 @@ Copy the files into your server/packages folder
 
 #### TODO :
 
-1. Change css everywhere
-2. Fix issue link to the race gamemode
-3. Clean code
-4. Fix name with space don't update on leaderboard
+1. Fix issue link to the race gamemode
+2. Clean code
 
 #### Credits
 Created by Myami(FR) and the help of lordFarquaad for scripting. || JSON File (Race) created by Protato.

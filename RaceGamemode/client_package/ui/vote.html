@@ -14,13 +14,15 @@
         font-size: 15px;
         font-family: 'Passion One', cursive;
     }
-
  #container{
    position:fixed;
    top : 20%;
    right: 40%;
    list-style-type: none;
    overflow: auto;
+   width: 800px;
+   height: 500px;
+   background-color: rgba(0, 217, 255, 0.5);
 
  }
 
@@ -34,17 +36,37 @@
   color: red;
 }
 #menu{
-  list-style-type: none;
+    list-style-type: none;
     font-family: 'Passion One', cursive;
     font-size: 15pt;
-    background-color: rgba(0, 149, 255, 0.3);
+    line-height: 2;
+    position: relative;
+    top:5%;
+    
 
 }
-span{
-
+#votenumber{
+  position: absolute;
+  left:5%;
+  top: 0%;
+  font-size: 25pt;
 }
+#mapnames{
+  position: absolute;
+  right:5%;
+  top: 0%;
+  font-size: 25pt;
+}
+
+li{
+   border-bottom:solid;
+}
+
 button{
-
+float:right;
+}
+li span {
+   margin-left: 2cm;
 }
 
 
@@ -55,6 +77,8 @@ button{
 </head>
 <body>
   <div id="container">
+      <span id="votenumber">Vote Number :</span>
+        <span id="mapnames">Map names :</span>
       <ul id="menu" class="menu"></ul>
   </div>
 
@@ -96,12 +120,12 @@ jcmp.AddEvent("Open_vote_menu", function(time) {
 $("#container").show();
     jcmp.ShowCursor();
     toggleContainer("Countdown", true);
-    Countdown_start();
+    //Countdown_start();
      // make appear the list
 
      let inter =  setTimeout(function() {
        jcmp.CallEvent('Close_voting_menu');
-       jcmp.CallEvent('Send_best_vote_index');
+    //   jcmp.CallEvent('Send_best_vote_index');
 
      }, time);
 });
