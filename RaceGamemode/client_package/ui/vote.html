@@ -6,7 +6,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>race - votingmenu </title>
     <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
-      <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <link href="./md/materialize.min.css" rel="stylesheet">
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="./md/materialize.min.js"></script>
     <style type="text/css">
     body{
         font-size: 15px;
@@ -15,7 +17,7 @@
 
  #container{
    position:fixed;
-   top : 30%;
+   top : 20%;
    right: 40%;
    list-style-type: none;
    overflow: auto;
@@ -68,7 +70,7 @@ button{
       jcmp.AddEvent('Race_name_index_cef_vote',function(index,namew,name){
         console.log(index + name);
         var $submenu = $("<li></li>").attr("id", namew);
-        var $subbutton = $("<button></button>").attr({"id": namew + "button","class": namew });
+        var $subbutton = $("<button></button>").attr({"id": namew + "button","class": "waves-effect waves-light btn amber","type":"button" });
         var $subnum = $("<span></span>").attr({"id": namew + "span","class": namew });
         $($subbutton).val(index);
         $($subnum).val(0);
