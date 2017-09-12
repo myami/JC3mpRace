@@ -98,6 +98,21 @@ jcmp.events.Call('toast_show', null, {
 });
 createrace.chat.send(player, "ID changed to 0");
 }))
+
+.add(new Command('CreateStartingPoint').description('Create starting point').parameter('column','number','columns to spawn').parameter('height','number','height to spawn').parameter('offsetx','number','offset on X').parameter('offsetz','number','offset on Z').parameter('hash','number','vehicle hash').handler(function(player,column,height,offsetx,offsetz,hash) {
+      let columns = column;
+       let heights = height;
+       let offsetxs = offsetx;
+       let offsetzs = offsetz;
+       for(var c = 0; c < columns; c++) {
+       for(var h = 0; h < heights; h++) {
+         let carposition = new Vector3f(player.position.x + offsetxs * c, player.position.y,player.position.z + offsetzs * h);
+         let rotation = new Vector3f(0,0,0);
+           const vehicle = new Vehicle(hash, carposition, rotation);
+       }
+     }
+
+}))
 .add(new Command('ShowMenu').description('Start the processus of creating a race').handler(function(player) {
 jcmp.events.CallRemote('ShowMenuServer',player);
 createrace.id = 0;
