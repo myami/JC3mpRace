@@ -1,6 +1,6 @@
-Array.prototype.removePlayer = function (player) {
+Array.prototype.removePlayer = function(player) {
 
-  var index = this.findIndex(function (e) {
+  var index = this.findIndex(function(e) {
     return e.client.steamId === player.client.steamId;
   });
 
@@ -176,7 +176,7 @@ module.exports = class Utility {
       }
       list.forEach(f => {
         require(`${path}/${f}`);
-        let topush = `${f}: require(${path}/${f});` ;
+        let topush = `${f}: require(${path}/${f});`;
         console.log(f);
         race.game.RaceList.push(topush);
 
@@ -185,38 +185,30 @@ module.exports = class Utility {
 
     }, true);
   }
-  static GetRaceData()
-  {
+  static GetRaceData() {
     // thanks to lordFarquaad
-      let basePath = __dirname + '/../RaceList/';
+    let basePath = __dirname + '/../RaceList/';
 
-      Utility.rreaddir(basePath, function(err, filenames)
-      {
+    Utility.rreaddir(basePath, function(err, filenames) {
+      if (err) throw err;
+      filenames.forEach(function(filename) {
+
+
+        fs.readFile(basePath + filename, 'utf8', function(err, data) {
+
           if (err) throw err;
-          filenames.forEach(function(filename)
-          {
-
-
-              fs.readFile(basePath + filename, 'utf8', function (err, data)
-              {
-
-                  if (err) throw err;
-                  let obj = JSON.parse(data);
-                  race.game.RaceList.push(obj);
-              });
-          })
-          setTimeout(function()
-          {
-              if (race.game.RaceList.length == 0)
-              {
-                  console.log(`[Race] [ERROR] No Race loaded!`);
-              }
-              else
-              {
-                  console.log(`[Race] ${race.game.RaceList.length} Race loaded!`);
-              }
-          }, 500);
-      });
+          let obj = JSON.parse(data);
+          race.game.RaceList.push(obj);
+        });
+      })
+      setTimeout(function() {
+        if (race.game.RaceList.length == 0) {
+          console.log(`[Race] [ERROR] No Race loaded!`);
+        } else {
+          console.log(`[Race] ${race.game.RaceList.length} Race loaded!`);
+        }
+      }, 500);
+    });
   }
   /**
    * Checks if the given player is an admin on the server.
@@ -251,7 +243,7 @@ module.exports = class Utility {
   }
 
   static findBySteamId(id) {
-    var index = jcmp.players.map(function (player) {
+    var index = jcmp.players.map(function(player) {
       return player.client.steamId;
     }).indexOf(id);
     return jcmp.players[index];
@@ -266,13 +258,13 @@ module.exports = class Utility {
     //console.log(race.utils.GetDistanceBetweenPointsXY(v1, v2));
     /*if (race.utils.GetDistanceBetweenPointsXZ(v1, v2) <= radius) return true;
     return false;*/
-    var comparation = (race.utils.GetDistanceBetweenPointsXZ(v1,v2) <= radius);
+    var comparation = (race.utils.GetDistanceBetweenPointsXZ(v1, v2) <= radius);
     return comparation;
   }
 
   static IsPointInCircleRender(v1, v2, radius) {
 
-    var comparation = (race.utils.GetDistanceBetweenPointsXZ(v1,v2) <= radius * 0.95/2);
+    var comparation = (race.utils.GetDistanceBetweenPointsXZ(v1, v2) <= radius * 0.95 / 2);
     return comparation;
   }
 
@@ -284,7 +276,7 @@ module.exports = class Utility {
     return Math.sqrt(dx * dx + dy * dy + dz * dz);
   }
 
-  static GetDistanceBetweenPointsXZ(v1,v2) {
+  static GetDistanceBetweenPointsXZ(v1, v2) {
     let v13f = new Vector3f(v1.x, 0.0, v1.z);
     let v14f = new Vector3f(v2.x, 0.0, v2.z);
     return race.utils.GetDistanceBetweenPoints(v13f, v14f);

@@ -1,30 +1,28 @@
-
-
 global.race = {
-    commands: jcmp.events.Call('get_command_manager')[0],
-    chat: jcmp.events.Call('get_chat')[0],
-    config: require('./gm/config'),
-    utils: require('./gm/utility'),
-    workarounds: require('./gm/_workarounds'),
-    workarounds2: require('./gm/_workarounds2.js'),
-    Race: require('./gm/race.js'),
-    game: {
-      players: {
-        onlobby: [],
-        ingame: []
-      },
-      toStart: false,
-      StartTimer: null,
-      TimerArea : 2,
-      games: [],
-      gamesCount: 0,
-      RaceList:[],
-      timeToStart: 0,
-      RacePeopleDie: [],
-      respawntimer: 1000 ,// 5 seconds
-      RaceLaunch: true
+  commands: jcmp.events.Call('get_command_manager')[0],
+  chat: jcmp.events.Call('get_chat')[0],
+  config: require('./gm/config'),
+  utils: require('./gm/utility'),
+  workarounds: require('./gm/_workarounds'),
+  workarounds2: require('./gm/_workarounds2.js'),
+  Race: require('./gm/race.js'),
+  game: {
+    players: {
+      onlobby: [],
+      ingame: []
+    },
+    toStart: false,
+    StartTimer: null,
+    TimerArea: 2,
+    games: [],
+    gamesCount: 0,
+    RaceList: [],
+    timeToStart: 0,
+    RacePeopleDie: [],
+    respawntimer: 1000, // 5 seconds
+    RaceLaunch: true
 
-    }
+  }
 };
 
 
@@ -38,7 +36,7 @@ race.commands.loadFromDirectory(`${__dirname}/commands`, (f, ...a) => require(f)
 race.utils.loadFilesFromDirectory(`${__dirname}/events`);
 
 race.utils.GetRaceData();
-race.config.game.timervote = race.config.game.timeToStart / 2 ;
+race.config.game.timervote = race.config.game.timeToStart / 2;
 console.log(race.config.game.timervote);
 
 setInterval(function() {

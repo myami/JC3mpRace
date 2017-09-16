@@ -1,48 +1,52 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>race - DEATH UI </title>
-    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
-    <style type="text/css">
-        body {
-            margin: 0;
-            user-select: none;
-        }
-        #deathcontent {
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0,0,0,0.5);
-            text-align: center;
-            font-family: 'Passion One', cursive;
-            color: white;
-            -webkit-text-fill-color: white;
-            -webkit-text-stroke-width: 1px;
-            -webkit-text-stroke-color: black;
-            position: absolute;
-            text-align: center;
-            width: 100%;
-            visibility: hidden;
-            opacity: 0;
-        }
-        #killerName {
-            -webkit-text-fill-color: red;
-        }
-        #respawnTime {
-            -webkit-text-fill-color: red;
-        }
 
-    </style>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - DEATH UI </title>
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <style type="text/css">
+    body {
+      margin: 0;
+      user-select: none;
+    }
+
+    #deathcontent {
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0, 0, 0, 0.5);
+      text-align: center;
+      font-family: 'Passion One', cursive;
+      color: white;
+      -webkit-text-fill-color: white;
+      -webkit-text-stroke-width: 1px;
+      -webkit-text-stroke-color: black;
+      position: absolute;
+      text-align: center;
+      width: 100%;
+      visibility: hidden;
+      opacity: 0;
+    }
+
+    #killerName {
+      -webkit-text-fill-color: red;
+    }
+
+    #respawnTime {
+      -webkit-text-fill-color: red;
+    }
+  </style>
 </head>
+
 <body>
 
-    <div id="deathcontent" style="transition: opacity 500ms; opacity: 0;" >
+  <div id="deathcontent" style="transition: opacity 500ms; opacity: 0;">
 
-        <img src="./img/deathimg.png" width="30%" height="45%"/>
+    <img src="./img/deathimg.png" width="30%" height="45%" />
 
-        <h1>You are respawning</h1>
-        <h3>Don't worry you will respawn in the lobby on <span id="respawnTime">5</span> seconds ..</h4>
+    <h1>You are respawning</h1>
+    <h3>Don't worry you will respawn in the lobby on <span id="respawnTime">5</span> seconds ..</h4>
     </div>
 
     <script>

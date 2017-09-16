@@ -13,35 +13,39 @@
 
 
   <style>
-  #Menu{
-    position: fixed; /* make fixed */
-    right:35%;
-    top:35%;
-    overflow: auto;
-    font-size: 20px;
-    font-family: 'Titillium Web', sans-serif;
-    color:white;
-    max-width: 500px;
+    #Menu {
+      position: fixed;
+      /* make fixed */
+      right: 35%;
+      top: 35%;
+      overflow: auto;
+      font-size: 20px;
+      font-family: 'Titillium Web', sans-serif;
+      color: white;
+      max-width: 500px;
 
-    /*max-height:200px;*/ /* uncomment */
-  }
-  form{
-    padding:5px;
-    background-color: rgba(0, 0, 0, 0.7);
-  }
+      /*max-height:200px;*/
+      /* uncomment */
+    }
 
-  .input-field:focus {
-       border-bottom: 1px solid #ffc107!important;
-       box-shadow: 0 1px 0 0 #ffc107!important;
-  }
-  select{
-    max-width: 300px;
-    max-height:200px;
-  }
-  #VehicleSelectdiv{
-    max-height:200px;
-  }
+    form {
+      padding: 5px;
+      background-color: rgba(0, 0, 0, 0.7);
+    }
 
+    .input-field:focus {
+      border-bottom: 1px solid #ffc107!important;
+      box-shadow: 0 1px 0 0 #ffc107!important;
+    }
+
+    select {
+      max-width: 300px;
+      max-height: 200px;
+    }
+
+    #VehicleSelectdiv {
+      max-height: 200px;
+    }
   </style>
 </head>
 
@@ -64,11 +68,11 @@
 
       </div>
 
-      <div id= "RaceSetting">
+      <div id="RaceSetting">
 
         <div id="VehicleSelectdiv">
           <p>Select the vehicle type for the race you want to create: (Select on the menu before clicking next)</p>
-            <select id="VehicleTypes" onchange="VehicleTypechange()"class="input-field">
+          <select id="VehicleTypes" onchange="VehicleTypechange()" class="input-field">
               <option selected value="car">Car</option>
               <option value="airplane">Airplane</option>
               <option value="boats">Boats</option>
@@ -87,7 +91,7 @@
 
         <div id="WeatherSelectdiv">
           <p>Select the weather you want: (select on the menu before clicking next)</p>
-          <select id="weatherselect" onchange="WeatherChange()"class="input-field">
+          <select id="weatherselect" onchange="WeatherChange()" class="input-field">
             <option value="base">base</option>
             <option value="fog">fog</option>
             <option value="rain">rain</option>
@@ -146,7 +150,7 @@
 
         <div id="NitroEnableddiv">
           <p>Nitroenabled: (select on the menu before clicking next)</p>
-          <select id="nitroselect" onchange="NitroChange()"class="input-field">
+          <select id="nitroselect" onchange="NitroChange()" class="input-field">
    <option value="true">true</option>
    <option value="false">false</option>
   </select>
@@ -160,7 +164,7 @@
 
 
 
-      <div id = "SpawningElement">
+      <div id="SpawningElement">
 
         <div id="StartingPointdiv">
           <p>Go at the position you want the starting point and press the StartingPoint button</p>
@@ -184,7 +188,7 @@
 
 </body>
 <script>
-let SimpleToolv = false;
+  let SimpleToolv = false;
 
   jcmp.AddEvent('ShowMenu', function() {
     jcmp.ShowCursor();
@@ -224,18 +228,20 @@ let SimpleToolv = false;
 
 
 
-function AdvancedTool(){
-SimpleToolv = false;
-$("#ToolDiv").hide();
-$("#CreateRacediv").show();
-}
-function SimpleTool (){
-  SimpleToolv = true;
-  $("#ToolDiv").hide();
-  $("#CreateRacediv").show();
-}
+  function AdvancedTool() {
+    SimpleToolv = false;
+    $("#ToolDiv").hide();
+    $("#CreateRacediv").show();
+  }
+
+  function SimpleTool() {
+    SimpleToolv = true;
+    $("#ToolDiv").hide();
+    $("#CreateRacediv").show();
+  }
 
   var nameoftherace;
+
   function CreateRacebutton() {
     let name = $("#Racenamev").val();
     let namewithoutspace = name.split(" ").join("")
@@ -254,8 +260,8 @@ function SimpleTool (){
     let vehicletype = x.options[i].text;
     jcmp.CallEvent('Add_Vehicle_type', vehicletype, nameoftherace);
     // Set a default vehicle if choice simple tool
-    if (SimpleToolv){
-      jcmp.CallEvent('AddVehicleSimpleBasic',vehicletype,nameoftherace);
+    if (SimpleToolv) {
+      jcmp.CallEvent('AddVehicleSimpleBasic', vehicletype, nameoftherace);
     }
   }
 
@@ -282,11 +288,10 @@ function SimpleTool (){
   }
 
   function hideweather() {
-    if (SimpleToolv){
+    if (SimpleToolv) {
       $("#WeatherSelectdiv").hide();
       $("#NitroEnableddiv").show();
-    }
-    else{
+    } else {
       $("#WeatherSelectdiv").hide();
       $("#defaultVehiclediv").show();
     }

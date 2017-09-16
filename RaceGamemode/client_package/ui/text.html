@@ -1,170 +1,168 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>race - Text UI </title>
-    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
-    <style type="text/css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - Text UI </title>
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+  <style type="text/css">
     .hidden {
-            visibility: hidden;
-        }
-    #TimerContainer{
+      visibility: hidden;
+    }
+
+    #TimerContainer {
       position: fixed;
-      top:20%;
-      right:47%;
+      top: 20%;
+      right: 47%;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       font-size: 160pt;
       color: yellow;
     }
 
-    #CheckpointContainer{
+    #CheckpointContainer {
       position: fixed;
-      top:2%;
-      right:49%;
+      top: 2%;
+      right: 49%;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       font-size: 30pt;
     }
 
-    #alpha{
+    #alpha {
       position: fixed;
-      top:95%;
-      right:92%;
+      top: 95%;
+      right: 92%;
       font-family: 'Permanent Marker', cursive;
       font-weight: bold;
       font-size: 15pt;
-      color:#00FF00;
+      color: #00FF00;
     }
-    #rank{
+
+    #rank {
       position: fixed;
-      top:30%;
-      right:10%;
+      top: 30%;
+      right: 10%;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       font-size: 60pt;
     }
-    body{
+
+    body {
       user-select: none;
     }
-
-    </style>
+  </style>
 </head>
+
 <body>
 
-  <div id="TimerContainer"class= "hidden">
-      <span id= "timer">30</span>
-        </div>
+  <div id="TimerContainer" class="hidden">
+    <span id="timer">30</span>
+  </div>
 
-      <div id="CheckpointContainer"class= "hidden">
-        <span id= "playercheckpointis">0</span> / <span id= "allcheckpoint">0</span>
-          </div>
+  <div id="CheckpointContainer" class="hidden">
+    <span id="playercheckpointis">0</span> / <span id="allcheckpoint">0</span>
+  </div>
 
-          <div id="rank"class= "hidden">
-          You are  <span id= "playerleaderboardplace">0</span> with a time of : <span id= "timesecond">0</span> <span id= "minutesecond">minutes and 0 secondes</span>
-              </div>
+  <div id="rank" class="hidden">
+    You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
+  </div>
 
 
-              <div id="alpha"class= "">
-                <p>Early Alpha</p>
-                  </div>
-    <script>
-
+  <div id="alpha" class="">
+    <p>Early Alpha</p>
+  </div>
+  <script>
     let timer = 30; // timer seconde
-  jcmp.AddEvent('Countdown_start', function() {
-  let inter =  setInterval(function() {
-      if (timer > 0){
-        timer --;
+    jcmp.AddEvent('Countdown_start', function() {
+      let inter = setInterval(function() {
+        if (timer > 0) {
+          timer--;
           document.getElementById("timer").innerText = (timer);
-      }
-      if (timer == 15){
-        jcmp.CallEvent('AddPlayerLeaderboard');
-      }
-      if (timer == 0){
-        jcmp.CallEvent('race_countdown_end');
-        timer = 30;
-        clear(inter);
-        document.getElementById("timer").innerText = "GO";
-        setTimeout(function() {
-          document.getElementById("timer").innerText = "";
-          toggleContainer("TimerContainer", false);
-        }, 2000);
-      }
+        }
+        if (timer == 15) {
+          jcmp.CallEvent('AddPlayerLeaderboard');
+        }
+        if (timer == 0) {
+          jcmp.CallEvent('race_countdown_end');
+          timer = 30;
+          clear(inter);
+          document.getElementById("timer").innerText = "GO";
+          setTimeout(function() {
+            document.getElementById("timer").innerText = "";
+            toggleContainer("TimerContainer", false);
+          }, 2000);
+        }
 
-    }, 1000);
+      }, 1000);
 
 
-  });
+    });
 
-  function clear (vartoclear){
-    clearInterval(vartoclear);
-  }
+    function clear(vartoclear) {
+      clearInterval(vartoclear);
+    }
 
     function toggleContainer(container, status) {
-          // Status true = SHOW, false = HIDE
-          if(status != null) {
-              if(status) {
-                  document.getElementById(container).classList.remove("hidden");
-              } else {
-                  document.getElementById(container).classList.add("hidden");
-              }
-          } else {
-              document.getElementById(container).classList.toggle("hidden");
-          }
+      // Status true = SHOW, false = HIDE
+      if (status != null) {
+        if (status) {
+          document.getElementById(container).classList.remove("hidden");
+        } else {
+          document.getElementById(container).classList.add("hidden");
+        }
+      } else {
+        document.getElementById(container).classList.toggle("hidden");
       }
-      jcmp.AddEvent('Race_Checkpoint_container', function(status) {
-              toggleContainer("CheckpointContainer", status);
+    }
+    jcmp.AddEvent('Race_Checkpoint_container', function(status) {
+      toggleContainer("CheckpointContainer", status);
 
-          });
-
-
-          jcmp.AddEvent('Race_rank_container', function(place,time) {
-              document.getElementById("playerleaderboardplace").innerText = (place);
-              if (time > 60){
-                let timeminute = Math.floor(time / 60) ;
-                let seconds = time % 60
-                document.getElementById("timesecond").innerText = (timeminute);
-                document.getElementById("minutesecond").innerText = `minutes and ${seconds} secondes`;
-              }
-              else{
-                document.getElementById("timesecond").innerText = (time);
-                document.getElementById("minutesecond").innerText = "secondes";
-              }
-
-              toggleContainer("rank", true);
-              setTimeout(function() {
-                toggleContainer("rank", false);
-              }, 8000);
+    });
 
 
-              });
-              jcmp.AddEvent('Checkpoint_Sound', () =>
-  {
+    jcmp.AddEvent('Race_rank_container', function(place, time) {
+      document.getElementById("playerleaderboardplace").innerText = (place);
+      if (time > 60) {
+        let timeminute = Math.floor(time / 60);
+        let seconds = time % 60
+        document.getElementById("timesecond").innerText = (timeminute);
+        document.getElementById("minutesecond").innerText = `minutes and ${seconds} secondes`;
+      } else {
+        document.getElementById("timesecond").innerText = (time);
+        document.getElementById("minutesecond").innerText = "secondes";
+      }
+
+      toggleContainer("rank", true);
+      setTimeout(function() {
+        toggleContainer("rank", false);
+      }, 8000);
+
+
+    });
+    jcmp.AddEvent('Checkpoint_Sound', () => {
       var x = document.createElement("AUDIO");
-      x.setAttribute("src","./music/CheckpointSound.ogg");
-      x.setAttribute("duration","1.23");
+      x.setAttribute("src", "./music/CheckpointSound.ogg");
+      x.setAttribute("duration", "1.23");
       x.play();
 
-  })
+    })
 
 
-          jcmp.AddEvent('Race_Timer_container', function(status) {
-              toggleContainer("TimerContainer", status);
-          });
+    jcmp.AddEvent('Race_Timer_container', function(status) {
+      toggleContainer("TimerContainer", status);
+    });
     jcmp.AddEvent('Checkpointmax', function(checkpointlength) { // the racecheckpoint.lenght
-          document.getElementById("allcheckpoint").innerText = (checkpointlength);
-        });
+      document.getElementById("allcheckpoint").innerText = (checkpointlength);
+    });
 
 
-      jcmp.AddEvent('CheckpointCurrent', function(checkpoint) { // the player index checkpoint
-            document.getElementById("playercheckpointis").innerText = (checkpoint);
-          });
-
-
-
-
-    </script>
+    jcmp.AddEvent('CheckpointCurrent', function(checkpoint) { // the player index checkpoint
+      document.getElementById("playercheckpointis").innerText = (checkpoint);
+    });
+  </script>
 </body>
+
 </html>
