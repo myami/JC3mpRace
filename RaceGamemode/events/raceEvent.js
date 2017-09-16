@@ -148,7 +148,6 @@ jcmp.events.Add('race_end_point', function (player)
 jcmp.events.AddRemoteCallable('AddPlayerLeaderboard',function(player){
   const Race = player.race.game;
   Race.AddPlayerOnLeaderboard(player);
-  console.log("event AddPlayerOnLeaderboard launch");
 });
 jcmp.events.Add('race_player_leave_game', function (player,destroy)
 {
@@ -264,7 +263,7 @@ player.race.timerinterval = timerinterval;
 });
 
 jcmp.events.AddRemoteCallable('Update_All_Client_server',function(player,name,value){
-  console.log(name + value);
+
   jcmp.events.CallRemote('Update_All_Client_toeveryone',null,name,value);
 });
 

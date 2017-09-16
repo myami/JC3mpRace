@@ -129,26 +129,3 @@ jcmp.events.Add('PlayerVehicleExited', (player, vehicle, seatIndex) => {
     jcmp.events.Call('race_player_checkpoint_respawn', player , vehicle);
   }
 });
-
-
-/*
-let playersamecheckpoint = 0 ;
-  for(var i = 0; i < race.game.RacePeopleDie.length; i++) {
-    const players = race.game.RacePeopleDie[i];
-    for(var i = 0; i < race.game.RacePeopleDie.length; i++) {
-      const player = race.game.RacePeopleDie[i];
-      if (player.respawnPosition == players.respawnPosition){
-        playersamecheckpoint ++ ;
-
-        setTimeout(function() {
-          player.Respawn();
-          playersamecheckpoint -- ;
-          if (playersamecheckpoint > 2){
-            race.game.respawntimer * 2 ;
-          }
-        }, race.game.respawntimer);
-      } // if 2 player or more have the same index do a settimeout for the 2 second and double the int of the settimeout if they are 3 guys etc.... and then reset to 6 sec
-    }
-  }
-
-*/

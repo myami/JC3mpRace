@@ -87,6 +87,10 @@ jcmp.events.CallRemote('CreateJsonFile_server',name);
 jcmp.ui.AddEvent('race_name',function(names,name){
 jcmp.events.CallRemote('Addname_server',names,name);
 });
+jcmp.ui.AddEvent('AddVehicleSimpleBasic',function(vehicle,name){
+jcmp.events.CallRemote('AddVehicleSimpleBasic_server',names,name);
+});
+
 
 jcmp.ui.AddEvent('Add_Vehicle_type',function(vehicle,name){
 jcmp.events.CallRemote('Add_vehicle_type_server',vehicle,name);

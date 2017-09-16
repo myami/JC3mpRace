@@ -4,6 +4,7 @@ global.createrace = {
     commands: jcmp.events.Call('get_command_manager')[0],
     chat: jcmp.events.Call('get_chat')[0],
     utils: require('./gm/utility'),
+    config: require('./gm/config'),
     id : 0
 
 };

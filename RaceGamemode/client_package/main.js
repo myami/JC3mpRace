@@ -320,7 +320,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint,dime
      }
 
 // to show the checkpoint
-// type wath 1
+
   var checkpoint = new Checkpoint(typecheckpoint, 0x301477DB, new Vector3f(nextcheckpointDATA.x,nextcheckpointDATA.y,nextcheckpointDATA.z),new Vector3f(nextcheckpointDATA.rotx,nextcheckpointDATA.roty,nextcheckpointDATA.rotz));
       checkpoint.radius = 15;
       checkpoint.visible = true;

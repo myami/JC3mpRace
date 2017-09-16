@@ -61,6 +61,25 @@ jcmp.events.AddRemoteCallable('Add_vehicle_type_server',function(player,vehicle,
   createrace.chat.send(player,`You just add the vehicle type : ${vehicle}`);
 
 });
+jcmp.events.AddRemoteCallable('AddVehicleSimpleBasic_server',function(player,type,name){
+
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.defaultVehicle = createrace.config.defaulthash[type];
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects,null,'\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player,`You just add the vehicle type : ${type} with the default hash : ${createrace.config.defaulthash[type]}`);
+
+});
+
 
 jcmp.events.AddRemoteCallable('Add_Minute_seconds_server',function(player,hour,minute,name){
 

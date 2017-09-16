@@ -253,6 +253,10 @@ function SimpleTool (){
     var i = x.selectedIndex;
     let vehicletype = x.options[i].text;
     jcmp.CallEvent('Add_Vehicle_type', vehicletype, nameoftherace);
+    // Set a default vehicle if choice simple tool
+    if (SimpleToolv){
+      jcmp.CallEvent('AddVehicleSimpleBasic',vehicletype,nameoftherace);
+    }
   }
 
   function hidevehicletype() {
