@@ -32,6 +32,10 @@
       padding: 5px;
       background-color: rgba(0, 0, 0, 0.7);
     }
+    #Hidethemenu{
+      position: absolute;
+      right: 0;
+    }
 
     .input-field:focus {
       border-bottom: 1px solid #ffc107!important;
@@ -167,16 +171,17 @@
       <div id="SpawningElement">
 
         <div id="StartingPointdiv">
-          <p>Go at the position you want the starting point and press the StartingPoint button</p>
+          <p>Go at the position you want the starting point and press the StartingPoint button or press "G"</p>
           <button class="waves-effect waves-light btn amber" type="button" id="StartingPointRace" onclick="CreateStartingPoint()">Starting Point</button>
           <button class="waves-effect waves-light btn amber" type="button" id="hidestatingpoint" onclick="showcheckpointhidestatingpoint()">Next</button>
         </div>
 
         <div id="CheckpointPointdiv">
-          <p>Press this button at every position you want to add a checkpoint</p>
+          <p>Press this button at every position you want to add a checkpoint or press "C"</p>
           <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpoint()">Checkpoint</button>
-        </div>
-        <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
+          <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
+
+      </div>
 
       </div>
 
@@ -410,6 +415,15 @@
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
   }
+  $(window).keyup(function(event) {
+    const key = event.which;
+    if (key === 71) { // g
+        CreateStartingPoint();
+    }
+    else if (key === 67){ //c
+      CreateCheckpoint();
+    }
+  });
 </script>
 
 </html>

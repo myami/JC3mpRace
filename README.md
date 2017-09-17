@@ -26,4 +26,4 @@ Copy the files into your server/packages folder
 
 ### Credits
 
-Created by Myami(FR) and the help of lordFarquaad for scripting. || JSON File (Race) created by Protato.
+Created by Myami(FR),Daranix(ES) and the help of lordFarquaad for scripting. || JSON File (Race) created by Protato.

@@ -6,13 +6,15 @@ module.exports = {
     "76561198047728393", // CharleyTank
     "76561198023427857" // Protato
   ],
-  defaulthash: [
+  defaulthash: {
     car: 4225384683,
     motorbike: 2966292608,
     helicopter: 3619392854,
     airplane: 448735752,
     boats: 1442821020
-  ]
+  }
+
+
 
 
 }

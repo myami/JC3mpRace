@@ -7,6 +7,8 @@
   <title>race - Text UI </title>
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
   <style type="text/css">
     .hidden {
       visibility: hidden;
@@ -40,6 +42,16 @@
       font-size: 15pt;
       color: #00FF00;
     }
+    #Onclickexplained{
+      position: fixed;
+      top: 96%;
+      right: 20%;
+      color: rgb(97, 0, 255);
+      font-family: 'Titillium Web', sans-serif;
+      font-weight: bold;
+      font-size: 15pt;
+
+    }
 
     #rank {
       position: fixed;
@@ -69,10 +81,13 @@
   <div id="rank" class="hidden">
     You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
   </div>
+  <div id="Onclickexplained">
+    Press "K" to show the leaderboard , Press "L" to hide the leaderboard. Press "B" to reset to the last checkpoint. Press "M" to hide this message
+  </div>
 
 
   <div id="alpha" class="">
-    <p>Early Alpha</p>
+    <p>Early Beta</p>
   </div>
   <script>
     let timer = 30; // timer seconde
@@ -123,6 +138,8 @@
     });
 
 
+
+
     jcmp.AddEvent('Race_rank_container', function(place, time) {
       document.getElementById("playerleaderboardplace").innerText = (place);
       if (time > 60) {
@@ -161,6 +178,14 @@
 
     jcmp.AddEvent('CheckpointCurrent', function(checkpoint) { // the player index checkpoint
       document.getElementById("playercheckpointis").innerText = (checkpoint);
+    });
+
+    $(window).keyup(function(event) {
+      const key = event.which;
+      if (key === 77) { // m
+          toggleContainer("Onclickexplained", false);
+
+      }
     });
   </script>
 </body>

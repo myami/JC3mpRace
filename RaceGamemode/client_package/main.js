@@ -238,6 +238,9 @@ jcmp.events.AddRemoteCallable('Race_name_vote_data', function() {
   jcmp.ui.CallEvent('Send_best_vote_index');
 });
 
+jcmp.ui.AddEvent('ResetPlayer_client', function() {
+  jcmp.events.CallRemote('ResetPlayer_Server');
+});
 jcmp.ui.AddEvent('Race_send_index_cef', function(index) { // from the voting system
   jcmp.events.CallRemote('Race_index_received_vote', index);
 });

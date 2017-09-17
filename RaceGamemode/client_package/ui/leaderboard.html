@@ -120,12 +120,15 @@
     $(window).keyup(function(event) {
 
       const key = event.which;
-      if (key === 76) {
+      if (key === 76) { // l
         $("#leaderboard").hide();
         jcmp.HideCursor();
-      } else if (key === 75) {
+      } else if (key === 75) { // k
         $("#leaderboard").show();
         jcmp.ShowCursor();
+      }
+      else if (key === 66) { //b
+      jcmp.CallEvent('ResetPlayer_client');
       }
     });
   </script>

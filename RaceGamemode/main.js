@@ -46,5 +46,5 @@ setInterval(function() {
 
 
 setInterval(function() {
-  race.chat.broadcast("[SERVER] Press 'E' if you're vehicle is destroy or blocked it will tp you to the last checkpoint or do /reset and wait a few seconds");
+  race.chat.broadcast("[SERVER] Press 'E' if you're vehicle is destroy or blocked it will tp you to the last checkpoint or press 'B'and wait a few seconds ");
 }, 500000);

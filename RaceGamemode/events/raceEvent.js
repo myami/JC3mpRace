@@ -331,7 +331,10 @@ jcmp.events.Add('Race_name_index', function(player) {
 
 
 
-
+jcmp.events.AddRemoteCallable('ResetPlayer_Server', function(player) {
+  player.health = 0;
+  race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
+});
 
 jcmp.events.AddRemoteCallable('Race_index_received_admin', function(player, index) {
   if (!race.utils.isAdmin(player)) {
