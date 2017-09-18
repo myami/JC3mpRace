@@ -213,13 +213,7 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
       }
     }, race.game.respawntimer + 2000);
 
-    setTimeout(function() {
-      jcmp.vehicles.forEach(vehicle => {
-        if (vehicle.driver == undefined) {
-          vehicle.Destroy();
-        }
-      })
-    }, race.game.respawntimer + 15000);
+  
 
   }
 
