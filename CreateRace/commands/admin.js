@@ -109,7 +109,7 @@ module.exports = ({
       for (var c = 0; c < columns; c++) {
         for (var h = 0; h < heights; h++) {
           let carposition = new Vector3f(player.position.x + offsetxs * c, player.position.y, player.position.z + offsetzs * h);
-          let rotation = new Vector3f(0, 0, 0);
+          let rotation = new Vector3f(player.rotation.x, player.rotation.y, player.rotation.z);
           const vehicle = new Vehicle(hash, carposition, rotation);
         }
       }
