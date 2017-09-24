@@ -20,6 +20,7 @@ module.exports = class Race {
     this.nitro = nitrobool;
     this.leaderboard = [];
     this.playersname = [];
+    this.wingsuitrace = false;
   }
 
   Start() {
@@ -43,7 +44,11 @@ module.exports = class Race {
       player.race.hasfinish = false;
 
       this.playersname.push(player.name);
-
+      if (player.race.vehicle == 0){
+        // wingsuit race
+        console.log("true wingsuit");
+        this.wingsuitrace = true;
+      }
       if (this.alldefaultvehicle) {
         player.race.vehicle = this.defaultvehicle;
         //jcmp.events.Call('race_player_checkpoint_respawn', player);
@@ -53,8 +58,6 @@ module.exports = class Race {
             vehicle.dimension = player.race.game.id;
             vehicle.SetOccupant(0, player);
             vehicle.nitroEnabled = this.nitro;
-          } else {
-            // wingsuit race
           }
 
         }, 4000);
@@ -62,15 +65,22 @@ module.exports = class Race {
       } else {
         //  jcmp.events.CallRemote('race_vehicle_choice_menu',player);
       }
+      let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
+      let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
+        if (this.wingsuitrace) {
+          jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint),true);
+          console.log("race_checkpoint_client true wingsuit"); // not call
+        }
+        else{
+          jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint),false);
 
+        }
 
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
       jcmp.events.CallRemote('race_set_weather', player, this.weather);
       //spawning the first checkpoint
-      let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
-      let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
+
       jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
       jcmp.events.CallRemote('race_Start_client', player);

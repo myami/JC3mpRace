@@ -8,16 +8,18 @@ Copy the files into your server/packages folder
 
 ## Feature
 
-1. Race for Car, Boats, Airplane, Wingsuit
+1. Race for Car, Boats, Airplane, Wingsuit and More....
 2. Vote System
 3. Leaderboard
-4. Custom vehicle menu
-5. Menu to create you're own race
+4. Menu to create you're own race
 
 ## Next Feature
 
-1. TeamRace (team of 2 to 4 player)
-2. More coming...
+1. TeamRaceBattle (team of 2 to 4 player in the same car or not (at each checkpoint the driver change)
+2. Adding possibility to add multiple path for a race for a certain people and then join the basic path
+3. Vehicle menu
+4. Spectator mode
+5. More coming...
 
 ### TODO :
 

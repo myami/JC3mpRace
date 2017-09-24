@@ -213,7 +213,7 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
       }
     }, race.game.respawntimer + 2000);
 
-  
+
 
   }
 

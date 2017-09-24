@@ -115,19 +115,33 @@
       });
     });
 
+    let $chat_input_visible = false;
+    let $is_scoreboard_key_down = false;
+
+    jcmp.AddEvent('chat_input_state', function(b) {
+                $chat_input_visible = b;
+            });
+
+                    $(window).keydown(function(event) {
+                        // toggle scoreboard
+                        if (event.which === 76  && !$chat_input_visible && !$is_scoreboard_key_down) { //l
+                          $("#leaderboard").show();
+                          jcmp.ShowCursor()
+                          $is_scoreboard_key_down = true;
+                        }
+
+    });
 
 
     $(window).keyup(function(event) {
 
       const key = event.which;
-      if (key === 76) { // l
+     if (key === 76 && $is_scoreboard_key_down && !$chat_input_visible) { // l
         $("#leaderboard").hide();
         jcmp.HideCursor();
-      } else if (key === 75) { // k
-        $("#leaderboard").show();
-        jcmp.ShowCursor();
+        $is_scoreboard_key_down = false;
       }
-      else if (key === 66) { //b
+      else if (key === 66 && !$chat_input_visible) { //b
       jcmp.CallEvent('ResetPlayer_client');
       }
     });

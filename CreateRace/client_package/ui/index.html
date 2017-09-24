@@ -415,12 +415,17 @@
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
   }
+let $chat_input_visible = false;
+  jcmp.AddEvent('chat_input_state', function(b) {
+              $chat_input_visible = b;
+          });
+
   $(window).keyup(function(event) {
     const key = event.which;
-    if (key === 71) { // g
+    if (key === 71 && !$chat_input_visible) { // g
         CreateStartingPoint();
     }
-    else if (key === 67){ //c
+    else if (key === 67 && !$chat_input_visible){ //c
       CreateCheckpoint();
     }
   });

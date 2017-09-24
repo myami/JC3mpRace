@@ -8,7 +8,7 @@
   "AllDefault": true,
   "AddingYatrespawn": 0,
   "CheckpointHash": "0x301477DB",
-  "ChekpointType": 1,
+  "ChekpointType": 0,
   "PoiType": 10,
   "GhostPOIType": 23,
   "nitroenabled": true,

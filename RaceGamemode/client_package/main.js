@@ -23,6 +23,7 @@ let pois = [];
 let poisg = [];
 //checkpoint
 let chks = [];
+let chksghost = [];
 // player
 let playeringame = false;
 
@@ -291,14 +292,18 @@ jcmp.ui.AddEvent('Race_Index_cef', function(index) {
   jcmp.events.CallRemote('Race_index_received_admin', index);
 });
 
-
-jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dimension, typepoi, hashcheckpoint, typecheckpoint, ghostcheckpoint) {
+let wingsuitrace = false;
+jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dimension, typepoi, hashcheckpoint, typecheckpoint, ghostcheckpoint,wg) {
   let nextcheckpointDATA = JSON.parse(checkpoint);
   let ghostcheckpointDATA;
-  if (ghostcheckpoint != undefined) {
+  if (ghostcheckpoint != undefined ) {
     ghostcheckpointDATA = JSON.parse(ghostcheckpoint);
   }
+  if (wg != undefined){
+      wingsuitrace = wg ;
+  }
 
+  jcmp.print(" " + wingsuitrace);
   const poi = new POI(typepoi, new Vector3f(nextcheckpointDATA.x, nextcheckpointDATA.y, nextcheckpointDATA.z));
   poi.minDistance = 10.0;
   poi.maxDistance = 100000.0;
@@ -328,18 +333,32 @@ jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dim
   checkpoint.visible = true;
   checkpoint.dimension = dimension;
   checkpoint.id = nextcheckpointDATA.id;
+  checkpoint.sound = true;
   chks[nextcheckpointDATA.id] = checkpoint;
-  // call every time a player reach a checkpoint to set the new one
+
+  if (wingsuitrace == true){
+    var checkpointghost = new Checkpoint(1, 0x301477DB, new Vector3f(nextcheckpointDATA.x, nextcheckpointDATA.y, nextcheckpointDATA.z), new Vector3f(nextcheckpointDATA.rotx, nextcheckpointDATA.roty, nextcheckpointDATA.rotz));
+    checkpointghost.radius = 15;
+    checkpointghost.visible = true;
+    checkpointghost.dimension = dimension;
+    checkpointghost.id = nextcheckpointDATA.id;
+    chksghost[checkpointghost.id] = checkpointghost;
+
+  }
+
 
 });
 
 jcmp.events.Add('CheckpointEnter', checkpoint => {
   checkpoint.visible = false;
-  checkpoint.Destroy();
-  jcmp.events.CallRemote('race_checkpoint');
   deletePOI();
   chks.splice(checkpoint.id, 1);
-  jcmp.ui.CallEvent('Checkpoint_Sound');
+  if (checkpoint.sound){
+    jcmp.ui.CallEvent('Checkpoint_Sound');
+    jcmp.events.CallRemote('race_checkpoint');
+  }
+  checkpoint.Destroy();
+  deleteCheckpoint();
 });
 
 function deletePOI() {
@@ -362,7 +381,7 @@ function deletePOI() {
 }
 
 function deleteCheckpoint() {
-  chks.forEach(checkpoint => {
+  chksghost.forEach(checkpoint => {
 
     checkpoint.visible = false;
     chks.splice(checkpoint.id, 1);

@@ -92,6 +92,7 @@
   <script>
     let timer = 30; // timer seconde
     jcmp.AddEvent('Countdown_start', function() {
+      jcmp.CallEvent('inrace_client',true);
       let inter = setInterval(function() {
         if (timer > 0) {
           timer--;
@@ -102,6 +103,7 @@
         }
         if (timer == 0) {
           jcmp.CallEvent('race_countdown_end');
+          jcmp.CallEvent('inrace_client',false);
           timer = 30;
           clear(inter);
           document.getElementById("timer").innerText = "GO";
@@ -179,12 +181,27 @@
     jcmp.AddEvent('CheckpointCurrent', function(checkpoint) { // the player index checkpoint
       document.getElementById("playercheckpointis").innerText = (checkpoint);
     });
+let $chat_input_visible = false;
+let $is_text_key_down = false;
+jcmp.AddEvent('chat_input_state', function(b) {
+            $chat_input_visible = b;
+        });
+
+                $(window).keydown(function(event) {
+                    // toggle scoreboard
+                    if (event.which === 77  && !$chat_input_visible && !$is_text_key_down) {
+                        toggleContainer("Onclickexplained", true);
+                        $is_text_key_down = true;
+                    }
+
+});
 
     $(window).keyup(function(event) {
-      const key = event.which;
-      if (key === 77) { // m
-          toggleContainer("Onclickexplained", false);
 
+      const key = event.which;
+      if (key === 77 && $is_text_key_down && !$chat_input_visible) { // m
+          toggleContainer("Onclickexplained", false);
+          $is_text_key_down = false;
       }
     });
   </script>

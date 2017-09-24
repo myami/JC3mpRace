@@ -18,17 +18,28 @@ jcmp.events.AddRemoteCallable('chat_settings', maxLength => {
 jcmp.ui.AddEvent('chat_ready', () => {
   jcmp.events.CallRemote('chat_ready');
 });
-
+let inrace = false;
 jcmp.ui.AddEvent('chat_input_state', s => {
   // Ask the main menu to stop opening. It will still open at the second time (in a short period), though
   jcmp.ui.CallEvent('mainui_prevent_open_menu', s);
   if (s) {
+    if (inrace){
+      return;
 
+    }
+    jcmp.localPlayer.controlsEnabled = true;
+    jcmp.localPlayer.controlsEnabled = false;
   } else {
+    if (!inrace){
+      jcmp.localPlayer.controlsEnabled = true;
+    }
 
   }
-});
 
+});
+jcmp.ui.AddEvent('inrace_client',function(bool){
+inrace = bool;
+});
 jcmp.events.AddRemoteCallable('chat_set_custom_css', css => {
   jcmp.ui.CallEvent('chat_set_custom_css', css);
 });
