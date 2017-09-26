@@ -388,7 +388,11 @@
   }
 
   function CreateCheckpoint() {
+      avoiddoublepoint = false;
     jcmp.CallEvent('CreateCheckpoint', nameoftherace);
+    setTimeout(function() {
+    avoiddoublepoint = true;
+    }, 1000);
 
   }
 
@@ -421,6 +425,7 @@
 let $chat_input_visible = false;
 let startingpointcan = false;
 let checkpointcan = false;
+let avoiddoublepoint = true;
   jcmp.AddEvent('chat_input_state', function(b) {
               $chat_input_visible = b;
           });
@@ -430,8 +435,9 @@ let checkpointcan = false;
     if (key === 71 && !$chat_input_visible && startingpointcan) { // g
         CreateStartingPoint();
     }
-    else if (key === 67 && !$chat_input_visible && checkpointcan){ //c
+    else if (key === 67 && !$chat_input_visible && checkpointcan && avoiddoublepoint){ //c
         CreateCheckpoint();
+
     }
   });
 </script>
