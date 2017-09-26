@@ -13,10 +13,9 @@ module.exports = ({
         return race.chat.send(player, "[SERVER] You're not allowed to use this command");
       }
       let index = race.game.RaceList;
-      console.log(`Index 0: ${index[0].Name} Index 1: ${index[1].Name}  Index 2: ${index[2].Name}  Index 3: ${index[3].Name}`);
       for (var i = 0; i < index.length; i++) {
         race.chat.send(player, `[SERVER] Index: ${i} , Name of the race: ${index[i].Name}`);
-        // exemple for the voting menu
+      console.log(`Index: ${i} , Name of the race: ${index[i].Name}`);
       }
 
 

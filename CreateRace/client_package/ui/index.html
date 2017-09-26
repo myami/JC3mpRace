@@ -373,6 +373,7 @@
     jcmp.CallEvent('Add_MaxPlayer', parseInt(MaxPlayer), nameoftherace);
     $("#MaxPlayerdiv").hide();
     $("#StartingPointdiv").show();
+    startingpointcan =true;
   }
 
   function CreateStartingPoint() {
@@ -382,6 +383,8 @@
   function showcheckpointhidestatingpoint() {
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").show();
+    startingpointcan = false;
+    checkpointcan = true;
   }
 
   function CreateCheckpoint() {
@@ -394,7 +397,7 @@
     jcmp.HideCursor();
     jcmp.CallEvent('DeletePOI');
     jcmp.CallEvent('DeleteCheckpoint');
-
+    checkpointcan = false;
   }
 
   function resetalltohide() {
@@ -416,17 +419,19 @@
     $("#CheckpointPointdiv").hide();
   }
 let $chat_input_visible = false;
+let startingpointcan = false;
+let checkpointcan = false;
   jcmp.AddEvent('chat_input_state', function(b) {
               $chat_input_visible = b;
           });
 
   $(window).keyup(function(event) {
     const key = event.which;
-    if (key === 71 && !$chat_input_visible) { // g
+    if (key === 71 && !$chat_input_visible && startingpointcan) { // g
         CreateStartingPoint();
     }
-    else if (key === 67 && !$chat_input_visible){ //c
-      CreateCheckpoint();
+    else if (key === 67 && !$chat_input_visible && checkpointcan){ //c
+        CreateCheckpoint();
     }
   });
 </script>

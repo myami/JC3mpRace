@@ -186,6 +186,9 @@ let $is_text_key_down = false;
 jcmp.AddEvent('chat_input_state', function(b) {
             $chat_input_visible = b;
         });
+        let konamicode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+
+        let n = 0;
 
                 $(window).keydown(function(event) {
                     // toggle scoreboard
@@ -193,7 +196,16 @@ jcmp.AddEvent('chat_input_state', function(b) {
                         toggleContainer("Onclickexplained", true);
                         $is_text_key_down = true;
                     }
-
+                    if (event.keyCode === konamicode[n++]) {
+                      if (n === konamicode.length) {
+                        alert('Konami Code !!!');
+                        n = 0;
+                        return false;
+                      }
+                    }
+                    else {
+                      n = 0;
+                    }
 });
 
     $(window).keyup(function(event) {
