@@ -304,8 +304,9 @@ jcmp.events.AddRemoteCallable('CreateStartingPoint_server', function(player, nam
 
 });
 
-jcmp.events.AddRemoteCallable('CreateCheckpoint_server', function(player, name) {
-
+jcmp.events.AddRemoteCallable('CreateCheckpoint_server', function(player, name,cameraposition,camerarotation) {
+let camera = JSON.parse(cameraposition);
+let camerar = JSON.parse(camerarotation);
   var fs = require('fs');
 
   fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
@@ -314,12 +315,12 @@ jcmp.events.AddRemoteCallable('CreateCheckpoint_server', function(player, name) 
 
     var arrayOfObjects = JSON.parse(data)
     arrayOfObjects.RaceCheckpoint.push({
-      x: player.position.x,
-      y: player.position.y,
-      z: player.position.z,
-      rotx: player.rotation.x,
-      roty: player.rotation.y,
-      rotz: player.rotation.z,
+      x: camera.x,
+      y: camera.y,
+      z: camera.z,
+      rotx: camerar.x,
+      roty: camerar.y,
+      rotz: camerar.z,
       id: createrace.id
     })
     jcmp.events.CallRemote('Creating_checkpoint', player, JSON.stringify(player.position), JSON.stringify(player.rotation), createrace.id);
