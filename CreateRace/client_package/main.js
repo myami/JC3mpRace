@@ -41,9 +41,9 @@ jcmp.ui.AddEvent('DeletePOI', function() {
 
   })
 });
-jcmp.events.AddRemoteCallable('Creating_checkpoint', function(position, rotation, id) {
-  let positionspoi = JSON.parse(position);
-  let rotationcheckpoint = JSON.parse(rotation);
+jcmp.events.AddRemoteCallable('Creating_checkpoint', function(id) {
+  //let positionspoi = JSON.parse(position);
+//  let rotationcheckpoint = JSON.parse(rotation);
   var checkpoint = new Checkpoint(1, 0x301477DB, jcmp.localPlayer.camera.position, jcmp.localPlayer.camera.rotation);
   checkpoint.radius = 15;
   checkpoint.visible = true;

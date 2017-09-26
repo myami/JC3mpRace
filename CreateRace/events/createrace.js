@@ -323,7 +323,7 @@ let camerar = JSON.parse(camerarotation);
       rotz: camerar.z,
       id: createrace.id
     })
-    jcmp.events.CallRemote('Creating_checkpoint', player, JSON.stringify(player.position), JSON.stringify(player.rotation), createrace.id);
+    jcmp.events.CallRemote('Creating_checkpoint', player, createrace.id);
     createrace.id++;
     fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
       if (err) throw err
