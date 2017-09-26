@@ -132,3 +132,6 @@ jcmp.ui.AddEvent('CreateStartingPoint', function(name) {
 jcmp.ui.AddEvent('CreateCheckpoint', function(name) {
   jcmp.events.CallRemote('CreateCheckpoint_server', name,JSON.stringify(jcmp.localPlayer.camera.position),JSON.stringify(jcmp.localPlayer.camera.rotation));
 });
+jcmp.events.AddRemoteCallable('CreateCheckpointFromCommands',function(name){
+  jcmp.events.CallRemote('CreateCheckpoint_server', name,JSON.stringify(jcmp.localPlayer.camera.position),JSON.stringify(jcmp.localPlayer.camera.rotation));
+})

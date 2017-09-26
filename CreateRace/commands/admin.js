@@ -44,43 +44,8 @@ module.exports = ({
     }))
 
     .add(new Command('checkpoint').description('Save a position to file for checkpoint').parameter('name', 'string', 'Name of the race').handler(function(player, name) {
+        jcmp.events.CallRemote('CreateCheckpointFromCommands', player, name);
 
-
-      var fs = require('fs');
-
-      fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
-        if (err) throw err
-
-        var arrayOfObjects = JSON.parse(data)
-        arrayOfObjects.RaceCheckpoint.push({
-          x: player.position.x,
-          y: player.position.y,
-          z: player.position.z,
-          rotx: player.rotation.x,
-          roty: player.rotation.y,
-          rotz: player.rotation.z,
-          id: createrace.id
-        })
-
-        jcmp.events.CallRemote('Creating_checkpoint', player, JSON.stringify(player.position), JSON.stringify(player.rotation), createrace.id);
-        createrace.id++;
-
-        fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
-          if (err) throw err
-
-        })
-
-      })
-      jcmp.events.Call('toast_show', null, {
-        heading: 'Add Checkpoint',
-        text: `You just add a checkpoint on the race: ${name}`,
-        icon: 'info',
-        loader: true,
-        loaderBg: '#9EC600',
-        position: 'top-right',
-        hideAfter: 5000
-      });
-      createrace.chat.send(player, "Position saved sucesfully");
     }))
 
 
