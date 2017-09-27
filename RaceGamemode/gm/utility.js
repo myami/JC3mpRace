@@ -191,16 +191,13 @@ module.exports = class Utility {
 
     Utility.rreaddir(basePath, function(err, filenames) {
       if (err) throw err;
+      filenames.sort();
       filenames.forEach(function(filename) {
 
+        let data = JSON.parse(fs.readFileSync(basePath + filename, 'utf8'));
+        race.game.RaceList.push(data);
+      });
 
-        fs.readFile(basePath + filename, 'utf8', function(err, data) {
-
-          if (err) throw err;
-          let obj = JSON.parse(data);
-          race.game.RaceList.push(obj);
-        });
-      })
       setTimeout(function() {
         if (race.game.RaceList.length == 0) {
           console.log(`[Race] [ERROR] No Race loaded!`);
@@ -210,6 +207,7 @@ module.exports = class Utility {
       }, 500);
     });
   }
+  
   /**
    * Checks if the given player is an admin on the server.
    *

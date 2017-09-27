@@ -1,18 +1,12 @@
 {
   "Name":"BOAT-Slalom-Lake",
-    "NameWithoutSpace":"BoatSlalomLake",
+  "NameWithoutSpace":"BoatSlalomLake",
   "VehicleType": "boats",
   "time" : {"hour": 11, "minute": 30},
   "weather": "base",
   "defaultVehicle": 867451438,
   "AllDefault": true,
   "AddingYatrespawn": 0,
-  "CheckpointHash": "0x301477DB",
-  "ChekpointType": 1,
-  "PoiType": 10,
-  "GhostPOIType": 23,
-  "nitroenabled": true,
-  "max_player": 20,
 
   "StartingPoint":[
     {"x": 12910.0224609375,"y":1784.445068359375,"z":-5167.27978515625,"rotx":0.030714135617017746,"roty":1.8891528844833374,"rotz":-0.006615817546844482},
