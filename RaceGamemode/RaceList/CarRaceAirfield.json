@@ -13,6 +13,9 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
+  "image":"/path/",
+  "raceid":10,
+
 
   "StartingPoint":[
 {"x": -4996.82373046875,"y":1175.48974609375,"z":-7706.74462890625,"rotx":0,"roty":1.6839240789413452,"rotz":0},
