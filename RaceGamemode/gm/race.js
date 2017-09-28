@@ -69,10 +69,10 @@ module.exports = class Race {
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
         if (this.wingsuitrace) {
           jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint),true);
-          console.log("race_checkpoint_client true wingsuit"); // not call
+        
         }
         else{
-          jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint),false);
+          jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
 
         }
 

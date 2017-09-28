@@ -7,6 +7,12 @@
   "defaultVehicle": 4225384683,
   "AllDefault": true,
   "AddingYatrespawn": 0,
+  "CheckpointHash": "0x342A687F",
+  "ChekpointType": 1,
+  "PoiType": 10,
+  "GhostPOIType": 23,
+  "nitroenabled": true,
+  "max_player": 20,
 
 
   "StartingPoint":[
