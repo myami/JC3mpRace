@@ -4,7 +4,9 @@ module.exports = {
     "76561198030848245", // Daranix
     "76561198065687510", // Myami
     "76561198047728393", // CharleyTank
-    "76561198023427857" // Protato
+    "76561198023427857", // Protato
+    "76561198338729549", // Electro
+    "76561198119747147" // Ralstoni64
   ],
   colours: {
     connection: new RGB(255, 140, 0),

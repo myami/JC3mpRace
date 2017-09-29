@@ -75,6 +75,29 @@ module.exports = ({
 
       race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
 
+    }))
+
+    .add(new Command('spectator').description('Join a race as spectator').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
+
+      player.dimension = id;
+    /*  for (var i = 0; i <race.game.games.length; i++) {
+        console.log(race.game.games[i].id);
+        if(race.game.games[i].id = id){
+          race.game.games[i].SendAllPlayerNetworkIDToclient(player);
+
+        }
+
+      }*/
+      jcmp.events.CallRemote('AddSpectator',player);
+      player.invulnerable = true;
+    }))
+
+    .add(new Command('removespectator').description('Join a race as spectator').handler(function(player) {
+
+      player.dimension = 0;
+      jcmp.events.CallRemote('RemoveSpectator',player);
+      player.invulnerable = false;
+
     }));
 
 

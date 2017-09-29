@@ -21,10 +21,12 @@ module.exports = class Race {
     this.leaderboard = [];
     this.playersname = [];
     this.wingsuitrace = false;
+    this.playernetworkid = [];
+    this.isspectator = [];
   }
 
   Start() {
-
+    console.log("Id of the race" + this.id);
     //TODO: Choice menu for 20 sec to choice the vehicle (settimeout)
 
     // alldefaultvehicle if it's true all have the same vehicle (the default) if it's false show the vehicle menu
@@ -42,7 +44,7 @@ module.exports = class Race {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-
+      this.playernetworkid.push(player.networkId);
       this.playersname.push(player.name);
       if (player.race.vehicle == 0){
         // wingsuit race
@@ -69,7 +71,7 @@ module.exports = class Race {
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
         if (this.wingsuitrace) {
           jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint),true);
-        
+
         }
         else{
           jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
@@ -109,6 +111,12 @@ module.exports = class Race {
     for (let player of this.players) {
       jcmp.events.CallRemote('Update_leaderboard_all', player, playername, leaderboardplace, minute, seconds);
     }
+
+  }
+
+  SendAllPlayerNetworkIDToclient(player){
+      jcmp.events.CallRemote('AddPlayerintheracearray',player,JSON.stringify(this.playernetworkid));
+      this.isspectator.push(player);
 
   }
 

@@ -26,9 +26,132 @@ let chks = [];
 let chksghost = [];
 // player
 let playeringame = false;
-
 const playersCache = [];
+//Spectator
+let tracked_player = null;
+let tracked_id = null;
+let playerintherace = []; // all the player on the race
+let currentindex = 0;
+let to_pos = new Vector3f(0,0,0);
+let to_rot = new Vector3f(0,0,0);
+let spectate = false;
 
+jcmp.events.AddRemoteCallable('AddPlayerintheracearray',function(array){
+  let arrayt = JSON.stringify(array);
+  playerintherace = arrayt;
+  Addplayertotrack();
+  jcmp.print(playerintherace + "");
+});
+jcmp.events.AddRemoteCallable('Removeplayerintheracearray',function(array){
+  playerintherace = [];
+});
+
+jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
+        jcmp.localPlayer.camera.attachedToPlayer = true;
+         jcmp.localPlayer.frozen = false;
+         jcmp.ui.CallEvent('ShowSpectatorMode',false);
+         tracked_player = undefined;
+         tracked_id = null;
+         spectate = false;
+})
+
+function lerp(a,b,t)
+{
+    return (a.add( ( b.sub(a) ).mul(new Vector3f(t,t,t)) ));
+}
+
+function vq(v,q)
+{
+    return vx(vy(v, q), q);
+}
+
+function vx(v,q)
+{
+    return new Vector3f(v.x,
+        v.y * Math.cos(q.x) + v.z * Math.sin(q.x),
+        v.y * Math.sin(q.x) - v.z * Math.cos(q.x));
+}
+
+function vy(v,q)
+{
+    return new Vector3f(v.x * Math.cos(q.y) + v.z * Math.sin(q.y),
+        v.y,
+        -v.x * Math.sin(q.y) + v.z * Math.cos(q.y));
+}
+
+function vz(v,q)
+{
+    return new Vector3f(v.x * Math.cos(q.z) + v.y * Math.sin(q.z),
+        v.x * Math.sin(q.z) - v.y * Math.cos(q.z),
+        v.z);
+}
+jcmp.events.AddRemoteCallable('Addplayertotrackfromserver',function(){
+    jcmp.localPlayer.camera.attachedToPlayer = false;
+    jcmp.localPlayer.frozen = true;
+    Addplayertotrack();
+    spectate = true;
+    jcmp.ui.CallEvent('ShowSpectatorMode',true);
+})
+function Addplayertotrack(){
+
+       let player = null;
+         for (let i = 0; i < jcmp.players.length; i++){
+           jcmp.print("" + jcmp.players[i].name);
+           if(jcmp.players[i].networkId == playerintherace[currentindex]){
+             jcmp.print("it is" + jcmp.players[i].name);
+                player = p;
+           }
+         }
+
+       if (player != null)
+       {
+
+           jcmp.ui.CallEvent('playeritrack', player.name);
+           tracked_player = player;
+           tracked_id = player.networkId;
+       }
+       else
+       {
+
+           tracked_player = null;
+           tracked_id = null;
+       }
+
+}
+function trackPlayer(){ // to call on the GameUpdateRender
+   if (typeof tracked_player != 'undefined' && tracked_player != null && spectate)
+       {
+           let p_pos = tracked_player.position;
+           let p_rot = tracked_player.rotation;
+          // let offset = new Vector3f(1,1.75,-5.5);
+
+            offset = new Vector3f(1,5,-15);
+
+           to_pos = p_pos.add(vq(offset, jcmp.localPlayer.camera.rotation));
+           to_rot = p_rot;
+           jcmp.localPlayer.camera.rotation = lerp(jcmp.localPlayer.camera.rotation, to_rot, 0.3);
+           jcmp.localPlayer.camera.position = lerp(jcmp.localPlayer.camera.position, to_pos, 0.3);
+       }
+}
+
+
+jcmp.ui.AddEvent('indexn',function(){
+// take the currentindex reduce it from one if he can and change the specator view
+if (currentindex != 0){
+  currentindex --;
+}
+
+Addplayertotrack();
+
+});
+jcmp.ui.AddEvent('indexp',function(){
+  // take the currentindex increase it from one if he can and change the specator view
+  if (currentindex != playerintherace.length){
+    currentindex ++;
+  }
+Addplayertotrack();
+
+});
 function createCache(id, name, colour) {
 
   playersCache[id] = {
@@ -177,7 +300,7 @@ jcmp.events.AddRemoteCallable('Open_voting_menu_client', function(time) {
 jcmp.events.Add("GameUpdateRender", function(renderer) {
 
   const cam = jcmp.localPlayer.camera.position;
-
+  trackPlayer();
   jcmp.players.forEach(player => {
     //if (!player.localPlayer) {
     const playerCache = playersCache[player.networkId];

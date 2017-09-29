@@ -61,6 +61,16 @@
       font-weight: bold;
       font-size: 60pt;
     }
+    #spectator{
+      position:fixed;
+      top:60%;
+      right:50%;
+      font-family: 'Passion One', cursive;
+      font-weight: bold;
+      font-size: 20pt;
+
+    }
+
 
     body {
       user-select: none;
@@ -88,6 +98,12 @@
 
   <div id="alpha" class="">
     <p>Early Beta</p>
+  </div>
+
+  <div id="spectator"class="hidden">
+    <span id="playeritrackspan">Currently spectate on : </span> <br />
+    <button id= "leftspectate">&#8592;</button>
+    <button id= "rightspectate">&#8594;</button>
   </div>
   <script>
     let timer = 30; // timer seconde
@@ -167,7 +183,30 @@
       x.setAttribute("duration", "1.23");
       x.play();
 
-    })
+    });
+
+    jcmp.AddEvent('playeritrack', (name) => {
+      $('#playeritrackspan').text("Currently spectating: " + name);
+  });
+  $("#leftspectate").click(function()
+    {
+        jcmp.CallEvent('Changingplayer'); // -1 on the index
+    });
+
+    $("#rightspectate").click(function()
+      {
+          jcmp.CallEvent('Changingplayer'); // +1 on the index
+      });
+
+      jcmp.AddEvent('ShowSpectatorMode',function(status){
+          toggleContainer("spectator", status);
+          if (status){
+            jcmp.ShowCursor();
+          }
+          else{
+            jcmp.HideCursor();
+          }
+      });
 
 
     jcmp.AddEvent('Race_Timer_container', function(status) {

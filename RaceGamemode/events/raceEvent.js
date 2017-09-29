@@ -146,6 +146,7 @@ jcmp.events.Add('race_end_point', function(player) {
 jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   const Race = player.race.game;
   Race.AddPlayerOnLeaderboard(player);
+  Race.SendAllPlayerNetworkIDToclient(player);
 });
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
@@ -159,7 +160,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   player.race.checkpoints = 0;
   player.race.time = 0;
   jcmp.events.CallRemote('race_End_client', player);
-
+  jcmp.events.CallRemote('Removeplayerintheracearray',player);
 
   if (!destroy) {
 
@@ -308,6 +309,7 @@ jcmp.events.Add('race_start_index', function(indexs) {
     });
     race.game.games.push(Race);
     Race.Start();
+
   }, 600);
 
 });

@@ -18,6 +18,7 @@
 	"max_player": 20,
 	"image":"/path/",
 	"raceid":18,
+	"laps":0,
 
 	"StartingPoint": [
 		{
