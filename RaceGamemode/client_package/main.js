@@ -30,30 +30,13 @@ const playersCache = [];
 //Spectator
 let tracked_player = null;
 let tracked_id = null;
-let playerintherace = []; // all the player on the race
 let currentindex = 0;
 let to_pos = new Vector3f(0,0,0);
 let to_rot = new Vector3f(0,0,0);
 let spectate = false;
 
-jcmp.events.AddRemoteCallable('AddPlayerintheracearray',function(array){
-  let arrayt = JSON.stringify(array);
-  playerintherace = arrayt;
-  Addplayertotrack();
-  jcmp.print(playerintherace + "");
-});
-jcmp.events.AddRemoteCallable('Removeplayerintheracearray',function(array){
-  playerintherace = [];
-});
 
-jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
-        jcmp.localPlayer.camera.attachedToPlayer = true;
-         jcmp.localPlayer.frozen = false;
-         jcmp.ui.CallEvent('ShowSpectatorMode',false);
-         tracked_player = undefined;
-         tracked_id = null;
-         spectate = false;
-})
+
 
 function lerp(a,b,t)
 {
@@ -91,24 +74,32 @@ jcmp.events.AddRemoteCallable('Addplayertotrackfromserver',function(){
     Addplayertotrack();
     spectate = true;
     jcmp.ui.CallEvent('ShowSpectatorMode',true);
-})
+});
+jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
+        jcmp.localPlayer.camera.attachedToPlayer = true;
+         jcmp.localPlayer.frozen = false;
+         jcmp.ui.CallEvent('ShowSpectatorMode',false);
+         tracked_player = undefined;
+         tracked_id = null;
+         spectate = false;
+});
 function Addplayertotrack(){
 
-       let player = null;
-         for (let i = 0; i < jcmp.players.length; i++){
-           jcmp.print("" + jcmp.players[i].name);
-           if(jcmp.players[i].networkId == playerintherace[currentindex]){
-             jcmp.print("it is" + jcmp.players[i].name);
-                player = p;
-           }
-         }
+  let playertotrack = null;
+  let players = jcmp.players.filter(p => p.networkId != jcmp.localPlayer.networkId);
+    if (players.length == 0)
+    {
+        return null;
+    }
+            playertotrack = players[currentindex];
+             jcmp.events.CallRemote('race_debug', 'Player to track : ' + players[currentindex].name);
 
-       if (player != null)
+       if (playertotrack != null)
        {
 
-           jcmp.ui.CallEvent('playeritrack', player.name);
-           tracked_player = player;
-           tracked_id = player.networkId;
+           jcmp.ui.CallEvent('playeritrack', playertotrack.name);
+           tracked_player = playertotrack;
+           tracked_id = playertotrack.networkId;
        }
        else
        {
@@ -116,8 +107,8 @@ function Addplayertotrack(){
            tracked_player = null;
            tracked_id = null;
        }
-
 }
+
 function trackPlayer(){ // to call on the GameUpdateRender
    if (typeof tracked_player != 'undefined' && tracked_player != null && spectate)
        {
@@ -139,17 +130,19 @@ jcmp.ui.AddEvent('indexn',function(){
 // take the currentindex reduce it from one if he can and change the specator view
 if (currentindex != 0){
   currentindex --;
+  Addplayertotrack();
 }
 
-Addplayertotrack();
+
 
 });
 jcmp.ui.AddEvent('indexp',function(){
   // take the currentindex increase it from one if he can and change the specator view
   if (currentindex != playerintherace.length){
     currentindex ++;
+    Addplayertotrack();
   }
-Addplayertotrack();
+
 
 });
 function createCache(id, name, colour) {

@@ -80,15 +80,8 @@ module.exports = ({
     .add(new Command('spectator').description('Join a race as spectator').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
 
       player.dimension = id;
-    /*  for (var i = 0; i <race.game.games.length; i++) {
-        console.log(race.game.games[i].id);
-        if(race.game.games[i].id = id){
-          race.game.games[i].SendAllPlayerNetworkIDToclient(player);
 
-        }
-
-      }*/
-      jcmp.events.CallRemote('AddSpectator',player);
+      jcmp.events.CallRemote('Addplayertotrackfromserver',player);
       player.invulnerable = true;
     }))
 
