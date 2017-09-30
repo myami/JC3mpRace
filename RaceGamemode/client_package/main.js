@@ -34,8 +34,12 @@ let currentindex = 0;
 let to_pos = new Vector3f(0,0,0);
 let to_rot = new Vector3f(0,0,0);
 let spectate = false;
+let playerinrace = [];
 
-
+jcmp.events.AddRemoteCallable('Addplayerinrace',function(array){
+  let arrayp = JSON.parse(array);
+  playerinrace = arrayp;
+})
 
 
 function lerp(a,b,t)
@@ -82,17 +86,13 @@ jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
          tracked_player = undefined;
          tracked_id = null;
          spectate = false;
+         currentindex = 0;
 });
 function Addplayertotrack(){
 
-  let playertotrack = null;
-  let players = jcmp.players.filter(p => p.networkId != jcmp.localPlayer.networkId);
-    if (players.length == 0)
-    {
-        return null;
-    }
-            playertotrack = players[currentindex];
-             jcmp.events.CallRemote('race_debug', 'Player to track : ' + players[currentindex].name);
+        let playertotrack = null;
+          playertotrack = playerinrace[currentindex];
+             jcmp.events.CallRemote('race_debug', 'Player to track : ' + playerinrace[currentindex].name);
 
        if (playertotrack != null)
        {

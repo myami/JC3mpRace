@@ -113,7 +113,9 @@ module.exports = class Race {
     }
 
   }
-
+SendClientPlayerArray(player){
+  jcmp.events.CallRemote('Addplayerinrace',player,JSON.stringify(this.players));
+}
 
 
 
