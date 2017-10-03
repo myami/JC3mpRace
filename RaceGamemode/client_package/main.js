@@ -148,7 +148,7 @@ jcmp.events.AddRemoteCallable('RemoveSpectatorcm',function(){
      cameraview = false;
 });
 function CameraView(renderer){
-  if (cameraview ){
+  if (cameraview){
     jcmp.localPlayer.camera.position = cm_pos;
   }
 
@@ -314,6 +314,7 @@ jcmp.events.Add("GameUpdateRender", function(renderer) {
 
   const cam = jcmp.localPlayer.camera.position;
   trackPlayer(renderer);
+  CameraView(renderer);
   jcmp.players.forEach(player => {
     //if (!player.localPlayer) {
     const playerCache = playersCache[player.networkId];

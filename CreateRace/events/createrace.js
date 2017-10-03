@@ -2,7 +2,7 @@
 
 jcmp.events.AddRemoteCallable('CreateJsonFile_server', function(player, name) {
   var fs = require('fs');
-  var Createfile = `{\n "Name": "RaceName" ,\n"NameWithoutSpace":"${name}",\n "VehicleType": "car",\n "time": {"hour":11 ,"minute":30},\n "weather": "base",\n "defaultVehicle": 0,\n "AllDefault":true,\n "AddingYatrespawn": 0,\n "CheckpointHash":"0x301477DB",\n "ChekpointType":1,\n "PoiType":10,\n "GhostPOIType":23,\n "nitroenabled":true,\n "max_player":20,\n "StartingPoint":[],\n "RaceCheckpoint":[]\n}`;
+  var Createfile = `{\n "Name": "RaceName" ,\n"NameWithoutSpace":"${name}",\n "VehicleType": "car",\n "time": {"hour":11 ,"minute":30},\n "weather": "base",\n "defaultVehicle": 0,\n "AllDefault":true,\n "AddingYatrespawn": 0,\n "CheckpointHash":"0x301477DB",\n "ChekpointType":1,\n "PoiType":10,\n "GhostPOIType":23,\n "nitroenabled":true,\n "max_player":20,\n"image":"/path",\n"raceid":0,\n"laps":0,\n "StartingPoint":[],\n "RaceCheckpoint":[],\n"CameraView":[]\n}`;
 
   if (!fs.existsSync(`./${name}.json`)) {
     fs.writeFileSync(`./${name}.json`, Createfile);
@@ -332,5 +332,92 @@ let camerar = JSON.parse(camerarotation);
 
   })
   createrace.chat.send(player, `You just set a checkpoint`);
+
+});
+jcmp.events.AddRemoteCallable('CreateCamera_server', function(player, name,cameraposition,camerarotation) {
+let camera = JSON.parse(cameraposition);
+let camerar = JSON.parse(camerarotation);
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.CameraView.push({
+      x: camera.x,
+      y: camera.y,
+      z: camera.z,
+      rotx: camerar.x,
+      roty: camerar.y,
+      rotz: camerar.z,
+      id: createrace.id
+    })
+      jcmp.events.CallRemote('Creating_POI_startingPoint', player, JSON.stringify(camera));
+    createrace.id++;
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player, `You just set a CameraView`);
+
+});
+
+jcmp.events.AddRemoteCallable('RaceImagePath_server', function(player, path, name) {
+
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.image = path;
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
+
+});
+
+jcmp.events.AddRemoteCallable('LapsNumber_server', function(player, number, name) {
+
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.laps = number;
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
+
+});
+
+jcmp.events.AddRemoteCallable('RaceIdNumber_server', function(player, number, name) {
+
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.raceid = number;
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
 
 });

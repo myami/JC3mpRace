@@ -155,10 +155,25 @@
         <div id="NitroEnableddiv">
           <p>Nitroenabled: (select on the menu before clicking next)</p>
           <select id="nitroselect" onchange="NitroChange()" class="input-field">
-   <option value="true">true</option>
-   <option value="false">false</option>
-  </select>
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
           <button class="waves-effect waves-light btn amber" type="button" id="nitrob" onclick="hidenitro()">Next</button>
+        </div>
+        <div id="ImageDiv">
+          <p>Path of the image in the imgs folder</p>
+            <input class="input-field" type="text" name="RaceImage" placeholder="./imgs/test.png" id="RaceImage">
+              <button class="waves-effect waves-light btn amber" type="button" id="RaceImageb" onclick="RaceImage()">AddRaceImage</button>
+        </div>
+        <div id="LapsDiv">
+          <p>If you're race can have laps (0 is no)</p>
+            <input class="input-field" type="text" name="GhostPoiType" value="0" id="Lapsid">
+              <button class="waves-effect waves-light btn amber" type="button" id="Lapsidb" onclick="LapsNumber()">Add Laps</button>
+        </div>
+        <div id="RaceIDDiv">
+          <p>Id of the race</p>
+            <input class="input-field" type="text" name="GhostPoiType" value="0" id="RaceID">
+              <button class="waves-effect waves-light btn amber" type="button" id="RaceIDb" onclick="RaceIdNumber()">Add id of the race</button>
         </div>
       </div>
 
@@ -177,8 +192,9 @@
         </div>
 
         <div id="CheckpointPointdiv">
-          <p>Press this button at every position you want to add a checkpoint or press "C"</p>
+          <p>Press "C" to add a Checkpoint and press "L" to add a CameraView</p>
           <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpoint()">Checkpoint</button>
+          <button class="waves-effect waves-light btn amber" type="button" id="CameraRace" onclick="CreateCamera()">CameraView</button>
           <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
 
       </div>
@@ -223,6 +239,9 @@
     $("#GhostPoiTypediv").hide();
     $("#NitroEnableddiv").hide();
     $("#MaxPlayerdiv").hide();
+    $("#ImageDiv").hide();
+    $("#LapsDiv").hide();
+    $("#RaceIDDiv").hide();
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
     $('#VehicleTypes').material_select();
@@ -372,9 +391,30 @@
     let MaxPlayer = $("#MaxPlayerv").val();
     jcmp.CallEvent('Add_MaxPlayer', parseInt(MaxPlayer), nameoftherace);
     $("#MaxPlayerdiv").hide();
-    $("#StartingPointdiv").show();
-    startingpointcan =true;
+    $("#ImageDiv").show();
   }
+  function RaceImage() {
+    let RaceImage = $("#RaceImage").val();
+    jcmp.CallEvent('RaceImagePath', RaceImage, nameoftherace);
+    $("#ImageDiv").hide();
+    $("#LapsDiv").show();
+
+  }
+function LapsNumber (){
+    let lapsnumber = $("#Lapsid").val();
+    jcmp.CallEvent('LapsNumber', parseInt(lapsnumber), nameoftherace);
+    $("#LapsDiv").hide();
+    $("#RaceIDDiv").show();
+
+}
+function RaceIdNumber (){
+  let RaceIDnumber = $("#RaceID").val();
+  jcmp.CallEvent('RaceIdNumber', parseInt(RaceIDnumber), nameoftherace);
+  $("#RaceIDDiv").hide();
+  $("#StartingPointdiv").show();
+  startingpointcan =true;
+}
+
 
   function CreateStartingPoint() {
     jcmp.CallEvent('CreateStartingPoint', nameoftherace);
@@ -394,6 +434,14 @@
     avoiddoublepoint = true;
     }, 1000);
   }
+  function CreateCamera() {
+      avoiddoublepoints = false;
+    jcmp.CallEvent('CreateCamera', nameoftherace);
+    setTimeout(function() {
+    avoiddoublepoints = true;
+    }, 1000);
+  }
+
 
   function finishit() {
     resetalltohide();
@@ -425,6 +473,7 @@ let $chat_input_visible = false;
 let startingpointcan = false;
 let checkpointcan = false;
 let avoiddoublepoint = true;
+let avoiddoublepoints = true;
   jcmp.AddEvent('chat_input_state', function(b) {
               $chat_input_visible = b;
           });
@@ -436,6 +485,9 @@ let avoiddoublepoint = true;
     }
     else if (key === 67 && !$chat_input_visible && checkpointcan && avoiddoublepoint){ //c
         CreateCheckpoint();
+    }
+    else if (key === 76 && !$chat_input_visible && checkpointcan && avoiddoublepoint){ //c
+        CreateCamera();
     }
   });
 </script>

@@ -132,6 +132,23 @@ jcmp.ui.AddEvent('CreateStartingPoint', function(name) {
 jcmp.ui.AddEvent('CreateCheckpoint', function(name) {
   jcmp.events.CallRemote('CreateCheckpoint_server', name,JSON.stringify(jcmp.localPlayer.camera.position),JSON.stringify(jcmp.localPlayer.camera.rotation));
 });
+
 jcmp.events.AddRemoteCallable('CreateCheckpointFromCommands',function(name){
   jcmp.events.CallRemote('CreateCheckpoint_server', name,JSON.stringify(jcmp.localPlayer.camera.position),JSON.stringify(jcmp.localPlayer.camera.rotation));
-})
+});
+
+jcmp.ui.AddEvent('CreateCamera', function(name) {
+  jcmp.events.CallRemote('CreateCamera_server', name,JSON.stringify(jcmp.localPlayer.camera.position),JSON.stringify(jcmp.localPlayer.camera.rotation));
+});
+
+jcmp.ui.AddEvent('RaceImagePath', function(path, name) {
+  jcmp.events.CallRemote('RaceImagePath_server', path, name);
+});
+
+jcmp.ui.AddEvent('LapsNumber', function(number, name) {
+  jcmp.events.CallRemote('LapsNumber_server', number, name);
+});
+
+jcmp.ui.AddEvent('RaceIdNumber', function(number, name) {
+  jcmp.events.CallRemote('RaceIdNumber_server', number, name);
+});

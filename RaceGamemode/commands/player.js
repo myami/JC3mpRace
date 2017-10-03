@@ -116,8 +116,8 @@ module.exports = ({
        if(race.game.games[i].id = id){
          player.dimension = id;
          player.race.cameras = race.game.games[i].cameraview;
-         let firstplayertotrack =  player.race.cameras[player.race.indextotrack].position;
-          player.position = new Vector3f(firstplayertotrack.x ,firstplayertotrack.y , firstplayertotrack.z +50);
+         let firstcameratotrack =  player.race.cameras[player.race.indextotrack].position;
+          player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y , firstcameratotrack.z +50);
           player.invulnerable = true;
           player.race.camspectate = true;
           setTimeout(function() {
