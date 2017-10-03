@@ -77,7 +77,7 @@ module.exports = ({
 
     }))
 
-    .add(new Command('spectator').description('Join a race as spectator').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
+    .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
 
        for (var i = 0; i <race.game.games.length; i++) {
        if(race.game.games[i].id = id){
@@ -98,15 +98,38 @@ module.exports = ({
 
     }))
 
-    .add(new Command('removespectator').description('Join a race as spectator').handler(function(player) {
-        player.race.indextotrack = 0;
-          player.race.playertotrack = [];
+    .add(new Command('removespectator').description('Join a race as spectator(trackingplayer)').handler(function(player) {
+      player.race.indextotrack = 0;
+      player.race.playertotrack = [];
       player.dimension = 0;
       player.race.spectate = false;
+      player.race.camspectate = false;
       jcmp.events.CallRemote('RemoveSpectator',player);
+      jcmp.events.CallRemote('RemoveSpectatorcm',player);
       player.invulnerable = false;
 
-    }));
+    }))
+
+    .add(new Command('spectatorcm').description('Join a race as spectator(cameraview)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
+
+       for (var i = 0; i <race.game.games.length; i++) {
+       if(race.game.games[i].id = id){
+         player.dimension = id;
+         player.race.cameras = race.game.games[i].cameraview;
+         let firstplayertotrack =  player.race.cameras[player.race.indextotrack].position;
+          player.position = new Vector3f(firstplayertotrack.x ,firstplayertotrack.y , firstplayertotrack.z +50);
+          player.invulnerable = true;
+          player.race.camspectate = true;
+          setTimeout(function() {
+             jcmp.events.CallRemote('AddSpectatorcm',player);
+             jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(firstplayertotrack));
+          }, 5000);
+
+       }
+
+   }
+
+    }))
 
 
 

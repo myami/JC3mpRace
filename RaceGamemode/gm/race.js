@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = class Race {
-  constructor(id, VehicleType, player, NumberofPlayer, StartingPoint, RaceCheckpoint, times, weatherr, defaultvehicle, alldefaultvehicle, addingyatspawn, checkpointhash, checkpointtype, poitype, nitrobool, ghostpoi) {
+  constructor(id, VehicleType, player, NumberofPlayer, StartingPoint, RaceCheckpoint, times, weatherr, defaultvehicle, alldefaultvehicle, addingyatspawn, checkpointhash, checkpointtype, poitype, nitrobool, ghostpoi,cameraview) {
     this.id = id;
     this.vehicletype = VehicleType;
     this.players = player;
@@ -21,15 +21,12 @@ module.exports = class Race {
     this.leaderboard = [];
     this.playersname = [];
     this.wingsuitrace = false;
+    this.type = "classic";
+    this.cameraview = cameraview;
   }
 
   Start() {
     console.log("Id of the race: " + this.id);
-
-    //TODO: Choice menu for 20 sec to choice the vehicle (settimeout)
-
-    // alldefaultvehicle if it's true all have the same vehicle (the default) if it's false show the vehicle menu
-    // if player don't take vehicle on the list before it's dissapear use the this.defaultvehicle hash
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];

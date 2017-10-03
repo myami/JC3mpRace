@@ -157,14 +157,12 @@ jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
     player.race.indextotrack = 0;
   }
   let nextplayertotrack =  player.race.playertotrack[player.race.indextotrack].position;
-  console.log(nextplayertotrack);
   player.position = new Vector3f(nextplayertotrack.x  ,nextplayertotrack.y  , nextplayertotrack.z +40);
   setTimeout(function() {
      jcmp.events.CallRemote('ChangeTrackedPlayer',player);
   }, 5000);
-
-
 });
+
 jcmp.events.Add('SpectatorTPtoTracker',function(){
 for (var i = 0;i<jcmp.players.length,i++){
   const player = jcmp.players[i];
@@ -172,7 +170,24 @@ for (var i = 0;i<jcmp.players.length,i++){
     let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
     player.position = new Vector3f(playertotrack.x  ,playertotrack.y  , playertotrack.z +40);
   }
+  if(player.race.camspectate){
+
+  }
 }
+});
+
+jcmp.events.AddRemoteCallable('CameraViewNextCam',function(player){
+  if (player.race.indextotrack != player.race.cameras.length){
+    player.race.indextotrack ++;
+  }
+  else{
+    player.race.indextotrack = 0;
+  }
+  let nextcamtotrack =  player.race.cameras[player.race.indextotrack].position;
+  player.position = new Vector3f(nextcamtotrack.x  ,nextcamtotrack.y  , nextcamtotrack.z +40);
+  setTimeout(function() {
+     jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(nextcamtotrack));
+  }, 3000);
 });
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
@@ -286,6 +301,7 @@ jcmp.events.Add('race_start_index', function(indexs) {
   // kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
   // multicrew = 2 people in a car every X seconds the driver change
   // explosion = explosive barrel spawn randomly around everyone every x seconds
+  // tts = time trial solo ,no collision, everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
   setTimeout(function() {
     race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
@@ -309,6 +325,7 @@ jcmp.events.Add('race_start_index', function(indexs) {
     const poitype = races.PoiType;
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
+    const cameraview = races.CameraView;
     let Race = new race.Race(
       Raceid, // id
       VehicleType, //vehicle type
@@ -323,9 +340,10 @@ jcmp.events.Add('race_start_index', function(indexs) {
       addingyatspawn, // when player respawning adding some alitute or reduce (mainly for airplane battle)
       checkpointhash, // hash of the checkpoint (only have one now)
       checkpointtype, // type of the checkpoint only one work now (1)
-      poitype,
-      ghostpoi,
-      nitro
+      poitype, // the poi type
+      ghostpoi, // the ghost poi type
+      nitro, // if nitro is enabled or not
+      cameraview // the camera view for spectator
     );
 
     jcmp.events.Call('toast_show', null, {

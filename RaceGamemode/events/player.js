@@ -18,7 +18,9 @@ jcmp.events.Add("PlayerCreated", function(player) {
     playerrotationspawn: new Vector3f(0, 0, 0),
     playertotrack: [],
     indextotrack: 0,
-    spectate: false
+    spectate: false,
+    cameras:[],
+    camspectate : false
   }
 
 

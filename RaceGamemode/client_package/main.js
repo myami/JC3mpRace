@@ -34,6 +34,8 @@ let currentindex = 0;
 let to_pos = new Vector3f(0,0,0);
 let to_rot = new Vector3f(0,0,0);
 let spectate = false;
+let cameraview = false;
+let cm_pos = new Vector3f(0,0,0);
 
 
 
@@ -79,6 +81,7 @@ jcmp.events.AddRemoteCallable('AddSpectator',function(){
     jcmp.ui.CallEvent('ShowSpectatorMode',true);
 
 });
+
 jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
         jcmp.localPlayer.camera.attachedToPlayer = true;
          jcmp.localPlayer.frozen = false;
@@ -117,7 +120,7 @@ function Addplayertotrack(){
 }
 
 function trackPlayer(renderer){ // to call on the GameUpdateRender
-   if (typeof tracked_player != 'undefined' && tracked_player != null && spectate)
+   if (typeof tracked_player != 'undefined' && tracked_player != null && spectate && !cameraview)
        {
 
 
@@ -130,15 +133,38 @@ function trackPlayer(renderer){ // to call on the GameUpdateRender
            jcmp.localPlayer.camera.position = to_pos;
        }
 }
-
-
-jcmp.ui.AddEvent('indexn',function(){
-jcmp.events.CallRemote('SpectatorNextCam',player);
+jcmp.events.AddRemoteCallable('AddSpectatorcm',function(){
+    jcmp.localPlayer.camera.attachedToPlayer = false;
+    jcmp.localPlayer.frozen = true;
+     cameraview = true;
+});
+jcmp.events.AddRemoteCallable('CoordinateView',function(coordinate){
+  cm_pos = JSON.parse(coordinate);
 
 });
-jcmp.ui.AddEvent('indexp',function(){
+jcmp.events.AddRemoteCallable('RemoveSpectatorcm',function(){
+    jcmp.localPlayer.camera.attachedToPlayer = false;
+    jcmp.localPlayer.frozen = true;
+     cameraview = false;
+});
+function CameraView(renderer){
+  if (cameraview ){
+    jcmp.localPlayer.camera.position = cm_pos;
+  }
+
+}
+
+
+jcmp.ui.AddEvent('Changingtrack',function(){
+  if (spectate){
     jcmp.events.CallRemote('SpectatorNextCam',player);
+  }
+if(cameraview){
+  jcmp.events.CallRemote('CameraViewNextCam',player);
+}
+
 });
+
 function createCache(id, name, colour) {
 
   playersCache[id] = {
