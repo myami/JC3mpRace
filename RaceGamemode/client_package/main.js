@@ -34,12 +34,8 @@ let currentindex = 0;
 let to_pos = new Vector3f(0,0,0);
 let to_rot = new Vector3f(0,0,0);
 let spectate = false;
-let playerinrace = [];
 
-jcmp.events.AddRemoteCallable('Addplayerinrace',function(array){
-  let arrayp = JSON.parse(array);
-  playerinrace = arrayp;
-})
+
 
 
 function lerp(a,b,t)
@@ -72,12 +68,16 @@ function vz(v,q)
         v.x * Math.sin(q.z) - v.y * Math.cos(q.z),
         v.z);
 }
-jcmp.events.AddRemoteCallable('Addplayertotrackfromserver',function(){
+jcmp.events.AddRemoteCallable('ChangeTrackedPlayer',function(){
+  Addplayertotrack();
+});
+jcmp.events.AddRemoteCallable('AddSpectator',function(){
     jcmp.localPlayer.camera.attachedToPlayer = false;
     jcmp.localPlayer.frozen = true;
+     spectate = true;
     Addplayertotrack();
-    spectate = true;
     jcmp.ui.CallEvent('ShowSpectatorMode',true);
+
 });
 jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
         jcmp.localPlayer.camera.attachedToPlayer = true;
@@ -89,10 +89,16 @@ jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
          currentindex = 0;
 });
 function Addplayertotrack(){
+          let playertotrack = null;
+          for (var i = 0 ; i<jcmp.players.length;i++){
+              jcmp.events.CallRemote('race_debug', 'loop' + jcmp.players[i].name);
+            if (jcmp.players[i].networkId != tracked_id && jcmp.players[i].networkId != jcmp.localPlayer.networkId){
+              playertotrack = jcmp.players[i];
+              jcmp.events.CallRemote('race_debug', 'Player to track :  ' + playertotrack.name);
+            }
+          }
 
-        let playertotrack = null;
-          playertotrack = playerinrace[currentindex];
-             jcmp.events.CallRemote('race_debug', 'Player to track : ' + playerinrace[currentindex].name);
+
 
        if (playertotrack != null)
        {
@@ -100,6 +106,7 @@ function Addplayertotrack(){
            jcmp.ui.CallEvent('playeritrack', playertotrack.name);
            tracked_player = playertotrack;
            tracked_id = playertotrack.networkId;
+
        }
        else
        {
@@ -109,41 +116,28 @@ function Addplayertotrack(){
        }
 }
 
-function trackPlayer(){ // to call on the GameUpdateRender
+function trackPlayer(renderer){ // to call on the GameUpdateRender
    if (typeof tracked_player != 'undefined' && tracked_player != null && spectate)
        {
+
+
            let p_pos = tracked_player.position;
            let p_rot = tracked_player.rotation;
-          // let offset = new Vector3f(1,1.75,-5.5);
-
-            offset = new Vector3f(1,5,-15);
-
+           let offset = new Vector3f(1,1.75,-5.5);
            to_pos = p_pos.add(vq(offset, jcmp.localPlayer.camera.rotation));
            to_rot = p_rot;
-           jcmp.localPlayer.camera.rotation = lerp(jcmp.localPlayer.camera.rotation, to_rot, 0.3);
-           jcmp.localPlayer.camera.position = lerp(jcmp.localPlayer.camera.position, to_pos, 0.3);
+           jcmp.localPlayer.camera.rotation = tracked_player.rotation;
+           jcmp.localPlayer.camera.position = to_pos;
        }
 }
 
 
 jcmp.ui.AddEvent('indexn',function(){
-// take the currentindex reduce it from one if he can and change the specator view
-if (currentindex != 0){
-  currentindex --;
-  Addplayertotrack();
-}
-
-
+jcmp.events.CallRemote('SpectatorNextCam',player);
 
 });
 jcmp.ui.AddEvent('indexp',function(){
-  // take the currentindex increase it from one if he can and change the specator view
-  if (currentindex != playerintherace.length){
-    currentindex ++;
-    Addplayertotrack();
-  }
-
-
+    jcmp.events.CallRemote('SpectatorNextCam',player);
 });
 function createCache(id, name, colour) {
 
@@ -293,7 +287,7 @@ jcmp.events.AddRemoteCallable('Open_voting_menu_client', function(time) {
 jcmp.events.Add("GameUpdateRender", function(renderer) {
 
   const cam = jcmp.localPlayer.camera.position;
-  trackPlayer();
+  trackPlayer(renderer);
   jcmp.players.forEach(player => {
     //if (!player.localPlayer) {
     const playerCache = playersCache[player.networkId];
@@ -310,8 +304,10 @@ jcmp.events.Add("GameUpdateRender", function(renderer) {
 
       const mat = head.LookAt(head.position, cam, up).Scale(scale);
       renderer.SetTransform(mat);
+      if(!spectate){
+          RenderNametag(renderer, playerCache, d);
+      }
 
-      RenderNametag(renderer, playerCache, d);
     }
     //}
   });

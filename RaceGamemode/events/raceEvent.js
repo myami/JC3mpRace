@@ -58,7 +58,6 @@ jcmp.events.Add('race_updates', function() {
 
 
 jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
-
   const Race = player.race.game;
 
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
@@ -147,6 +146,33 @@ jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   const Race = player.race.game;
   Race.AddPlayerOnLeaderboard(player);
 
+
+});
+
+jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
+  if (player.race.indextotrack != player.race.playertotrack.length){
+    player.race.indextotrack ++;
+  }
+  else{
+    player.race.indextotrack = 0;
+  }
+  let nextplayertotrack =  player.race.playertotrack[player.race.indextotrack].position;
+  console.log(nextplayertotrack);
+  player.position = new Vector3f(nextplayertotrack.x  ,nextplayertotrack.y  , nextplayertotrack.z +40);
+  setTimeout(function() {
+     jcmp.events.CallRemote('ChangeTrackedPlayer',player);
+  }, 5000);
+
+
+});
+jcmp.events.Add('SpectatorTPtoTracker',function(){
+for (var i = 0;i<jcmp.players.length,i++){
+  const player = jcmp.players[i];
+  if(player.race.spectate){
+    let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
+    player.position = new Vector3f(playertotrack.x  ,playertotrack.y  , playertotrack.z +40);
+  }
+}
 });
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
@@ -255,6 +281,11 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
 });
 
 jcmp.events.Add('race_start_index', function(indexs) {
+  // type of the race (to add as an args here)
+  // none = classic
+  // kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
+  // multicrew = 2 people in a car every X seconds the driver change
+  // explosion = explosive barrel spawn randomly around everyone every x seconds
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
   setTimeout(function() {
     race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
@@ -308,7 +339,7 @@ jcmp.events.Add('race_start_index', function(indexs) {
     });
     race.game.games.push(Race);
     Race.Start();
-
+    race.game.players.onlobby = [];
   }, 600);
 
 });

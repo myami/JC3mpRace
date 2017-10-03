@@ -78,21 +78,31 @@ module.exports = ({
     }))
 
     .add(new Command('spectator').description('Join a race as spectator').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
+
        for (var i = 0; i <race.game.games.length; i++) {
-       console.log(race.game.games[i].id);
        if(race.game.games[i].id = id){
-         race.game.games[i].SendClientPlayerArray(player);
+         player.dimension = id;
+         player.race.playertotrack = race.game.games[i].players;
+         let firstplayertotrack =  player.race.playertotrack[player.race.indextotrack].position;
+          player.position = new Vector3f(firstplayertotrack.x -20 ,firstplayertotrack.y - 30 , firstplayertotrack.z +50);
+          console.log(firstplayertotrack);
+          player.invulnerable = true;
+          player.race.spectate = true;
+          setTimeout(function() {
+             jcmp.events.CallRemote('AddSpectator',player);
+          }, 5000);
+
        }
 
    }
-      player.dimension = id;
-      jcmp.events.CallRemote('Addplayertotrackfromserver',player);
-      player.invulnerable = true;
+
     }))
 
     .add(new Command('removespectator').description('Join a race as spectator').handler(function(player) {
-
+        player.race.indextotrack = 0;
+          player.race.playertotrack = [];
       player.dimension = 0;
+      player.race.spectate = false;
       jcmp.events.CallRemote('RemoveSpectator',player);
       player.invulnerable = false;
 

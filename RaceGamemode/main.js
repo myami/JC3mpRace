@@ -42,7 +42,9 @@ console.log(race.config.game.timervote);
 setInterval(function() {
   jcmp.events.Call('race_updates');
 }, 500);
-
+setInterval(function() {
+  jcmp.events.Call('SpectatorTPtoTracker');
+}, 2500);
 
 
 setTimeout(function() {

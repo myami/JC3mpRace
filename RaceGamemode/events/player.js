@@ -15,7 +15,10 @@ jcmp.events.Add("PlayerCreated", function(player) {
     hasfinish: false,
     time: 0,
     spawningdouble: false,
-    playerrotationspawn: new Vector3f(0, 0, 0)
+    playerrotationspawn: new Vector3f(0, 0, 0),
+    playertotrack: [],
+    indextotrack: 0,
+    spectate: false
   }
 
 
