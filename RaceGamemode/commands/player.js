@@ -79,7 +79,7 @@ module.exports = ({
 
     .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
 
-       for (var i = 0; i <race.game.games.length; i++) {
+       for (var i = 0; i  <race.game.games.length; i++) {
        if(race.game.games[i].id = id){
          player.dimension = id;
          player.race.playertotrack = race.game.games[i].players;
@@ -120,9 +120,9 @@ module.exports = ({
           player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y , firstcameratotrack.z +50);
           player.invulnerable = true;
           player.race.camspectate = true;
+          jcmp.events.CallRemote('AddSpectatorcm',player);
           setTimeout(function() {
-             jcmp.events.CallRemote('AddSpectatorcm',player);
-             jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(firstplayertotrack));
+             jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(firstcameratotrack));
           }, 5000);
 
        }

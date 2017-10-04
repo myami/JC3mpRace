@@ -164,7 +164,7 @@ jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
 });
 
 jcmp.events.Add('SpectatorTPtoTracker',function(){
-for (var i = 0;i<jcmp.players.length,i++){
+for (var i = 0; i<jcmp.players.length; i++){
   const player = jcmp.players[i];
   if(player.race.spectate){
     let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
