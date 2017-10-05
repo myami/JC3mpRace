@@ -191,35 +191,15 @@ module.exports = class Race {
     }
 
     setInterval(function() {
-      MCChangPlayerDrive();
+      jcmp.events.Call('MCChangePlayerDrive');
     }, this.mctime);
   }
 
-  MCChangPlayerDrive() {
-    for (var i = 0; i < this.players.length; i++) {
-      const player = this.players[i];
-      if (player.race.partnerplayer[1] == player) {
-        return;
-        console.log("The player is the second guy in the team");
-      }
-      if (player.vehicle.GetOccupant(0) == player) {
-        player.vehicle.SetOccupant(1, player);
-        player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
-        console.log("First option the player is the driver and became passager");
 
-      }
-      if (player.vehicle.GetOccupant(1) == player) {
-        player.vehicle.SetOccupant(0, player);
-        player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-        console.log("Second option the player is the passager and became driver");
-      }
-
-    }
-  }
 
   MCVehicleReset(player) {
     if (player.race.partnerplayer[0].name == player.name) {
-      const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
+      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
       vehicle.nitroEnabled = this.nitro;
       vehicle.dimension = player.race.game.id;
       vehicle.SetOccupant(0, player);

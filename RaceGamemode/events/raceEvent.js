@@ -43,7 +43,7 @@ jcmp.events.Add('race_end_point', function(player) {
 
   for (var i = 0; i < Race.leaderboard.length; i++) {
     const player = Race.leaderboard[i];
-    
+
     if (player.networkId == playern) {
       let leaderboardplace = i + 1;
       // send the leaderboardplace to the client
@@ -307,3 +307,34 @@ jcmp.events.AddRemoteCallable('Race_index_received_vote', function(player, index
   }
 
 });
+
+
+jcmp.events.Add('MCChangePlayerDrive', function() {
+  for (var i = 0; i < jcmp.players.length; i++) {
+    const player = jcmp.players[i];
+    if (player.vehicle != undefined) {
+      if (player.race.ingame && player.race.game.type == "multicrew") {
+        if (player.race.partnerplayer[1] == player) {
+          return;
+          console.log("The player is the second guy in the team");
+        }
+        if (player.vehicle.GetOccupant(0) == player) {
+          player.vehicle.SetOccupant(1, player);
+          player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
+          console.log("First option the player is the driver and became passager");
+
+        }
+        if (player.vehicle.GetOccupant(1) == player) {
+          player.vehicle.SetOccupant(0, player);
+          player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+          console.log("Second option the player is the passager and became driver");
+        }
+      }
+    }
+
+
+
+  }
+
+
+})
