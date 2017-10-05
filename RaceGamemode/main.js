@@ -44,7 +44,7 @@ setInterval(function() {
 
 setTimeout(function() {
   for (var i = 0; i < race.game.RaceList.length; i++) {
-  console.log(`Index: ${i} , Name of the race: ${race.game.RaceList[i].Name}`);
+    console.log(`Index: ${i} , Name of the race: ${race.game.RaceList[i].Name}`);
   }
 }, 1000);
 

@@ -31,140 +31,132 @@ const playersCache = [];
 let tracked_player = null;
 let tracked_id = null;
 let currentindex = 0;
-let to_pos = new Vector3f(0,0,0);
-let to_rot = new Vector3f(0,0,0);
+let to_pos = new Vector3f(0, 0, 0);
+let to_rot = new Vector3f(0, 0, 0);
 let spectate = false;
 let cameraview = false;
-let cm_pos = new Vector3f(0,0,0);
+let cm_pos = new Vector3f(0, 0, 0);
 
 
 
 
-function lerp(a,b,t)
-{
-    return (a.add( ( b.sub(a) ).mul(new Vector3f(t,t,t)) ));
+function lerp(a, b, t) {
+  return (a.add((b.sub(a)).mul(new Vector3f(t, t, t))));
 }
 
-function vq(v,q)
-{
-    return vx(vy(v, q), q);
+function vq(v, q) {
+  return vx(vy(v, q), q);
 }
 
-function vx(v,q)
-{
-    return new Vector3f(v.x,
-        v.y * Math.cos(q.x) + v.z * Math.sin(q.x),
-        v.y * Math.sin(q.x) - v.z * Math.cos(q.x));
+function vx(v, q) {
+  return new Vector3f(v.x,
+    v.y * Math.cos(q.x) + v.z * Math.sin(q.x),
+    v.y * Math.sin(q.x) - v.z * Math.cos(q.x));
 }
 
-function vy(v,q)
-{
-    return new Vector3f(v.x * Math.cos(q.y) + v.z * Math.sin(q.y),
-        v.y,
-        -v.x * Math.sin(q.y) + v.z * Math.cos(q.y));
+function vy(v, q) {
+  return new Vector3f(v.x * Math.cos(q.y) + v.z * Math.sin(q.y),
+    v.y, -v.x * Math.sin(q.y) + v.z * Math.cos(q.y));
 }
 
-function vz(v,q)
-{
-    return new Vector3f(v.x * Math.cos(q.z) + v.y * Math.sin(q.z),
-        v.x * Math.sin(q.z) - v.y * Math.cos(q.z),
-        v.z);
+function vz(v, q) {
+  return new Vector3f(v.x * Math.cos(q.z) + v.y * Math.sin(q.z),
+    v.x * Math.sin(q.z) - v.y * Math.cos(q.z),
+    v.z);
 }
-jcmp.events.AddRemoteCallable('ChangeTrackedPlayer',function(){
+jcmp.events.AddRemoteCallable('ChangeTrackedPlayer', function() {
   Addplayertotrack();
 });
-jcmp.events.AddRemoteCallable('AddSpectator',function(){
-    jcmp.localPlayer.camera.attachedToPlayer = false;
-    jcmp.localPlayer.frozen = true;
-     spectate = true;
-    Addplayertotrack();
-    jcmp.ui.CallEvent('ShowSpectatorMode',true);
+jcmp.events.AddRemoteCallable('AddSpectator', function() {
+  jcmp.localPlayer.camera.attachedToPlayer = false;
+  jcmp.localPlayer.frozen = true;
+  spectate = true;
+  Addplayertotrack();
+  jcmp.ui.CallEvent('ShowSpectatorMode', true);
 
 });
 
-jcmp.events.AddRemoteCallable('RemoveSpectator',function(){
-        jcmp.localPlayer.camera.attachedToPlayer = true;
-         jcmp.localPlayer.frozen = false;
-         jcmp.ui.CallEvent('ShowSpectatorMode',false);
-         tracked_player = undefined;
-         tracked_id = null;
-         spectate = false;
-         currentindex = 0;
+jcmp.events.AddRemoteCallable('RemoveSpectator', function() {
+  jcmp.localPlayer.camera.attachedToPlayer = true;
+  jcmp.localPlayer.frozen = false;
+  jcmp.ui.CallEvent('ShowSpectatorMode', false);
+  tracked_player = undefined;
+  tracked_id = null;
+  spectate = false;
+  currentindex = 0;
 });
-function Addplayertotrack(){
-          let playertotrack = null;
-          for (var i = 0 ; i<jcmp.players.length;i++){
-              jcmp.events.CallRemote('race_debug', 'loop' + jcmp.players[i].name);
-            if (jcmp.players[i].networkId != tracked_id && jcmp.players[i].networkId != jcmp.localPlayer.networkId){
-              playertotrack = jcmp.players[i];
-              jcmp.events.CallRemote('race_debug', 'Player to track :  ' + playertotrack.name);
-            }
-          }
+
+function Addplayertotrack() {
+  let playertotrack = null;
+  for (var i = 0; i < jcmp.players.length; i++) {
+    jcmp.events.CallRemote('race_debug', 'loop' + jcmp.players[i].name);
+    if (jcmp.players[i].networkId != tracked_id && jcmp.players[i].networkId != jcmp.localPlayer.networkId) {
+      playertotrack = jcmp.players[i];
+      jcmp.events.CallRemote('race_debug', 'Player to track :  ' + playertotrack.name);
+    }
+  }
 
 
 
-       if (playertotrack != null)
-       {
+  if (playertotrack != null) {
 
-           jcmp.ui.CallEvent('playeritrack', playertotrack.name);
-           tracked_player = playertotrack;
-           tracked_id = playertotrack.networkId;
+    jcmp.ui.CallEvent('playeritrack', playertotrack.name);
+    tracked_player = playertotrack;
+    tracked_id = playertotrack.networkId;
 
-       }
-       else
-       {
+  } else {
 
-           tracked_player = null;
-           tracked_id = null;
-       }
+    tracked_player = null;
+    tracked_id = null;
+  }
 }
 
-function trackPlayer(renderer){ // to call on the GameUpdateRender
-   if (typeof tracked_player != 'undefined' && tracked_player != null && spectate && !cameraview)
-       {
+function trackPlayer(renderer) { // to call on the GameUpdateRender
+  if (typeof tracked_player != 'undefined' && tracked_player != null && spectate && !cameraview) {
 
 
-           let p_pos = tracked_player.position;
-           let p_rot = tracked_player.rotation;
-           let offset = new Vector3f(1,1.75,-5.5);
-           to_pos = p_pos.add(vq(offset, jcmp.localPlayer.camera.rotation));
-           to_rot = p_rot;
-           jcmp.localPlayer.camera.rotation = tracked_player.rotation;
-           jcmp.localPlayer.camera.position = to_pos;
-       }
+    let p_pos = tracked_player.position;
+    let p_rot = tracked_player.rotation;
+    let offset = new Vector3f(1, 1.75, -5.5);
+    to_pos = p_pos.add(vq(offset, jcmp.localPlayer.camera.rotation));
+    to_rot = p_rot;
+    jcmp.localPlayer.camera.rotation = tracked_player.rotation;
+    jcmp.localPlayer.camera.position = to_pos;
+  }
 }
-jcmp.events.AddRemoteCallable('AddSpectatorcm',function(){
-    jcmp.localPlayer.camera.attachedToPlayer = false;
-    jcmp.localPlayer.frozen = true;
-     cameraview = true;
-       jcmp.ui.CallEvent('ShowSpectatorCameraMode',true);
+jcmp.events.AddRemoteCallable('AddSpectatorcm', function() {
+  jcmp.localPlayer.camera.attachedToPlayer = false;
+  jcmp.localPlayer.frozen = true;
+  cameraview = true;
+  jcmp.ui.CallEvent('ShowSpectatorCameraMode', true);
 });
-jcmp.events.AddRemoteCallable('CoordinateView',function(coordinate){
+jcmp.events.AddRemoteCallable('CoordinateView', function(coordinate) {
   cm_pos = JSON.parse(coordinate);
   jcmp.ui.CallEvent('cameratrack', cm_pos.id);
 
 });
-jcmp.events.AddRemoteCallable('RemoveSpectatorcm',function(){
-    jcmp.localPlayer.camera.attachedToPlayer = false;
-    jcmp.localPlayer.frozen = true;
-     cameraview = false;
-      jcmp.ui.CallEvent('ShowSpectatorCameraMode',false);
+jcmp.events.AddRemoteCallable('RemoveSpectatorcm', function() {
+  jcmp.localPlayer.camera.attachedToPlayer = false;
+  jcmp.localPlayer.frozen = true;
+  cameraview = false;
+  jcmp.ui.CallEvent('ShowSpectatorCameraMode', false);
 });
-function CameraView(renderer){
-  if (cameraview){
+
+function CameraView(renderer) {
+  if (cameraview) {
     jcmp.localPlayer.camera.position = cm_pos;
   }
 
 }
 
 
-jcmp.ui.AddEvent('Changingtrack',function(){
-  if (spectate){
-    jcmp.events.CallRemote('SpectatorNextCam',player);
+jcmp.ui.AddEvent('Changingtrack', function() {
+  if (spectate) {
+    jcmp.events.CallRemote('SpectatorNextCam', player);
   }
-if(cameraview){
-  jcmp.events.CallRemote('CameraViewNextCam',player);
-}
+  if (cameraview) {
+    jcmp.events.CallRemote('CameraViewNextCam', player);
+  }
 
 });
 
@@ -334,8 +326,8 @@ jcmp.events.Add("GameUpdateRender", function(renderer) {
 
       const mat = head.LookAt(head.position, cam, up).Scale(scale);
       renderer.SetTransform(mat);
-      if(!spectate){
-          RenderNametag(renderer, playerCache, d);
+      if (!spectate) {
+        RenderNametag(renderer, playerCache, d);
       }
 
     }
@@ -435,14 +427,14 @@ jcmp.ui.AddEvent('Race_Index_cef', function(index) {
 });
 
 let wingsuitrace = false;
-jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dimension, typepoi, hashcheckpoint, typecheckpoint, ghostcheckpoint,wg) {
+jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dimension, typepoi, hashcheckpoint, typecheckpoint, ghostcheckpoint, wg) {
   let nextcheckpointDATA = JSON.parse(checkpoint);
   let ghostcheckpointDATA;
-  if (ghostcheckpoint != undefined ) {
+  if (ghostcheckpoint != undefined) {
     ghostcheckpointDATA = JSON.parse(ghostcheckpoint);
   }
-  if (wg != undefined){
-      wingsuitrace = wg ;
+  if (wg != undefined) {
+    wingsuitrace = wg;
   }
 
   jcmp.print(" " + wingsuitrace);
@@ -478,7 +470,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dim
   checkpoint.sound = true;
   chks[nextcheckpointDATA.id] = checkpoint;
 
-  if (wingsuitrace == true){
+  if (wingsuitrace == true) {
     var checkpointghost = new Checkpoint(1, 0x301477DB, new Vector3f(nextcheckpointDATA.x, nextcheckpointDATA.y, nextcheckpointDATA.z), new Vector3f(nextcheckpointDATA.rotx, nextcheckpointDATA.roty, nextcheckpointDATA.rotz));
     checkpointghost.radius = 15;
     checkpointghost.visible = true;
@@ -495,7 +487,7 @@ jcmp.events.Add('CheckpointEnter', checkpoint => {
   checkpoint.visible = false;
   deletePOI();
   chks.splice(checkpoint.id, 1);
-  if (checkpoint.sound){
+  if (checkpoint.sound) {
     jcmp.ui.CallEvent('Checkpoint_Sound');
     jcmp.events.CallRemote('race_checkpoint');
   }

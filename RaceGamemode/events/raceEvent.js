@@ -1,4 +1,3 @@
-
 jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   const Race = player.race.game;
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
@@ -9,8 +8,8 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
     jcmp.events.Call('race_end_point', player);
-    // whas last checkpoint
     return;
+    // whas last checkpoint
   }
   if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // if it's egal it's mean it's the last checkpoint
     let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
@@ -43,8 +42,8 @@ jcmp.events.Add('race_end_point', function(player) {
   })
 
   for (var i = 0; i < Race.leaderboard.length; i++) {
-
     const player = Race.leaderboard[i];
+    
     if (player.networkId == playern) {
       let leaderboardplace = i + 1;
       // send the leaderboardplace to the client
@@ -78,42 +77,40 @@ jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   Race.AddPlayerOnLeaderboard(player);
 });
 
-jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
-  if (player.race.indextotrack != player.race.playertotrack.length){
-    player.race.indextotrack ++;
-  }
-  else{
+jcmp.events.AddRemoteCallable('SpectatorNextCam', function(player) {
+  if (player.race.indextotrack != player.race.playertotrack.length) {
+    player.race.indextotrack++;
+  } else {
     player.race.indextotrack = 0;
   }
-  let nextplayertotrack =  player.race.playertotrack[player.race.indextotrack].position;
-  player.position = new Vector3f(nextplayertotrack.x  ,nextplayertotrack.y +40 , nextplayertotrack.z );
+  let nextplayertotrack = player.race.playertotrack[player.race.indextotrack].position;
+  player.position = new Vector3f(nextplayertotrack.x, nextplayertotrack.y + 40, nextplayertotrack.z);
   setTimeout(function() {
-     jcmp.events.CallRemote('ChangeTrackedPlayer',player);
+    jcmp.events.CallRemote('ChangeTrackedPlayer', player);
   }, 5000);
 });
 
-jcmp.events.Add('SpectatorTPtoTracker',function(){
-for (var i = 0; i<jcmp.players.length; i++){
-  const player = jcmp.players[i];
-  if(player.race.spectate){
-    let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
-    player.position = new Vector3f(playertotrack.x  ,playertotrack.y +40 , playertotrack.z );
-  }
+jcmp.events.Add('SpectatorTPtoTracker', function() {
+  for (var i = 0; i < jcmp.players.length; i++) {
+    const player = jcmp.players[i];
+    if (player.race.spectate) {
+      let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
+      player.position = new Vector3f(playertotrack.x, playertotrack.y + 40, playertotrack.z);
+    }
 
-}
+  }
 });
 
-jcmp.events.AddRemoteCallable('CameraViewNextCam',function(player){
-  if (player.race.indextotrack != player.race.cameras.length){
-    player.race.indextotrack ++;
-  }
-  else{
+jcmp.events.AddRemoteCallable('CameraViewNextCam', function(player) {
+  if (player.race.indextotrack != player.race.cameras.length) {
+    player.race.indextotrack++;
+  } else {
     player.race.indextotrack = 0;
   }
-  let nextcamtotrack =  player.race.cameras[player.race.indextotrack];
-  player.position = new Vector3f(nextcamtotrack.x  ,nextcamtotrack.y +50 , nextcamtotrack.z );
+  let nextcamtotrack = player.race.cameras[player.race.indextotrack];
+  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y + 50, nextcamtotrack.z);
   setTimeout(function() {
-     jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(nextcamtotrack));
+    jcmp.events.CallRemote('CoordinateView', player, JSON.stringify(nextcamtotrack));
   }, 3000);
 });
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
@@ -165,10 +162,10 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
 
     }, race.game.respawntimer));
     setTimeout(function() {
-      if (player.race.game.type == "classic" || player.race.game.type == undefined){
+      if (player.race.game.type == "classic" || player.race.game.type == undefined) {
         player.race.game.CRRespawnCar(player);
       }
-      if (player.race.game.type == "multicrew"){
+      if (player.race.game.type == "multicrew") {
         player.race.game.MCVehicleReset(player);
       }
 
@@ -197,7 +194,7 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
   jcmp.events.CallRemote('Update_All_Client_toeveryone', null, name, value);
 });
 
-jcmp.events.Add('race_start_index', function(indexs,TypeRace) {
+jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
 
   // type of the race (to add as an args here)
   // none = classic
@@ -230,8 +227,8 @@ jcmp.events.Add('race_start_index', function(indexs,TypeRace) {
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
     const cameraview = races.CameraView;
-    if (TypeRace == "multicrew"){
-      if (!races.multicrew){
+    if (TypeRace == "multicrew") {
+      if (!races.multicrew) {
         console.log("Map not allowed for multicrew");
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed multicrew");
       }
