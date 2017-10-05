@@ -19,6 +19,7 @@
 	"image":"/path/",
 	"raceid":18,
 	"laps":0,
+	"multicrew": false,
 
 	"StartingPoint": [
 		{

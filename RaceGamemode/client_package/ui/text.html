@@ -103,7 +103,10 @@
   <div id="spectator"class="hidden">
     <span id="playeritrackspan">Currently spectate on : </span> <br />
     <button id= "spectate">&#8660;</button>
-
+  </div>
+  <div id="spectatorcam" class="hidden">
+    <span id="cameratrack">Currently spectate on camera number : </span> <br />
+    <button id= "spectatec">&#8660;</button>
   </div>
   <script>
     let timer = 30; // timer seconde
@@ -188,10 +191,17 @@
     jcmp.AddEvent('playeritrack', (name) => {
       $('#playeritrackspan').text("Currently spectating: " + name);
   });
+  jcmp.AddEvent('cameratrack', (name) => {
+    $('#cameratrackspan').text("Currently spectating camera : " + name);
+});
   $("#spectate").click(function()
     {
         jcmp.CallEvent('Changingtrack'); // -1 on the index
     });
+    $("#spectatec").click(function()
+      {
+          jcmp.CallEvent('Changingtrack'); // -1 on the index
+      });
 
       jcmp.AddEvent('ShowSpectatorMode',function(status){
           toggleContainer("spectator", status);
@@ -202,6 +212,16 @@
             jcmp.HideCursor();
           }
       });
+      jcmp.AddEvent('ShowSpectatorCameraMode',function(status){
+          toggleContainer("spectatorcam", status);
+          if (status){
+            jcmp.ShowCursor();
+          }
+          else{
+            jcmp.HideCursor();
+          }
+      });
+
 
 
     jcmp.AddEvent('Race_Timer_container', function(status) {

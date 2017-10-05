@@ -2,7 +2,7 @@
 
 jcmp.events.AddRemoteCallable('CreateJsonFile_server', function(player, name) {
   var fs = require('fs');
-  var Createfile = `{\n "Name": "RaceName" ,\n"NameWithoutSpace":"${name}",\n "VehicleType": "car",\n "time": {"hour":11 ,"minute":30},\n "weather": "base",\n "defaultVehicle": 0,\n "AllDefault":true,\n "AddingYatrespawn": 0,\n "CheckpointHash":"0x301477DB",\n "ChekpointType":1,\n "PoiType":10,\n "GhostPOIType":23,\n "nitroenabled":true,\n "max_player":20,\n"image":"/path",\n"raceid":0,\n"laps":0,\n "StartingPoint":[],\n "RaceCheckpoint":[],\n"CameraView":[]\n}`;
+  var Createfile = `{\n "Name": "RaceName" ,\n"NameWithoutSpace":"${name}",\n "VehicleType": "car",\n "time": {"hour":11 ,"minute":30},\n "weather": "base",\n "defaultVehicle": 0,\n "AllDefault":true,\n "AddingYatrespawn": 0,\n "CheckpointHash":"0x301477DB",\n "ChekpointType":1,\n "PoiType":10,\n "GhostPOIType":23,\n "nitroenabled":true,\n "max_player":20,\n"image":"/path",\n"raceid":0,\n"laps":0,\n"multicrew":false,\n "StartingPoint":[],\n "RaceCheckpoint":[],\n"CameraView":[]\n}`;
 
   if (!fs.existsSync(`./${name}.json`)) {
     fs.writeFileSync(`./${name}.json`, Createfile);
@@ -380,7 +380,7 @@ jcmp.events.AddRemoteCallable('RaceImagePath_server', function(player, path, nam
     })
 
   })
-  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
+  createrace.chat.send(player, `You just set the image path of the race to : ${path}`);
 
 });
 
@@ -399,7 +399,7 @@ jcmp.events.AddRemoteCallable('LapsNumber_server', function(player, number, name
     })
 
   })
-  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
+  createrace.chat.send(player, `You just set the number of laps to : ${number}`);
 
 });
 
@@ -418,6 +418,25 @@ jcmp.events.AddRemoteCallable('RaceIdNumber_server', function(player, number, na
     })
 
   })
-  createrace.chat.send(player, `You just set the max player of the race to ${maxplayer}`);
+  createrace.chat.send(player, `You just set the id of the race : ${number}`);
+
+});
+
+jcmp.events.AddRemoteCallable('MulticrewChange_server', function(player, number, name) {
+
+  var fs = require('fs');
+
+  fs.readFile(`./${name}.json`, 'utf-8', function(err, data) {
+    if (err) throw err
+
+    var arrayOfObjects = JSON.parse(data)
+    arrayOfObjects.multicrew = number;
+    fs.writeFileSync(`./${name}.json`, JSON.stringify(arrayOfObjects, null, '\t'), 'utf-8', function(err) {
+      if (err) throw err
+
+    })
+
+  })
+  createrace.chat.send(player, `You just set the multicrew to ${number}`);
 
 });

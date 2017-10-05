@@ -175,6 +175,14 @@
             <input class="input-field" type="text" name="GhostPoiType" value="0" id="RaceID">
               <button class="waves-effect waves-light btn amber" type="button" id="RaceIDb" onclick="RaceIdNumber()">Add id of the race</button>
         </div>
+        <div id="MultiCrewDiv">
+          <p>Is you're race multicrew allowed ?</p>
+          <select id="multicrew" onchange="Multicrew()" class="input-field">
+            <option value="true">true</option>
+            <option value="false">false</option>
+          </select>
+          <button class="waves-effect waves-light btn amber" type="button" id="weatherb" onclick="hideweather()">Next</button>
+        </div>
       </div>
 
 
@@ -242,6 +250,7 @@
     $("#ImageDiv").hide();
     $("#LapsDiv").hide();
     $("#RaceIDDiv").hide();
+    $("#MultiCrewDiv").hide();
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
     $('#VehicleTypes').material_select();
@@ -411,8 +420,18 @@ function RaceIdNumber (){
   let RaceIDnumber = $("#RaceID").val();
   jcmp.CallEvent('RaceIdNumber', parseInt(RaceIDnumber), nameoftherace);
   $("#RaceIDDiv").hide();
+  $("#MultiCrewDiv").show();
+  startingpointcan =true;
+}
+function Multicrew(){
+  var x = document.getElementById("multicrew");
+  var i = x.selectedIndex;
+  let mc = x.options[i].text;
+  jcmp.CallEvent('MulticrewChange', mc, nameoftherace);
+  $("#MultiCrewDiv").hide();
   $("#StartingPointdiv").show();
   startingpointcan =true;
+
 }
 
 

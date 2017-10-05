@@ -16,6 +16,7 @@
   "image":"/path/",
   "raceid":7,
   "laps":0,
+  "multicrew": true,
 
 
 

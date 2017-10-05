@@ -20,7 +20,8 @@ jcmp.events.Add("PlayerCreated", function(player) {
     indextotrack: 0,
     spectate: false,
     cameras:[],
-    camspectate : false
+    camspectate : false,
+    partnerplayer:[] // for multicrew save team in the array
   }
 
 

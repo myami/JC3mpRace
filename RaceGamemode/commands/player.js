@@ -35,11 +35,11 @@ module.exports = ({
       }, 5000);
 
     }))
-    .add(new Command('startrace').description('Start a race with id').parameter('id', 'number', 'index of the race').handler(function(player, id) {
+    .add(new Command('startrace').description('Start a race with id').parameter('id', 'number', 'index of the race').parameter('type', 'string', 'Type of the race').handler(function(player, id, type) {
       if (!race.utils.isAdmin(player)) {
         return race.chat.send(player, "[SERVER] You're not allowed to use this command");
       }
-      jcmp.events.Call('race_start_index', id);
+      jcmp.events.Call('race_start_index', id, type);
       race.chat.send(player, "[SERVER] Race Start");
 
     }))
@@ -78,7 +78,9 @@ module.exports = ({
     }))
 
     .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
-
+      if(player.race.ingame){
+        return race.chat.send(player,`[SERVER] You are already on a game you can't spectate until you finish it`)
+      }
        for (var i = 0; i  <race.game.games.length; i++) {
        if(race.game.games[i].id = id){
          player.dimension = id;
@@ -111,13 +113,17 @@ module.exports = ({
     }))
 
     .add(new Command('spectatorcm').description('Join a race as spectator(cameraview)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
-
+      if(player.race.ingame){
+        return race.chat.send(player,`[SERVER] You are already on a game you can't spectate until you finish it`)
+      }
        for (var i = 0; i <race.game.games.length; i++) {
        if(race.game.games[i].id = id){
          player.dimension = id;
          player.race.cameras = race.game.games[i].cameraview;
-         let firstcameratotrack =  player.race.cameras[player.race.indextotrack].position;
-          player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y , firstcameratotrack.z +50);
+
+         let firstcameratotrack =  race.game.games[i].cameraview[player.race.indextotrack];
+
+          player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y +50 , firstcameratotrack.z);
           player.invulnerable = true;
           player.race.camspectate = true;
           jcmp.events.CallRemote('AddSpectatorcm',player);

@@ -152,3 +152,7 @@ jcmp.ui.AddEvent('LapsNumber', function(number, name) {
 jcmp.ui.AddEvent('RaceIdNumber', function(number, name) {
   jcmp.events.CallRemote('RaceIdNumber_server', number, name);
 });
+
+jcmp.ui.AddEvent('MulticrewChange', function(number, name) {
+  jcmp.events.CallRemote('MulticrewChange_server', number, name);
+});

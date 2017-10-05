@@ -157,7 +157,7 @@ jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
     player.race.indextotrack = 0;
   }
   let nextplayertotrack =  player.race.playertotrack[player.race.indextotrack].position;
-  player.position = new Vector3f(nextplayertotrack.x  ,nextplayertotrack.y  , nextplayertotrack.z +40);
+  player.position = new Vector3f(nextplayertotrack.x  ,nextplayertotrack.y +40 , nextplayertotrack.z );
   setTimeout(function() {
      jcmp.events.CallRemote('ChangeTrackedPlayer',player);
   }, 5000);
@@ -168,7 +168,7 @@ for (var i = 0; i<jcmp.players.length; i++){
   const player = jcmp.players[i];
   if(player.race.spectate){
     let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
-    player.position = new Vector3f(playertotrack.x  ,playertotrack.y  , playertotrack.z +40);
+    player.position = new Vector3f(playertotrack.x  ,playertotrack.y +40 , playertotrack.z );
   }
   if(player.race.camspectate){
 
@@ -183,8 +183,8 @@ jcmp.events.AddRemoteCallable('CameraViewNextCam',function(player){
   else{
     player.race.indextotrack = 0;
   }
-  let nextcamtotrack =  player.race.cameras[player.race.indextotrack].position;
-  player.position = new Vector3f(nextcamtotrack.x  ,nextcamtotrack.y  , nextcamtotrack.z +40);
+  let nextcamtotrack =  player.race.cameras[player.race.indextotrack];
+  player.position = new Vector3f(nextcamtotrack.x  ,nextcamtotrack.y +50 , nextcamtotrack.z );
   setTimeout(function() {
      jcmp.events.CallRemote('CoordinateView',player,JSON.stringify(nextcamtotrack));
   }, 3000);
@@ -295,7 +295,8 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
   jcmp.events.CallRemote('Update_All_Client_toeveryone', null, name, value);
 });
 
-jcmp.events.Add('race_start_index', function(indexs) {
+jcmp.events.Add('race_start_index', function(indexs,TypeRace) {
+
   // type of the race (to add as an args here)
   // none = classic
   // kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
@@ -304,6 +305,7 @@ jcmp.events.Add('race_start_index', function(indexs) {
   // tts = time trial solo ,no collision, everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
   setTimeout(function() {
+
     race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
@@ -326,6 +328,14 @@ jcmp.events.Add('race_start_index', function(indexs) {
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
     const cameraview = races.CameraView;
+    if (TypeRace == "multicrew"){
+      if (!races.multicrew){
+        console.log("Map not allowed for multicrew");
+        return race.utils.broadcastToLobby("[SERVER] This race are not allowed multicrew");
+      }
+    }
+
+
     let Race = new race.Race(
       Raceid, // id
       VehicleType, //vehicle type
@@ -343,7 +353,8 @@ jcmp.events.Add('race_start_index', function(indexs) {
       poitype, // the poi type
       ghostpoi, // the ghost poi type
       nitro, // if nitro is enabled or not
-      cameraview // the camera view for spectator
+      cameraview, // the camera view for spectator
+      TypeRace // type of the race
     );
 
     jcmp.events.Call('toast_show', null, {

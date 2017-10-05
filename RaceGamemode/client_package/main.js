@@ -137,15 +137,18 @@ jcmp.events.AddRemoteCallable('AddSpectatorcm',function(){
     jcmp.localPlayer.camera.attachedToPlayer = false;
     jcmp.localPlayer.frozen = true;
      cameraview = true;
+       jcmp.ui.CallEvent('ShowSpectatorCameraMode',true);
 });
 jcmp.events.AddRemoteCallable('CoordinateView',function(coordinate){
   cm_pos = JSON.parse(coordinate);
+  jcmp.ui.CallEvent('cameratrack', cm_pos.id);
 
 });
 jcmp.events.AddRemoteCallable('RemoveSpectatorcm',function(){
     jcmp.localPlayer.camera.attachedToPlayer = false;
     jcmp.localPlayer.frozen = true;
      cameraview = false;
+      jcmp.ui.CallEvent('ShowSpectatorCameraMode',false);
 });
 function CameraView(renderer){
   if (cameraview){
