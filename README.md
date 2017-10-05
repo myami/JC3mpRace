@@ -12,19 +12,16 @@ Copy the files into your server/packages folder
 2. Vote System
 3. Leaderboard
 4. Menu to create you're own race
+5. Spectator mode
+6. Different type of race
+7. Lobby System
+8. More coming ...
 
 ## Next Feature
+1. Adding possibility to add multiple path for a race for a certain people and then join the basic path
+2. Vehicle menu
+3. More coming...
 
-1. TeamRaceBattle (team of 2 to 4 player in the same car or not (at each checkpoint the driver change)
-2. Adding possibility to add multiple path for a race for a certain people and then join the basic path
-3. Vehicle menu
-4. Spectator mode
-5. More coming...
-
-### TODO :
-
-1. Fix issue link to the race gamemode
-2. Clean code
 
 ### Credits
 
