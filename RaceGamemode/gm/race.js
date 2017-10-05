@@ -23,6 +23,7 @@ module.exports = class Race {
     this.wingsuitrace = false;
     this.cameraview = cameraview;
     this.type = types;
+    this.mctime = 15000; // time in seconds before changing player on mc
 
 
   }
@@ -123,6 +124,22 @@ ClassicRace (){
   }
 }
 
+CRRespawnCar(player){
+  if (player.race.vehicle != 0) {
+    const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
+    vehicle.nitroEnabled = player.race.nitro;
+    console.log("Vehicle spawning");
+    vehicle.dimension = player.race.game.id;
+    setTimeout(function() {
+      vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
+      //  race.game.RacePeopleDie.removePlayer(player);
+      player.race.spawningdouble = false;
+    }, race.game.respawntimer + 1000);
+  } else {
+    //Wingsuit race
+  }
+}
+
 Multicrew(){
 
   for (var i = 0; i < this.players.length; i++) {
@@ -175,9 +192,44 @@ Multicrew(){
 
   }
 
-
+  setInterval(function() {
+        MCChangPlayerDrive();
+  }, this.mctime);
 }
 
+MCChangPlayerDrive(){
+  for (var i = 0; i < this.players.length; i++) {
+    const player = this.players[i];
+    if (player.race.partnerplayer[1] == player){
+      return;
+      console.log("The player is the second guy in the team");
+    }
+  if(player.vehicle.GetOccupant(0) == player){
+    player.vehicle.SetOccupant(1,player);
+      player.vehicle.SetOccupant(0,player.race.partnerplayer[1]);
+      console.log("First option the player is the driver and became passager");
 
+  }
+  if(player.vehicle.GetOccupant(1) == player){
+    player.vehicle.SetOccupant(0,player);
+      player.vehicle.SetOccupant(1,player.race.partnerplayer[1]);
+      console.log("Second option the player is the passager and became driver");
+  }
+
+  }
+}
+
+MCVehicleReset(player){
+  if (player.race.partnerplayer[0].name == player.name) {
+    const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
+    vehicle.nitroEnabled = this.nitro;
+    vehicle.dimension = player.race.game.id;
+    vehicle.SetOccupant(0, player);
+    vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+  }
+  else if (player.race.partnerplayer[1].name == player.name){
+    console.log("wait the vehicle will spawn on you're team mate and you will be tp inside ");
+  }
+}
 
 }

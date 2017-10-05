@@ -1,65 +1,6 @@
-jcmp.events.Add('race_updates', function() {
-
-  if (race.game.toStart) {
-    race.game.timeToStart -= 500;
-  }
-
-
-  if (race.game.players.onlobby.length >= race.config.game.minPlayers && !race.game.toStart) {
-    // Start a new interval
-    race.game.toStart = true;
-    race.utils.broadcastToLobby("The game is going to start in 2 minutes!");
-    //   jcmp.events.CallRemote('Open_voting_menu_client',null , race.config.game.timervote);
-    // open the menu to choice the map and then launch the race
-
-
-    race.game.timeToStart = race.config.game.timeToStart;
-    race.game.StartTimer = setTimeout(function() {
-
-    }, race.config.game.timeToStart);
-  }
-
-  if (race.game.players.onlobby.length < race.config.game.minPlayers && race.game.toStart) {
-    // Delete timeout
-
-    clearTimeout(race.game.StartTimer);
-
-    // Hide and reset timer and show left players text on UI for players on the lobby
-
-    for (let player of race.game.players.onlobby) {
-
-
-      jcmp.events.Call('toast_show', player, {
-        heading: 'Need more players',
-        text: "More players are needed to start the battle",
-        icon: 'info',
-        loader: true,
-        loaderBg: '#9EC600',
-        position: 'top-right',
-        hideAfter: 5000
-      });
-
-    }
-
-    // --
-
-    //race.utils.broadcastToLobby("Need more players to start the game ... ");
-
-    race.game.toStart = false;
-    race.game.timeToStart = race.config.game.timeToStart;
-  }
-
-
-
-
-
-});
-
-
 
 jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   const Race = player.race.game;
-
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
   player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
   player.race.playerrotationspawn = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].rotx, Race.raceCheckpoint[player.race.checkpoints].roty, Race.raceCheckpoint[player.race.checkpoints].rotz);
@@ -69,7 +10,6 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
     jcmp.events.Call('race_end_point', player);
     // whas last checkpoint
-
     return;
   }
   if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // if it's egal it's mean it's the last checkpoint
@@ -100,7 +40,6 @@ jcmp.events.Add('race_end_point', function(player) {
   Race.players.forEach(player => {
     if (player.race.ingame)
       Race.leaderboard = player.race.game.leaderboard;
-
   })
 
   for (var i = 0; i < Race.leaderboard.length; i++) {
@@ -123,30 +62,20 @@ jcmp.events.Add('race_end_point', function(player) {
         position: 'top-right',
         hideAfter: 5000
       });
-
       Race.UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds);
       setTimeout(function() {
         jcmp.events.Call('race_player_leave_game', player)
         player.race.time = 0;
-      }, 500);
+      }, 2000);
 
     }
 
   }
 
-
-
-
-  //Launch when a player is at last checkpoint and launch a spectator mode until the last player as this event launch or wait 2 min after the first player and show the leaderboard
-  // check if he is the last that have this event , if it is launch race_timer_end
-  // if he is not the last tell him is rank and show him the leaderboard || made a spectator mode the time the last as this event
-
 });
 jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   const Race = player.race.game;
   Race.AddPlayerOnLeaderboard(player);
-
-
 });
 
 jcmp.events.AddRemoteCallable('SpectatorNextCam',function(player){
@@ -170,9 +99,7 @@ for (var i = 0; i<jcmp.players.length; i++){
     let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
     player.position = new Vector3f(playertotrack.x  ,playertotrack.y +40 , playertotrack.z );
   }
-  if(player.race.camspectate){
 
-  }
 }
 });
 
@@ -234,24 +161,17 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
       if (vehicleold != undefined) {
         vehicleold.Destroy();
       }
-
       player.Respawn();
 
     }, race.game.respawntimer));
     setTimeout(function() {
-      if (player.race.vehicle != 0) {
-        const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-        vehicle.nitroEnabled = player.race.nitro;
-        console.log("Vehicle spawning");
-        vehicle.dimension = player.race.game.id;
-        setTimeout(function() {
-          vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
-          //  race.game.RacePeopleDie.removePlayer(player);
-          player.race.spawningdouble = false;
-        }, race.game.respawntimer + 1000);
-      } else {
-        //Wingsuit race
+      if (player.race.game.type == "classic" || player.race.game.type == undefined){
+        player.race.game.CRRespawnCar(player);
       }
+      if (player.race.game.type == "multicrew"){
+        player.race.game.MCVehicleReset(player);
+      }
+
     }, race.game.respawntimer + 2000);
 
 
@@ -260,24 +180,6 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
 
 });
 
-
-
-
-jcmp.events.AddRemoteCallable('spawnVehicle', (player, modelhash) => {
-  // call in the race_vehicle_choice_menu
-  if (player.race.vehicle != 0) {
-    player.race.vehicle = modelhash;
-    const vehicle = new Vehicle(player.race.vehicle, player.position, player.rotation);
-    vehicle.nitroEnabled = player.race.nitro;
-    vehicle.dimension = player.race.game.id;
-    setTimeout(function() {
-      vehicle.SetOccupant(0, player);
-    }, 100);
-  } else {
-    //Wingsuit race
-  }
-
-});
 
 jcmp.events.AddRemoteCallable('Race_player_timer_start', (player) => {
   const Race = player.race.game;

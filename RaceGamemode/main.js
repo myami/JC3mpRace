@@ -36,12 +36,7 @@ race.commands.loadFromDirectory(`${__dirname}/commands`, (f, ...a) => require(f)
 race.utils.loadFilesFromDirectory(`${__dirname}/events`);
 
 race.utils.GetRaceData();
-race.config.game.timervote = race.config.game.timeToStart / 2;
-console.log(race.config.game.timervote);
 
-setInterval(function() {
-  jcmp.events.Call('race_updates');
-}, 500);
 setInterval(function() {
   jcmp.events.Call('SpectatorTPtoTracker');
 }, 2500);
