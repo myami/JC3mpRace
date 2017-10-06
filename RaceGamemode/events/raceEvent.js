@@ -113,7 +113,7 @@ jcmp.events.AddRemoteCallable('CameraViewNextCam', function(player) {
     player.race.indextotrack = 0;
   }
   let nextcamtotrack = player.race.cameras[player.race.indextotrack];
-  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y , nextcamtotrack.z);
+  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y +20 , nextcamtotrack.z);
   setTimeout(function() {
     jcmp.events.CallRemote('CoordinateView', player, JSON.stringify(nextcamtotrack));
   }, 3000);

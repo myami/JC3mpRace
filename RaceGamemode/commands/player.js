@@ -122,7 +122,7 @@ module.exports = ({
          player.race.cameras = race.game.games[i].cameraview;
 
          let firstcameratotrack =  race.game.games[i].cameraview[player.race.indextotrack];
-          player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y , firstcameratotrack.z);
+          player.position = new Vector3f(firstcameratotrack.x ,firstcameratotrack.y +20 , firstcameratotrack.z);
           player.invulnerable = true;
           player.race.camspectate = true;
           jcmp.events.CallRemote('AddSpectatorcm',player);

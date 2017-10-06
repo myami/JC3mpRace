@@ -70,6 +70,14 @@
       font-size: 20pt;
 
     }
+    #spectatorcam{
+      position:fixed;
+      top:75%;
+      right:50%;
+      font-family: 'Passion One', cursive;
+      font-weight: bold;
+      font-size: 20pt;
+    }
 
 
     body {
@@ -108,6 +116,9 @@
     <span id="cameratrack">Currently spectate on camera number : </span> <br />
     <button id= "spectatec">&#8660;</button>
   </div>
+
+
+
   <script>
     let timer = 30; // timer seconde
     jcmp.AddEvent('Countdown_start', function() {
