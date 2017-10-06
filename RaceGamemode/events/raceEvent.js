@@ -68,6 +68,11 @@ jcmp.events.Add('race_end_point', function(player) {
       }, 2000);
 
     }
+    if (Race.type == "multicrew"){
+      if (Race.leaderboard.length == Race.players.length){ // if the guy was the last one finishing the race remove the interval
+        clearInterval(Race.intervalswitch);
+      }
+    }
 
   }
 
@@ -108,7 +113,7 @@ jcmp.events.AddRemoteCallable('CameraViewNextCam', function(player) {
     player.race.indextotrack = 0;
   }
   let nextcamtotrack = player.race.cameras[player.race.indextotrack];
-  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y + 50, nextcamtotrack.z);
+  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y , nextcamtotrack.z);
   setTimeout(function() {
     jcmp.events.CallRemote('CoordinateView', player, JSON.stringify(nextcamtotrack));
   }, 3000);
@@ -313,22 +318,27 @@ jcmp.events.Add('MCChangePlayerDrive', function() {
   for (var i = 0; i < jcmp.players.length; i++) {
     const player = jcmp.players[i];
     if (player.vehicle != undefined) {
+      console.log("isonavehicle" + player.name);
       if (player.race.ingame && player.race.game.type == "multicrew") {
-        if (player.race.partnerplayer[1] == player) {
-          return;
-          console.log("The player is the second guy in the team");
-        }
-        if (player.vehicle.GetOccupant(0) == player) {
-          player.vehicle.SetOccupant(1, player);
-          player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
-          console.log("First option the player is the driver and became passager");
+    
+        if (player.race.partnerplayer[0].name == player.name) {
+          console.log("1");
+          if (player.vehicle.GetOccupant(0) == player) {
+            console.log("2");
+            player.vehicle.SetOccupant(1, player);
+            player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
+            console.log("First option the player is the driver and became passager");
+
+          }
+          if (player.vehicle.GetOccupant(1) == player) {
+            console.log("3");
+            player.vehicle.SetOccupant(0, player);
+            player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+            console.log("Second option the player is the passager and became driver");
+          }
 
         }
-        if (player.vehicle.GetOccupant(1) == player) {
-          player.vehicle.SetOccupant(0, player);
-          player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-          console.log("Second option the player is the passager and became driver");
-        }
+
       }
     }
 

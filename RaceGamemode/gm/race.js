@@ -24,6 +24,7 @@ module.exports = class Race {
     this.cameraview = cameraview;
     this.type = types;
     this.mctime = 15000; // time in seconds before changing player on mc
+    this.intervalswitch = setInterval(function() {jcmp.events.Call('MCChangePlayerDrive');}, this.mctime);
 
 
   }
@@ -154,8 +155,11 @@ module.exports = class Race {
       player.race.hasfinish = false;
       this.playersname.push(player.name);
       if (i % 2 === 0) {
+        const secondplayer = this.players[i +1];
         player.race.partnerplayer.push(player);
-        player.race.partnerplayer.push(this.players[i + 1]);
+        player.race.partnerplayer.push(secondplayer);
+        secondplayer.race.partnerplayer = player.race.partnerplayer;
+
       }
 
       if (this.alldefaultvehicle) { // need to replace all this if to not spawn a vehicle per player but a vehicle per team
