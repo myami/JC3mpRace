@@ -144,7 +144,7 @@ jcmp.events.AddRemoteCallable('RemoveSpectatorcm', function() {
 
 function CameraView(renderer) {
   if (cameraview) {
-    jcmp.localPlayer.camera.position = cm_pos;
+    jcmp.localPlayer.camera.position = new Vector3f(cm_pos.x,cm_pos.y,cm_pos.z);
   }
 
 }

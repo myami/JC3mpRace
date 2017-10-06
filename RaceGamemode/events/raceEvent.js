@@ -320,31 +320,21 @@ jcmp.events.Add('MCChangePlayerDrive', function() {
     if (player.vehicle != undefined) {
       console.log("isonavehicle" + player.name);
       if (player.race.ingame && player.race.game.type == "multicrew") {
-    
+
         if (player.race.partnerplayer[0].name == player.name) {
           console.log("1");
           if (player.vehicle.GetOccupant(0) == player) {
             console.log("2");
             player.vehicle.SetOccupant(1, player);
             player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
-            console.log("First option the player is the driver and became passager");
-
           }
           if (player.vehicle.GetOccupant(1) == player) {
             console.log("3");
             player.vehicle.SetOccupant(0, player);
             player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-            console.log("Second option the player is the passager and became driver");
           }
-
         }
-
       }
     }
-
-
-
   }
-
-
 })
