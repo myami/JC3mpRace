@@ -57,6 +57,7 @@ module.exports = class Race {
   UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds) {
     for (let player of this.players) {
       jcmp.events.CallRemote('Update_leaderboard_all', player, playername, leaderboardplace, minute, seconds);
+      // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor 
     }
 
   }
@@ -194,7 +195,7 @@ module.exports = class Race {
 
     }
 
-    setInterval(function() {
+    setInterval(function() { // Maybe replace by only passager can see checkpoint
       jcmp.events.Call('MCChangePlayerDrive');
     }, this.mctime);
   }

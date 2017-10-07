@@ -1,3 +1,10 @@
+
+/*
+TODO: When the server loading the race and the race don't have a raceid give him one
+TODO: Send to the client when he is joining the server some data from each race like RaceId , Name of the race,Path of the image of the race
+
+*/
+
 global.race = {
   commands: jcmp.events.Call('get_command_manager')[0],
   chat: jcmp.events.Call('get_chat')[0],

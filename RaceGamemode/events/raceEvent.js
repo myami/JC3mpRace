@@ -151,6 +151,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
 });
 
 jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
+  // When it's call during the countdown (someone miss click or not) or vehicle explode at spawn it's remove the controlsEnabled
   if (!player.race.spawningdouble) {
     player.race.spawningdouble = true;
     console.log("Race_player_respawn");
