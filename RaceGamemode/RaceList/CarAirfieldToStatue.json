@@ -13,7 +13,7 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 100,
-  "image":"/path/",
+  "image":"Car-AirfieldToStatue.jpg",
   "raceid":4,
   "laps":0,
   "multicrew": true,

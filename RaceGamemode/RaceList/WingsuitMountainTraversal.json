@@ -16,6 +16,10 @@
 	"GhostPOIType": 23,
 	"nitroenabled": true,
 	"max_player": 20,
+	"image":"Wingsuit-Mountain.jpg",
+	"raceid":17,
+	"laps":0,
+	"multicrew": false,
 	"StartingPoint": [
 		{
 			"x": 10149.6416015625,

@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":11,
+  "image":"Car-AirfieldRace.jpg",
+  "raceid":10,
   "laps":0,
   "multicrew": true,
 

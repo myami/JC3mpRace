@@ -13,7 +13,7 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
+  "image":"Boat-BetweenIsland.jpg",
   "raceid":3,
   "laps": 0,
   "multicrew": true,

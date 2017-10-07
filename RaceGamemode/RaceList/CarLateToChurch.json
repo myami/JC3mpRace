@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":8,
+  "image":"Car-LateToChurch.jpg",
+  "raceid":7,
   "laps":0,
   "multicrew": true,
 

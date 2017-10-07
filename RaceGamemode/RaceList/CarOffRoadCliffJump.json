@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":9,
+  "image":"Car-OffroadCliffJump.jpg",
+  "raceid":8,
   "laps":0,
   "multicrew": true,
 

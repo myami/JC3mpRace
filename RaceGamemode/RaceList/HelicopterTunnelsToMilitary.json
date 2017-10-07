@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":15,
+  "image":"Helicopter.jpg",
+  "raceid":14,
   "laps":0,
   "multicrew": true,
 

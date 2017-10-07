@@ -19,7 +19,7 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
+  "image":"Car-BoomIslandTest.jpg",
   "raceid":50,
   "laps":0,
   "multicrew": true,

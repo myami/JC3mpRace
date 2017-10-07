@@ -338,8 +338,6 @@ jcmp.events.Add('MCChangePlayerDrive', function() {
               }, 500);
                   player.vehicle.SetOccupant(0, player);
               console.log("5");
-
-
             return;
           }
         }

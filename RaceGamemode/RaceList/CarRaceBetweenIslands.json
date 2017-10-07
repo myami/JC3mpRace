@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":12,
+  "image":"Car-BetweenIsland.jpg",
+  "raceid":11,
   "laps":0,
   "multicrew": true,
 

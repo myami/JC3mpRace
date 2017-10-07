@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":14,
+  "image":"Car-Rocket.jpg",
+  "raceid":13,
   "laps":0,
   "multicrew": false,
 

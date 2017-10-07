@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":16,
+  "image":"Motorbike-City.jpg",
+  "raceid":15,
   "laps":0,
   "multicrew": false,
 

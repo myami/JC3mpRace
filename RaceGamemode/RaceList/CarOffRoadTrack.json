@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":10,
+  "image":"Car-OffRoadTrack.jpg",
+  "raceid":9,
   "laps":2,
   "multicrew": true,
 

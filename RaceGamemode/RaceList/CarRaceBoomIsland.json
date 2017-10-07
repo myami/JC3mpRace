@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":13,
+  "image":"Car-Boom.jpg",
+  "raceid":12,
   "laps":2,
   "multicrew": true,
 

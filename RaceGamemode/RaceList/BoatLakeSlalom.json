@@ -13,7 +13,7 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
+  "image":"Boat-Slalom.jpg",
   "raceid":2,
   "laps": 2,
   "multicrew": false,

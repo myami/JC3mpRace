@@ -13,8 +13,8 @@
   "GhostPOIType": 23,
   "nitroenabled": true,
   "max_player": 20,
-  "image":"/path/",
-  "raceid":6,
+  "image":"Car-IslandLoop.jpg",
+  "raceid":5,
   "laps": 0,
   "multicrew": true,
 
