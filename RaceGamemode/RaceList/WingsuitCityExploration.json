@@ -16,11 +16,6 @@
 	"GhostPOIType": 23,
 	"nitroenabled": "true",
 	"max_player": 20,
-	"image":"/path/",
-	"raceid":17,
-	"laps":0,
-	"multicrew": false,
-
 	"StartingPoint": [
 		{
 			"x": 3501.169921875,
@@ -570,8 +565,5 @@
 			"rotz": 3.141592264175415,
 			"id": 41
 		}
-	],
-  "CameraView":[
-
-  ]
+	]
 }

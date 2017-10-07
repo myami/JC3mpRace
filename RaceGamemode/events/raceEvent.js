@@ -234,8 +234,7 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
     const cameraview = races.CameraView;
     if (TypeRace == "multicrew") {
       if (!races.multicrew) {
-        console.log("Map not allowed for multicrew");
-        return race.utils.broadcastToLobby("[SERVER] This race are not allowed multicrew");
+        return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
     }
 
@@ -318,20 +317,30 @@ jcmp.events.Add('MCChangePlayerDrive', function() {
   for (var i = 0; i < jcmp.players.length; i++) {
     const player = jcmp.players[i];
     if (player.vehicle != undefined) {
-      console.log("isonavehicle" + player.name);
       if (player.race.ingame && player.race.game.type == "multicrew") {
-
-        if (player.race.partnerplayer[0].name == player.name) {
+        if (player.race.partnerplayer[0].networkId == player.networkId) {
           console.log("1");
-          if (player.vehicle.GetOccupant(0) == player) {
+          if (player.vehicle.GetOccupant(0).networkId == player.networkId) {
+              setTimeout(function() {
+                player.vehicle.SetOccupant(1, player);
+                  console.log("3");
+              }, 500);
             console.log("2");
-            player.vehicle.SetOccupant(1, player);
-            player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
+                player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
+            return;
+
           }
-          if (player.vehicle.GetOccupant(1) == player) {
+          else if (player.vehicle.GetOccupant(1).networkId == player.networkId) {
             console.log("3");
-            player.vehicle.SetOccupant(0, player);
-            player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+              setTimeout(function() {
+                player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+                  console.log("4");
+              }, 500);
+                  player.vehicle.SetOccupant(0, player);
+              console.log("5");
+
+
+            return;
           }
         }
       }
