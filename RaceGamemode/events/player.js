@@ -131,7 +131,6 @@ jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
 jcmp.events.Add('PlayerVehicleExited', (player, vehicle, seatIndex) => {
   const Race = player.race.game;
   if (player.race.ingame) {
-
     jcmp.events.Call('race_player_checkpoint_respawn', player, vehicle);
   }
 });

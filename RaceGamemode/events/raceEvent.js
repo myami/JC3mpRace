@@ -1,5 +1,10 @@
 jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   const Race = player.race.game;
+  if(Race.type == "multicrew"){
+    jcmp.events.Call('MC_Race_Checkpoint',player);
+      return;
+
+  }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
   player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
   player.race.playerrotationspawn = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].rotx, Race.raceCheckpoint[player.race.checkpoints].roty, Race.raceCheckpoint[player.race.checkpoints].rotz);
@@ -11,12 +16,11 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
     return;
     // whas last checkpoint
   }
-  if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // if it's egal it's mean it's the last checkpoint
+  if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // last checkpoint
     let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
     jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(lastnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType);
     console.log("last checkpoint");
     jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-
     return;
     // change the poi text to last checkpoint
   }
@@ -29,7 +33,42 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 
 });
 
+jcmp.events.Add('MC_Race_Checkpoint',function(player){
+  const Race = player.race.game;
+  const partner = player.race.partnerplayer[0];
+  if (player.race.partnerplayer[0].name == player.name){ // no checkpoint for the driver
+    return ;
+  }
+  let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
+  player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
+  player.race.playerrotationspawn = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].rotx, Race.raceCheckpoint[player.race.checkpoints].roty, Race.raceCheckpoint[player.race.checkpoints].rotz);
+  player.race.checkpoints++;
+
+  if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
+    race.chat.send(player, "[SERVER] You finished the race! Well done!!");
+    jcmp.events.Call('race_end_point', player);
+    return;
+    // whas last checkpoint
+  }
+  if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // last checkpoint
+    let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
+    jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(lastnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType);
+    console.log("last checkpoint");
+    jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+    return;
+    // change the poi text to last checkpoint
+  }
+
+  let positionnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
+  let positionghostcheckpoint = Race.raceCheckpoint[player.race.checkpoints + 1];
+  jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(positionnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType, JSON.stringify(positionghostcheckpoint));
+  jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+
+
+})
+
 jcmp.events.Add('race_end_point', function(player) {
+
   player.race.hasfinish = true;
   const Race = player.race.game;
   clearInterval(player.race.timerinterval);
@@ -125,7 +164,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   // Destroy on TRUE = No put the player into de lobby again
 
   const Race = player.race.game;
-  Race.players.removePlayer(player);
+//  Race.players.removePlayer(player);
   race.game.players.ingame.removePlayer(player);
   player.race.checkpoints = 0;
   player.race.time = 0;

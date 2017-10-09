@@ -57,7 +57,7 @@ module.exports = class Race {
   UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds) {
     for (let player of this.players) {
       jcmp.events.CallRemote('Update_leaderboard_all', player, playername, leaderboardplace, minute, seconds);
-      // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor 
+      // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
     }
 
   }
@@ -180,8 +180,10 @@ module.exports = class Race {
       }
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-
-      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
+      //TODO: Only the passager can see the checkpoint
+      if(player.race.partnerplayer[1].name == player.name){
+        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
+      }
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
       jcmp.events.CallRemote('race_set_weather', player, this.weather);
