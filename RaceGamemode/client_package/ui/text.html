@@ -280,6 +280,9 @@ jcmp.AddEvent('chat_input_state', function(b) {
           toggleContainer("Onclickexplained", false);
           $is_text_key_down = false;
       }
+      else if (key === 66 && !$chat_input_visible) { //b
+      jcmp.CallEvent('ResetPlayer_client');
+      }
     });
   </script>
 </body>

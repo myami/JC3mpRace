@@ -197,8 +197,8 @@ module.exports = class Race {
 
     }
 
-    setInterval(function() { // Maybe replace by only passager can see checkpoint
-      jcmp.events.Call('MCChangePlayerDrive');
+    setInterval(function() { // Not working
+    //  jcmp.events.Call('MCChangePlayerDrive');
     }, this.mctime);
   }
 
@@ -212,7 +212,7 @@ module.exports = class Race {
       vehicle.SetOccupant(0, player);
       vehicle.SetOccupant(1, player.race.partnerplayer[1]);
     } else if (player.race.partnerplayer[1].name == player.name) {
-      console.log("wait the vehicle will spawn on you're team mate and you will be tp inside ");
+      race.chat.send(player,"The vehicle will spawn on youre team mate and you will get tp inside soon")
     }
   }
 
