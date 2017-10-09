@@ -1,10 +1,5 @@
-jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
+jcmp.events.Add('C_Race_Checkpoint', function(player) {
   const Race = player.race.game;
-  if(Race.type == "multicrew"){
-    jcmp.events.Call('MC_Race_Checkpoint',player);
-      return;
-
-  }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
   player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
   player.race.playerrotationspawn = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].rotx, Race.raceCheckpoint[player.race.checkpoints].roty, Race.raceCheckpoint[player.race.checkpoints].rotz);
@@ -12,7 +7,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 
   if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
-    jcmp.events.Call('race_end_point', player);
+    jcmp.events.Call('C_race_end_point', player);
     return;
     // whas last checkpoint
   }
@@ -34,7 +29,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 });
 
 
-jcmp.events.Add('race_end_point', function(player) {
+jcmp.events.Add('C_race_end_point', function(player) {
 
   player.race.hasfinish = true;
   const Race = player.race.game;

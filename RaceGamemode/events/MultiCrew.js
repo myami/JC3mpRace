@@ -1,9 +1,8 @@
-
-jcmp.events.Add('MC_Race_Checkpoint',function(player){
+jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;
   const partner = player.race.partnerplayer[0];
-  if (player.race.partnerplayer[0].name == player.name){ // no checkpoint for the driver
-    return ;
+  if (player.race.partnerplayer[0].name == player.name) { // no checkpoint for the driver
+    return;
   }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
   player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
@@ -34,9 +33,9 @@ jcmp.events.Add('MC_Race_Checkpoint',function(player){
 });
 
 
-jcmp.events.Add('MC_race_end_point',function(player){
-  if (player.race.partnerplayer[0].name == player.name){
-    return ;
+jcmp.events.Add('MC_race_end_point', function(player) {
+  if (player.race.partnerplayer[0].name == player.name) {
+    return;
   }
   const Race = player.race.game;
   const partner = player.race.partnerplayer[0];
@@ -60,7 +59,7 @@ jcmp.events.Add('MC_race_end_point',function(player){
       // send the leaderboardplace to the client
       let minute = Math.floor(player.race.time / 60);
       let seconds = player.race.time % 60
-      let playername = player.name +" " + partner.name;
+      let playername = player.name + " " + partner.name;
       race.chat.broadcast(`[SERVER] ${playername} is ${leaderboardplace} with a time of ${minute} minutes and ${seconds} seconds!`, race.config.colours.red);
       jcmp.events.CallRemote('Player_data_Announce', player, leaderboardplace, player.race.time);
       Race.UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds);
@@ -72,8 +71,8 @@ jcmp.events.Add('MC_race_end_point',function(player){
       }, 2000);
 
     }
-    if (Race.type == "multicrew"){
-      if (Race.leaderboard.length == Race.players.length){ // if the guy was the last one finishing the race remove the interval
+    if (Race.type == "multicrew") {
+      if (Race.leaderboard.length == Race.players.length) { // if the guy was the last one finishing the race remove the interval
         clearInterval(Race.intervalswitch);
       }
     }

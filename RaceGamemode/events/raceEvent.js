@@ -1,53 +1,25 @@
+jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
+  const Race = player.race.game;
+  if (Race.type == "multicrew") {
+    jcmp.events.Call('MC_Race_Checkpoint', player);
+
+  } else if (Race.type == "classic") {
+    jcmp.events.Call('C_Race_Checkpoint', player);
+
+  }
+});
+
+
 jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   const Race = player.race.game;
   Race.AddPlayerOnLeaderboard(player);
 });
-
-jcmp.events.AddRemoteCallable('SpectatorNextCam', function(player) {
-  if (player.race.indextotrack != player.race.playertotrack.length) {
-    player.race.indextotrack++;
-  } else {
-    player.race.indextotrack = 0;
-  }
-  let nextplayertotrack = player.race.playertotrack[player.race.indextotrack].position;
-  player.position = new Vector3f(nextplayertotrack.x, nextplayertotrack.y + 40, nextplayertotrack.z);
-  setTimeout(function() {
-    jcmp.events.CallRemote('ChangeTrackedPlayer', player);
-  }, 5000);
-});
-
-jcmp.events.Add('SpectatorTPtoTracker', function() {
-  for (var i = 0; i < jcmp.players.length; i++) {
-    const player = jcmp.players[i];
-    if (player.race.spectate) {
-      let playertotrack = player.race.playertotrack[player.race.indextotrack].position;
-      player.position = new Vector3f(playertotrack.x, playertotrack.y + 40, playertotrack.z);
-    }
-
-  }
-});
-
-jcmp.events.AddRemoteCallable('CameraViewNextCam', function(player) {
-  if (player.race.indextotrack != player.race.cameras.length) {
-    player.race.indextotrack++;
-  } else {
-    player.race.indextotrack = 0;
-  }
-  let nextcamtotrack = player.race.cameras[player.race.indextotrack];
-  player.position = new Vector3f(nextcamtotrack.x, nextcamtotrack.y +20 , nextcamtotrack.z);
-  setTimeout(function() {
-    jcmp.events.CallRemote('CoordinateView', player, JSON.stringify(nextcamtotrack));
-  }, 3000);
-});
-
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
-
-
   // Destroy on TRUE = No put the player into de lobby again
 
   const Race = player.race.game;
-//  Race.players.removePlayer(player);
+  //  Race.players.removePlayer(player);
   race.game.players.ingame.removePlayer(player);
   player.race.checkpoints = 0;
   player.race.time = 0;
@@ -156,8 +128,6 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
     }
-
-
     let Race = new race.Race(
       Raceid, // id
       VehicleType, //vehicle type
