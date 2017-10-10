@@ -154,7 +154,7 @@ module.exports = class Race {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-      this.playersname.push(player.name);
+
       if (i % 2 === 0) {
         const secondplayer = this.players[i +1];
         player.race.partnerplayer.push(player);
@@ -162,6 +162,7 @@ module.exports = class Race {
         secondplayer.race.partnerplayer = player.race.partnerplayer;
         jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
         jcmp.events.CallRemote('PlayerPassager',player,false);
+        this.playersname.push(player.name + " " + secondplayer.name);
       }
 
       if (this.alldefaultvehicle) { // need to replace all this if to not spawn a vehicle per player but a vehicle per team
@@ -226,6 +227,7 @@ module.exports = class Race {
       }
     }
   }
+
 
 ///////////////////////////////// OTHER TYPE OF RACE ////////////////////////////////////////////////////
 
