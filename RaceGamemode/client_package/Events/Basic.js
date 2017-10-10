@@ -3,7 +3,7 @@ jcmp.events.AddRemoteCallable('race_ready', function(data) {
   data = JSON.parse(data);
 
   data.players.forEach(function(p) {
-    jcmp.events.CallRemote('race_debug', 'Cached player with id' + p.id);
+  //  jcmp.events.CallRemote('race_debug', 'Cached player with id' + p.id);
     createCache(p.id, p.name, p.colour)
   });
 

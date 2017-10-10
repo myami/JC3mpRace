@@ -5,7 +5,8 @@ jcmp.events.Add('MC_Race_Checkpoint', function(player) {
     return;
   }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
-  player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 15);
+  player.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 10);
+  partner.respawnPosition = race.utils.randomSpawn(checkpointcoordinate, 10);
   player.race.playerrotationspawn = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].rotx, Race.raceCheckpoint[player.race.checkpoints].roty, Race.raceCheckpoint[player.race.checkpoints].rotz);
   player.race.checkpoints++;
 
@@ -18,8 +19,9 @@ jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // last checkpoint
     let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
     jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(lastnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType);
-    console.log("last checkpoint");
+    console.log("last checkpointMC");
     jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+    jcmp.events.CallRemote('Checkpoint_current_client', partner, player.race.checkpoints);
     return;
     // change the poi text to last checkpoint
   }
@@ -28,6 +30,7 @@ jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   let positionghostcheckpoint = Race.raceCheckpoint[player.race.checkpoints + 1];
   jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(positionnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType, JSON.stringify(positionghostcheckpoint));
   jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+  jcmp.events.CallRemote('Checkpoint_current_client', partner, player.race.checkpoints);
 
 
 });
@@ -65,7 +68,7 @@ jcmp.events.Add('MC_race_end_point', function(player) {
       Race.UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds);
       setTimeout(function() {
         jcmp.events.Call('race_player_leave_game', player)
-        jcmp.events.Call('race_player_leave_game', parner)
+        jcmp.events.Call('race_player_leave_game', partner)
         partner.race.time = 0;
         player.race.time = 0;
       }, 2000);
@@ -78,6 +81,11 @@ jcmp.events.Add('MC_race_end_point', function(player) {
     }
 
   }
+});
+
+jcmp.events.AddRemoteCallable('CheckpointSoundDriver',function(player){
+  const driver = player.race.partnerplayer[0];
+  jcmp.events.CallRemote('CheckpointSoundDriver_client',driver);
 });
 jcmp.events.Add('MCChangePlayerDrive', function() {
   /* NOT WORKING

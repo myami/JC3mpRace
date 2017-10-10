@@ -59,8 +59,7 @@ jcmp.events.Add('CheckpointEnter', checkpoint => {
   deletePOI();
   chks.splice(checkpoint.id, 1);
   if (checkpoint.sound) {
-    jcmp.ui.CallEvent('Checkpoint_Sound');
-    jcmp.events.CallRemote('race_checkpoint');
+  nextcheckpoint();
   }
   checkpoint.Destroy();
   deleteCheckpoint();
@@ -93,7 +92,18 @@ function deleteCheckpoint() {
     checkpoint.Destroy();
   })
 }
+function nextcheckpoint(){
+  if (typeofrace == "classic"){
+    jcmp.ui.CallEvent('Checkpoint_Sound');
+    jcmp.events.CallRemote('race_checkpoint');
+  }
+  if (typeofrace == "multicrew"){
+    jcmp.ui.CallEvent('Checkpoint_Sound');
+    jcmp.events.CallRemote('CheckpointSoundDriver')
+    jcmp.events.CallRemote('race_checkpoint');
+  }
 
+}
 
 jcmp.events.AddRemoteCallable('Checkpoint_length_client', function(checkpointsmax) {
   jcmp.ui.CallEvent('Checkpointmax', checkpointsmax);
@@ -101,4 +111,7 @@ jcmp.events.AddRemoteCallable('Checkpoint_length_client', function(checkpointsma
 
 jcmp.events.AddRemoteCallable('Checkpoint_current_client', function(checkpointscurrent) {
   jcmp.ui.CallEvent('CheckpointCurrent', checkpointscurrent);
+});
+jcmp.events.AddRemoteCallable('CheckpointSoundDriver_client',function(){
+    jcmp.ui.CallEvent('Checkpoint_Sound');
 });

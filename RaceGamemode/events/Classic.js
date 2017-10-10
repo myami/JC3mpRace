@@ -14,7 +14,7 @@ jcmp.events.Add('C_Race_Checkpoint', function(player) {
   if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // last checkpoint
     let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
     jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(lastnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType);
-    console.log("last checkpoint");
+    console.log("last checkpoint Classic");
     jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
     return;
     // change the poi text to last checkpoint

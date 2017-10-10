@@ -133,4 +133,5 @@ jcmp.events.Add('PlayerVehicleExited', (player, vehicle, seatIndex) => {
   if (player.race.ingame) {
     jcmp.events.Call('race_player_checkpoint_respawn', player, vehicle);
   }
+
 });

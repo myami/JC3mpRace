@@ -1,8 +1,8 @@
-jcmp.events.AddRemoteCallable('race_set_time', (hour, minute) => {
-  jcmp.world.SetTime(hour, minute, 0);
+jcmp.events.AddRemoteCallable('race_set_time', function(hour, minute) {
+  jcmp.world.SetTime(hour, minute);
 });
 
-jcmp.events.AddRemoteCallable('race_set_weather', weather => {
+jcmp.events.AddRemoteCallable('race_set_weather', function(weather) {
   jcmp.world.weather = weather;
 });
 jcmp.events.AddRemoteCallable('race_End_client', function() {
@@ -16,8 +16,9 @@ jcmp.events.AddRemoteCallable('race_End_client', function() {
 
 });
 
-jcmp.events.AddRemoteCallable('race_Start_client', function() {
+jcmp.events.AddRemoteCallable('race_Start_client', function(type) {
   playeringame = true;
+  typeofrace = type ;
   jcmp.ui.CallEvent('Race_Checkpoint_container', true);
   jcmp.ui.CallEvent('Race_Timer_container', true);
   jcmp.ui.CallEvent('Countdown_start');
@@ -42,9 +43,10 @@ jcmp.ui.AddEvent('AddPlayerLeaderboard', function() {
   jcmp.events.CallRemote('AddPlayerLeaderboard');
 });
 jcmp.ui.AddEvent('ResetPlayer_client', function() {
-  if (countdowninprogress) {
+  if (countdowninprogress || playerpassager) {
     return;
   }
+
   jcmp.events.CallRemote('ResetPlayer_Server');
 });
 jcmp.events.AddRemoteCallable('race_end_point_client', function() {
@@ -53,3 +55,8 @@ jcmp.events.AddRemoteCallable('race_end_point_client', function() {
   // the player is still ingame and wait the other to finish
 
 });
+
+
+jcmp.events.AddRemoteCallable('PlayerPassager',function(statue){
+  playerpassager = statue;
+})

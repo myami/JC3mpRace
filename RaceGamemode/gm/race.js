@@ -62,6 +62,7 @@ module.exports = class Race {
 
   }
 
+//////////////////////////////////////////////// CLASSIC RACE ///////////////////////////////////////////////////////
   ClassicRace() {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
@@ -117,10 +118,7 @@ module.exports = class Race {
 
       jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player);
-
-
-
+      jcmp.events.CallRemote('race_Start_client', player,this.type);
     }
   }
 
@@ -139,6 +137,8 @@ module.exports = class Race {
       //Wingsuit race
     }
   }
+
+  /////////////////////////////////// MULTICREW ////////////////////////////////////////////////////////////////////
 
   Multicrew() {
 
@@ -160,7 +160,8 @@ module.exports = class Race {
         player.race.partnerplayer.push(player);
         player.race.partnerplayer.push(secondplayer);
         secondplayer.race.partnerplayer = player.race.partnerplayer;
-
+        jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
+        jcmp.events.CallRemote('PlayerPassager',player,false);
       }
 
       if (this.alldefaultvehicle) { // need to replace all this if to not spawn a vehicle per player but a vehicle per team
@@ -191,7 +192,7 @@ module.exports = class Race {
 
       jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player);
+      jcmp.events.CallRemote('race_Start_client', player,this.type);
 
 
 
@@ -204,16 +205,49 @@ module.exports = class Race {
 
 
 
-  MCVehicleReset(player) {
+  MCVehicleReset(player,vehicleold) {
+
     if (player.race.partnerplayer[0].name == player.name) {
+      if (vehicleold != undefined) {
+        vehicleold.Destroy();
+      }
       const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
       vehicle.nitroEnabled = this.nitro;
       vehicle.dimension = player.race.game.id;
       vehicle.SetOccupant(0, player);
       vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-    } else if (player.race.partnerplayer[1].name == player.name) {
-      race.chat.send(player,"The vehicle will spawn on youre team mate and you will get tp inside soon")
+      return;
+    }
+     if (player.race.partnerplayer[1].name == player.name) {
+      if(player.race.partnerplayer[0].vehicle != undefined){
+        console.log("passager!!!");
+        player.race.partnerplayer[0].vehicle.SetOccupant(1,player);
+        return;
+      }
     }
   }
+
+///////////////////////////////// OTHER TYPE OF RACE ////////////////////////////////////////////////////
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

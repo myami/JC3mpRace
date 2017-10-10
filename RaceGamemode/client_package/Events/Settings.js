@@ -8,6 +8,8 @@ let chksghost = [];
 let playeringame = false;
 let countdowninprogress = false;
 let wingsuitrace = false;
+let playerpassager = false;
+let typeofrace = undefined;
 const playersCache = [];
 //Spectator
 let tracked_player = null;

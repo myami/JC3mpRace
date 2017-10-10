@@ -19,7 +19,7 @@ jcmp.events.Add("GameUpdateRender", function(renderer) {
 
       const mat = head.LookAt(head.position, cam, up).Scale(scale);
       renderer.SetTransform(mat);
-      if (!spectate) {
+      if (!spectate && !cameraview) {
         RenderNametag(renderer, playerCache, d);
       }
 

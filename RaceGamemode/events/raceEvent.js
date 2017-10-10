@@ -45,28 +45,28 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
 });
 
 jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
-  // When it's call during the countdown (someone miss click or not) or vehicle explode at spawn it's remove the controlsEnabled
   if (!player.race.spawningdouble) {
     player.race.spawningdouble = true;
-    console.log("Race_player_respawn");
-    //  race.game.RacePeopleDie.push(player);
+
     jcmp.events.CallRemote('race_deathui_show', player, "Out of the vehicle");
     race.chat.send(player, "Respawning in 3 seconds ...");
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
       console.log("Respawning player");
-      if (vehicleold != undefined) {
-        vehicleold.Destroy();
-      }
+
       player.Respawn();
 
     }, race.game.respawntimer));
     setTimeout(function() {
+      player.race.spawningdouble = false;
       if (player.race.game.type == "classic" || player.race.game.type == undefined) {
         player.race.game.CRRespawnCar(player);
+        if (vehicleold != undefined) {
+          vehicleold.Destroy();
+        }
       }
       if (player.race.game.type == "multicrew") {
-        player.race.game.MCVehicleReset(player);
+        player.race.game.MCVehicleReset(player,vehicleold);
       }
     }, race.game.respawntimer + 2000);
   }
