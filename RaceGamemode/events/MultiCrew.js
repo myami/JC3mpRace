@@ -1,3 +1,6 @@
+// TODO: A way to can select the partner
+// TODO: The passager can use button that will show indication to the driver (pav num = 8 infront , 4 left , 6right 5 behind)
+
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;
   const partner = player.race.partnerplayer[0];
