@@ -28,3 +28,6 @@ jcmp.ui.AddEvent('ValidateRequest',function(playerrequest){
 jcmp.ui.AddEvent('RefuseRequest',function(playerrequest){
 jcmp.events.CallRemote('RefuseRequest_Server',playerrequest);
 })
+jcmp.events.AddRemoteCallable('PartnerNameUI_Client',function(playername){
+  jcmp.ui.CallEvent('PartnerNameUI',playername);
+});

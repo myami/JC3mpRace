@@ -17,16 +17,25 @@
       position: fixed;
       top:5%;
       right:45%;
+      font-size: 150pt;
     }
     #PartnerName{
       position: fixed;
       top: 5%;
       right: 10%;
+      font-size: 20pt;
     }
     #Request{
       position: fixed;
       top:25%;
       right:45%;
+      font-size: 50pt;
+    }
+    #PassengerButton{
+      position: fixed;
+      top:5%;
+      right:45%;
+      font-size: 50pt;
     }
     body {
       user-select: none;
@@ -39,30 +48,38 @@
   <div id= "DriverDirection">
     <div id = "FrontD">
       <span>&#8679;</span>
+
     </div>
     <div id = "BackD">
       <span>&#8681;</span>
+
     </div>
     <div id = "LeftD">
       <span>&#8678;</span>
+
     </div>
     <div id = "RightD">
       <span>&#8680;</span>
+
     </div>
   </div>
 
   <div id= "PassengerButton">
     <div id = "FrontP">
       <span>&#8679;</span>
+      8pavnum
     </div>
     <div id = "BackP">
       <span>&#8681;</span>
+      5pavnum
     </div>
     <div id = "LeftP">
       <span>&#8678;</span>
+      4pavnum
     </div>
     <div id = "RightP">
       <span>&#8680;</span>
+      6pavnum
     </div>
   </div>
 
@@ -77,7 +94,7 @@
 
 <div id = "MultiCrewUI">
 <div id="PartnerName">
-  <span id="PartnerName">Myami</span>
+  <span id="PartnerNameS">Myami</span>
   </div>
 </div>
 
@@ -98,7 +115,11 @@ $(document).ready(function() {
   $("#FrontD").hide();
   $("#BackD").hide();
   $("#LeftD").hide();
- $("#RightD").hide();
+  $("#RightD").hide();
+  $("#Request").hide();
+  $("#MultiCrewUI").hide();
+
+
 });
 jcmp.AddEvent('ShowUIPassenger',function(status){
   if (status){
@@ -130,10 +151,14 @@ $("Request").show();
 });
 function YesRequest(){
   jcmp.CallEvent('ValidateRequest', playerthatrequest);
+  $("#PartnerNameS").txt(playerthatrequest);
 }
 function NoRequest (){
 jcmp.CallEvent('RefuseRequest',playerthatrequest);
 }
+jcmp.AddEvent('PartnerNameUI',function(playername){
+    $("#PartnerNameS").txt(playername);
+})
 
 let $chat_input_visible = false;
 let justclick = false;

@@ -167,6 +167,10 @@ module.exports = class Race {
           this.playersname.push(player.name + " " + secondplayer.name);
           jcmp.events.CallRemote('ShowPassagerUI',secondplayer);
           jcmp.events.CallRemote('ShowDriverUI',player);
+          jcmp.events.CallRemote('PartnerNameUI_Client',player,secondplayer.name);
+          jcmp.events.CallRemote('PartnerNameUI_Client',secondplayer,player.name);
+
+
         }
         else{
           console.log("Player Have a Partner");
@@ -198,7 +202,7 @@ module.exports = class Race {
       }
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-    
+
       if(player.race.partnerplayer[1].name == player.name){
         jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
       }

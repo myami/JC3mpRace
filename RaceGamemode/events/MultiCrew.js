@@ -111,7 +111,7 @@ for (var i = 0; i < jcmp.players.length; i++) {
 }
 });
 
-jcmp.evemts.AddRemoteCallable('RefuseRequest_Server',function(player,playername){
+jcmp.events.AddRemoteCallable('RefuseRequest_Server',function(player,playername){
   for (var i = 0; i < jcmp.players.length; i++) {
     const requestguy = jcmp.players[i];
     if (requestguy.name == playername){
