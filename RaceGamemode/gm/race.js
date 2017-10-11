@@ -110,7 +110,7 @@ module.exports = class Race {
         jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
 
       }
-
+      jcmp.events.CallRemote('PlayerPassager',player,false);
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
       jcmp.events.CallRemote('race_set_weather', player, this.weather);
@@ -156,13 +156,29 @@ module.exports = class Race {
       player.race.hasfinish = false;
 
       if (i % 2 === 0) {
-        const secondplayer = this.players[i +1];
-        player.race.partnerplayer.push(player);
-        player.race.partnerplayer.push(secondplayer);
-        secondplayer.race.partnerplayer = player.race.partnerplayer;
-        jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
-        jcmp.events.CallRemote('PlayerPassager',player,false);
-        this.playersname.push(player.name + " " + secondplayer.name);
+        if(player.race.partner == undefined){
+          console.log("Player don't have partner");
+          const secondplayer = this.players[i +1];
+          player.race.partnerplayer.push(player);
+          player.race.partnerplayer.push(secondplayer);
+          secondplayer.race.partnerplayer = player.race.partnerplayer;
+          jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
+          jcmp.events.CallRemote('PlayerPassager',player,false);
+          this.playersname.push(player.name + " " + secondplayer.name);
+          jcmp.events.CallRemote('ShowPassagerUI',secondplayer);
+          jcmp.events.CallRemote('ShowDriverUI',player);
+        }
+        else{
+          console.log("Player Have a Partner");
+          const secondplayer = player.race.partnerplayer[1];
+            this.playersname.push(player.name + " " + secondplayer.name);
+            jcmp.events.CallRemote('ShowDriverUI',player);
+            jcmp.events.CallRemote('PlayerPassager',player,false);
+            jcmp.events.CallRemote('ShowPassagerUI',secondplayer);
+            jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
+
+        }
+
       }
 
       if (this.alldefaultvehicle) { // need to replace all this if to not spawn a vehicle per player but a vehicle per team
@@ -182,7 +198,7 @@ module.exports = class Race {
       }
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-      //TODO: Only the passager can see the checkpoint
+    
       if(player.race.partnerplayer[1].name == player.name){
         jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
       }

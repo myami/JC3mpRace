@@ -70,8 +70,10 @@ jcmp.events.Add('MC_race_end_point', function(player) {
       jcmp.events.CallRemote('Player_data_Announce', player, leaderboardplace, player.race.time);
       Race.UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds);
       setTimeout(function() {
-        jcmp.events.Call('race_player_leave_game', player)
-        jcmp.events.Call('race_player_leave_game', partner)
+        jcmp.events.Call('race_player_leave_game', player);
+        jcmp.events.Call('race_player_leave_game', partner);
+        jcmp.events.CallRemote('HidePassagerUI',player);
+        jcmp.events.CallRemote('HideDriverUI',partner);
         partner.race.time = 0;
         player.race.time = 0;
       }, 2000);
@@ -90,6 +92,39 @@ jcmp.events.AddRemoteCallable('CheckpointSoundDriver',function(player){
   const driver = player.race.partnerplayer[0];
   jcmp.events.CallRemote('CheckpointSoundDriver_client',driver);
 });
+
+jcmp.events.AddRemoteCallable('MC_Passenger_click_Server',function(player,DivToShow){
+const driver = player.race.partnerplayer[0];
+jcmp.events.CallRemote('MC_DriverDirection_Show',driver,DivToShow);
+});
+
+jcmp.events.AddRemoteCallable('ValidateRequest_Server',function(player,playername){
+for (var i = 0; i < jcmp.players.length; i++) {
+  const requestguy = jcmp.players[i];
+  if (requestguy.name == playername){
+    player.race.partnerplayer.push(player);
+    player.race.partnerplayer.push(requestguy);
+    requestguy.race.partnerplayer = player.race.partnerplayer;
+    race.chat.send(player,`You are now partner with ${requestguy.name}`);
+    race.chat.send(requestguy,`You are now partner with ${player.name}`);
+  }
+}
+});
+
+jcmp.evemts.AddRemoteCallable('RefuseRequest_Server',function(player,playername){
+  for (var i = 0; i < jcmp.players.length; i++) {
+    const requestguy = jcmp.players[i];
+    if (requestguy.name == playername){
+      race.chat.send(requestguy,'The player selected have refused youre request');
+    }
+  }
+});
+
+
+
+
+
+
 jcmp.events.Add('MCChangePlayerDrive', function() {
   /* NOT WORKING
   for (var i = 0; i < jcmp.players.length; i++) {

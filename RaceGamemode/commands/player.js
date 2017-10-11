@@ -134,7 +134,14 @@ module.exports = ({
 
    }
 
-    }))
+ }))
+ .add(new Command('partner').description('Send a request for became partner for MultiCrew').parameter('partner', 'string', 'Name of the player to request').handler(function(player,partner) {
+if(partner.race.partnerplayer != undefined){
+  return race.chat.send(player,"The player you select already have a partner");
+}
+jcmp.events.CallRemote('PartnerRequest',partner,player.name);
+
+ }))
 
 
 
