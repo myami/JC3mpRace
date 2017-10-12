@@ -135,11 +135,21 @@ module.exports = ({
    }
 
  }))
+
  .add(new Command('partner').description('Send a request for became partner for MultiCrew').parameter('partner', 'string', 'Name of the player to request').handler(function(player,partner) {
-if(partner.race.partnerplayer != undefined){
-  return race.chat.send(player,"The player you select already have a partner");
+
+ const res = race.utils.getPlayer(partner);
+ if (res.length === 0 || res.length > 1) {
+          race.chat.send(player, 'no / too many matching players!');
+          return;
+        }
+
+if(res[0].race.partnerplayer.length != 0){
+   race.chat.send(player,"The player you select already have a partner");
+   return;
 }
-jcmp.events.CallRemote('PartnerRequest',partner,player.name);
+  race.chat.send(player,`Request send to the player ${res[0].name}`);
+  jcmp.events.CallRemote('PartnerRequest',res[0],player.name);
 
  }))
 

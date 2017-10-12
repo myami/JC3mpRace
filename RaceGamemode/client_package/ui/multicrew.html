@@ -4,12 +4,15 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>race - Text UI </title>
+  <title>race - MultiCrew UI </title>
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-  <style type="text/css">
+    <script type="text/javascript" src="popper.js"></script>
+    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style type="text/css">
     .hidden {
       visibility: hidden;
     }
@@ -21,25 +24,29 @@
     }
     #PartnerName{
       position: fixed;
-      top: 5%;
-      right: 10%;
+      top: 2%;
+      right: 8%;
       font-size: 20pt;
     }
     #Request{
       position: fixed;
       top:25%;
-      right:45%;
-      font-size: 50pt;
+      right:33%;
+      font-size: 20pt;
+      background-color: rgba(49, 168, 255, 0.4);
+      text-align:center;
+      border: 1px solid black;
+      border-radius: 10px;
+
     }
     #PassengerButton{
       position: fixed;
-      top:5%;
-      right:45%;
-      font-size: 50pt;
+      top:70%;
+      right:8%;
+      font-size: 35pt;
     }
     body {
       user-select: none;
-        font-size: 150pt;
     }
   </style>
 </head>
@@ -86,9 +93,9 @@
 
 
   <div id="Request">
-    You just received a request to be on the team of <span id="playerrequest">Myami</span>
-    <button type="button" id="YesRequestB"onclick="YesRequest">I join is team </button>
-    <button type="button" id="NoRequestB"onclick="NoRequest">I don't join is team </button>
+    You just received a request to be on the team of : <span id="playerrequest">Myami</span> <br>
+    <button type="button" id="YesRequestB"onclick="YesRequest()"class="btn btn-outline-success">Accept</button>
+    <button type="button" id="NoRequestB"onclick="NoRequest()"class="btn btn-outline-danger">Refuse</button>
   </div>
 
 
@@ -146,15 +153,20 @@ $(DivToShow).hide();
 let playerthatrequest ;
 jcmp.AddEvent('PartnerRequest_CEF',function(playername){
   playerthatrequest = playername;
-$("#playerrequest").txt(playername);
-$("Request").show();
+$("#playerrequest").text(playername);
+$("#Request").show();
+  jcmp.ShowCursor()
 });
 function YesRequest(){
   jcmp.CallEvent('ValidateRequest', playerthatrequest);
-  $("#PartnerNameS").txt(playerthatrequest);
+  $("#PartnerNameS").text(playerthatrequest);
+  $("#Request").hide();
+    jcmp.HideCursor();
 }
 function NoRequest (){
 jcmp.CallEvent('RefuseRequest',playerthatrequest);
+$("#Request").hide();
+
 }
 jcmp.AddEvent('PartnerNameUI',function(playername){
     $("#PartnerNameS").txt(playername);

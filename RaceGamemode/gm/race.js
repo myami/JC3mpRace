@@ -156,19 +156,48 @@ module.exports = class Race {
       player.race.hasfinish = false;
 
       if (i % 2 === 0) {
-        if(player.race.partner == undefined){
+        if(player.race.partnerplayer == undefined){
           console.log("Player don't have partner");
-          const secondplayer = this.players[i +1];
-          player.race.partnerplayer.push(player);
-          player.race.partnerplayer.push(secondplayer);
-          secondplayer.race.partnerplayer = player.race.partnerplayer;
-          jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
-          jcmp.events.CallRemote('PlayerPassager',player,false);
-          this.playersname.push(player.name + " " + secondplayer.name);
-          jcmp.events.CallRemote('ShowPassagerUI',secondplayer);
-          jcmp.events.CallRemote('ShowDriverUI',player);
-          jcmp.events.CallRemote('PartnerNameUI_Client',player,secondplayer.name);
-          jcmp.events.CallRemote('PartnerNameUI_Client',secondplayer,player.name);
+          const secondplayer = this.players[i + 1];
+          if(secondplayer.race.partnerplayer.length == 2){
+            player.race.partnerplayer.push(player);
+            player.race.partnerplayer.push(secondplayer);
+            secondplayer.race.partnerplayer = player.race.partnerplayer;
+            jcmp.events.CallRemote('PlayerPassager',secondplayer,true);
+            jcmp.events.CallRemote('PlayerPassager',player,false);
+            this.playersname.push(player.name + " " + secondplayer.name);
+            jcmp.events.CallRemote('ShowPassagerUI',secondplayer);
+            jcmp.events.CallRemote('ShowDriverUI',player);
+            jcmp.events.CallRemote('PartnerNameUI_Client',player,secondplayer.name);
+            jcmp.events.CallRemote('PartnerNameUI_Client',secondplayer,player.name);
+          }
+          else{
+            console.log("Next player have a partner loop into all player to find");
+            for (var i = 0; i < this.players.length; i++) {
+              const newplayer = this.players[i];
+              if (newplayer != player){
+                if (newplayer.race.partner == undefined){
+                  console.log("Find a player without parner");
+                  player.race.partnerplayer.push(player);
+                  player.race.partnerplayer.push(newplayer);
+                  newplayer.race.partnerplayer = player.race.partnerplayer;
+                  jcmp.events.CallRemote('PlayerPassager',newplayer,true);
+                  jcmp.events.CallRemote('PlayerPassager',player,false);
+                  this.playersname.push(player.name + " " + newplayer.name);
+                  jcmp.events.CallRemote('ShowPassagerUI',newplayer);
+                  jcmp.events.CallRemote('ShowDriverUI',player);
+                  jcmp.events.CallRemote('PartnerNameUI_Client',player,secondplayer.name);
+                  jcmp.events.CallRemote('PartnerNameUI_Client',newplayer,player.name);
+                }
+                else{
+                  // all the team is full ( it's mean it's impair so remove the player of the race)
+                  race.chat.send(player,"No other player find for the multicrew you will be tp to the lobby it's probably mean you are an impair number");
+                  jcmp.events.Call('race_player_leave_game', player);
+                }
+              }
+            }
+          }
+
 
 
         }
