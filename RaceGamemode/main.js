@@ -28,7 +28,7 @@ global.race = {
     RacePeopleDie: [],
     respawntimer: 1000, // 5 seconds
     RaceLaunch: true,
-    Bonus: [SpeedBoost,AllDie,DiePlayerAround,LaunchBomb,SlowAll]
+    Bonus: ["SpeedBoost","AllDie","DiePlayerAround","LaunchBomb","SlowAll"]
           // SpeedBoost = Speed boost(vehicleHandling) ,AllDie = respawn all player exept the guy that have the bonus
           //  DiePlayerAround = respawn the player around the player that have the bonus
           // LaunchBomb1 = Launch explosive barrel in front with a velocity (have 1 shoot) LaunchBomb3 have 3 shoot

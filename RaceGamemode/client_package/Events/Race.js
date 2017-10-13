@@ -20,14 +20,15 @@ jcmp.events.AddRemoteCallable('race_Start_client', function(type) {
   playeringame = true;
   typeofrace = type ;
   jcmp.ui.CallEvent('Race_Checkpoint_container', true);
-  jcmp.ui.CallEvent('Race_Timer_container', true);
-  jcmp.ui.CallEvent('Countdown_start');
-  //doing the countdown for the race to start
+
 });
 jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
   jcmp.localPlayer.controlsEnabled = false;
   countdowninprogress = true;
-
+  jcmp.ui.CallEvent('IsTTS',false);
+  jcmp.ui.CallEvent('Race_Timer_container', true);
+  jcmp.ui.CallEvent('Countdown_start');
+  //doing the countdown for the race to start
 });
 
 jcmp.ui.AddEvent('race_countdown_end', function() {
@@ -37,7 +38,6 @@ jcmp.ui.AddEvent('race_countdown_end', function() {
   //Remove the countdown
   // start the timer global for the player
   jcmp.events.CallRemote('Race_player_timer_start');
-
 });
 jcmp.ui.AddEvent('AddPlayerLeaderboard', function() {
   jcmp.events.CallRemote('AddPlayerLeaderboard');

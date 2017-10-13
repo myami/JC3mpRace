@@ -10,6 +10,9 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   else if (Race.type == "kart") {
    jcmp.events.Call('Kart_Race_Checkpoint', player);
  }
+ else if (Race.type == "tts") {
+  jcmp.events.Call('TTS_Race_Checkpoint', player);
+}
 });
 
 
@@ -78,6 +81,12 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
           vehicleold.Destroy();
         }
       }
+      if (player.race.game.type == "tts") {
+        player.race.game.TTSRespawnCar(player);
+        if (vehicleold != undefined) {
+          vehicleold.Destroy();
+        }
+      }
     }, race.game.respawntimer + 2000);
   }
 
@@ -106,8 +115,8 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
   // classic = basic race
   // TODO:  kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
   // multicrew = 2 people in a car every X seconds the driver change WORKING
-  // apo = ApocalypseNOW = explosive barrel spawn randomly around everyone every x seconds
-  // TODO:  tts = time trial solo ,no collision, everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
+  // TODO: apo = ApocalypseNOW = explosive barrel spawn randomly around everyone every x seconds
+  // TODO:  tts = time trial solo , everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
   setTimeout(function() {
 

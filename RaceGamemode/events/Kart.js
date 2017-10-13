@@ -20,7 +20,7 @@ jcmp.events.Add('Kart_Race_Checkpoint', function(player) {
   if (player.race.checkpoints == Race.raceCheckpoint.length - 1) { // last checkpoint
     let lastnextcheckpoint = Race.raceCheckpoint[player.race.checkpoints];
     jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(lastnextcheckpoint), Race.id, Race.PoiType, Race.checkpointhash, Race.ChekpointType);
-    console.log("last checkpointMC");
+    console.log("last checkpointKart");
     jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
     jcmp.events.CallRemote('Checkpoint_current_client', partner, player.race.checkpoints);
     return;

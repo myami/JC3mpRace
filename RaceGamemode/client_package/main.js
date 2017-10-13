@@ -11,3 +11,4 @@ include('events/UIManager.js');
 include('events/VehicleMenu.js');
 include('events/Vote.js');
 include('events/MultiCrew.js');
+include('events/TTS.js');

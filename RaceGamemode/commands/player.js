@@ -35,7 +35,7 @@ module.exports = ({
       }, 5000);
 
     }))
-    .add(new Command('startrace').description('Start a race with id').parameter('id', 'number', 'index of the race').parameter('type', 'string', 'Type of the race').handler(function(player, id, type) {
+    .add(new Command('startrace').description('Start a race with id').parameter('id', 'number', 'index of the race').parameter('type', 'string', 'Type of the race: classic , multicrew , kart , apo , tts').handler(function(player, id, type) {
       if (!race.utils.isAdmin(player)) {
         return race.chat.send(player, "[SERVER] You're not allowed to use this command");
       }

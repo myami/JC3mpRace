@@ -84,6 +84,13 @@
       right:50%;
       font-size: 30pt;
     }
+    #WaitItsyouTTS{
+      position: fixed;
+      top:75%;
+      right:50%;
+      font-size: 30pt;
+      color: red;
+    }
 
 
     body {
@@ -125,11 +132,15 @@
   <div id="WarningBarrel"class="hidden">
     WARNING BARREL FALLING FROM SKY
   </div>
+  <div id="WaitItsyouTTS"class="hidden">
+  Waiting it's you're tourn to start
+  </div>
 
 
 
   <script>
     let timer = 30; // timer seconde
+    let istts = false;
     jcmp.AddEvent('Countdown_start', function() {
       jcmp.CallEvent('inrace_client',true);
       let inter = setInterval(function() {
@@ -141,7 +152,12 @@
           jcmp.CallEvent('AddPlayerLeaderboard');
         }
         if (timer == 0) {
-          jcmp.CallEvent('race_countdown_end');
+          if (!istts){
+            jcmp.CallEvent('race_countdown_end');
+          }
+          else{
+            jcmp.CallEvent('TTS_race_countdown_end');
+          }
           jcmp.CallEvent('inrace_client',false);
           timer = 30;
           clear(inter);
@@ -155,6 +171,9 @@
       }, 1000);
 
 
+    });
+    jcmp.AddEvent('IsTTS',function(status){
+      istts = status;
     });
 
     function clear(vartoclear) {
@@ -175,6 +194,11 @@
     }
     jcmp.AddEvent('Race_Checkpoint_container', function(status) {
       toggleContainer("CheckpointContainer", status);
+
+    });
+
+    jcmp.AddEvent('WaityoutimeTTS', function(status) {
+      toggleContainer("WaitItsyouTTS", status);
 
     });
 
