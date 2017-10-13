@@ -35,6 +35,10 @@ jcmp.events.Add('C_race_end_point', function(player) {
   const Race = player.race.game;
   clearInterval(player.race.timerinterval);
 
+  if (Race.type == "apo"){ // for just one line don't need to create a new checkpoint system and endpoint
+    clearInterval(Race.intervalapo);
+  }
+
   Race.leaderboard.push(player);
   let playern = player.networkId;
   Race.players.forEach(player => {

@@ -24,7 +24,7 @@ module.exports = class Race {
     this.cameraview = cameraview;
     this.type = types;
     this.mctime = 15000; // time in seconds before changing player on mc
-    this.intervalswitch = setInterval(function() {jcmp.events.Call('MCChangePlayerDrive');}, this.mctime);
+    this.intervalapo = undefined;
 
 
   }
@@ -38,6 +38,11 @@ module.exports = class Race {
     } else if (this.type == "multicrew") {
       console.log("Multicrew!!!");
       this.Multicrew();
+    }
+    else if (this.type == "apo") {
+      console.log("APOCALYPSE NOW!!!");
+      this.ClassicRace();
+      setTimeout(function() {this.apoStart();  }, 30000);
     }
 
 
@@ -278,20 +283,22 @@ module.exports = class Race {
   }
 
 
-///////////////////////////////// OTHER TYPE OF RACE ////////////////////////////////////////////////////
+///////////////////////////////// AppocalypseNOW ////////////////////////////////////////////////////
+
+
+// Falling explosive barrel around player every x seconds
+
+
+
+apoStart(){
+  this.intervalapo = setInterval(function() {
+    jcmp.events.Call('AppoBarrelSpawnAroundPlayer',this.players);
+}, 15000);
 
 
 
 
-
-
-
-
-
-
-
-
-
+}
 
 
 

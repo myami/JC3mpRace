@@ -3,7 +3,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   if (Race.type == "multicrew") {
     jcmp.events.Call('MC_Race_Checkpoint', player);
 
-  } else if (Race.type == "classic") {
+  } else if (Race.type == "classic" ||Race.type == "apo") {
     jcmp.events.Call('C_Race_Checkpoint', player);
 
   }
@@ -60,7 +60,7 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
     }, race.game.respawntimer));
     setTimeout(function() {
       player.race.spawningdouble = false;
-      if (player.race.game.type == "classic" || player.race.game.type == undefined) {
+      if (player.race.game.type == "classic" || player.race.game.type == "apo") {
         player.race.game.CRRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
@@ -94,11 +94,11 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
 jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
 
   // type of the race (to add as an args here)
-  // none = classic
-  // kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
-  // multicrew = 2 people in a car every X seconds the driver change
-  // explosion = explosive barrel spawn randomly around everyone every x seconds
-  // tts = time trial solo ,no collision, everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
+  // classic = basic race
+  // TODO:kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
+  // multicrew = 2 people in a car every X seconds the driver change WORKING
+  // apo = ApocalypseNOW = explosive barrel spawn randomly around everyone every x seconds
+  // TODO:tts = time trial solo ,no collision, everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
   setTimeout(function() {
 
