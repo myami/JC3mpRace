@@ -113,7 +113,7 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
 
   // type of the race (to add as an args here)
   // classic = basic race
-  // TODO:  kart = mariokart like (spawning barrel without collider and when go through give a random bonus)
+  // TODO:  kart = mariokart like (When you go on a checkpoint have a chance to have a bonus)
   // multicrew = 2 people in a car every X seconds the driver change WORKING
   // TODO: apo = ApocalypseNOW = explosive barrel spawn randomly around everyone every x seconds
   // TODO:  tts = time trial solo , everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such

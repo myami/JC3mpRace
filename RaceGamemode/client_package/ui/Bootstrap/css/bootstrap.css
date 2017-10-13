@@ -93,7 +93,7 @@ body {
   font-weight: normal;
   line-height: 1.5;
   color: #212529;
-  background-color: #fff;
+  
 }
 
 [tabindex="-1"]:focus {
