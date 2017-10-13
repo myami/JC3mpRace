@@ -55,3 +55,7 @@ jcmp.events.AddRemoteCallable('race_end_point_client', function() {
   // the player is still ingame and wait the other to finish
 
 });
+
+jcmp.events.AddRemoteCallable('WarningBarrel',function(){
+  jcmp.ui.CallEvent('WarningBarrel_CEF');
+});
