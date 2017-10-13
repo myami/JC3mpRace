@@ -1,5 +1,5 @@
-// TODO: A way to can select the partner
-// TODO: The passager can use button that will show indication to the driver (pav num = 8 infront , 4 left , 6right 5 behind)
+// TODO: A way to select who is the driver and the passenger 
+
 
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;
@@ -72,8 +72,8 @@ jcmp.events.Add('MC_race_end_point', function(player) {
       setTimeout(function() {
         jcmp.events.Call('race_player_leave_game', player);
         jcmp.events.Call('race_player_leave_game', partner);
-        jcmp.events.CallRemote('HidePassagerUI',player);
-        jcmp.events.CallRemote('HideDriverUI',partner);
+        jcmp.events.CallRemote('HidePassagerUI', player);
+        jcmp.events.CallRemote('HideDriverUI', partner);
         partner.race.time = 0;
         player.race.time = 0;
       }, 2000);
@@ -88,34 +88,34 @@ jcmp.events.Add('MC_race_end_point', function(player) {
   }
 });
 
-jcmp.events.AddRemoteCallable('CheckpointSoundDriver',function(player){
+jcmp.events.AddRemoteCallable('CheckpointSoundDriver', function(player) {
   const driver = player.race.partnerplayer[0];
-  jcmp.events.CallRemote('CheckpointSoundDriver_client',driver);
+  jcmp.events.CallRemote('CheckpointSoundDriver_client', driver);
 });
 
-jcmp.events.AddRemoteCallable('MC_Passenger_click_Server',function(player,DivToShow){
-const driver = player.race.partnerplayer[0];
-jcmp.events.CallRemote('MC_DriverDirection_Show',driver,DivToShow);
+jcmp.events.AddRemoteCallable('MC_Passenger_click_Server', function(player, DivToShow) {
+  const driver = player.race.partnerplayer[0];
+  jcmp.events.CallRemote('MC_DriverDirection_Show', driver, DivToShow);
 });
 
-jcmp.events.AddRemoteCallable('ValidateRequest_Server',function(player,playername){
-for (var i = 0; i < jcmp.players.length; i++) {
-  const requestguy = jcmp.players[i];
-  if (requestguy.name == playername){
-    player.race.partnerplayer.push(player);
-    player.race.partnerplayer.push(requestguy);
-    requestguy.race.partnerplayer = player.race.partnerplayer;
-    race.chat.send(player,`You are now partner with ${requestguy.name}`);
-    race.chat.send(requestguy,`You are now partner with ${player.name}`);
-  }
-}
-});
-
-jcmp.events.AddRemoteCallable('RefuseRequest_Server',function(player,playername){
+jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playername) {
   for (var i = 0; i < jcmp.players.length; i++) {
     const requestguy = jcmp.players[i];
-    if (requestguy.name == playername){
-      race.chat.send(requestguy,'The player selected have refused youre request');
+    if (requestguy.name == playername) {
+      player.race.partnerplayer.push(player);
+      player.race.partnerplayer.push(requestguy);
+      requestguy.race.partnerplayer = player.race.partnerplayer;
+      race.chat.send(player, `You are now partner with ${requestguy.name}`);
+      race.chat.send(requestguy, `You are now partner with ${player.name}`);
+    }
+  }
+});
+
+jcmp.events.AddRemoteCallable('RefuseRequest_Server', function(player, playername) {
+  for (var i = 0; i < jcmp.players.length; i++) {
+    const requestguy = jcmp.players[i];
+    if (requestguy.name == playername) {
+      race.chat.send(requestguy, 'The player selected have refused youre request');
     }
   }
 });

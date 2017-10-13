@@ -7,44 +7,49 @@
   <title>race - MultiCrew UI </title>
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
-    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="popper.js"></script>
-    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-    <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<style type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="popper.js"></script>
+  <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+  <link href="./bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <style type="text/css">
     .hidden {
       visibility: hidden;
     }
-    #DriverDirection{
+
+    #DriverDirection {
       position: fixed;
-      top:5%;
-      right:45%;
+      top: 5%;
+      right: 45%;
       font-size: 150pt;
     }
-    #PartnerName{
+
+    #PartnerName {
       position: fixed;
       top: 2%;
       right: 8%;
       font-size: 20pt;
     }
-    #Request{
+
+    #Request {
       position: fixed;
-      top:25%;
-      right:33%;
+      top: 25%;
+      right: 33%;
       font-size: 20pt;
       background-color: rgba(49, 168, 255, 0.4);
-      text-align:center;
+      text-align: center;
       border: 1px solid black;
       border-radius: 10px;
 
     }
-    #PassengerButton{
+
+    #PassengerButton {
       position: fixed;
-      top:70%;
-      right:8%;
+      top: 70%;
+      right: 8%;
       font-size: 35pt;
     }
+
     body {
       user-select: none;
     }
@@ -52,41 +57,37 @@
 </head>
 
 <body>
-  <div id= "DriverDirection">
-    <div id = "FrontD">
+  <div id="DriverDirection">
+    <div id="FrontD">
       <span>&#8679;</span>
 
     </div>
-    <div id = "BackD">
+    <div id="BackD">
       <span>&#8681;</span>
 
     </div>
-    <div id = "LeftD">
+    <div id="LeftD">
       <span>&#8678;</span>
 
     </div>
-    <div id = "RightD">
+    <div id="RightD">
       <span>&#8680;</span>
 
     </div>
   </div>
 
-  <div id= "PassengerButton">
-    <div id = "FrontP">
-      <span>&#8679;</span>
-      8pavnum
+  <div id="PassengerButton">
+    <div id="FrontP">
+      <span>&#8679;</span> 8pavnum
     </div>
-    <div id = "BackP">
-      <span>&#8681;</span>
-      5pavnum
+    <div id="BackP">
+      <span>&#8681;</span> 5pavnum
     </div>
-    <div id = "LeftP">
-      <span>&#8678;</span>
-      4pavnum
+    <div id="LeftP">
+      <span>&#8678;</span> 4pavnum
     </div>
-    <div id = "RightP">
-      <span>&#8680;</span>
-      6pavnum
+    <div id="RightP">
+      <span>&#8680;</span> 6pavnum
     </div>
   </div>
 
@@ -94,89 +95,89 @@
 
   <div id="Request">
     You just received a request to be on the team of : <span id="playerrequest">Myami</span> <br>
-    <button type="button" id="YesRequestB"onclick="YesRequest()"class="btn btn-outline-success">Accept</button>
-    <button type="button" id="NoRequestB"onclick="NoRequest()"class="btn btn-outline-danger">Refuse</button>
+    <button type="button" id="YesRequestB" onclick="YesRequest()" class="btn btn-outline-success">Accept</button>
+    <button type="button" id="NoRequestB" onclick="NoRequest()" class="btn btn-outline-danger">Refuse</button>
   </div>
 
 
-<div id = "MultiCrewUI">
-<div id="PartnerName">
-  <span id="PartnerNameS">Myami</span>
+  <div id="MultiCrewUI">
+    <div id="PartnerName">
+      <span id="PartnerNameS">Myami</span>
+    </div>
   </div>
-</div>
 
   <script>
-// Button for the passager
-/*
-              8
-            4 5 6
-                  (Like arrow key but with numpav)
-*/
+    // Button for the passager
+    /*
+                  8
+                4 5 6
+                      (Like arrow key but with numpav)
+    */
 
-// It will show direction for the driver
-
-
-$(document).ready(function() {
-  $("#DriverDirection").hide();
-  $("#PassengerButton").hide();
-  $("#FrontD").hide();
-  $("#BackD").hide();
-  $("#LeftD").hide();
-  $("#RightD").hide();
-  $("#Request").hide();
-  $("#MultiCrewUI").hide();
+    // It will show direction for the driver
 
 
-});
-jcmp.AddEvent('ShowUIPassenger',function(status){
-  if (status){
-    $("#PassengerButton").show();
-  }
-  else{
-      $("#PassengerButton").hide();
-  }
-});
-jcmp.AddEvent('ShowUIDriver',function(status){
-  if (status){
-    $("#DriverDirection").show();
-  }
-  else{
+    $(document).ready(function() {
       $("#DriverDirection").hide();
-  }
-});
-jcmp.AddEvent('MC_DriverDirection_Show_CEF',function(DivToShow){
-$(DivToShow).show();
-setTimeout(function() {
-$(DivToShow).hide();
-}, 3000);
-});
-let playerthatrequest ;
-jcmp.AddEvent('PartnerRequest_CEF',function(playername){
-  playerthatrequest = playername;
-$("#playerrequest").text(playername);
-$("#Request").show();
-  jcmp.ShowCursor()
-});
-function YesRequest(){
-  jcmp.CallEvent('ValidateRequest', playerthatrequest);
-  $("#PartnerNameS").text(playerthatrequest);
-  $("#Request").hide();
-    jcmp.HideCursor();
-}
-function NoRequest (){
-jcmp.CallEvent('RefuseRequest',playerthatrequest);
-$("#Request").hide();
+      $("#PassengerButton").hide();
+      $("#FrontD").hide();
+      $("#BackD").hide();
+      $("#LeftD").hide();
+      $("#RightD").hide();
+      $("#Request").hide();
+      $("#MultiCrewUI").hide();
 
-}
-jcmp.AddEvent('PartnerNameUI',function(playername){
-    $("#PartnerNameS").txt(playername);
-})
 
-let $chat_input_visible = false;
-let justclick = false;
-jcmp.AddEvent('chat_input_state', function(b) {
-            $chat_input_visible = b;
-        });
+    });
+    jcmp.AddEvent('ShowUIPassenger', function(status) {
+      if (status) {
+        $("#PassengerButton").show();
+      } else {
+        $("#PassengerButton").hide();
+      }
+    });
+    jcmp.AddEvent('ShowUIDriver', function(status) {
+      if (status) {
+        $("#DriverDirection").show();
+      } else {
+        $("#DriverDirection").hide();
+      }
+    });
+    jcmp.AddEvent('MC_DriverDirection_Show_CEF', function(DivToShow) {
+      $(DivToShow).show();
+      setTimeout(function() {
+        $(DivToShow).hide();
+      }, 3000);
+    });
+    let playerthatrequest;
+    jcmp.AddEvent('PartnerRequest_CEF', function(playername) {
+      playerthatrequest = playername;
+      $("#playerrequest").text(playername);
+      $("#Request").show();
+      jcmp.ShowCursor()
+    });
+
+    function YesRequest() {
+      jcmp.CallEvent('ValidateRequest', playerthatrequest);
+      $("#PartnerNameS").text(playerthatrequest);
+      $("#Request").hide();
+      jcmp.HideCursor();
+    }
+
+    function NoRequest() {
+      jcmp.CallEvent('RefuseRequest', playerthatrequest);
+      $("#Request").hide();
+
+    }
+    jcmp.AddEvent('PartnerNameUI', function(playername) {
+      $("#PartnerNameS").txt(playername);
+    })
+
+    let $chat_input_visible = false;
+    let justclick = false;
+    jcmp.AddEvent('chat_input_state', function(b) {
+      $chat_input_visible = b;
+    });
 
     $(window).keyup(function(event) {
 
@@ -185,42 +186,39 @@ jcmp.AddEvent('chat_input_state', function(b) {
         $('#Front').css("background-color", "red");
         justclick = true;
         setTimeout(function() {
-        $('#Front').css("background-color", "white");
-        justclick = false;
+          $('#Front').css("background-color", "white");
+          justclick = false;
         }, 3000);
-        jcmp.CallEvent("MC_Passenger_click","#FrontD");
+        jcmp.CallEvent("MC_Passenger_click", "#FrontD");
 
-      }
-      else if (key === 100 && !$chat_input_visible && !justclick) { //4pavnum
+      } else if (key === 100 && !$chat_input_visible && !justclick) { //4pavnum
         $('#LeftD').css("background-color", "red");
         justclick = true;
         setTimeout(function() {
-        $('#LeftD').css("background-color", "white");
-        justclick = false;
+          $('#LeftD').css("background-color", "white");
+          justclick = false;
         }, 3000);
-        jcmp.CallEvent("MC_Passenger_click","#LeftD");
-      }
-      else if (key === 101 && !$chat_input_visible && !justclick) { //5pavnum
+        jcmp.CallEvent("MC_Passenger_click", "#LeftD");
+      } else if (key === 101 && !$chat_input_visible && !justclick) { //5pavnum
         $('#BackD').css("background-color", "red");
         justclick = true;
         setTimeout(function() {
-        $('#BackD').css("background-color", "white");
-        justclick = false;
+          $('#BackD').css("background-color", "white");
+          justclick = false;
 
         }, 3000);
 
-            jcmp.CallEvent("MC_Passenger_click","#BackD");
+        jcmp.CallEvent("MC_Passenger_click", "#BackD");
 
-      }
-      else if (key === 102 && !$chat_input_visible && !justclick) { //6pavnum
+      } else if (key === 102 && !$chat_input_visible && !justclick) { //6pavnum
         $('#RightD').css("background-color", "red");
         justclick = true;
         setTimeout(function() {
-        $('#RightD').css("background-color", "white");
-        justclick = false;
+          $('#RightD').css("background-color", "white");
+          justclick = false;
 
         }, 3000);
-            jcmp.CallEvent("MC_Passenger_click","#RightD");
+        jcmp.CallEvent("MC_Passenger_click", "#RightD");
 
       }
     });

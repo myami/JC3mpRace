@@ -21,7 +21,8 @@ jcmp.events.Add("PlayerCreated", function(player) {
     spectate: false,
     cameras: [],
     camspectate: false,
-    partnerplayer: [] // for multicrew save team in the array
+    partnerplayer: [] ,// for multicrew save team in the array
+    bonus: ""
   }
 
 
