@@ -66,6 +66,7 @@ jcmp.events.Add('TTS_race_end_point', function(player) {
 });
 
 jcmp.events.AddRemoteCallable('TTS_Race_player_timer_start', (player) => { // the timer for the leaderboard
+  console.log(player.name + "timerstart");
   const Race = player.race.game;
   const timerinterval = setInterval(function() {
     if (player != undefined && player.name != undefined)

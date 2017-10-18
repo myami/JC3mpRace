@@ -3,15 +3,16 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   if (Race.type == "multicrew") {
     jcmp.events.Call('MC_Race_Checkpoint', player);
 
-  } else if (Race.type == "classic" ||Race.type == "apo") {
+  }  if (Race.type == "classic" ||Race.type == "apo") {
     jcmp.events.Call('C_Race_Checkpoint', player);
 
   }
-  else if (Race.type == "kart") {
+   if (Race.type == "kart") {
    jcmp.events.Call('Kart_Race_Checkpoint', player);
  }
- else if (Race.type == "tts") {
+  if (Race.type == "tts") {
   jcmp.events.Call('TTS_Race_Checkpoint', player);
+  console.log("TTS_Race_Checkpoint");
 }
 });
 

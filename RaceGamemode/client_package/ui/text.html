@@ -9,6 +9,9 @@
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+    <script type="text/javascript" src="popper.js"></script>
+    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
     .hidden {
       visibility: hidden;
@@ -86,9 +89,11 @@
     }
     #WaitItsyouTTS{
       position: fixed;
-      top:75%;
-      right:50%;
-      font-size: 30pt;
+      top:10%;
+      right:35%;
+      font-size: 40pt;
+      font-family: 'Passion One', cursive;
+      font-weight: bold;
       color: red;
     }
 
@@ -132,8 +137,8 @@
   <div id="WarningBarrel"class="hidden">
     WARNING BARREL FALLING FROM SKY
   </div>
-  <div id="WaitItsyouTTS"class="hidden">
-  Waiting it's you're tourn to start
+  <div id="WaitItsyouTTS"class="">
+  Wait for your turn to start
   </div>
 
 
@@ -142,7 +147,9 @@
     let timer = 30; // timer seconde
     let istts = false;
     jcmp.AddEvent('Countdown_start', function() {
-      jcmp.CallEvent('inrace_client',true);
+      console.log("Countdown_start");
+      console.log(" " + istts);
+    //  jcmp.CallEvent('inrace_client',true);
       let inter = setInterval(function() {
         if (timer > 0) {
           timer--;
@@ -156,9 +163,10 @@
             jcmp.CallEvent('race_countdown_end');
           }
           else{
+            console.log("RaceisTTS");
             jcmp.CallEvent('TTS_race_countdown_end');
           }
-          jcmp.CallEvent('inrace_client',false);
+      //    jcmp.CallEvent('inrace_client',false);
           timer = 30;
           clear(inter);
           document.getElementById("timer").innerText = "GO";

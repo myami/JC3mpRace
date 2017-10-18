@@ -79,6 +79,8 @@ module.exports = class Utility {
     return '#' + ((1 << 24) + (rgb.r << 16) + (rgb.g << 8) + rgb.b).toString(16).slice(1);
   }
 
+
+
   static random(min, max) {
     return Math.floor(Math.random() * (max - min + 1) + min);
   }
@@ -86,11 +88,9 @@ module.exports = class Utility {
   static SecondsToMs(n) {
     return 1000 * n;
   }
-
   static MinToMs(n) {
     return this.SecondsToMs(60) * n;
   }
-
 
   /**
    * Returns the player from his id or (part of his) Name
@@ -193,7 +193,7 @@ module.exports = class Utility {
       if (err) throw err;
       filenames.sort();
       filenames.forEach(function(filename) {
-    
+
         let data = JSON.parse(fs.readFileSync(basePath + filename, 'utf8'));
         race.game.RaceList.push(data);
       });

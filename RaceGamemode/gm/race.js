@@ -33,24 +33,24 @@ module.exports = class Race {
   Start() {
     console.log("Id of the race: " + this.id);
 
-    if (this.type == undefined || this.type == "classic") {
+    if (this.type == "classic") {
       console.log("ClassicRace!!!");
       this.ClassicRace();
-    } else if (this.type == "multicrew") {
+    }  if (this.type == "multicrew") {
       console.log("Multicrew!!!");
       this.Multicrew();
-    } else if (this.type == "apo") {
+    }  if (this.type == "apo") {
       console.log("APOCALYPSE NOW!!!");
       this.ClassicRace();
       setTimeout(function() {
         this.apoStart();
       }, 30000);
-    } else if (this.type == "kart") {
+    }  if (this.type == "kart") {
       console.log("KART !!!!!");
       this.KartRaceStart();
 
     }
-    else if (this.Type == "tts"){
+     if (this.type == "tts"){
       console.log("TTS !!!!!!!!");
       this.TTSStart();
     }
@@ -311,6 +311,7 @@ module.exports = class Race {
   //////////////////////////////////// KART ////////////////////////////////////
 
   KartRaceStart() {
+    console.log("KartRaceStart");
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
@@ -392,6 +393,7 @@ module.exports = class Race {
 //////////////////////////////TTS//////////////////////////////////
 
 TTSStart() {
+  console.log("TTSStart");
   for (var i = 0; i < this.players.length; i++) {
     const player = this.players[i];
     let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
@@ -471,8 +473,13 @@ TTSRespawnCar(player) {
 
 
 TTSPlayerStartRelease(){
-  if (this.players.length <= this.ttsindex){
-    jcmp.events.CallRemote('TTS_race_Freeze_player', this.players[this.ttsindex]);
+
+  //console.log(`${this.players.length} and ${this.ttsindex} and ${this.players[this.ttsindex].name}`);
+  if (this.players.length > this.ttsindex){
+    console.log("TTSPlayerStartRelease can");
+  jcmp.events.CallRemote('TTS_race_Freeze_player', this.players[this.ttsindex]);
+  race.chat.broadcast(`${this.players[this.ttsindex].name} it's you're turn to start`)
+    console.log(this.ttsindex + "ttsunfreezeplayer : " + this.players[this.ttsindex].name);
     this.ttsindex++;
   }
   else{
