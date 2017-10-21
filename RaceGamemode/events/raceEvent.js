@@ -119,9 +119,8 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
   // TODO: apo = ApocalypseNOW = explosive barrel spawn randomly around everyone every x seconds
   // TODO:  tts = time trial solo , everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
-  setTimeout(function() {
 
-    race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
+
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
     //const index = race.utils.random(0,race.game.RaceList.length -1);
@@ -147,6 +146,15 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
+      
+      for (var i = 0; i < race.game.players.onlobby.length; i++) {
+        const player = race.game.players.onlobby[i];
+        if (player.race.partnerplayer[1] == undefined){
+          race.utils.broadcastToLobby("Someone don't have a team partner");
+          return;
+        }
+
+      }
     }
     if (TypeRace == "kart") { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
@@ -154,6 +162,8 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
     if (TypeRace == "apo") { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
     }
+
+        race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
 
     let Race = new race.Race(
       Raceid, // id
@@ -179,7 +189,7 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
     race.game.games.push(Race);
     Race.Start();
     race.game.players.onlobby = [];
-  }, 600);
+
 
 });
 

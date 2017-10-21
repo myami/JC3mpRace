@@ -152,6 +152,7 @@ if(res[0].race.partnerplayer.length != 0){
   jcmp.events.CallRemote('PartnerRequest',res[0],player.name);
 
  }))
+ 
 
 
 

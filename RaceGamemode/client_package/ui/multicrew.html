@@ -21,8 +21,11 @@
     #PartnerName {
       position: fixed;
       top: 2%;
-      right: 8%;
+      right: 3%;
       font-size: 20pt;
+      color: blue;
+      font-family: 'Passion One', cursive;
+      font-weight: bold;
     }
 
     #Request {
@@ -56,16 +59,16 @@
 
   <div id="PassengerButton">
     <div id="FrontP">
-      <span>&#8679;</span> 8num
+      <span>&#8679;</span> i
     </div>
     <div id="BackP">
-      <span>&#8681;</span> 5num
+      <span>&#8681;</span> k
     </div>
     <div id="LeftP">
-      <span>&#8678;</span> 4num
+      <span>&#8678;</span> j
     </div>
     <div id="RightP">
-      <span>&#8680;</span> 6num
+      <span>&#8680;</span> l
     </div>
   </div>
 
@@ -85,24 +88,12 @@
   </div>
 
   <script>
-    // Button for the passager
-    /*
-                  8
-                4 5 6
-                      (Like arrow key but with numpav)
-    */
-
-    // It will show direction for the driver
 
 
     $(document).ready(function() {
       $("#PassengerButton").hide();
-      $("#FrontD").hide();
-      $("#BackD").hide();
-      $("#LeftD").hide();
-      $("#RightD").hide();
       $("#Request").hide();
-      $("#MultiCrewUI").hide();
+      $("#PartnerNameS").hide();
 
 
     });
@@ -139,7 +130,8 @@
 
     }
     jcmp.AddEvent('PartnerNameUI', function(playername) {
-      $("#PartnerNameS").txt(playername);
+      $("#PartnerNameS").text(playername);
+      $("#PartnerNameS").show();
     })
 
     let $chat_input_visible = false;
@@ -152,20 +144,21 @@
     $(window).keyup(function(event) {
 
       const key = event.which;
-      if (key === 104 && !$chat_input_visible && !justclick && ispassager) { // 8pavnum
+      if (key === 73 && !$chat_input_visible && !justclick && ispassager) { // i
         justclick = true;
+        console.log("press i");
         setTimeout(function() {
           justclick = false;
         }, 3000);
         jcmp.CallEvent("MC_Passenger_click", "F");
 
-      } else if (key === 100 && !$chat_input_visible && !justclick && ispassager) { //4pavnum
+      } else if (key === 74 && !$chat_input_visible && !justclick && ispassager) { //j
         justclick = true;
         setTimeout(function() {
           justclick = false;
         }, 3000);
         jcmp.CallEvent("MC_Passenger_click", "L");
-      } else if (key === 101 && !$chat_input_visible && !justclick && ispassager) { //5pavnum
+      } else if (key === 75 && !$chat_input_visible && !justclick && ispassager) { //k
         justclick = true;
         setTimeout(function() {
           justclick = false;
@@ -174,7 +167,7 @@
 
         jcmp.CallEvent("MC_Passenger_click", "B");
 
-      } else if (key === 102 && !$chat_input_visible && !justclick && ispassager) { //6pavnum
+      } else if (key === 76 && !$chat_input_visible && !justclick && ispassager) { //l
         justclick = true;
         setTimeout(function() {
           justclick = false;

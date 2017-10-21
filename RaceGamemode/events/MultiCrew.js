@@ -73,17 +73,19 @@ jcmp.events.Add('MC_race_end_point', function(player) {
         jcmp.events.Call('race_player_leave_game', player);
         jcmp.events.Call('race_player_leave_game', partner);
         jcmp.events.CallRemote('HidePassagerUI', player);
-        jcmp.events.CallRemote('HideDriverUI', partner);
+
         partner.race.time = 0;
         player.race.time = 0;
+        player.race.partnerplayer = [];
+        partner.race.partnerplayer = [];
+        jcmp.events.CallRemote('PartnerNameUI_Client', player, " ");
+        jcmp.events.CallRemote('PartnerNameUI_Client', partner, " ");
+
+
       }, 2000);
 
     }
-    if (Race.type == "multicrew") {
-      if (Race.leaderboard.length == Race.players.length) { // if the guy was the last one finishing the race remove the interval
-        clearInterval(Race.intervalswitch);
-      }
-    }
+
 
   }
 });
@@ -131,11 +133,13 @@ jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playern
   for (var i = 0; i < jcmp.players.length; i++) {
     const requestguy = jcmp.players[i];
     if (requestguy.name == playername) {
-      player.race.partnerplayer.push(player);
       player.race.partnerplayer.push(requestguy);
+      player.race.partnerplayer.push(player);
       requestguy.race.partnerplayer = player.race.partnerplayer;
       race.chat.send(player, `You are now partner with ${requestguy.name}`);
       race.chat.send(requestguy, `You are now partner with ${player.name}`);
+      jcmp.events.CallRemote('PartnerNameUI_Client', player, requestguy.name);
+      jcmp.events.CallRemote('PartnerNameUI_Client', requestguy, player.name);
     }
   }
 });
@@ -147,43 +151,4 @@ jcmp.events.AddRemoteCallable('RefuseRequest_Server', function(player, playernam
       race.chat.send(requestguy, 'The player selected have refused youre request');
     }
   }
-});
-
-
-
-
-
-
-jcmp.events.Add('MCChangePlayerDrive', function() {
-  /* NOT WORKING
-  for (var i = 0; i < jcmp.players.length; i++) {
-    const player = jcmp.players[i];
-    if (player.vehicle != undefined) {
-      if (player.race.ingame && player.race.game.type == "multicrew") {
-        if (player.race.partnerplayer[0].networkId == player.networkId) {
-          console.log("1");
-          if (player.vehicle.GetOccupant(0).networkId == player.networkId) {
-              setTimeout(function() {
-                player.vehicle.SetOccupant(1, player);
-                  console.log("3");
-              }, 500);
-            console.log("2");
-                player.vehicle.SetOccupant(0, player.race.partnerplayer[1]);
-            return;
-
-          }
-          else if (player.vehicle.GetOccupant(1).networkId == player.networkId) {
-            console.log("3");
-              setTimeout(function() {
-                player.vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-                  console.log("4");
-              }, 500);
-                  player.vehicle.SetOccupant(0, player);
-              console.log("5");
-            return;
-          }
-        }
-      }
-    }
-  }*/
 });

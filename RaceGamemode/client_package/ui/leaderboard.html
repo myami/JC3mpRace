@@ -10,7 +10,7 @@
   <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
   <script type="text/javascript" src="popper.js"></script>
   <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-  <link href="./bootstrap/css/bootstrap.css" rel="stylesheet"> 
+  <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
     #leaderboard {
       position: fixed;
@@ -131,7 +131,7 @@
 
                     $(window).keydown(function(event) {
                         // toggle scoreboard
-                        if (event.which === 76  && !$chat_input_visible && !$is_scoreboard_key_down) { //l
+                        if (event.which === 78  && !$chat_input_visible && !$is_scoreboard_key_down) { //l
                           $("#leaderboard").show();
                           jcmp.ShowCursor()
                           $is_scoreboard_key_down = true;
@@ -143,7 +143,7 @@
     $(window).keyup(function(event) {
 
       const key = event.which;
-     if (key === 76 && $is_scoreboard_key_down && !$chat_input_visible) { // l
+     if (key === 78 && $is_scoreboard_key_down && !$chat_input_visible) { // l
         $("#leaderboard").hide();
         jcmp.HideCursor();
         $is_scoreboard_key_down = false;

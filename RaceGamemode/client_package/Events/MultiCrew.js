@@ -8,12 +8,7 @@ jcmp.events.AddRemoteCallable('ShowPassagerUI',function(){
 jcmp.events.AddRemoteCallable('HidePassagerUI',function(){
   jcmp.ui.CallEvent('ShowUIPassenger',false);
 });
-jcmp.events.AddRemoteCallable('ShowDriverUI',function(){
-  jcmp.ui.CallEvent('ShowUIDriver',true);
-});
-jcmp.events.AddRemoteCallable('HideDriverUI',function(){
-  jcmp.ui.CallEvent('ShowUIDriver',false);
-});
+
 jcmp.events.AddRemoteCallable('PlayerPassager',function(statue){
   playerpassager = statue;
 });
