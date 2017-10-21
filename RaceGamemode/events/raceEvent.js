@@ -148,6 +148,13 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
     }
+    if (TypeRace == "kart") { // wait 1.1 test build to finish it
+        return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
+    }
+    if (TypeRace == "apo") { // wait 1.1 test build to finish it
+        return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
+    }
+
     let Race = new race.Race(
       Raceid, // id
       VehicleType, //vehicle type

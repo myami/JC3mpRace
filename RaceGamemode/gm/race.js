@@ -36,15 +36,18 @@ module.exports = class Race {
     if (this.type == "classic") {
       console.log("ClassicRace!!!");
       this.ClassicRace();
+      return;
     }  if (this.type == "multicrew") {
       console.log("Multicrew!!!");
       this.Multicrew();
+      return;
     }  if (this.type == "apo") {
       console.log("APOCALYPSE NOW!!!");
       this.ClassicRace();
       setTimeout(function() {
         this.apoStart();
       }, 30000);
+      return;
     }  if (this.type == "kart") {
       console.log("KART !!!!!");
       this.KartRaceStart();
@@ -53,6 +56,7 @@ module.exports = class Race {
      if (this.type == "tts"){
       console.log("TTS !!!!!!!!");
       this.TTSStart();
+      return;
     }
 
 
@@ -474,9 +478,8 @@ TTSRespawnCar(player) {
 
 TTSPlayerStartRelease(){
 
-  //console.log(`${this.players.length} and ${this.ttsindex} and ${this.players[this.ttsindex].name}`);
+  console.log(`${this.players.length} player length and ${this.ttsindex}`);
   if (this.players.length > this.ttsindex){
-    console.log("TTSPlayerStartRelease can");
   jcmp.events.CallRemote('TTS_race_Freeze_player', this.players[this.ttsindex]);
   race.chat.broadcast(`${this.players[this.ttsindex].name} it's you're turn to start`)
     console.log(this.ttsindex + "ttsunfreezeplayer : " + this.players[this.ttsindex].name);

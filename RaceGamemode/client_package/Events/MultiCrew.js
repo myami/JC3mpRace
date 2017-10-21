@@ -1,9 +1,7 @@
-jcmp.ui.AddEvent('MC_Passenger_click',function(DivToShow){
-jcmp.events.CallRemote('MC_Passenger_click_Server',DivToShow);
+jcmp.ui.AddEvent('MC_Passenger_click',function(MacroChat){
+jcmp.events.CallRemote('MC_Passenger_click_Server',MacroChat);
 });
-jcmp.events.AddRemoteCallable('MC_DriverDirection_Show',function(DivToShow){
-  jcmp.ui.CallEvent('MC_DriverDirection_Show_CEF',DivToShow);
-});
+
 jcmp.events.AddRemoteCallable('ShowPassagerUI',function(){
   jcmp.ui.CallEvent('ShowUIPassenger',true);
 });

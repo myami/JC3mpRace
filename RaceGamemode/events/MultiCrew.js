@@ -1,4 +1,4 @@
-// TODO: A way to select who is the driver and the passenger 
+// TODO: A way to select who is the driver and the passenger
 
 
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
@@ -93,9 +93,38 @@ jcmp.events.AddRemoteCallable('CheckpointSoundDriver', function(player) {
   jcmp.events.CallRemote('CheckpointSoundDriver_client', driver);
 });
 
-jcmp.events.AddRemoteCallable('MC_Passenger_click_Server', function(player, DivToShow) {
-  const driver = player.race.partnerplayer[0];
-  jcmp.events.CallRemote('MC_DriverDirection_Show', driver, DivToShow);
+jcmp.events.AddRemoteCallable('MC_Passenger_click_Server', function(player, MacroChat) {
+  if (player.race.partnerplayer[0].networkId != player.networkId){
+    let driver = player.race.partnerplayer[0];
+    if (MacroChat == "F"){
+      race.chat.send(driver,"Go Infront",race.config.colours.red);
+    }
+    if (MacroChat == "B"){
+      race.chat.send(driver,"It's Behind",race.config.colours.red);
+    }
+    if (MacroChat == "L"){
+      race.chat.send(driver,"Turn Left",race.config.colours.red);
+    }
+    if (MacroChat == "R"){
+      race.chat.send(driver,"Turn Right",race.config.colours.red);
+    }
+  }
+  else{
+    let driver = player.race.partnerplayer[1];
+    if (MacroChat == "F"){
+      race.chat.send(driver,"Go Infront",race.config.colours.red);
+    }
+    if (MacroChat == "B"){
+      race.chat.send(driver,"It's Behind",race.config.colours.red);
+    }
+    if (MacroChat == "L"){
+      race.chat.send(driver,"Turn Left",race.config.colours.red);
+    }
+    if (MacroChat == "R"){
+      race.chat.send(driver,"Turn Right",race.config.colours.red);
+    }
+  }
+
 });
 
 jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playername) {

@@ -17,12 +17,6 @@
       visibility: hidden;
     }
 
-    #DriverDirection {
-      position: fixed;
-      top: 5%;
-      right: 45%;
-      font-size: 150pt;
-    }
 
     #PartnerName {
       position: fixed;
@@ -48,6 +42,7 @@
       top: 70%;
       right: 8%;
       font-size: 35pt;
+      color: white;
     }
 
     body {
@@ -57,37 +52,20 @@
 </head>
 
 <body>
-  <div id="DriverDirection">
-    <div id="FrontD">
-      <span>&#8679;</span>
 
-    </div>
-    <div id="BackD">
-      <span>&#8681;</span>
-
-    </div>
-    <div id="LeftD">
-      <span>&#8678;</span>
-
-    </div>
-    <div id="RightD">
-      <span>&#8680;</span>
-
-    </div>
-  </div>
 
   <div id="PassengerButton">
     <div id="FrontP">
-      <span>&#8679;</span> 8pavnum
+      <span>&#8679;</span> 8num
     </div>
     <div id="BackP">
-      <span>&#8681;</span> 5pavnum
+      <span>&#8681;</span> 5num
     </div>
     <div id="LeftP">
-      <span>&#8678;</span> 4pavnum
+      <span>&#8678;</span> 4num
     </div>
     <div id="RightP">
-      <span>&#8680;</span> 6pavnum
+      <span>&#8680;</span> 6num
     </div>
   </div>
 
@@ -118,7 +96,6 @@
 
 
     $(document).ready(function() {
-      $("#DriverDirection").hide();
       $("#PassengerButton").hide();
       $("#FrontD").hide();
       $("#BackD").hide();
@@ -132,23 +109,15 @@
     jcmp.AddEvent('ShowUIPassenger', function(status) {
       if (status) {
         $("#PassengerButton").show();
+        ispassager = true;
       } else {
         $("#PassengerButton").hide();
+        ispassager = false;
+
       }
     });
-    jcmp.AddEvent('ShowUIDriver', function(status) {
-      if (status) {
-        $("#DriverDirection").show();
-      } else {
-        $("#DriverDirection").hide();
-      }
-    });
-    jcmp.AddEvent('MC_DriverDirection_Show_CEF', function(DivToShow) {
-      $(DivToShow).show();
-      setTimeout(function() {
-        $(DivToShow).hide();
-      }, 3000);
-    });
+
+
     let playerthatrequest;
     jcmp.AddEvent('PartnerRequest_CEF', function(playername) {
       playerthatrequest = playername;
@@ -175,6 +144,7 @@
 
     let $chat_input_visible = false;
     let justclick = false;
+    let ispassager = false;
     jcmp.AddEvent('chat_input_state', function(b) {
       $chat_input_visible = b;
     });
@@ -182,43 +152,35 @@
     $(window).keyup(function(event) {
 
       const key = event.which;
-      if (key === 104 && !$chat_input_visible && !justclick) { // 8pavnum
-        $('#Front').css("background-color", "red");
+      if (key === 104 && !$chat_input_visible && !justclick && ispassager) { // 8pavnum
         justclick = true;
         setTimeout(function() {
-          $('#Front').css("background-color", "white");
           justclick = false;
         }, 3000);
-        jcmp.CallEvent("MC_Passenger_click", "#FrontD");
+        jcmp.CallEvent("MC_Passenger_click", "F");
 
-      } else if (key === 100 && !$chat_input_visible && !justclick) { //4pavnum
-        $('#LeftD').css("background-color", "red");
+      } else if (key === 100 && !$chat_input_visible && !justclick && ispassager) { //4pavnum
         justclick = true;
         setTimeout(function() {
-          $('#LeftD').css("background-color", "white");
           justclick = false;
         }, 3000);
-        jcmp.CallEvent("MC_Passenger_click", "#LeftD");
-      } else if (key === 101 && !$chat_input_visible && !justclick) { //5pavnum
-        $('#BackD').css("background-color", "red");
+        jcmp.CallEvent("MC_Passenger_click", "L");
+      } else if (key === 101 && !$chat_input_visible && !justclick && ispassager) { //5pavnum
         justclick = true;
         setTimeout(function() {
-          $('#BackD').css("background-color", "white");
           justclick = false;
 
         }, 3000);
 
-        jcmp.CallEvent("MC_Passenger_click", "#BackD");
+        jcmp.CallEvent("MC_Passenger_click", "B");
 
-      } else if (key === 102 && !$chat_input_visible && !justclick) { //6pavnum
-        $('#RightD').css("background-color", "red");
+      } else if (key === 102 && !$chat_input_visible && !justclick && ispassager) { //6pavnum
         justclick = true;
         setTimeout(function() {
-          $('#RightD').css("background-color", "white");
           justclick = false;
 
         }, 3000);
-        jcmp.CallEvent("MC_Passenger_click", "#RightD");
+        jcmp.CallEvent("MC_Passenger_click", "R");
 
       }
     });
