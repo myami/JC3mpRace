@@ -174,12 +174,22 @@ module.exports = class Race {
       player.race.time = 0;
       player.race.hasfinish = false;
         if (player.race.partnerplayer[0] == player) {
+          if (player.race.driver){
             const secondplayer = player.race.partnerplayer[1];
             jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
             jcmp.events.CallRemote('PlayerPassager', player, false);
             this.playersname.push(player.name + " " + secondplayer.name);
             jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
-        
+          }
+          else{
+            const secondplayer = player.race.partnerplayer[1];
+            jcmp.events.CallRemote('PlayerPassager', player, true);
+            jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
+            this.playersname.push(player.name + " " + secondplayer.name);
+            jcmp.events.CallRemote('ShowPassagerUI', player);
+          }
+
+
 
         }
         if (player.race.partnerplayer[0] == undefined){
@@ -196,8 +206,15 @@ module.exports = class Race {
             const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
             vehicle.nitroEnabled = this.nitro;
             vehicle.dimension = player.race.game.id;
-            vehicle.SetOccupant(0, player);
-            vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+            if (player.race.driver){
+              vehicle.SetOccupant(0, player);
+              vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+            }
+            else{
+              vehicle.SetOccupant(1, player);
+              vehicle.SetOccupant(0, player.race.partnerplayer[1]);
+            }
+
 
           }
 
@@ -222,29 +239,51 @@ module.exports = class Race {
 
     }
 
-    setInterval(function() { // Not working
-      //  jcmp.events.Call('MCChangePlayerDrive');
-    }, this.mctime);
+
   }
 
 
 
   MCVehicleReset(player, vehicleold) {
-
-    if (player.race.partnerplayer[0].name == player.name) {
+    if (player.race.partnerplayer[0].race.driver){
+      const driver = player.race.partnerplayer[0];
+      const passager = player.race.partnerplayer[1];
       if (vehicleold != undefined) {
         vehicleold.Destroy();
       }
       const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
       vehicle.nitroEnabled = this.nitro;
       vehicle.dimension = player.race.game.id;
-      vehicle.SetOccupant(0, player);
-      vehicle.SetOccupant(1, player.race.partnerplayer[1]);
+      vehicle.SetOccupant(0, driver);
+      vehicle.SetOccupant(1, passager);
+      console.log("driver1");
       return;
     }
-    if (player.race.partnerplayer[1].name == player.name) {
+    else if (player.race.partnerplayer[1].race.driver){
+      const driver = player.race.partnerplayer[1];
+      const passager = player.race.partnerplayer[0];
+      if (vehicleold != undefined) {
+        vehicleold.Destroy();
+      }
+      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
+      vehicle.nitroEnabled = this.nitro;
+      vehicle.dimension = player.race.game.id;
+      vehicle.SetOccupant(0, driver);
+      vehicle.SetOccupant(1, passager);
+      console.log("driver2");
+      return;
+    }
+
+    if (!player.race.partnerplayer[0].race.driver) {
+      if (player.race.partnerplayer[1].vehicle != undefined) {
+        console.log("passager!!! 1");
+        player.race.partnerplayer[1].vehicle.SetOccupant(1, player);
+        return;
+      }
+    }
+    if (!player.race.partnerplayer[1].race.driver) {
       if (player.race.partnerplayer[0].vehicle != undefined) {
-        console.log("passager!!!");
+        console.log("passager!!! 2");
         player.race.partnerplayer[0].vehicle.SetOccupant(1, player);
         return;
       }

@@ -78,6 +78,8 @@ jcmp.events.Add('MC_race_end_point', function(player) {
         player.race.time = 0;
         player.race.partnerplayer = [];
         partner.race.partnerplayer = [];
+        player.race.leadpartner = false;
+        partner.race.leadpartner = false;
         jcmp.events.CallRemote('PartnerNameUI_Client', player, " ");
         jcmp.events.CallRemote('PartnerNameUI_Client', partner, " ");
 
@@ -135,6 +137,8 @@ jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playern
     if (requestguy.name == playername) {
       player.race.partnerplayer.push(requestguy);
       player.race.partnerplayer.push(player);
+      requestguy.race.leadpartner = true;
+        requestguy.race.driver = true;
       requestguy.race.partnerplayer = player.race.partnerplayer;
       race.chat.send(player, `You are now partner with ${requestguy.name}`);
       race.chat.send(requestguy, `You are now partner with ${player.name}`);

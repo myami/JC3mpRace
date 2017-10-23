@@ -152,7 +152,48 @@ if(res[0].race.partnerplayer.length != 0){
   jcmp.events.CallRemote('PartnerRequest',res[0],player.name);
 
  }))
- 
+
+ .add(new Command('choicerole').description('Choice who is the driver and passager').parameter('partner', 'string', 'Name of the player to put as driver').parameter('isdriver', 'number', '0 is true , 1 is false').handler(function(player,partner,isdriver) {
+   if (player.race.partnerplayer.length == 0){
+     race.chat.send(player,"You don't have a partner")
+     return;
+   }
+   if (!player.race.leadpartner){
+     race.chat.send(player,"You don't have the right to do this commands ask you're parner");
+     return;
+   }
+   const res = race.utils.getPlayer(partner);
+   if (res.length === 0 || res.length > 1) {
+            race.chat.send(player, 'no / too many matching players!');
+            return;
+          }
+          if (isdriver == 0){
+
+          if (res[0].race.partnerplayer[0].name == res[0].name){
+            res[0].race.partnerplayer[0].race.driver = true;
+            res[0].race.partnerplayer[1].race.driver = false;
+          }
+          if (res[0].race.partnerplayer[1].name == res[0].name){
+            res[0].race.partnerplayer[1].race.driver = true;
+            res[0].race.partnerplayer[0].race.driver = false;
+          }
+
+          }
+          if (isdriver == 1){
+            if (res[0].race.partnerplayer[0].name == res[0].name){
+              res[0].race.partnerplayer[0].race.driver = false;
+              res[0].race.partnerplayer[1].race.driver = true;
+            }
+            if (res[0].race.partnerplayer[1].name == res[0].name){
+              res[0].race.partnerplayer[1].race.driver = false;
+              res[0].race.partnerplayer[0].race.driver = true;
+            }
+          }
+
+
+
+ }))
+
 
 
 
