@@ -244,50 +244,44 @@ module.exports = class Race {
 
 
 
+
   MCVehicleReset(player, vehicleold) {
-    if (player.race.partnerplayer[0].race.driver){
-      const driver = player.race.partnerplayer[0];
-      const passager = player.race.partnerplayer[1];
-      if (vehicleold != undefined) {
-        vehicleold.Destroy();
+    let driver;
+    let passager;
+
+    for (var i = 0; i < player.race.partnerplayer.length; i++) {
+      if (player.race.partnerplayer[i].race.driver){
+        driver = player.race.partnerplayer[i];
+        console.log(`Driver is ${driver.name}`);
+        if (player.networkId == driver.networkId){
+          if (vehicleold != undefined) {
+            vehicleold.Destroy();
+          }
+          const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
+          vehicle.nitroEnabled = this.nitro;
+          vehicle.dimension = player.race.game.id;
+          vehicle.SetOccupant(0, driver);
+          vehicle.SetOccupant(1, passager);
+          console.log("Driver");
+          return;
+        }
       }
-      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = this.nitro;
-      vehicle.dimension = player.race.game.id;
-      vehicle.SetOccupant(0, driver);
-      vehicle.SetOccupant(1, passager);
-      console.log("driver1");
-      return;
-    }
-    else if (player.race.partnerplayer[1].race.driver){
-      const driver = player.race.partnerplayer[1];
-      const passager = player.race.partnerplayer[0];
-      if (vehicleold != undefined) {
-        vehicleold.Destroy();
+      if (!player.race.partnerplayer[i].race.driver){
+        passager = player.race.partnerplayer[i];
+        console.log(`Passager is ${passager.name}`);
+        if (player.networkId == passager.networkId){
+          driver.vehicle.SetOccupant(1, player);
+          console.log("Passager");
+          return;
+        }
       }
-      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = this.nitro;
-      vehicle.dimension = player.race.game.id;
-      vehicle.SetOccupant(0, driver);
-      vehicle.SetOccupant(1, passager);
-      console.log("driver2");
-      return;
     }
 
-    if (!player.race.partnerplayer[0].race.driver) {
-      if (player.race.partnerplayer[1].vehicle != undefined) {
-        console.log("passager!!! 1");
-        player.race.partnerplayer[1].vehicle.SetOccupant(1, player);
-        return;
-      }
-    }
-    if (!player.race.partnerplayer[1].race.driver) {
-      if (player.race.partnerplayer[0].vehicle != undefined) {
-        console.log("passager!!! 2");
-        player.race.partnerplayer[0].vehicle.SetOccupant(1, player);
-        return;
-      }
-    }
+
+
+
+
+
   }
 
 
