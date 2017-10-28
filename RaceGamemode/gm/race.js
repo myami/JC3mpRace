@@ -252,6 +252,7 @@ module.exports = class Race {
     for (var i = 0; i < player.race.partnerplayer.length; i++) {
       if (player.race.partnerplayer[i].race.driver){
         driver = player.race.partnerplayer[i];
+        
         console.log(`Driver is ${driver.name}`);
         if (player.networkId == driver.networkId){
           if (vehicleold != undefined) {
