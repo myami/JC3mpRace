@@ -194,6 +194,42 @@ if(res[0].race.partnerplayer.length != 0){
 
  }))
 
+ .add(new Command('CreateLobby').description('Create a lobby').parameter('Name', 'string', 'Name of the lobby').parameter('Public', 'boolean', 'Is youre lobby is public or not (true,false)').handler(function(player,partner,isdriver) {
+
+// args 0 name of the lobby args 1 boolean for public or private args 2 password
+
+
+ }))
+
+ .add(new Command('JoinLobby').description('Join a lobby').parameter('name', 'string', 'Name of the lobby').parameter('password', 'string', 'If they are a password').handler(function(player,partner,isdriver) {
+
+// args 0 name of the lobby args 1 password if they are one
+
+
+ }))
+
+ .add(new Command('RemoveLobby').description('Remove you from the custom lobby and push you to the main one').handler(function(player) {
+
+// Return to main lobby
+
+
+ }))
+
+ .add(new Command('ManageLobby').description('Manage the lobby').parameter('option', 'string', 'Name of the option to change').parameter('value', 'string', 'Value of the option to change').handler(function(player,partner,isdriver) {
+
+// Only if you are the lobby creator , args 0 option to change , args 1 is value
+// Can be the limit of player,map,typeofrace ....
+
+
+ }))
+
+ .add(new Command('SeeAllLobby').description('See all lobby existing')handler(function(player) {
+
+// Put a list of all lobby and if they are public or private
+
+
+ }))
+
 
 
 

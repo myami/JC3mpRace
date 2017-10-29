@@ -252,7 +252,7 @@ module.exports = class Race {
     for (var i = 0; i < player.race.partnerplayer.length; i++) {
       if (player.race.partnerplayer[i].race.driver){
         driver = player.race.partnerplayer[i];
-        
+
         console.log(`Driver is ${driver.name}`);
         if (player.networkId == driver.networkId){
           if (vehicleold != undefined) {
@@ -262,7 +262,7 @@ module.exports = class Race {
           vehicle.nitroEnabled = this.nitro;
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, driver);
-          vehicle.SetOccupant(1, passager);
+          vehicle.SetOccupant(1, passager); 
           console.log("Driver");
           return;
         }
