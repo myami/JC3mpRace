@@ -18,6 +18,9 @@ global.race = {
       onlobby: [],
       ingame: []
     },
+    lobby:{
+      // create custom lobby with this kind of structure lobbyname = [ispublic = true,password = undefined,players[]];
+    },
     toStart: false,
     StartTimer: null,
     TimerArea: 2,
