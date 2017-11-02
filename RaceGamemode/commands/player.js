@@ -153,7 +153,7 @@ if(res[0].race.partnerplayer.length != 0){
 
  }))
 
- .add(new Command('choicerole').description('Choice who is the driver and passager').parameter('partner', 'string', 'Name of the player to put as driver').parameter('isdriver', 'number', '0 is true , 1 is false').handler(function(player,partner,isdriver) {
+ .add(new Command('choicerole').description('Choice who is the driver and passager').parameter('partner', 'string', 'Name of the player to put as driver').handler(function(player,partner) {
    if (player.race.partnerplayer.length == 0){
      race.chat.send(player,"You don't have a partner")
      return;
@@ -167,32 +167,44 @@ if(res[0].race.partnerplayer.length != 0){
             race.chat.send(player, 'no / too many matching players!');
             return;
           }
-          if (isdriver == 0){
-          if (res[0].race.partnerplayer[0].name == res[0].name){
-            res[0].race.partnerplayer[0].race.driver = true;
-            res[0].race.partnerplayer[1].race.driver = false;
+          if (res[0].race.partnerplayer[0].name == res[0].name)
+          {
+            if (res[0].race.partnerplayer[0].race.driver)
+            {
+              console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
+              console.log("driver 1");
+              res[0].race.partnerplayer[1].race.driver = true;
+              res[0].race.partnerplayer[0].race.driver = false;
+            }
+            else{
+                console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
+                console.log("driver 2");
+              res[0].race.partnerplayer[0].race.driver = true;
+              res[0].race.partnerplayer[1].race.driver = false;
+            }
           }
-          if (res[0].race.partnerplayer[1].name == res[0].name){
-            res[0].race.partnerplayer[1].race.driver = true;
-            res[0].race.partnerplayer[0].race.driver = false;
+          if (res[0].race.partnerplayer[1].name == res[0].name)
+          {
+            if (res[0].race.partnerplayer[1].race.driver)
+            {
+                console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
+                console.log("driver 3");
+              res[0].race.partnerplayer[0].race.driver = true;
+              res[0].race.partnerplayer[1].race.driver = false;
+            }
+            else{
+                console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
+                console.log("driver4");
+              res[0].race.partnerplayer[1].race.driver = true;
+              res[0].race.partnerplayer[0].race.driver = false;
+            }
           }
 
-          }
-          if (isdriver == 1){
-            if (res[0].race.partnerplayer[0].name == res[0].name){
-              res[0].race.partnerplayer[0].race.driver = false;
-              res[0].race.partnerplayer[1].race.driver = true;
-            }
-            if (res[0].race.partnerplayer[1].name == res[0].name){
-              res[0].race.partnerplayer[1].race.driver = false;
-              res[0].race.partnerplayer[0].race.driver = true;
-            }
-          }
 
 
 
  }))
-
+/*
  .add(new Command('CreateLobby').description('Create a lobby').parameter('Name', 'string', 'Name of the lobby').parameter('Public', 'boolean', 'Is youre lobby is public or not (true,false)').parameter('Password', 'string', 'Password if they are one').handler(function(player,Name,Public,Password) {
 
 // args 0 name of the lobby args 1 boolean for public or private args 2 password
@@ -232,7 +244,7 @@ for (var i = 0; i <race.game.lobby.length; i++) {
 
  }))
 
-
+*/
 
 
   // Commands end ---
