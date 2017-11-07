@@ -220,6 +220,11 @@
         clearInterval(timers);
         jcmp.CallEvent('Timer_Client',timegame);
         console.log("TimerFinish" + timegame);
+        setTimeout(function() {
+          document.getElementById("timergame").innerText = "";
+          timergame = 0;
+
+        }, 2000);
       }
 
 

@@ -18,7 +18,6 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 
 jcmp.events.AddRemoteCallable('Timer_Server',function(player,time){
   player.race.time = time;
-  console.log("SERVER TIme" + player.race.time);
   const Race = player.race.game;
   if (Race.type == "multicrew") {
     jcmp.events.Call('MC_race_end_point', player);
