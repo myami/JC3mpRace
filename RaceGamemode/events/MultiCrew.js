@@ -18,6 +18,7 @@ jcmp.events.Add('MC_Race_Checkpoint', function(player) {
     jcmp.events.CallRemote('Checkpoint_current_client', partner, player.race.checkpoints);
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
     jcmp.events.CallRemote('End_Timer',player);
+      jcmp.events.CallRemote('End_Timer',partner);
     return;
     // whas last checkpoint
   }

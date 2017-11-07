@@ -173,14 +173,14 @@ if(res[0].race.partnerplayer.length != 0){
             {
               console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
               console.log("driver 1");
-              res[0].race.partnerplayer[1].race.driver = true;
-              res[0].race.partnerplayer[0].race.driver = false;
+              res[0].race.partnerplayer[0].race.driver = true;
+              res[0].race.partnerplayer[1].race.driver = false;
             }
             else{
                 console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
                 console.log("driver 2");
-              res[0].race.partnerplayer[0].race.driver = true;
-              res[0].race.partnerplayer[1].race.driver = false;
+              res[0].race.partnerplayer[1].race.driver = true;
+              res[0].race.partnerplayer[0].race.driver = false;
             }
           }
           if (res[0].race.partnerplayer[1].name == res[0].name)
@@ -189,14 +189,14 @@ if(res[0].race.partnerplayer.length != 0){
             {
                 console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
                 console.log("driver 3");
-              res[0].race.partnerplayer[0].race.driver = true;
-              res[0].race.partnerplayer[1].race.driver = false;
+              res[0].race.partnerplayer[1].race.driver = true;
+              res[0].race.partnerplayer[0].race.driver = false;
             }
             else{
                 console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
                 console.log("driver4");
-              res[0].race.partnerplayer[1].race.driver = true;
-              res[0].race.partnerplayer[0].race.driver = false;
+              res[0].race.partnerplayer[0].race.driver = true;
+              res[0].race.partnerplayer[1].race.driver = false;
             }
           }
 
