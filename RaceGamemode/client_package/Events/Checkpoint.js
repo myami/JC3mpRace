@@ -93,7 +93,7 @@ function deleteCheckpoint() {
   })
 }
 function nextcheckpoint(){
-  if (typeofrace == "classic" || typeofrace == "kart" || typeofrace == "apo"|| typeofrace == "tts"){
+  if (typeofrace == "classic"  || typeofrace == "apo"|| typeofrace == "tts"){
     jcmp.ui.CallEvent('Checkpoint_Sound');
     jcmp.events.CallRemote('race_checkpoint');
   }

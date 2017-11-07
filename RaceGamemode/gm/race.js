@@ -48,11 +48,7 @@ module.exports = class Race {
         this.apoStart();
       }, 30000);
       return;
-    }  if (this.type == "kart") {
-      console.log("KART !!!!!");
-      this.KartRaceStart();
-
-    }
+    } 
      if (this.type == "tts"){
       console.log("TTS !!!!!!!!");
       this.TTSStart();
@@ -301,86 +297,6 @@ module.exports = class Race {
 
 
 
-  }
-
-
-  //////////////////////////////////// KART ////////////////////////////////////
-
-  KartRaceStart() {
-    console.log("KartRaceStart");
-    for (var i = 0; i < this.players.length; i++) {
-      const player = this.players[i];
-      let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
-      player.race.playerrotationspawn = rotation;
-      player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
-      player.rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
-      player.respawnPosition = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
-      player.race.game = this;
-      player.race.ingame = true;
-      player.dimension = this.id;
-      player.race.time = 0;
-      player.race.hasfinish = false;
-      this.playersname.push(player.name);
-
-
-      if (player.race.vehicle == 0) {
-        // wingsuit race
-        console.log("true wingsuit");
-        this.wingsuitrace = true;
-      }
-      if (this.alldefaultvehicle) {
-        player.race.vehicle = this.defaultvehicle;
-        //jcmp.events.Call('race_player_checkpoint_respawn', player);
-        setTimeout(function() {
-          if (player.race.vehicle != 0) {
-            const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-            vehicle.nitroEnabled = this.nitro;
-            vehicle.dimension = player.race.game.id;
-            vehicle.SetOccupant(0, player);
-
-          }
-
-        }, 4000);
-
-      } else {
-        //  jcmp.events.CallRemote('race_vehicle_choice_menu',player);
-      }
-      let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
-      let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-      if (this.wingsuitrace) {
-        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint), true);
-
-      } else {
-        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
-
-      }
-      jcmp.events.CallRemote('PlayerPassager', player, false);
-      jcmp.events.CallRemote('race_Freeze_player', player);
-      jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
-      jcmp.events.CallRemote('race_set_weather', player, this.weather);
-      //spawning the first checkpoint
-
-      jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
-      jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player, this.type);
-    }
-  }
-
-
-  KartRespawnCar(player) {
-    if (player.race.vehicle != 0) {
-      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = player.race.nitro;
-      console.log("Vehicle spawning");
-      vehicle.dimension = player.race.game.id;
-      setTimeout(function() {
-        vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
-        //  race.game.RacePeopleDie.removePlayer(player);
-        player.race.spawningdouble = false;
-      }, race.game.respawntimer + 1000);
-    } else {
-      //Wingsuit race
-    }
   }
 
 
