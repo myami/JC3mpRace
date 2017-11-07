@@ -36,11 +36,8 @@ jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
 jcmp.ui.AddEvent('race_countdown_end', function() {
   jcmp.localPlayer.controlsEnabled = true;
   countdowninprogress = false; // no respawn during countdown
-  //  jcmp.ui.CallEvent('Race_Timer_container',false);
-  //Remove the countdown
-  // start the timer global for the player
-    jcmp.events.CallRemote('race_debug', "RaceUnfreeze");
-  jcmp.events.CallRemote('Race_player_timer_start');
+  jcmp.events.CallRemote('race_debug', "CountdownEND");
+
 });
 jcmp.ui.AddEvent('AddPlayerLeaderboard', function() {
   jcmp.events.CallRemote('AddPlayerLeaderboard');
@@ -61,4 +58,15 @@ jcmp.events.AddRemoteCallable('race_end_point_client', function() {
 
 jcmp.events.AddRemoteCallable('WarningBarrel',function(){
   jcmp.ui.CallEvent('WarningBarrel_CEF');
+});
+
+
+jcmp.events.AddRemoteCallable('End_Timer',function(){
+jcmp.ui.CallEvent('Stop_Timer');
+
+
+});
+
+jcmp.ui.AddEvent('Timer_Client',function(time){
+jcmp.events.CallRemote('Timer_Server',time);
 });

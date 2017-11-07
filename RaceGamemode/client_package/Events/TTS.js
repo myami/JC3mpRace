@@ -21,6 +21,6 @@ jcmp.ui.AddEvent('TTS_race_countdown_end', function() {
     jcmp.localPlayer.controlsEnabled = true;
       countdowninprogress = false;
   jcmp.events.CallRemote('race_debug', "TTS_race_countdown_end " + jcmp.localPlayer.networkId);
-  jcmp.events.CallRemote('TTS_Race_player_timer_start');
+  jcmp.events.CallRemote('TTS_Race_player_Start_New_Player');
   jcmp.events.CallRemote('race_debug', "CountdownEND");
 });

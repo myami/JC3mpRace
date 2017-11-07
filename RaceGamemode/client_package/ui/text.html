@@ -7,7 +7,7 @@
   <title>race - Text UI </title>
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Titillium+Web" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
     <script type="text/javascript" src="popper.js"></script>
     <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
@@ -31,9 +31,9 @@
       position: fixed;
       top: 2%;
       right: 49%;
-      font-family: 'Passion One', cursive;
-      font-weight: bold;
-      font-size: 30pt;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+      font-size: 27pt;
     }
 
     #alpha {
@@ -60,9 +60,10 @@
       position: fixed;
       top: 30%;
       right: 10%;
-      font-family: 'Passion One', cursive;
+      font-family: 'Roboto', sans-serif;
       font-weight: bold;
-      font-size: 60pt;
+      font-size: 50pt;
+      color: rgba(5, 5, 11, 0.7);
     }
     #spectator{
       position:fixed;
@@ -99,6 +100,18 @@
       font-weight: bold;
       color: red;
     }
+    #timergame{
+      position: fixed;
+      bottom: 1.5%;
+      right: 5%;
+      font-family: 'Roboto', sans-serif;
+      color: white;
+      font-size: 27pt;
+      border: 1px solid black;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.3);
+
+    }
 
 
     body {
@@ -113,16 +126,17 @@
     <span id="timer">30</span>
   </div>
 
-  <div id="CheckpointContainer" class="hidden">
-    <span id="playercheckpointis">0</span> / <span id="allcheckpoint">0</span>
+  <div id="CheckpointContainer"class="hidden">
+  <img src="./img/CircleCheckpoint.png" height="42" width="42">  <span id="playercheckpointis">0</span> | <span id="allcheckpoint">0</span>
   </div>
 
-  <div id="rank" class="hidden">
+  <div id="rank"class="hidden">
     You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
   </div>
   <div id="Onclickexplained">
     Press "N" to show the leaderboard . Press "B" to reset to the last checkpoint. Press "M" to hide this message
   </div>
+
 
 
   <div id="alpha" class="">
@@ -143,16 +157,16 @@
   <div id="WaitItsyouTTS"class="hidden">
   Wait for your turn to start
   </div>
-
+<div id = "timergame"class="hidden">00:25.10</div>
 
 
   <script>
     let timer = 30; // timer seconde
     let istts = false;
+    let timegame = 0;
+    let timers ;
     jcmp.AddEvent('Countdown_start', function() {
-      console.log("Countdown_start");
-      console.log(" " + istts);
-    //  jcmp.CallEvent('inrace_client',true);
+
       let inter = setInterval(function() {
         if (timer > 0) {
           timer--;
@@ -164,12 +178,15 @@
         if (timer == 0) {
           if (!istts){
             jcmp.CallEvent('race_countdown_end');
+            timegame = 0;
+            countdownrace(true);
           }
           else{
             console.log("RaceisTTS");
             jcmp.CallEvent('TTS_race_countdown_end');
+            timegame = 0;
+            countdownrace(true);
           }
-      //    jcmp.CallEvent('inrace_client',false);
           timer = 30;
           clear(inter);
           document.getElementById("timer").innerText = "GO";
@@ -187,6 +204,31 @@
       istts = status;
     });
 
+    function countdownrace (status){
+      console.log("Countdown" + status);
+      toggleContainer("timergame", status);
+      if (status){
+         timers = setInterval(function() {
+            timegame ++ ;
+            let minute = Math.floor(timegame / 60);
+            let seconds = timegame % 60 ;
+            let hour = Math.floor(timegame / 3600);
+            document.getElementById("timergame").innerText = (`${hour}:${minute}:${seconds}`);
+        }, 1000);
+      }
+      else {
+        clearInterval(timers);
+        jcmp.CallEvent('Timer_Client',timegame);
+        console.log("TimerFinish" + timegame);
+      }
+
+
+
+
+    }
+  jcmp.AddEvent('Stop_Timer',function(){
+    countdownrace(false);
+  })
     function clear(vartoclear) {
       clearInterval(vartoclear);
     }

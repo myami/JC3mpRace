@@ -14,8 +14,10 @@ jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   player.race.checkpoints++;
 
   if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
+    jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+    jcmp.events.CallRemote('Checkpoint_current_client', partner, player.race.checkpoints);
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
-    jcmp.events.Call('MC_race_end_point', player);
+    jcmp.events.CallRemote('End_Timer',player);
     return;
     // whas last checkpoint
   }
@@ -47,8 +49,6 @@ jcmp.events.Add('MC_race_end_point', function(player) {
   const partner = player.race.partnerplayer[0];
   player.race.hasfinish = true;
   partner.race.hasfinish = true;
-  clearInterval(player.race.timerinterval);
-  clearInterval(partner.race.timerinterval);
 
   Race.leaderboard.push(player);
   let playern = player.networkId;

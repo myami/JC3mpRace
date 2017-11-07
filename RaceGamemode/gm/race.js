@@ -262,7 +262,7 @@ module.exports = class Race {
           vehicle.nitroEnabled = this.nitro;
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, driver);
-          vehicle.SetOccupant(1, passager); 
+          vehicle.SetOccupant(1, passager);
           console.log("Driver");
           return;
         }
@@ -480,6 +480,14 @@ TTSPlayerStartRelease(){
   }
   else{
     console.log("All the player have start");
+  }
+
+}
+
+TTSUpdateEndLeaderboard(playername, minute, seconds) {
+  for (let player of this.players) {
+    jcmp.events.CallRemote('Update_leaderboard_all_TTS', player, playername, minute, seconds);
+    // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
   }
 
 }

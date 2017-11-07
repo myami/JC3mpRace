@@ -16,6 +16,28 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 }
 });
 
+jcmp.events.AddRemoteCallable('Timer_Server',function(player,time){
+  player.race.time = time;
+  console.log("SERVER TIme" + player.race.time);
+  const Race = player.race.game;
+  if (Race.type == "multicrew") {
+    jcmp.events.Call('MC_race_end_point', player);
+
+  }  if (Race.type == "classic") {
+    jcmp.events.Call('C_race_end_point', player);
+
+  }
+   if (Race.type == "kart") {
+   jcmp.events.Call('Kart_race_end_point', player);
+ }
+  if (Race.type == "tts") {
+  jcmp.events.Call('TTS_race_end_point', player);
+
+}
+
+
+});
+
 
 jcmp.events.AddRemoteCallable('AddPlayerLeaderboard', function(player) {
   const Race = player.race.game;
@@ -94,16 +116,6 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
 });
 
 
-jcmp.events.AddRemoteCallable('Race_player_timer_start', (player) => { // the timer for the leaderboard
-  const Race = player.race.game;
-  const timerinterval = setInterval(function() {
-    if (player != undefined && player.name != undefined)
-      if (player.race.ingame)
-        player.race.time++;
-  }, 1000);
-  player.race.timerinterval = timerinterval;
-
-});
 
 jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name, value) { // for the votesystem
 
@@ -146,7 +158,7 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
-      
+
       for (var i = 0; i < race.game.players.onlobby.length; i++) {
         const player = race.game.players.onlobby[i];
         if (player.race.partnerplayer[1] == undefined){

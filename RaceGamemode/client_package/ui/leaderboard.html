@@ -108,6 +108,19 @@
       });
 
     });
+    jcmp.AddEvent('Leaderboard_update_end_TTS',function(playername,minute,seconds){
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          $("#" + namewithoutspace + "3").text(`${minute} M ${seconds} s`);
+
+        }
+
+
+      });
+
+    })
 
     jcmp.AddEvent('Leaderboard_remove_all', function() {
       $('tr').each(function() {

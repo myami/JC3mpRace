@@ -6,8 +6,9 @@ jcmp.events.Add('TTS_Race_Checkpoint', function(player) {
   player.race.checkpoints++;
 
   if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
+    jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
-    jcmp.events.Call('TTS_race_end_point', player);
+    jcmp.events.CallRemote('End_Timer',player);
     return;
     // whas last checkpoint
   }
@@ -33,7 +34,6 @@ jcmp.events.Add('TTS_race_end_point', function(player) {
 
   player.race.hasfinish = true;
   const Race = player.race.game;
-  clearInterval(player.race.timerinterval);
 
   Race.leaderboard.push(player);
   let playern = player.networkId;
@@ -51,13 +51,14 @@ jcmp.events.Add('TTS_race_end_point', function(player) {
       let minute = Math.floor(player.race.time / 60);
       let seconds = player.race.time % 60
       let playername = player.name;
-      race.chat.broadcast(`[SERVER] ${playername} is ${leaderboardplace} with a time of ${minute} minutes and ${seconds} seconds!`, race.config.colours.red);
-      jcmp.events.CallRemote('Player_data_Announce', player, leaderboardplace, player.race.time);
-      Race.UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds);
+      race.chat.broadcast(`[SERVER] ${playername} has made a time of ${minute} minutes and ${seconds} seconds!`, race.config.colours.red);
+      jcmp.events.CallRemote('Player_data_Announce_TTS', player, player.race.time);
+      Race.TTSUpdateEndLeaderboard(playername, leaderboardplace, minute, seconds); // a changer
+
       setTimeout(function() {
         jcmp.events.Call('race_player_leave_game', player)
         player.race.time = 0;
-      }, 2000);
+      }, 1000);
 
     }
 
@@ -65,15 +66,9 @@ jcmp.events.Add('TTS_race_end_point', function(player) {
 
 });
 
-jcmp.events.AddRemoteCallable('TTS_Race_player_timer_start', (player) => { // the timer for the leaderboard
+jcmp.events.AddRemoteCallable('TTS_Race_player_Start_New_Player', (player) => { // the timer for the leaderboard
   console.log(player.name + "timerstart");
   const Race = player.race.game;
-  const timerinterval = setInterval(function() {
-    if (player != undefined && player.name != undefined)
-      if (player.race.ingame)
-        player.race.time++;
-  }, 1000);
-  player.race.timerinterval = timerinterval;
   Race.TTSPlayerStartRelease();
 
 });

@@ -6,8 +6,9 @@ jcmp.events.Add('C_Race_Checkpoint', function(player) {
   player.race.checkpoints++;
 
   if (player.race.checkpoints == Race.raceCheckpoint.length) { // if it's egal it's mean it's the last checkpoint
+    jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
     race.chat.send(player, "[SERVER] You finished the race! Well done!!");
-    jcmp.events.Call('C_race_end_point', player);
+    jcmp.events.CallRemote('End_Timer',player);
     return;
     // whas last checkpoint
   }
@@ -33,7 +34,7 @@ jcmp.events.Add('C_race_end_point', function(player) {
 
   player.race.hasfinish = true;
   const Race = player.race.game;
-  clearInterval(player.race.timerinterval);
+
 
   if (Race.type == "apo"){ // for just one line don't need to create a new checkpoint system and endpoint
     clearInterval(Race.intervalapo);
