@@ -12,3 +12,4 @@ include('events/VehicleMenu.js');
 include('events/Vote.js');
 include('events/MultiCrew.js');
 include('events/TTS.js');
+include('events/Lobby.js');

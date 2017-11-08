@@ -48,7 +48,7 @@ module.exports = class Race {
         this.apoStart();
       }, 30000);
       return;
-    } 
+    }
      if (this.type == "tts"){
       console.log("TTS !!!!!!!!");
       this.TTSStart();

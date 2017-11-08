@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - Leaderboard </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="popper.js"></script>
+  <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+  <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    #leaderboard {
+      position: fixed;
+      top: 40%;
+      right: 15%;
+      width: 55%;
+      height: 40%;
+      overflow: auto;
+    }
+
+    table {
+      font-family: 'Passion One', cursive;
+      border-collapse: collapse;
+      width: 100%;
+      color: white;
+      font-size: 20pt;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #2f342f;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #3b423b;
+    }
+
+        body {
+          user-select: none;
+        }
+  </style>
+</head>
+
+<body>
+  <div id="PlayerList">
+    <table id="tablePlayer">
+      <tr id="toplist">
+        <th>Name</th>
+        <th>Privilege</th>
+        <th>Id</th>
+      </tr>
+
+    </table>
+
+  </div>
+
+  <script>
+    $("#PlayerList").show();
+    jcmp.AddEvent('AddPlayerOnLobbyList', function(playerlistname,playerlistnetworkid) {
+      let playerl = JSON.parse(playerlistname);
+      for (var i = 0; i < playerl.length; i++) {
+        let playername = playerl[i];
+        let namewithoutspace = playername.split(" ").join("");
+        var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+        var $name = $("<td></td>").attr({
+          "id": namewithoutspace + "1"
+        });
+        $($name).text(playername);
+  /*      var $privilege = $("<td></td>").attr({
+          "id": namewithoutspace + "2"
+        });*/
+        $($id).text(" ");
+        var $time = $("<td></td>").attr({
+          "id": namewithoutspace + "3"
+        });
+
+
+        $($submenu).append($name);
+      //  $($submenu).append();
+        $($submenu).append($id);
+        $("#tablePlayer").append($submenu);
+      }
+
+
+    });
+    jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,privilege) {
+
+        let namewithoutspace = playername.split(" ").join("");
+        var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+        var $name = $("<td></td>").attr({
+          "id": namewithoutspace + "1"
+        });
+        $($name).text(playername);
+  /*      var $privilege = $("<td></td>").attr({
+          "id": namewithoutspace + "2"
+        });
+        $($id).text(privilege);*/
+
+        var $id = $("<td></td>").attr({
+          "id": namewithoutspace + "3"
+        });
+          $($id).text(playernetworkid);
+
+
+        $($submenu).append($name);
+    //    $($submenu).append($privilege);
+        $($submenu).append($id);
+        $("#tablePlayer").append($submenu);
+
+        console.log("Done");
+
+    });
+
+    jcmp.AddEvent('Lobby_Update_all', function(playername, privilege, id) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+            $("#" + namewithoutspace + "1").text(`${playername}`);
+        //  $("#" + namewithoutspace + "2").text(`${privilege}`);
+          $("#" + namewithoutspace + "3").text(`${id}`);
+
+        }
+
+
+      });
+
+    });
+    jcmp.AddEvent('Lobby_Update_privilege', function(playername, privilege) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          $("#" + namewithoutspace + "2").text(`${privilege}`);
+        }
+
+
+      });
+
+    });
+
+
+    jcmp.AddEvent('Lobby_remove_all', function() {
+      $("#leaderboard").hide();
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        console.log(idname);
+        if (idname == "toplist") {
+          return;
+        }
+        $(this).remove();
+        console.log(this + "removed");
+
+      });
+    });
+    jcmp.AddEvent('Lobby_remove_one', function(playername) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          $("#" + namewithoutspace + "1").remove();
+          $("#" + namewithoutspace + "2").remove();
+          $("#" + namewithoutspace + "3").remove();
+          $("#" + namewithoutspace).remove();
+
+        }
+
+      });
+    });
+
+    let $chat_input_visible = false;
+    let $is_scoreboard_key_down = false;
+
+    jcmp.AddEvent('chat_input_state', function(b) {
+                $chat_input_visible = b;
+            });
+
+                    $(window).keydown(function(event) {
+                        // toggle scoreboard
+                        if (event.which === 78  && !$chat_input_visible && !$is_scoreboard_key_down) { //l
+                          $("#leaderboard").show();
+                          jcmp.ShowCursor()
+                          $is_scoreboard_key_down = true;
+                        }
+
+    });
+
+
+    $(window).keyup(function(event) {
+
+      const key = event.which;
+     if (key === 78 && $is_scoreboard_key_down && !$chat_input_visible) { // l
+        $("#leaderboard").hide();
+        jcmp.HideCursor();
+        $is_scoreboard_key_down = false;
+      }
+    });
+  </script>
+</body>
+
+</html>

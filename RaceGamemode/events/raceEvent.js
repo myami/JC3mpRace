@@ -120,7 +120,7 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
   //   tts = time trial solo , everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
 
-
+  jcmp.events.CallRemote('Remove_All_Lobby',null);
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
     //const index = race.utils.random(0,race.game.RaceList.length -1);
