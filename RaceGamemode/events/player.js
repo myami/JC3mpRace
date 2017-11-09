@@ -95,12 +95,14 @@ jcmp.events.Add('PlayerReady', function(player) {
   player.respawnPosition = race.utils.randomSpawn(race.config.game.lobby.pos, race.config.game.lobby.radius / 2);
   player.Respawn();
 
-  console.log("Player added to lobby list");
-  console.log(" * " + race.game.players.onlobby.length + " on lobby waiting");
+
+
   setTimeout(function() {
     jcmp.events.Call('Race_name_index', player);
-      jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name,player.networkId); // send to all player the name of the Player but the player don't see all the other on the list only himslef
-
+    jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name,player.networkId); // send to all player the name of the Player but the player don't see all the other on the list only himslef
+      setTimeout(function() {
+            jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Waiting"));
+      }, 1000);
   }, 3000);
 
 

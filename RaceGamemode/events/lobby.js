@@ -4,6 +4,7 @@ jcmp.events.AddRemoteCallable('Player_Join_Lobby',function(player){
   race.game.players.onlobby.push(player);
   race.chat.send(player,"[SERVER] You Just join the lobby");
       jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby"));
+        console.log(" * " + race.game.players.onlobby.length + " on lobby waiting");
 
 });
 
