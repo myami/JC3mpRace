@@ -47,6 +47,16 @@
         body {
           user-select: none;
         }
+        #JoinLobby{
+          position: fixed;
+          top: 25%;
+          right: 30%;
+        }
+        #RemoveLobby{
+          position: fixed;
+          bottom: 2%;
+          left: 10%;
+        }
   </style>
 </head>
 
@@ -62,15 +72,15 @@
     </table>
 
   </div>
-
-<!--
-When the player join he will be on the lobby but not on the lobby to join a game just waiting press this button to be join the next race that will be launch
   <div id="JoinLobby">
     <button>JoinLobby</button>
   </div>
-  <div id="RemoveLobby"> If you want to wait you friend join the server to be on the same race
+  <div id="RemoveLobby">
     <button>RemoveLobby</button>
   </div>
+<!--
+When the player join he will be on the lobby but not on the lobby to join a game just waiting press this button to be join the next race that will be launch
+
 A button for the leader to select the type of race only him can change it (admin) and other people can see what it is to can select they're teammate
 <div id="AdminPanel">
 <div id="TypeOfRace">
@@ -104,9 +114,12 @@ then it will have a delay of 15 sec before launching the race
 
     $( "#JoinLobby" ).click(function() {
       jcmp.CallEvent('JoinLobby');
+          $("#JoinLobby").hide();
+          $("#RemoveLobby").show();
     });
     $( "#RemoveLobby" ).click(function() {
       jcmp.CallEvent('RemoveLobby');
+        $("#RemoveLobby").hide();
     });
     $( "#Classic" ).click(function() {
       jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("Classic"));
@@ -223,6 +236,18 @@ then it will have a delay of 15 sec before launching the race
         if (idname == namewithoutspace) {
           $("#" + namewithoutspace + "2").text(`${st}`);
           console.log("State Update" + namewithoutspace);
+        }
+        if (st == 'OnLobby'){
+              $("#RemoveLobby").show();
+        }
+
+        if (st == 'Ingame'){
+            $("#RemoveLobby").hide();
+        }
+
+        if (st == 'Waiting'){
+            $("#RemoveLobby").hide();
+            $("#JoinLobby").show();
         }
 
 
