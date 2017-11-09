@@ -58,6 +58,8 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     player.respawnPosition = race.config.game.lobby.pos;
     jcmp.events.CallRemote('race_set_time', player, 11, 0);
     jcmp.events.CallRemote('race_set_weather', player, "base");
+    jcmp.events.CallRemote('LobbyStatus_Server',player,true);
+    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby"));
 
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();

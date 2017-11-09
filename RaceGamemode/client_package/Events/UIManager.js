@@ -16,3 +16,6 @@ var leaderboard = new WebUIWindow("race leaderboard", "package://race/ui/leaderb
 adminchoice.autoResize = true;
 var multicrew = new WebUIWindow("race multicrew", "package://race/ui/multicrew.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 multicrew.autoResize = true;
+
+var lobby = new WebUIWindow("race lobby", "package://race/ui/lobby.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+lobby.autoResize = true;

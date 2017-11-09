@@ -35,7 +35,7 @@ jcmp.events.Add("PlayerCreated", function(player) {
   };
 
   jcmp.events.CallRemote('race_player_created', null, JSON.stringify(dsend));
-  jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name,player.networkId);
+
 
 });
 
@@ -50,7 +50,7 @@ jcmp.events.Add('PlayerDestroyed', function(player) {
       console.log(timer);
     }
   }
-  jcmp.events.CallRemote('Remove_One_Lobby',null,player.name);
+  jcmp.events.CallRemote('Remove_Lobby_Destroyed',null,player.name);
   jcmp.events.CallRemote('race_player_destroyed', null, player.networkId);
 
   if (player.race.ingame) {
@@ -79,6 +79,8 @@ jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
   console.log(data);
 
   jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
+  jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
+  jcmp.events.CallRemote('LobbyStatus_Server',player,true);
 
 });
 
@@ -93,7 +95,9 @@ jcmp.events.Add('PlayerReady', function(player) {
   console.log(" * " + race.game.players.onlobby.length + " on lobby waiting");
   setTimeout(function() {
     jcmp.events.Call('Race_name_index', player);
-  }, 2000);
+      jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name,player.networkId); // send to all player the name of the Player but the player don't see all the other on the list only himslef
+
+  }, 3000);
 
 
 

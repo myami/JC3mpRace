@@ -81,6 +81,9 @@ module.exports = class Race {
   ClassicRace() {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
+      jcmp.events.CallRemote('LobbyStatus_Server',player,false);
+      jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
+
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -159,6 +162,8 @@ module.exports = class Race {
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
+      jcmp.events.CallRemote('LobbyStatus_Server',player,false);
+      jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -308,6 +313,8 @@ TTSStart() {
   console.log("TTSStart");
   for (var i = 0; i < this.players.length; i++) {
     const player = this.players[i];
+    jcmp.events.CallRemote('LobbyStatus_Server',player,false);
+    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
     let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
     player.race.playerrotationspawn = rotation;
     player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);

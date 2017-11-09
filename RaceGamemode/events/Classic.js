@@ -35,7 +35,6 @@ jcmp.events.Add('C_race_end_point', function(player) {
   player.race.hasfinish = true;
   const Race = player.race.game;
 
-
   if (Race.type == "apo"){ // for just one line don't need to create a new checkpoint system and endpoint
     clearInterval(Race.intervalapo);
   }
