@@ -58,7 +58,7 @@ function IsPointInCircle(v1, v2, radius) {
   return false;
 }
 
-function createCache(id, name, colour) {
+function createCache(id, name, colour,isadmin) {
 
   playersCache[id] = {
     id: id,
@@ -66,7 +66,7 @@ function createCache(id, name, colour) {
     colour: colour,
     colour_rgb: hex2rgba(colour),
     flags: {
-      isAdmin: false
+      isAdmin: isadmin
     },
     nametag: {
       textMetric: null,

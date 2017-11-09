@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>race - Leaderboard </title>
+  <title>race - Lobby </title>
 
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
@@ -63,14 +63,105 @@
 
   </div>
 
+<!--
+When the player join he will be on the lobby but not on the lobby to join a game just waiting press this button to be join the next race that will be launch
+  <div id="JoinLobby">
+    <button>JoinLobby</button>
+  </div>
+  <div id="RemoveLobby"> If you want to wait you friend join the server to be on the same race
+    <button>RemoveLobby</button>
+  </div>
+A button for the leader to select the type of race only him can change it (admin) and other people can see what it is to can select they're teammate
+<div id="AdminPanel">
+<div id="TypeOfRace">
+<button id="Classic">Classic</button>
+<button id="MultiCrew">MultiCrew</button> if MultiCrew is selected you will see the name of people with color when they have already a partner
+<button id="TTS">TTS</button>
+<button>Apo(NotWorking)</button>
+</div>
+<span id="TypeRaceSelected"></span>
+<div id= "MapList">
+The list of the map for the race
+<ul>
+  <li><img src="./img/MapImage/Airplane-AirfieldRace.jpg.png"width="12" height="12" ><a id="AirplaneAirfield">Airplane-AirfieldRace</a></li>
+  <li><img src="./img/MapImage/Boat-BetweenIslands.jpg.png"width="12" height="12" ><a id="BoatBetweenIslands">Boat-BetweenIslands</a></li>
+  <li><img src="./img/MapImage/Boat-Slalom.jpg.png"width="12" height="12" ><a id="BoatSlalom">Boat-Slalom</a></li>
+</ul>
+</div>
+this button appear when we select a type of race and a map
+then it will have a delay of 15 sec before launching the race
+<div id="Start">
+<button>LaunchRace</button>
+</div>
+
+</div>
+
+
+-->
+
   <script>
-    jcmp.AddEvent('LobbyStatus',function(status){
+
+
+    $( "#JoinLobby" ).click(function() {
+      jcmp.CallEvent('JoinLobby');
+    });
+    $( "#RemoveLobby" ).click(function() {
+      jcmp.CallEvent('RemoveLobby');
+    });
+    $( "#Classic" ).click(function() {
+      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("Classic"));
+        $("#TypeOfRace").hide();
+        $("#MapList").show();
+    });
+    $( "#MultiCrew" ).click(function() {
+      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("MultiCrew"));
+      $("#TypeOfRace").hide();
+        $("#MapList").show();
+
+    });
+    $( "#TTS" ).click(function() {
+      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("TTS"));
+        $("#TypeOfRace").hide();
+        $("#MapList").show();
+
+    });
+
+    $( "#AirplaneAirfield" ).click(function() {
+      $("#MapList").hide();
+      $("#Start").show();
+      jcmp.CallEvent('MapSelect',JSON.stringify("AirplaneAirfield"))
+    });
+
+    $( "#BoatBetweenIslands" ).click(function() {
+      $("#MapList").hide();
+      $("#Start").show();
+    });
+
+    $( "#BoatSlalom" ).click(function() {
+      $("#MapList").hide();
+      $("#Start").show();
+    });
+    jcmp.AddEvent('IsAdmin',function(status){
       if (status){
-        $("#PlayerList").show();
+          $("#AdminPanel").show();
       }
       else{
-        $("#PlayerList").hide();
+          $("#AdminPanel").hide();
       }
+    })
+      jcmp.AddEvent('LobbyStatus',function(status){
+        if (status){
+          $("#PlayerList").show();
+        }
+        else{
+          $("#PlayerList").hide();
+        }
+      });
+
+    jcmp.AddEvent('TypeOfRaceSelect',function(type){
+      select = JSON.parse(type);
+      $("#TypeRaceSelected").text(select);
+      $("#TypeRaceSelected").show();
     })
 
     jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,) {
@@ -116,7 +207,7 @@
         if (idname == namewithoutspace) {
             $("#" + namewithoutspace + "1").text(`${playername}`);
             $("#" + namewithoutspace + "2").text(`${state}`);
-          $("#" + namewithoutspace + "3").text(`${id}`);
+            $("#" + namewithoutspace + "3").text(`${id}`);
 
         }
 

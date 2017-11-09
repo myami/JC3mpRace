@@ -15,7 +15,7 @@ jcmp.events.AddRemoteCallable('race_player_created', function(data) {
 
   data = JSON.parse(data);
   //const playerCache = createCache(data.id, data.name, data.colour);
-  createCache(data.id, data.name, data.colour);
+  createCache(data.id, data.name, data.colour,data.isAdmin);
 });
 
 

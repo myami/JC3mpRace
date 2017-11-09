@@ -6,6 +6,7 @@ jcmp.events.Add("PlayerCreated", function(player) {
   var color = race.utils.randomColor();
   player.race = {
     ingame: false,
+    isAdmin:false,
     colour: color,
     colour_rgb: race.utils.hexToRGB(color),
     warning: false,
@@ -26,12 +27,15 @@ jcmp.events.Add("PlayerCreated", function(player) {
     driver:false,
 
   }
-
+  if (race.utils.isAdmin(player)) {
+    player.race.isAdmin = true;
+    }
 
   var dsend = {
     id: player.networkId,
     name: player.escapedNametagName,
-    colour: player.race.colour
+    colour: player.race.colour,
+    isAdmin: player.race.isAdmin
   };
 
   jcmp.events.CallRemote('race_player_created', null, JSON.stringify(dsend));
@@ -87,7 +91,7 @@ jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
 
 jcmp.events.Add('PlayerReady', function(player) {
 
-  race.game.players.onlobby.push(player);
+
   player.respawnPosition = race.utils.randomSpawn(race.config.game.lobby.pos, race.config.game.lobby.radius / 2);
   player.Respawn();
 
