@@ -52,7 +52,6 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
 
   if (!destroy) {
 
-    race.game.players.onlobby.push(player);
     player.race.ingame = false;
     player.dimension = 0;
     player.respawnPosition = race.config.game.lobby.pos;
@@ -187,7 +186,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
     race.game.games.push(Race);
     Race.Start();
-    // send an event to say the lobby is in race 
+    // send an event to say the lobby is in race
 
 });
 

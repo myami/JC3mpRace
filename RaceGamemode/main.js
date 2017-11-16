@@ -48,7 +48,10 @@ race.utils.loadFilesFromDirectory(`${__dirname}/events`);
 race.utils.GetRaceData();
 
 setInterval(function() {
-  jcmp.events.Call('SpectatorTPtoTracker');
+  if(jcmp.players > 0){
+    jcmp.events.Call('SpectatorTPtoTracker');
+  }
+
 }, 2500);
 
 

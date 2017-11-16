@@ -56,6 +56,7 @@
 
         body {
           user-select: none;
+
         }
         #JoinLobby{
           position: fixed;
@@ -83,9 +84,7 @@
         <th>States</th>
         <th>Id</th>
       </tr>
-
     </table>
-
   </div>
   <div id="LobbyList">
     <table id="tableLobby">
@@ -94,9 +93,7 @@
         <th>PlayerCreated</th>
         <th>Number of Player</th>
       </tr>
-
     </table>
-
   </div>
   <div id="JoinLobby">
     <button id="JoinLobbyB">JoinLobby</button>
@@ -111,14 +108,16 @@
 
 
   <script>
-  $("#LobbyList").hide();
-
+  $("#PlayerList").hide();
+let lobbyid ;
 
   $( "#CreateLobby" ).click(function() {
     jcmp.CallEvent('CreateLobby');
         $("#CreateLobby").hide();
         $("#JoinLobby").hide();
         $("#RemoveLobby").show();
+          $("#PlayerList").show();
+            $("#LobbyList").hide();
   });
 
     $( "#JoinLobbyB" ).click(function() {
@@ -127,10 +126,14 @@
       jcmp.CallEvent('JoinLobby',id);
           $("#JoinLobby").hide();
           $("#RemoveLobby").show();
+          $("#PlayerList").show();
+            $("#LobbyList").hide();
     });
     $( "#RemoveLobby" ).click(function() {
       jcmp.CallEvent('RemoveLobby');
         $("#RemoveLobby").hide();
+        $("#PlayerList").hide();
+          $("#LobbyList").show();
     });
 
       jcmp.AddEvent('PlayerLobbyList',function(status){
@@ -153,7 +156,21 @@
       jcmp.AddEvent('JoinLobby_Show_button',function(){
         $("#JoinLobby").show();
       });
+      jcmp.AddEvent('Delete_Lobby',function(id){
+        $('tr').each(function() {
+          let idname = $(this).attr('id');
 
+          if (idname == id) {
+            console.log("Find");
+            $("#" + id + "id").remove();
+            $("#" + id + "playername").remove();
+            $("#" + id + "np").remove();
+            $("#" + id).remove();
+            console.log("Lobby remove from the lobby list" + id);
+          }
+
+        });
+      })
 
 jcmp.AddEvent('AddNewLobby', function(id,playername) {
   $('tr').each(function() {
@@ -167,26 +184,26 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
 
     var $submenu = $("<tr></tr>").attr("id", id);
     var $id = $("<td></td>").attr({
-      "id": id + "1"
+      "id": id + "id"
     });
-    $($id).text(id);
+    $($id).text("Lobby: " + id);
 
   var $playername = $("<td></td>").attr({
-      "id": id + "2"
+      "id": id + "playername"
     });
     $($playername).text(playername);
 
     var $numberofplayer = $("<td></td>").attr({
-      "id": id + "3"
+      "id": id + "np"
     });
       $($numberofplayer).text("1");
 
 
-    $($submenu).append($name);
-    $($submenu).append($state);
     $($submenu).append($id);
-    $("#tablePlayer").append($submenu);
-    console.log("Done");
+    $($submenu).append($playername);
+    $($submenu).append($numberofplayer);
+    $("#tableLobby").append($submenu);
+    console.log("Done lobby");
 
 });
     jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,) {
@@ -221,7 +238,7 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
         $($submenu).append($id);
         $("#tablePlayer").append($submenu);
 
-        console.log("Done");
+        console.log("Done player");
 
     });
 
@@ -252,18 +269,22 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
         if (st == 'OnLobby'){
               $("#RemoveLobby").show();
               $("#CreateLobby").hide();
+              $("#PlayerList").show();
         }
 
         if (st == 'Ingame'){
             $("#RemoveLobby").hide();
             $("#JoinLobby").hide();
-              $("#CreateLobby").hide();
+            $("#CreateLobby").hide();
         }
 
-        if (st == 'Waiting'){
+        if (st == 'MainMenu'){
             $("#RemoveLobby").hide();
             $("#JoinLobby").show();
             $("#CreateLobby").show();
+            $("#LobbyList").show();
+            $("#PlayerList").hide();
+
         }
 
 
@@ -271,7 +292,18 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
 
     });
 
+    jcmp.AddEvent('Lobby_Update_Player',function(id,number){
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
 
+        if (idname == id) {
+          console.log("Find");
+          $("#" + id + "np").text(number);
+          console.log("Lobby update number of player");
+        }
+
+      });
+    })
 
     jcmp.AddEvent('Lobby_remove_one', function(playername) {
       $('tr').each(function() {

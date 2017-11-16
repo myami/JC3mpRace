@@ -52,3 +52,10 @@ jcmp.events.CallRemote('Player_Create_Lobby');
 jcmp.events.AddRemoteCallable('JoinLobby_show_button',function(){
   jcmp.ui.CallEvent('JoinLobby_Show_button');
 });
+jcmp.events.AddRemoteCallable('DeleteLobby',function(id){
+  jcmp.ui.CallEvent('Delete_Lobby',id);
+});
+
+jcmp.events.AddRemoteCallable('Lobby_Update_Player',function(id,number){
+  jcmp.ui.CallEvent('Lobby_Update_Player',id,number);
+});
