@@ -1,7 +1,6 @@
 
 /*
-TODO: When the server loading the race and the race don't have a raceid give him one
-TODO: Send to the client when he is joining the server some data from each race like RaceId , Name of the race,Path of the image of the race
+TODO: Lobby system
 
 */
 
@@ -18,9 +17,10 @@ global.race = {
       onlobby: [],
       ingame: []
     },
-    lobby:{
-      // create custom lobby with this kind of structure lobbyname = [ispublic = true,password = undefined,players[]];
+    lobbys:{
+      // ["lobby" + race.game.lobbycount]: [],
     },
+    lobbycount:0,
     toStart: false,
     StartTimer: null,
     TimerArea: 2,

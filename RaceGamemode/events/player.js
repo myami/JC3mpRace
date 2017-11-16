@@ -25,6 +25,7 @@ jcmp.events.Add("PlayerCreated", function(player) {
     partnerplayer: [] ,// for multicrew save team in the array
     leadpartner : false,
     driver:false,
+    lobbyid: 0
 
   }
   if (race.utils.isAdmin(player)) {

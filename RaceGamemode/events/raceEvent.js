@@ -113,7 +113,7 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
   jcmp.events.CallRemote('Update_All_Client_toeveryone', null, name, value);
 });
 
-jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
+jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
   // type of the race (to add as an args here)
   // classic = basic race
@@ -130,8 +130,8 @@ jcmp.events.Add('race_start_index', function(indexs, TypeRace) {
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
-    const NumberofPlayer = race.game.players.onlobby.length;
-    const PlayerArray = race.game.players.onlobby;
+    const NumberofPlayer = race.game.lobbys["lobby" + player.race.lobbyid].length;   
+    const PlayerArray = race.game.lobbys["lobby" + player.race.lobbyid];
     const Raceid = race.game.games.length + 1;
     const times = races.time;
     const weatherr = races.weather;

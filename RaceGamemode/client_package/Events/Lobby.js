@@ -15,7 +15,7 @@ jcmp.events.AddRemoteCallable('Remove_Lobby_Destroyed', function(playername) {
   jcmp.ui.CallEvent('Lobby_remove_one',playername);
 });
 
-jcmp.events.AddRemoteCallable('Lobby_Update_state_Server', function(playername,state) { // state are "OnLobby" or "Ingame"
+jcmp.events.AddRemoteCallable('Lobby_Update_state_Server', function(playername,state) {
   jcmp.ui.CallEvent('Lobby_Update_state',playername,state);
 });
 
@@ -32,23 +32,19 @@ jcmp.events.AddRemoteCallable('Lobby_ready', function(data) { // Call when a pla
 
 });
 jcmp.events.AddRemoteCallable('LobbyStatus_Server',function(status){
-  jcmp.ui.CallEvent('LobbyStatus',status);
-  if(playersCache[player.Networkid].flags.isAdmin){
-    jcmp.ui.CallEvent('IsAdmin',status);
-  }
+  jcmp.ui.CallEvent('PlayerLobbyList',status);
 });
 
-jcmp.ui.AddEvent('JoinLobby',function(){
-jcmp.events.CallRemote('Player_Join_Lobby');
+jcmp.ui.AddEvent('JoinLobby',function(id){
+jcmp.events.CallRemote('Player_Join_Lobby',id);
 });
 jcmp.ui.AddEvent('RemoveLobby',function(){
 jcmp.events.CallRemote('Player_Remove_Lobby');
 });
 
-jcmp.ui.AddEvent('TypeofRaceSelected',function(Type){
-jcmp.events.CallRemote('TypeofRaceSelected_Admin',Type);
+jcmp.ui.AddEvent('CreateLobby',function(){
+jcmp.events.CallRemote('Player_Create_Lobby');
 });
-
-jcmp.events.AddRemoteCallable('TypeSelect_All_Server',function(Type){
-  jcmp.ui.CallEvent('TypeOfRaceSelect',Type);
-})
+jcmp.events.AddRemoteCallable('JoinLobby_show_button',function(){
+  jcmp.ui.CallEvent('JoinLobby_Show_button');
+});

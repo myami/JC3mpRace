@@ -21,6 +21,16 @@
       overflow: auto;
     }
 
+    #LobbyList{
+      position: fixed;
+      top: 40%;
+      right: 15%;
+      width: 55%;
+      height: 40%;
+      overflow: auto;
+
+    }
+
     table {
       font-family: 'Passion One', cursive;
       border-collapse: collapse;
@@ -57,6 +67,11 @@
           bottom: 2%;
           left: 10%;
         }
+        #CreateLobby{
+          position: fixed;
+          bottom: 2%;
+          right: 10%;
+        }
   </style>
 </head>
 
@@ -72,48 +87,44 @@
     </table>
 
   </div>
+  <div id="LobbyList">
+    <table id="tableLobby">
+      <tr id="toplistL">
+        <th>Name</th>
+        <th>PlayerCreated</th>
+        <th>Number of Player</th>
+      </tr>
+
+    </table>
+
+  </div>
   <div id="JoinLobby">
-    <button>JoinLobby</button>
+    <button id="JoinLobbyB">JoinLobby</button>
+    <input type="number" id="lobbyid">
   </div>
   <div id="RemoveLobby">
     <button>RemoveLobby</button>
   </div>
-<!--
-When the player join he will be on the lobby but not on the lobby to join a game just waiting press this button to be join the next race that will be launch
+  <div id="CreateLobby">
+    <button>CreateLobby</button>
+  </div>
 
-A button for the leader to select the type of race only him can change it (admin) and other people can see what it is to can select they're teammate
-<div id="AdminPanel">
-<div id="TypeOfRace">
-<button id="Classic">Classic</button>
-<button id="MultiCrew">MultiCrew</button> if MultiCrew is selected you will see the name of people with color when they have already a partner
-<button id="TTS">TTS</button>
-<button>Apo(NotWorking)</button>
-</div>
-<span id="TypeRaceSelected"></span>
-<div id= "MapList">
-The list of the map for the race
-<ul>
-  <li><img src="./img/MapImage/Airplane-AirfieldRace.jpg.png"width="12" height="12" ><a id="AirplaneAirfield">Airplane-AirfieldRace</a></li>
-  <li><img src="./img/MapImage/Boat-BetweenIslands.jpg.png"width="12" height="12" ><a id="BoatBetweenIslands">Boat-BetweenIslands</a></li>
-  <li><img src="./img/MapImage/Boat-Slalom.jpg.png"width="12" height="12" ><a id="BoatSlalom">Boat-Slalom</a></li>
-</ul>
-</div>
-this button appear when we select a type of race and a map
-then it will have a delay of 15 sec before launching the race
-<div id="Start">
-<button>LaunchRace</button>
-</div>
-
-</div>
-
-
--->
 
   <script>
+  $("#LobbyList").hide();
 
 
-    $( "#JoinLobby" ).click(function() {
-      jcmp.CallEvent('JoinLobby');
+  $( "#CreateLobby" ).click(function() {
+    jcmp.CallEvent('CreateLobby');
+        $("#CreateLobby").hide();
+        $("#JoinLobby").hide();
+        $("#RemoveLobby").show();
+  });
+
+    $( "#JoinLobbyB" ).click(function() {
+      let id = $("#lobbyid").val();
+      console.log(id);
+      jcmp.CallEvent('JoinLobby',id);
           $("#JoinLobby").hide();
           $("#RemoveLobby").show();
     });
@@ -121,48 +132,8 @@ then it will have a delay of 15 sec before launching the race
       jcmp.CallEvent('RemoveLobby');
         $("#RemoveLobby").hide();
     });
-    $( "#Classic" ).click(function() {
-      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("Classic"));
-        $("#TypeOfRace").hide();
-        $("#MapList").show();
-    });
-    $( "#MultiCrew" ).click(function() {
-      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("MultiCrew"));
-      $("#TypeOfRace").hide();
-        $("#MapList").show();
 
-    });
-    $( "#TTS" ).click(function() {
-      jcmp.CallEvent('TypeofRaceSelected',JSON.stringify("TTS"));
-        $("#TypeOfRace").hide();
-        $("#MapList").show();
-
-    });
-
-    $( "#AirplaneAirfield" ).click(function() {
-      $("#MapList").hide();
-      $("#Start").show();
-      jcmp.CallEvent('MapSelect',JSON.stringify("AirplaneAirfield"))
-    });
-
-    $( "#BoatBetweenIslands" ).click(function() {
-      $("#MapList").hide();
-      $("#Start").show();
-    });
-
-    $( "#BoatSlalom" ).click(function() {
-      $("#MapList").hide();
-      $("#Start").show();
-    });
-    jcmp.AddEvent('IsAdmin',function(status){
-      if (status){
-          $("#AdminPanel").show();
-      }
-      else{
-          $("#AdminPanel").hide();
-      }
-    })
-      jcmp.AddEvent('LobbyStatus',function(status){
+      jcmp.AddEvent('PlayerLobbyList',function(status){
         if (status){
           $("#PlayerList").show();
         }
@@ -170,12 +141,19 @@ then it will have a delay of 15 sec before launching the race
           $("#PlayerList").hide();
         }
       });
+      jcmp.AddEvent('LobbyList',function(status){
+        if (status){
+          $("#LobbyList").show();
+        }
+        else{
+          $("#LobbyList").hide();
+        }
+      });
 
-    jcmp.AddEvent('TypeOfRaceSelect',function(type){
-      select = JSON.parse(type);
-      $("#TypeRaceSelected").text(select);
-      $("#TypeRaceSelected").show();
-    })
+      jcmp.AddEvent('JoinLobby_Show_button',function(){
+        $("#JoinLobby").show();
+      });
+
 
     jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,) {
       $('tr').each(function() {
@@ -239,16 +217,19 @@ then it will have a delay of 15 sec before launching the race
         }
         if (st == 'OnLobby'){
               $("#RemoveLobby").show();
+              $("#CreateLobby").hide();
         }
 
         if (st == 'Ingame'){
             $("#RemoveLobby").hide();
             $("#JoinLobby").hide();
+              $("#CreateLobby").hide();
         }
 
         if (st == 'Waiting'){
             $("#RemoveLobby").hide();
             $("#JoinLobby").show();
+            $("#CreateLobby").show();
         }
 
 
@@ -273,33 +254,7 @@ then it will have a delay of 15 sec before launching the race
       });
     });
 
-    let $chat_input_visible = false;
-    let $is_scoreboard_key_down = false;
 
-    jcmp.AddEvent('chat_input_state', function(b) {
-                $chat_input_visible = b;
-            });
-
-                    $(window).keydown(function(event) {
-                        // toggle scoreboard
-                        if (event.which === 78  && !$chat_input_visible && !$is_scoreboard_key_down) { //l
-                          $("#leaderboard").show();
-                          jcmp.ShowCursor()
-                          $is_scoreboard_key_down = true;
-                        }
-
-    });
-
-
-    $(window).keyup(function(event) {
-
-      const key = event.which;
-     if (key === 78 && $is_scoreboard_key_down && !$chat_input_visible) { // l
-        $("#leaderboard").hide();
-        jcmp.HideCursor();
-        $is_scoreboard_key_down = false;
-      }
-    });
   </script>
 </body>
 
