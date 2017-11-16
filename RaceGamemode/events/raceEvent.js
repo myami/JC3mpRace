@@ -130,7 +130,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
-    const NumberofPlayer = race.game.lobbys["lobby" + player.race.lobbyid].length;   
+    const NumberofPlayer = race.game.lobbys["lobby" + player.race.lobbyid].length;
     const PlayerArray = race.game.lobbys["lobby" + player.race.lobbyid];
     const Raceid = race.game.games.length + 1;
     const times = races.time;
@@ -149,8 +149,8 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
 
-      for (var i = 0; i < race.game.players.onlobby.length; i++) {
-        const player = race.game.players.onlobby[i];
+      for (var i = 0; i < NumberofPlayer; i++) {
+        const player = PlayerArray[i];
         if (player.race.partnerplayer[1] == undefined){
           race.utils.broadcastToLobby("Someone don't have a team partner");
           return;
@@ -187,8 +187,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
     race.game.games.push(Race);
     Race.Start();
-    race.game.players.onlobby = [];
-
+    // send an event to say the lobby is in race 
 
 });
 

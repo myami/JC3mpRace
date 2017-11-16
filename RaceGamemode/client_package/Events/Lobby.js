@@ -10,6 +10,10 @@ jcmp.events.AddRemoteCallable('Remove_All_Lobby', function() { //Call when we la
 jcmp.events.AddRemoteCallable('Add_Player_On_Lobby_list', function(playername,playernetworkid) { // string Call when a player join the server or finish the race
   jcmp.ui.CallEvent('AddPlayerOnLobbyList', playername,playernetworkid);
 });
+jcmp.events.AddRemoteCallable('NewLobby', function(id,playername) { // string Call when a player join the server or finish the race
+  jcmp.ui.CallEvent('AddNewLobby', id,playername);
+});
+
 
 jcmp.events.AddRemoteCallable('Remove_Lobby_Destroyed', function(playername) {
   jcmp.ui.CallEvent('Lobby_remove_one',playername);

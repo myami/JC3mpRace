@@ -155,6 +155,40 @@
       });
 
 
+jcmp.AddEvent('AddNewLobby', function(id,playername) {
+  $('tr').each(function() {
+    let idname = $(this).attr('id');
+    let namewithoutspace = playername.split(" ").join("");
+    if (idname == namewithoutspace) {
+      return;
+  }
+});
+
+
+    var $submenu = $("<tr></tr>").attr("id", id);
+    var $id = $("<td></td>").attr({
+      "id": id + "1"
+    });
+    $($id).text(id);
+
+  var $playername = $("<td></td>").attr({
+      "id": id + "2"
+    });
+    $($playername).text(playername);
+
+    var $numberofplayer = $("<td></td>").attr({
+      "id": id + "3"
+    });
+      $($numberofplayer).text("1");
+
+
+    $($submenu).append($name);
+    $($submenu).append($state);
+    $($submenu).append($id);
+    $("#tablePlayer").append($submenu);
+    console.log("Done");
+
+});
     jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,) {
       $('tr').each(function() {
         let idname = $(this).attr('id');
