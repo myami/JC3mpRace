@@ -14,14 +14,14 @@
   <style type="text/css">
     #PlayerList {
       position: fixed;
-      top: 40%;
-      right: 15%;
-      width: 55%;
-      height: 40%;
+      top: 5%;
+      left: 3%;
+      width: 20%;
+      height: 25%;
       overflow: auto;
     }
 
-    #LobbyList{
+    #LobbyList {
       position: fixed;
       top: 40%;
       right: 15%;
@@ -31,12 +31,21 @@
 
     }
 
+    #PlayerLobbyList {
+      position: fixed;
+      top: 40%;
+      right: 15%;
+      width: 55%;
+      height: 40%;
+      overflow: auto;
+    }
+
     table {
       font-family: 'Passion One', cursive;
       border-collapse: collapse;
       width: 100%;
       color: white;
-      font-size: 20pt;
+      font-size: 15pt;
     }
 
     td,
@@ -54,25 +63,33 @@
       background-color: #3b423b;
     }
 
-        body {
-          user-select: none;
+    body {
+      user-select: none;
 
-        }
-        #JoinLobby{
-          position: fixed;
-          top: 25%;
-          right: 30%;
-        }
-        #RemoveLobby{
-          position: fixed;
-          bottom: 2%;
-          left: 10%;
-        }
-        #CreateLobby{
-          position: fixed;
-          bottom: 2%;
-          right: 10%;
-        }
+    }
+
+    #JoinLobby {
+      position: fixed;
+      top: 25%;
+      right: 30%;
+    }
+
+    #RemoveLobby {
+      position: fixed;
+      bottom: 2%;
+      left: 10%;
+    }
+
+    #CreateLobby {
+      position: fixed;
+      bottom: 2%;
+      right: 10%;
+    }
+    #ReadyRace{
+      position: fixed;
+      bottom: 2%;
+      right: 2%;
+    }
   </style>
 </head>
 
@@ -82,7 +99,14 @@
       <tr id="toplist">
         <th>Name</th>
         <th>States</th>
-        <th>Id</th>
+      </tr>
+    </table>
+  </div>
+  <div id="PlayerLobbyList">
+    <table id="tablePlayerL">
+      <tr id="toplistL">
+        <th>Name</th>
+        <th>Ready</th>
       </tr>
     </table>
   </div>
@@ -105,140 +129,191 @@
   <div id="CreateLobby">
     <button>CreateLobby</button>
   </div>
+  <div id="ReadyRace">
+    <button>Ready</button>
+  </div>
 
 
   <script>
-  $("#PlayerList").hide();
-let lobbyid ;
+      $("#PlayerList").show();
+    $("#ReadyRace").hide();
+    let lobbyid;
+    $("#ReadyRace").click(function() {
+      jcmp.CallEvent('Ready_Player');
+      $("#ReadyRace").hide();
+    });
+    $("#CreateLobby").click(function() {
+      jcmp.CallEvent('CreateLobby');
+      $("#CreateLobby").hide();
+      $("#JoinLobby").hide();
+      $("#RemoveLobby").show();
+      $("#PlayerLobbyList").show();
+      $("#LobbyList").hide();
+      $("#ReadyRace").show();
 
-  $( "#CreateLobby" ).click(function() {
-    jcmp.CallEvent('CreateLobby');
-        $("#CreateLobby").hide();
-        $("#JoinLobby").hide();
-        $("#RemoveLobby").show();
-          $("#PlayerList").show();
-            $("#LobbyList").hide();
-  });
+    });
 
-    $( "#JoinLobbyB" ).click(function() {
+    $("#JoinLobbyB").click(function() {
       let id = $("#lobbyid").val();
       console.log(id);
-      jcmp.CallEvent('JoinLobby',id);
-          $("#JoinLobby").hide();
-          $("#RemoveLobby").show();
-          $("#PlayerList").show();
-            $("#LobbyList").hide();
+      jcmp.CallEvent('JoinLobby', id);
+      $("#JoinLobby").hide();
+      $("#RemoveLobby").show();
+      $("#LobbyList").hide();
     });
-    $( "#RemoveLobby" ).click(function() {
+    $("#RemoveLobby").click(function() {
       jcmp.CallEvent('RemoveLobby');
+      $("#RemoveLobby").hide();
+      $("#LobbyList").show();
+    });
+    jcmp.AddEvent('Lobby_remove_all',function(){ // game start
         $("#RemoveLobby").hide();
+        $("#JoinLobby").hide();
+        $("#LobbyList").hide();
+        $("#PlayerLobbyList").hide();
+        $("#CreateLobby").hide();
+        $("#ReadyRace").hide();
         $("#PlayerList").hide();
-          $("#LobbyList").show();
+
+    })
+
+    jcmp.AddEvent('PlayerLobbyList', function(status) {
+      if (status) {
+        $("#PlayerList").show();
+      } else {
+        $("#PlayerList").hide();
+      }
+    });
+    jcmp.AddEvent('LobbyList', function(status) {
+      if (status) {
+        $("#LobbyList").show();
+      } else {
+        $("#LobbyList").hide();
+      }
     });
 
-      jcmp.AddEvent('PlayerLobbyList',function(status){
-        if (status){
-          $("#PlayerList").show();
+    jcmp.AddEvent('JoinLobby_Show_button', function() {
+      $("#JoinLobby").show();
+    });
+    jcmp.AddEvent('Delete_Lobby', function(id) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+
+        if (idname == id) {
+          console.log("Find");
+          $("#" + id + "id").remove();
+          $("#" + id + "playername").remove();
+          $("#" + id + "np").remove();
+          $("#" + id).remove();
+          console.log("Lobby remove from the lobby list" + id);
         }
-        else{
-          $("#PlayerList").hide();
-        }
+
       });
-      jcmp.AddEvent('LobbyList',function(status){
-        if (status){
-          $("#LobbyList").show();
+    })
+    jcmp.AddEvent('Lobby_Player_Ready', function(playername) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          $("#" + namewithoutspace + "ready").text("Ready");
+          $("#ReadyRace").hide();
+
         }
-        else{
-          $("#LobbyList").hide();
-        }
+
+
       });
+    })
 
-      jcmp.AddEvent('JoinLobby_Show_button',function(){
-        $("#JoinLobby").show();
-      });
-      jcmp.AddEvent('Delete_Lobby',function(id){
-        $('tr').each(function() {
-          let idname = $(this).attr('id');
-
-          if (idname == id) {
-            console.log("Find");
-            $("#" + id + "id").remove();
-            $("#" + id + "playername").remove();
-            $("#" + id + "np").remove();
-            $("#" + id).remove();
-            console.log("Lobby remove from the lobby list" + id);
-          }
-
-        });
-      })
-
-jcmp.AddEvent('AddNewLobby', function(id,playername) {
-  $('tr').each(function() {
-    let idname = $(this).attr('id');
-    let namewithoutspace = playername.split(" ").join("");
-    if (idname == namewithoutspace) {
-      return;
-  }
-});
-
-
-    var $submenu = $("<tr></tr>").attr("id", id);
-    var $id = $("<td></td>").attr({
-      "id": id + "id"
-    });
-    $($id).text("Lobby: " + id);
-
-  var $playername = $("<td></td>").attr({
-      "id": id + "playername"
-    });
-    $($playername).text(playername);
-
-    var $numberofplayer = $("<td></td>").attr({
-      "id": id + "np"
-    });
-      $($numberofplayer).text("1");
-
-
-    $($submenu).append($id);
-    $($submenu).append($playername);
-    $($submenu).append($numberofplayer);
-    $("#tableLobby").append($submenu);
-    console.log("Done lobby");
-
-});
-    jcmp.AddEvent('AddPlayerOnLobby', function(playername,playernetworkid,) {
+    jcmp.AddEvent('AddLobby_List', function(id, playername) { // list of all player on the same lobby
       $('tr').each(function() {
         let idname = $(this).attr('id');
         let namewithoutspace = playername.split(" ").join("");
         if (idname == namewithoutspace) {
           return;
-      }
-    });
+        }
+      });
 
       let namewithoutspace = playername.split(" ").join("");
-        var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
-        var $name = $("<td></td>").attr({
-          "id": namewithoutspace + "1"
-        });
-        $($name).text(playername);
+      var $submenu = $("<tr></tr>").attr("id", namewithoutspace + "lobby");
+      var $name = $("<td></td>").attr({
+        "id": namewithoutspace + "n"
+      });
+      $($name).text(playername);
+
+      var $ready = $("<td></td>").attr({
+        "id": namewithoutspace + "ready"
+      });
+      $($ready).text("Not Ready");
+
+
+
+      $($submenu).append($name);
+      $($submenu).append($ready);
+      $("#tablePlayerL").append($submenu);
+
+    });
+    jcmp.AddEvent('AddNewLobby', function(id, playername) { // List of all lobby
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          return;
+        }
+      });
+
+
+      var $submenu = $("<tr></tr>").attr("id", id);
+      var $id = $("<td></td>").attr({
+        "id": id + "id"
+      });
+      $($id).text("Lobby: " + id);
+
+      var $playername = $("<td></td>").attr({
+        "id": id + "playername"
+      });
+      $($playername).text(playername);
+
+      var $numberofplayer = $("<td></td>").attr({
+        "id": id + "np"
+      });
+      $($numberofplayer).text("1");
+
+
+      $($submenu).append($id);
+      $($submenu).append($playername);
+      $($submenu).append($numberofplayer);
+      $("#tableLobby").append($submenu);
+      console.log("Done lobby");
+
+    });
+    jcmp.AddEvent('AddPlayerOnLobby', function(playername, playernetworkid, ) { // List of all player
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          return;
+        }
+      });
+
+      let namewithoutspace = playername.split(" ").join("");
+      var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+      var $name = $("<td></td>").attr({
+        "id": namewithoutspace + "1"
+      });
+      $($name).text(playername);
 
       var $state = $("<td></td>").attr({
-          "id": namewithoutspace + "2"
-        });
-        $($state).text("OnLobby");
-
-        var $id = $("<td></td>").attr({
-          "id": namewithoutspace + "3"
-        });
-          $($id).text(playernetworkid);
+        "id": namewithoutspace + "2"
+      });
+      $($state).text("OnLobby");
 
 
-        $($submenu).append($name);
-        $($submenu).append($state);
-        $($submenu).append($id);
-        $("#tablePlayer").append($submenu);
 
-        console.log("Done player");
+      $($submenu).append($name);
+      $($submenu).append($state);
+      $("#tablePlayer").append($submenu);
+
+      console.log("Done player");
 
     });
 
@@ -247,9 +322,9 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
         let idname = $(this).attr('id');
         let namewithoutspace = playername.split(" ").join("");
         if (idname == namewithoutspace) {
-            $("#" + namewithoutspace + "1").text(`${playername}`);
-            $("#" + namewithoutspace + "2").text(`${state}`);
-            $("#" + namewithoutspace + "3").text(`${id}`);
+          $("#" + namewithoutspace + "1").text(`${playername}`);
+          $("#" + namewithoutspace + "2").text(`${state}`);
+
 
         }
 
@@ -258,7 +333,7 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
 
     });
     jcmp.AddEvent('Lobby_Update_state', function(playername, state) {
-    let st =  JSON.parse(state);
+      let st = JSON.parse(state);
       $('tr').each(function() {
         let idname = $(this).attr('id');
         let namewithoutspace = playername.split(" ").join("");
@@ -266,24 +341,24 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
           $("#" + namewithoutspace + "2").text(`${st}`);
           console.log("State Update" + namewithoutspace);
         }
-        if (st == 'OnLobby'){
-              $("#RemoveLobby").show();
-              $("#CreateLobby").hide();
-              $("#PlayerList").show();
+        if (st == 'OnLobby') {
+          $("#RemoveLobby").show();
+          $("#CreateLobby").hide();
+          $("#PlayerList").show();
         }
 
-        if (st == 'Ingame'){
-            $("#RemoveLobby").hide();
-            $("#JoinLobby").hide();
-            $("#CreateLobby").hide();
+        if (st == 'Ingame') {
+          $("#RemoveLobby").hide();
+          $("#JoinLobby").hide();
+          $("#CreateLobby").hide();
         }
 
-        if (st == 'MainMenu'){
-            $("#RemoveLobby").hide();
-            $("#JoinLobby").show();
-            $("#CreateLobby").show();
-            $("#LobbyList").show();
-            $("#PlayerList").hide();
+        if (st == 'MainMenu') {
+          $("#RemoveLobby").hide();
+          $("#JoinLobby").show();
+          $("#CreateLobby").show();
+          $("#LobbyList").show();
+          $("#PlayerList").show();
 
         }
 
@@ -292,7 +367,7 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
 
     });
 
-    jcmp.AddEvent('Lobby_Update_Player',function(id,number){
+    jcmp.AddEvent('Lobby_Update_Player', function(id, number) {
       $('tr').each(function() {
         let idname = $(this).attr('id');
 
@@ -304,7 +379,21 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
 
       });
     })
+    jcmp.AddEvent('Lobby_remove_Player', function(playername) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
 
+          $("#" + namewithoutspace + "n").remove();
+          $("#" + namewithoutspace + "ready").remove();
+          $("#" + namewithoutspace + "lobby").remove();
+
+          console.log("Player remove from the lobby list" + namewithoutspace);
+        }
+
+      });
+    });
     jcmp.AddEvent('Lobby_remove_one', function(playername) {
       $('tr').each(function() {
         let idname = $(this).attr('id');
@@ -312,15 +401,16 @@ jcmp.AddEvent('AddNewLobby', function(id,playername) {
         if (idname == namewithoutspace) {
           $("#" + namewithoutspace + "1").remove();
           $("#" + namewithoutspace + "2").remove();
-          $("#" + namewithoutspace + "3").remove();
           $("#" + namewithoutspace).remove();
+          $("#" + namewithoutspace + "n").remove();
+          $("#" + namewithoutspace + "ready").remove();
+          $("#" + namewithoutspace + "lobby").remove();
+
           console.log("Player remove from the lobby list" + namewithoutspace);
         }
 
       });
     });
-
-
   </script>
 </body>
 

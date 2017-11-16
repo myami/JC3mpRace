@@ -59,3 +59,17 @@ jcmp.events.AddRemoteCallable('DeleteLobby',function(id){
 jcmp.events.AddRemoteCallable('Lobby_Update_Player',function(id,number){
   jcmp.ui.CallEvent('Lobby_Update_Player',id,number);
 });
+
+jcmp.ui.AddEvent('Ready_Player',function(){
+jcmp.events.CallRemote('Ready_Player_Server');
+});
+jcmp.events.AddRemoteCallable('Lobby_Player_Ready',function(playername){
+  jcmp.ui.CallEvent('Lobby_Player_Ready',playername);
+});
+
+jcmp.events.AddRemoteCallable('AddPlayerLobbyArray',function(id,playername){
+  jcmp.ui.CallEvent('AddLobby_List',id,playername);
+});
+jcmp.events.AddRemoteCallable('Lobby_remove_player',function(playername){
+  jcmp.ui.CallEvent('Lobby_remove_Player',playername);
+});

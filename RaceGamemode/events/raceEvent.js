@@ -49,7 +49,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   player.race.time = 0;
   player.race.partnerplayer = [];
   jcmp.events.CallRemote('race_End_client', player);
-
+  player.race.ready = false;
   if (!destroy) {
 
     player.race.ingame = false;
