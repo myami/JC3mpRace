@@ -81,23 +81,19 @@ jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
       colour: p.race.colour
     }))
   };
-const lobbylist = {
-  lobby: race.game.lobbys.map(l,index => ({
-   id: index,
-   PlayerCreated: l[0].escapedNametagName,
-   numberofplayer: l.length
-  }))
+  const lobbylist = {
+      lobby: Object.keys(race.game.lobbys).map((key, index) => {
+          const l = race.game.lobbys[key];
+          return {
+              id: index,
+              PlayerCreated: l[0].escapedNametagName,
+              numberofplayer: l.length
+          }
+      })
+  };
 
-}
-const lobbylistsecond = {
-  lobbys: race.game.lobbys.forEach(function(l,index){
-    id:index,
-    PlayerCreated: l[0].escapedNametagName,
-    numberofplayer: l.length
-
-  })
-}
   console.log(data);
+    console.log(lobbylist);
 
   jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
   jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
