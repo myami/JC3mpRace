@@ -339,12 +339,17 @@
         let namewithoutspace = playername.split(" ").join("");
         if (idname == namewithoutspace) {
           $("#" + namewithoutspace + "2").text(`${st}`);
+            if (st == 'OnLobby') {
+          $("#" + namewithoutspace + "ready").text("Not Ready");
+        }
           console.log("State Update" + namewithoutspace);
         }
         if (st == 'OnLobby') {
           $("#RemoveLobby").show();
           $("#CreateLobby").hide();
           $("#PlayerList").show();
+          $("#PlayerLobbyList").show();
+          $("#ReadyRace").show();
         }
 
         if (st == 'Ingame') {

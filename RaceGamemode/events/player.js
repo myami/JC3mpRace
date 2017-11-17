@@ -81,6 +81,7 @@ jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
       colour: p.race.colour
     }))
   };
+  //TODO: Need to take all the lobby that are on the list to show it to new player 
 
   console.log(data);
 
