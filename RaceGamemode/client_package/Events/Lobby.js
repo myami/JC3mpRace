@@ -35,6 +35,15 @@ jcmp.events.AddRemoteCallable('Lobby_ready', function(data) { // Call when a pla
   });
 
 });
+
+jcmp.events.AddRemoteCallable('Lobby_List', function(data) { // Call when a player join to have the list of all player ingame
+  data = JSON.parse(data);
+  data.players.forEach(function(l) {
+  jcmp.ui.CallEvent('AddNewLobby', l.id,l.playername);
+  jcmp.ui.CallEvent('Lobby_Update_Player', l.id,l.numberofplayer);
+ });
+
+});
 jcmp.events.AddRemoteCallable('LobbyStatus_Server',function(status){
   jcmp.ui.CallEvent('PlayerLobbyList',status);
 });

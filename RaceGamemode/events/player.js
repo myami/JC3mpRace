@@ -81,12 +81,28 @@ jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
       colour: p.race.colour
     }))
   };
-  //TODO: Need to take all the lobby that are on the list to show it to new player 
+const lobbylist = {
+  lobby: race.game.lobbys.map(l,index => ({
+   id: index,
+   PlayerCreated: l[0].escapedNametagName,
+   numberofplayer: l.length
+  }))
 
+}
+const lobbylistsecond = {
+  lobbys: race.game.lobbys.forEach(function(l,index){
+    id:index,
+    PlayerCreated: l[0].escapedNametagName,
+    numberofplayer: l.length
+
+  })
+}
   console.log(data);
 
   jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
   jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
+  jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
+
   jcmp.events.CallRemote('LobbyStatus_Server',player,true);
 
 });

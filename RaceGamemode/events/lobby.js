@@ -1,12 +1,15 @@
 jcmp.events.AddRemoteCallable('Player_Create_Lobby', function(player) {
-  race.game.lobbys["lobby" + race.game.lobbycount] = [];
-  race.game.lobbys["lobby" + race.game.lobbycount].push(player);
-  player.race.lobbyid = race.game.lobbycount;
-  jcmp.events.CallRemote('NewLobby', null, race.game.lobbycount, player.name); // id of the lobby and name of the creator of the lobby
-  jcmp.events.CallRemote('AddPlayerLobbyArray', null, race.game.lobbycount, player.name);
+  console.log(race.game.lobbys.length);
+  
+  race.game.lobbys["lobby" + race.game.lobbys.length] = [];
+  race.game.lobbys["lobby" + race.game.lobbys.length].push(player);
+  player.race.lobbyid = race.game.lobbys.length;
+  jcmp.events.CallRemote('NewLobby', null, race.game.lobbys.length, player.name); // id of the lobby and name of the creator of the lobby
+  jcmp.events.CallRemote('AddPlayerLobbyArray', null, player.race.lobbyid, player.name);
+  console.log(race.game.lobbys.length);
 
-  race.game.lobbycount++;
-  console.log(race.game.lobbys);
+//  race.game.lobbycount++;
+  //console.log(race.game.lobbys);
   jcmp.events.CallRemote('Lobby_Update_state_Server', null, player.name, JSON.stringify("OnLobby id: " + player.race.lobbyid));
   race.chat.send(player, "[SERVER] You Create the lobby with the id" + player.race.lobbyid);
 

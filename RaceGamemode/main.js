@@ -18,7 +18,7 @@ global.race = {
       ingame: []
     },
     lobbys:{
-      // ["lobby" + race.game.lobbycount]: [],
+
     },
     lobbycount:0,
     toStart: false,
