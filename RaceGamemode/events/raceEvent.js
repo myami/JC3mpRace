@@ -58,7 +58,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     jcmp.events.CallRemote('race_set_time', player, 11, 0);
     jcmp.events.CallRemote('race_set_weather', player, "base");
     jcmp.events.CallRemote('LobbyStatus_Server',player,true);
-    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby"));
+    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby id: " + player.race.lobbyid));
 
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
@@ -129,8 +129,8 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
-    const NumberofPlayer = race.game.lobbys["lobby" + player.race.lobbyid].length;
-    const PlayerArray = race.game.lobbys["lobby" + player.race.lobbyid];
+    const NumberofPlayer = race.game.lobbys[player.race.lobbyid].length;
+    const PlayerArray = race.game.lobbys[player.race.lobbyid];
     const Raceid = race.game.games.length + 1;
     const times = races.time;
     const weatherr = races.weather;

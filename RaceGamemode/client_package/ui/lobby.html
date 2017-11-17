@@ -252,6 +252,14 @@
       $("#tablePlayerL").append($submenu);
 
     });
+    $( 'tr' ).click(function() {
+      let id = $(this).attr('id');
+      if($(this).parent().is("#tableLobby") ){
+        jcmp.CallEvent('JoinLobby', id);
+        console.log(id + "JoinLobby");
+      }
+
+});
     jcmp.AddEvent('AddNewLobby', function(id, playername) { // List of all lobby
       $('tr').each(function() {
         let idname = $(this).attr('id');
