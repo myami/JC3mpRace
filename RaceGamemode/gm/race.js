@@ -81,8 +81,10 @@ module.exports = class Race {
   ClassicRace() {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-      jcmp.events.CallRemote('LobbyStatus_Server',player,false);
-      jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
+
+      jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
+      jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+
 
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
@@ -162,8 +164,9 @@ module.exports = class Race {
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-      jcmp.events.CallRemote('LobbyStatus_Server',player,false);
-      jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
+      jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
+      jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -175,12 +178,13 @@ module.exports = class Race {
       player.race.time = 0;
       player.race.hasfinish = false;
         if (player.race.partnerplayer[0] == player) {
-          if (player.race.driver){
+          if (player.race.driver){ // UI
             const secondplayer = player.race.partnerplayer[1];
             jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
             jcmp.events.CallRemote('PlayerPassager', player, false);
             this.playersname.push(player.name + " " + secondplayer.name);
             jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
+            player.race.vehicle = 695483605;
           }
           else{
             const secondplayer = player.race.partnerplayer[1];
@@ -188,6 +192,7 @@ module.exports = class Race {
             jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
             this.playersname.push(player.name + " " + secondplayer.name);
             jcmp.events.CallRemote('ShowPassagerUI', player);
+            secondplayer.race.vehicle = 911076462;
           }
 
 
@@ -199,32 +204,18 @@ module.exports = class Race {
 
 
 
-      if (this.alldefaultvehicle) { // need to replace all this if to not spawn a vehicle per player but a vehicle per team
-        player.race.vehicle = this.defaultvehicle;
-
+      if (this.alldefaultvehicle) {
         setTimeout(function() {
-          if (player.race.vehicle != 0 && player.race.partnerplayer[0].name == player.name) {
             const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
             vehicle.nitroEnabled = this.nitro;
             vehicle.dimension = player.race.game.id;
-            if (player.race.driver){
-              vehicle.SetOccupant(0, player);
-              vehicle.SetOccupant(1, player.race.partnerplayer[1]);
-            }
-            else{
-              vehicle.SetOccupant(1, player);
-              vehicle.SetOccupant(0, player.race.partnerplayer[1]);
-            }
-
-
-          }
-
+            vehicle.SetOccupant(0, player);
         }, 4000);
       }
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
 
-      if (player.race.partnerplayer[1].name == player.name) {
+      if (player.race.partnerplayer[0].name == player.name) { // don't show to protector
         jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
       }
       jcmp.events.CallRemote('race_Freeze_player', player);
@@ -247,9 +238,21 @@ module.exports = class Race {
 
 
   MCVehicleReset(player, vehicleold) {
-    let driver;
+    if (player.race.vehicle != 0) {
+      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
+      vehicle.nitroEnabled = player.race.nitro;
+      console.log("Vehicle spawning");
+      vehicle.dimension = player.race.game.id;
+      setTimeout(function() {
+        vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
+        //  race.game.RacePeopleDie.removePlayer(player);
+        player.race.spawningdouble = false;
+      }, race.game.respawntimer + 1000);
+    } else {
+      //Wingsuit race
+    }
+    /*let driver;
     let passager;
-
     for (var i = 0; i < player.race.partnerplayer.length; i++) {
       if (player.race.partnerplayer[i].race.driver){
         driver = player.race.partnerplayer[i];
@@ -276,15 +279,12 @@ module.exports = class Race {
           console.log("Passager");
           return;
         }
-      }
+      } */
     }
 
 
 
 
-
-
-  }
 
 
   ///////////////////////////////// AppocalypseNOW ////////////////////////////////////////////////////
@@ -313,8 +313,9 @@ TTSStart() {
   console.log("TTSStart");
   for (var i = 0; i < this.players.length; i++) {
     const player = this.players[i];
-    jcmp.events.CallRemote('LobbyStatus_Server',player,false);
-    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("Ingame"));
+    jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
+    jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+
     let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
     player.race.playerrotationspawn = rotation;
     player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);

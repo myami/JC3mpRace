@@ -17,5 +17,9 @@ adminchoice.autoResize = true;
 var multicrew = new WebUIWindow("race multicrew", "package://race/ui/multicrew.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 multicrew.autoResize = true;
 
-var lobby = new WebUIWindow("race lobby", "package://race/ui/lobby.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
-lobby.autoResize = true;
+var lobbylist = new WebUIWindow("race lobbylist", "package://race/ui/lobby/lobbylist.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+lobbylist.autoResize = true;
+var playerlist = new WebUIWindow("race playerlist", "package://race/ui/lobby/playerlist.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+playerlist.autoResize = true;
+var playerlistlobby = new WebUIWindow("race playerlistlobby", "package://race/ui/lobby/playerlistlobby.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+playerlistlobby.autoResize = true;

@@ -56,7 +56,7 @@ jcmp.events.Add('PlayerDestroyed', function(player) {
       console.log(timer);
     }
   }
-  jcmp.events.CallRemote('Remove_Lobby_Destroyed',null,player.name);
+  jcmp.events.CallRemote('Lobby_remove_player', null, player.name);
   jcmp.events.CallRemote('race_player_destroyed', null, player.networkId);
 
   if (player.race.ingame) {
@@ -73,51 +73,50 @@ jcmp.events.AddRemoteCallable('race_debug', function(player, text) {
 });
 
 jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
-
-  const data = {
-    players: jcmp.players.map(p => ({
-      id: p.networkId,
-      name: p.escapedNametagName,
-      colour: p.race.colour
-    }))
-  };
-  const lobbylist = {
-      lobby: Object.keys(race.game.lobbys).map((key, index) => {
-          const l = race.game.lobbys[key];
-          return {
-              id: index,
-              PlayerCreated: l[0].escapedNametagName,
-              numberofplayer: l.length
-          }
-      })
-  };
-
-  console.log(data);
-    console.log(lobbylist);
-
-  jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
-  jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
-  jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
-
-  jcmp.events.CallRemote('LobbyStatus_Server',player,true);
-
+  jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name);
 });
 
 
 jcmp.events.Add('PlayerReady', function(player) {
 
 
-  player.respawnPosition = race.utils.randomSpawn(race.config.game.lobby.pos, race.config.game.lobby.radius / 2);
+  player.respawnPosition = new Vector3f(-1330, 1035, 14827);
   player.Respawn();
 
 
 
   setTimeout(function() {
+
+      const data = {
+        players: jcmp.players.map(p => ({
+          id: p.networkId,
+          name: p.escapedNametagName,
+          colour: p.race.colour
+        }))
+      };
+      const lobbylist = {
+          lobby: Object.keys(race.game.lobbys).map((key, index) => {
+              const l = race.game.lobbys[key];
+              return {
+                  id: index,
+                  PlayerCreated: l[0].escapedNametagName,
+                  numberofplayer: l.length
+              }
+          })
+      };
+
+        console.log(data);
+        console.log(lobbylist);
+
+      jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
+      jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
+      jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
+
     jcmp.events.Call('Race_name_index', player);
-    jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name,player.networkId); // send to all player the name of the Player but the player don't see all the other on the list only himslef
-      setTimeout(function() {
-            jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("MainMenu"));
-      }, 1000);
+
+    jcmp.events.CallRemote('Lobby_show',player,true);
+    jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('LobbySelectMenu'));
+
   }, 3000);
 
 

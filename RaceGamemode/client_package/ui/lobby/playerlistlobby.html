@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - PlayerListLobby </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../popper.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+
+
+    #PlayerLobbyList {
+      position: fixed;
+      top: 40%;
+      right: 15%;
+      width: 55%;
+      height: 40%;
+      overflow: auto;
+    }
+
+    table {
+      font-family: 'Passion One', cursive;
+      border-collapse: collapse;
+      width: 100%;
+      color: white;
+      font-size: 15pt;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: #2f342f;
+    }
+
+    tr:nth-child(odd) {
+      background-color: #3b423b;
+    }
+
+    body {
+      user-select: none;
+    }
+
+    #RemoveLobby {
+      position: fixed;
+      bottom: 2%;
+      left: 10%;
+    }
+
+
+    #ReadyRace{
+      position: fixed;
+      bottom: 2%;
+      right: 2%;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="PlayerLobbyList">
+    <table id="tablePlayerL">
+      <tr id="toplistL">
+        <th>Name</th>
+        <th>Ready</th>
+      </tr>
+    </table>
+  </div>
+
+
+  <div id="RemoveLobby">
+    <button>RemoveLobby</button>
+  </div>
+
+  <div id="ReadyRace">
+    <button>Ready</button>
+  </div>
+
+
+  <script>
+
+
+    $("#RemoveLobby").click(function() {
+      jcmp.CallEvent('RemoveLobby');
+      jcmp.CallEvent('ServerList',true);
+      $("#RemoveLobby").hide();
+      $("#ReadyRace").hide();
+      $("#PlayerLobbyList").hide();
+      removelobby()
+    });
+
+function removelobby(){       // tr loop and remove all tr exept toplistL
+  $('tr').each(function() {
+    let idname = $(this).attr('id');
+    if (idname != $("#toplistL").attr('id')) {
+      $("#" + idname).remove();
+      console.log("Delete id: " + idname);
+    }
+  });
+}
+    jcmp.AddEvent('PlayerLobbyList', function(status) { // Show when a player join a lobby
+      if (status) {
+        $("#tablePlayerL").show();
+        $("#ReadyRace").show();
+        $("#RemoveLobby").show();
+        $("#PlayerLobbyList").show();
+
+      } else {
+        $("#tablePlayerL").hide();
+        $("#ReadyRace").hide();
+        $("#RemoveLobby").hide();
+        $("#PlayerLobbyList").hide();
+
+      }
+    });
+
+    $("#ReadyRace").click(function() { // player click on the button
+      jcmp.CallEvent('Ready_Player');
+      $("#ReadyRace").hide();
+    });
+
+    jcmp.AddEvent('Lobby_Player_Ready', function(playername) { // Show to everyone the player is ready
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          console.log(playername + "Is ready");
+          $("#" + namewithoutspace + "ready").text("Ready");
+        }
+      });
+    });
+    jcmp.AddEvent('Lobby_Player_NotReady', function(playername) { // Show to everyone the player is ready
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          console.log(playername + "Is not ready");
+          $("#" + namewithoutspace + "ready").text("Not Ready");
+        }
+      });
+    });
+
+    jcmp.AddEvent('AddLobby_List', function(id, playername) { // list of player on the lobby
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          return;
+        }
+      });
+
+      let namewithoutspace = playername.split(" ").join("");
+      var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+      var $name = $("<td></td>").attr({
+        "id": namewithoutspace + "n"
+      });
+
+      $($name).text(playername);
+
+      var $ready = $("<td></td>").attr({
+        "id": namewithoutspace + "ready"
+      });
+
+      $($ready).text("Not Ready");
+
+      $($submenu).append($name);
+      $($submenu).append($ready);
+      $("#tablePlayerL").append($submenu);
+    });
+
+
+
+
+    jcmp.AddEvent('Lobby_remove_one', function(playername) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+        /*  $("#" + namewithoutspace + "1").remove();
+          $("#" + namewithoutspace + "2").remove();
+          $("#" + namewithoutspace).remove();
+          $("#" + namewithoutspace + "n").remove();
+          $("#" + namewithoutspace + "ready").remove();*/
+          $("#" + namewithoutspace + "lobby").remove();
+
+          console.log("Player remove from the lobby list" + namewithoutspace);
+        }
+
+      });
+    });
+  </script>
+</body>
+
+</html>

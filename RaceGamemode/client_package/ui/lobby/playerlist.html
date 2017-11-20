@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - PlayerList </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../popper.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    #PlayerList {
+      position: fixed;
+      top: 5%;
+      left: 3%;
+      width: 20%;
+      height: 25%;
+      overflow: auto;
+    }
+    table {
+      font-family: 'Passion One', cursive;
+      border-collapse: collapse;
+      width: 100%;
+      color: white;
+      font-size: 15pt;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(0, 0, 0, 1);
+    }
+
+    tr:nth-child(odd) {
+      background-color: rgba(0, 0, 0, 1);
+    }
+
+    body {
+      user-select: none;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div id="PlayerList">
+    <table id="tablePlayer">
+      <tr id="toplist">
+        <th>Name</th>
+        <th>States</th>
+      </tr>
+    </table>
+  </div>
+  <script>
+
+    jcmp.AddEvent('AllPlayerList', function(status) { // Only hide when the game start
+      if (status) {
+        $("#PlayerList").show();
+        jcmp.ShowCursor();
+      } else {
+        $("#PlayerList").hide();
+        jcmp.HideCursor();
+      }
+    });
+    jcmp.AddEvent('AddPlayerOnMainMenu', function(playername) { // List of all player
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = name.split(" ").join("");
+        if (idname == namewithoutspace) {
+          return;
+        }
+      });
+
+      let namewithoutspace = playername.split(" ").join("");
+      var $submenu = $("<tr></tr>").attr("id", namewithoutspace);
+      var $name = $("<td></td>").attr({
+        "id": namewithoutspace + "1"
+      });
+      $($name).text(playername);
+
+      var $state = $("<td></td>").attr({
+        "id": namewithoutspace + "2"
+      });
+      $($state).text("OnLobby");
+
+      $($submenu).append($name);
+      $($submenu).append($state);
+      $("#tablePlayer").append($submenu);
+
+      console.log("Done player table");
+
+    });
+    jcmp.AddEvent('Lobby_Update_state', function(playername, state) {
+      let st = JSON.parse(state);
+      $('tr').each(function() {
+    let idname = $(this).attr('id');
+    let namewithoutspace = playername.split(" ").join("");
+    if (idname == namewithoutspace) {
+      $("#" + namewithoutspace + "2").text(`${st}`);
+      console.log("State Update" + namewithoutspace);
+    }
+
+  });
+});
+
+
+  </script>
+</body>
+
+</html>

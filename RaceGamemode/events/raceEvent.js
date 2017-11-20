@@ -57,8 +57,24 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     player.respawnPosition = race.config.game.lobby.pos;
     jcmp.events.CallRemote('race_set_time', player, 11, 0);
     jcmp.events.CallRemote('race_set_weather', player, "base");
-    jcmp.events.CallRemote('LobbyStatus_Server',player,true);
-    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby id: " + player.race.lobbyid));
+
+
+  //  jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby"));
+  //  setTimeout(function() {
+  //    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby id: " + player.race.lobbyid));
+
+  //  }, 2000);
+
+                  //New Lobby version
+    jcmp.events.CallRemote('Lobby_show',player,false);
+    jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In the Lobby : ' + player.race.lobbyid));
+    for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
+      const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
+      console.log(playertoupdate.name);
+      jcmp.events.CallRemote('Lobby_Player_NotReady', playertoupdate, player.name);
+
+    }
+
 
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
@@ -121,7 +137,6 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
   //   tts = time trial solo , everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people ramming them and such
   jcmp.events.CallRemote('Remove_Leaderboard_name', null);
 
-  jcmp.events.CallRemote('Remove_All_Lobby',null);
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
     //const index = race.utils.random(0,race.game.RaceList.length -1);

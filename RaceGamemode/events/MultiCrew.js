@@ -4,7 +4,7 @@
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;
   const partner = player.race.partnerplayer[0];
-  if (player.race.partnerplayer[0].name == player.name) { // no checkpoint for the driver
+  if (player.race.partnerplayer[1].name == player.name) { // no checkpoint for the defenders
     return;
   }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);

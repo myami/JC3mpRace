@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - LobbyList </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../popper.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    #LobbyList {
+      position: fixed;
+      top: 40%;
+      right: 15%;
+      width: 55%;
+      height: 40%;
+      overflow: auto;
+
+    }
+
+
+    table {
+      font-family: 'Passion One', cursive;
+      border-collapse: collapse;
+      width: 100%;
+      color: white;
+      font-size: 15pt;
+    }
+
+    td,
+    th {
+      border: 1px solid #dddddd;
+      text-align: left;
+      padding: 8px;
+    }
+
+    tr:nth-child(even) {
+      background-color: rgba(0, 77, 255, 1);
+    }
+
+    tr:nth-child(odd) {
+      background-color: rgba(0, 47, 198, 1);
+
+    }
+
+    body {
+      user-select: none;
+    }
+    #JoinLobby {
+      position: fixed;
+      top: 25%;
+      right: 30%;
+    }
+    #CreateLobby {
+          position: fixed;
+          bottom: 2%;
+          right: 10%;
+        }
+
+  </style>
+</head>
+
+<body>
+  <div id="LobbyList">
+    <table id="tableLobby">
+      <tr id="toplistL">
+        <th>Name</th>
+        <th>PlayerCreated</th>
+        <th>Number of Player</th>
+      </tr>
+    </table>
+  </div>
+  <div id="JoinLobby">
+    <button id="JoinLobbyB">JoinLobby</button>
+    <input type="number" id="lobbyid">
+  </div>
+
+  <div id="CreateLobby">
+    <button>CreateLobby</button>
+  </div>
+
+  <script>
+
+
+    $("#CreateLobby").click(function() {
+      jcmp.CallEvent('CreateLobby');
+      $("#CreateLobby").hide();
+      $("#JoinLobby").hide();
+      $("#LobbyList").hide();
+
+
+    });
+
+    $("#JoinLobbyB").click(function() {
+      let id = $("#lobbyid").val();
+      console.log(id);
+    if (id == $("#toplistL").val()){
+      return;
+    }
+    jcmp.CallEvent('JoinLobby', id);
+      $("#LobbyList").hide();
+      $("#CreateLobby").hide();
+      $("#JoinLobby").hide();
+      jcmp.CallEvent('PlayerListLobby',true);
+    });
+
+    jcmp.AddEvent('ServerList', function(status) {
+      if (status) {
+        $("#LobbyList").show();
+        $("#CreateLobby").show();
+        $("#JoinLobby").show();
+      } else {
+        $("#LobbyList").hide();
+        $("#CreateLobby").hide();
+        $("#JoinLobby").hide();
+      }
+    });
+
+    jcmp.AddEvent('Delete_Lobby', function(id) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+
+        if (idname == id) {
+          console.log("Find");
+          $("#" + id + "id").remove();
+          $("#" + id + "playername").remove();
+          $("#" + id + "np").remove();
+          $("#" + id).remove();
+          console.log("Lobby remove from the lobby list" + id);
+        }
+
+      });
+    })
+
+
+    $( 'tr' ).click(function() {
+      let id = $(this).attr('id');
+      let ids = parseInt(id);
+      jcmp.CallEvent('JoinLobby', ids);
+});
+    jcmp.AddEvent('AddNewLobby', function(id, playername) { // Create a lobby on the list
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        let namewithoutspace = name.split(" ").join("");
+        if (idname == namewithoutspace) {
+          return;
+        }
+      });
+
+
+      var $submenu = $("<tr></tr>").attr("id", id);
+      var $id = $("<td></td>").attr({
+        "id": id + "id"
+      });
+      $($id).text("Lobby: " + id);
+
+      var $playername = $("<td></td>").attr({
+        "id": id + "playername"
+      });
+      $($playername).text(playername);
+
+      var $numberofplayer = $("<td></td>").attr({
+        "id": id + "np"
+      });
+      $($numberofplayer).text("1");
+
+
+      $($submenu).append($id);
+      $($submenu).append($playername);
+      $($submenu).append($numberofplayer);
+      $("#tableLobby").append($submenu);
+      console.log("Done lobby");
+
+    });
+
+    jcmp.AddEvent('Lobby_Update_Player', function(id, number) {
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        if (idname == id) {
+          console.log("Find");
+          $("#" + id + "np").text(number);
+          console.log("Lobby update number of player");
+        }
+      });
+    })
+
+  </script>
+</body>
+
+</html>
