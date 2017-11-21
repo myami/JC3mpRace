@@ -1,14 +1,15 @@
 jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   const Race = player.race.game;
-  if (Race.type == "multicrew") {
+  console.log(Race.type + "Checkpoint");
+  if (Race.type == 1) {
     jcmp.events.Call('MC_Race_Checkpoint', player);
 
-  }  if (Race.type == "classic" ||Race.type == "apo") {
+  }  if (Race.type == 0 ||Race.type == 3) {
     jcmp.events.Call('C_Race_Checkpoint', player);
 
   }
 
-  if (Race.type == "tts") {
+  if (Race.type == 2) {
   jcmp.events.Call('TTS_Race_Checkpoint', player);
   console.log("TTS_Race_Checkpoint");
 }
@@ -17,15 +18,15 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
 jcmp.events.AddRemoteCallable('Timer_Server',function(player,time){
   player.race.time = time;
   const Race = player.race.game;
-  if (Race.type == "multicrew") {
+  if (Race.type == 1) {
     jcmp.events.Call('MC_race_end_point', player);
 
-  }  if (Race.type == "classic") {
+  }  if (Race.type == 0) {
     jcmp.events.Call('C_race_end_point', player);
 
   }
 
-  if (Race.type == "tts") {
+  if (Race.type == 2) {
   jcmp.events.Call('TTS_race_end_point', player);
 
 }
@@ -74,6 +75,13 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
       jcmp.events.CallRemote('Lobby_Player_NotReady', playertoupdate, player.name);
 
     }
+    if(race.game.lobbys[player.race.lobbyid][0].networkId == player.networkId){
+      console.log("playershowmenu");
+      jcmp.events.CallRemote('ShowSelectRace',player);
+      for (var i = 0; i < race.game.RaceList.length; i++) { // Create the list of map to select for the admin of the lobby
+        jcmp.events.CallRemote('Race_List_Select', player, race.game.RaceList[i].raceid, race.game.RaceList[i].Name);
+      }
+    }
 
 
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
@@ -101,16 +109,16 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
     }, race.game.respawntimer));
     setTimeout(function() {
       player.race.spawningdouble = false;
-      if (player.race.game.type == "classic" || player.race.game.type == "apo") {
+      if (player.race.game.type == 0 || player.race.game.type == 3) {
         player.race.game.CRRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
         }
       }
-      if (player.race.game.type == "multicrew") {
+      if (player.race.game.type == 1) {
         player.race.game.MCVehicleReset(player,vehicleold);
       }
-      if (player.race.game.type == "tts") {
+      if (player.race.game.type == 2) {
         player.race.game.TTSRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
@@ -206,7 +214,7 @@ jcmp.events.Add('race_start_index', function(player) {
       ghostpoi, // the ghost poi type
       nitro, // if nitro is enabled or not
       cameraview, // the camera view for spectator
-      player.race.raceselect // type of the race
+      player.race.typeselect // type of the race
     );
 
     race.game.games.push(Race);

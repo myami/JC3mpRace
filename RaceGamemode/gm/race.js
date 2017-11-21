@@ -32,6 +32,8 @@ module.exports = class Race {
 
   Start() {
     console.log("Id of the race: " + this.id);
+    console.log("type of the race: " + this.type);
+
 
     if (this.type == 0) {
       console.log("ClassicRace!!!");

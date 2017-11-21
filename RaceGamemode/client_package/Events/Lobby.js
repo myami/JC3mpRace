@@ -75,8 +75,9 @@ lobbylist.hidden = true;
 
 });
 
-jcmp.ui.AddEvent('ServerList',function(boolean){ // Show the lobby/Server list or hide
-  jcmp.ui.CallEvent('ServerList',boolean);
+jcmp.ui.AddEvent('ServerLists',function(boolean){ // Show the lobby/Server list or hide
+  jcmp.ui.CallEvent('ServerLists',boolean);
+
 });
 
 jcmp.ui.AddEvent('PlayerListLobby',function(boolean){ // Show the lobby/Server list or hide
@@ -84,25 +85,25 @@ jcmp.ui.AddEvent('PlayerListLobby',function(boolean){ // Show the lobby/Server l
 });
 
 jcmp.events.AddRemoteCallable('Lobby_hide',function(){ // hide the lobby (Start of a race)
-jcmp.ui.CallEvent('ServerList',false);
+//jcmp.ui.CallEvent('ServerLists',false);
 jcmp.ui.CallEvent('PlayerLobbyList',false);
 jcmp.ui.CallEvent('AllPlayerList',false);
+
 });
 
 
 jcmp.events.AddRemoteCallable('Lobby_show',function(newplayer){ // show the lobby (End of a race or player join the server)
   if (newplayer){
     jcmp.events.CallRemote('race_debug', "it is a newplayer");
-    jcmp.ui.CallEvent('ServerList',true); // callstack size here
+  // jcmp.ui.CallEvent('ServerLists',true); // callstack size here
     jcmp.ui.CallEvent('PlayerLobbyList',false);
     jcmp.ui.CallEvent('AllPlayerList',true);
   }
   else{
     jcmp.events.CallRemote('race_debug', "it is not a newplayer");
-
     jcmp.ui.CallEvent('PlayerLobbyList',true);
     jcmp.ui.CallEvent('AllPlayerList',true);
-    jcmp.ui.CallEvent('ServerList',false);
+  //  jcmp.ui.CallEvent('ServerLists',false);
 
   }
 });
@@ -128,5 +129,10 @@ jcmp.events.AddRemoteCallable('Race_List_Select', function(index, name) { // sen
 });
 jcmp.ui.AddEvent('LaunchRace',function(){ // Launch the race
 jcmp.events.CallRemote('LaunchRace');
+
+});
+
+jcmp.events.AddRemoteCallable('ShowSelectRace', function(index, name) { // send to the player that create the lobby all the map for making a list
+  jcmp.ui.CallEvent('TypeOfRace',true); // show the menu to select a type of race
 
 });

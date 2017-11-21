@@ -88,9 +88,9 @@
 
     $("#CreateLobby").click(function() {
       jcmp.CallEvent('CreateLobby');
-      $("#CreateLobby").hide();
-      $("#JoinLobby").hide();
-      $("#LobbyList").hide();
+    //  $("#CreateLobby").hide();
+    //  $("#JoinLobby").hide();
+    //  $("#LobbyList").hide();
 
 
     });
@@ -102,9 +102,9 @@
       return;
     }
     jcmp.CallEvent('JoinLobby', id);
-      $("#LobbyList").hide();
-      $("#CreateLobby").hide();
-      $("#JoinLobby").hide();
+    //  $("#LobbyList").hide();
+  //    $("#CreateLobby").hide();
+  //    $("#JoinLobby").hide();
       jcmp.CallEvent('PlayerListLobby',true);
     });
 
@@ -126,19 +126,7 @@
       });
     });
 
-    jcmp.AddEvent('ServerList', function(status) {
-      console.log(status);
-  /*    if (status) {
-        $("#LobbyList").show();
-        $("#CreateLobby").show();
-        $("#JoinLobby").show();
-      } else {
-        $("#LobbyList").hide();
-        $("#CreateLobby").hide();
-        $("#JoinLobby").hide();
 
-      }*/
-    });
 
 
     $( 'tr' ).click(function() {
