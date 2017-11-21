@@ -43,6 +43,8 @@
   </div>
   <script>
   $("#DivMap").hide();
+  $("#MapSelect").hide();
+
 
 jcmp.AddEvent('ShowMaplist',function(){
     $("#DivMap").show();
@@ -84,6 +86,8 @@ jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
         jcmp.CallEvent('MapRace', x);
         $("#DivMap").hide();
         $( "ul" ).empty();
+        $("#MapSelect").show();
+
 
 
     }

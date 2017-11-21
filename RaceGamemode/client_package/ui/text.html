@@ -171,20 +171,23 @@
 <div id="LaunchRace"class="hidden">
   <button id="LRACE">LaunchRace</button>
 </div>
+
   <script>
     let timer = 30; // timer seconde
     let istts = false;
     let timegame = 0;
     let timers ;
-    jcmp.AddEvent('ShowLaunchRace',function(){
-      toggleContainer("LaunchRace", true);
+    jcmp.AddEvent('ShowLaunchRace',function(boolean){
+      toggleContainer("LaunchRace", boolean);
 
-    })
+    });
+
     $("#LRACE").click(function()
       {
           jcmp.CallEvent('LaunchRace');
           toggleContainer("LaunchRace", false);
       });
+
     jcmp.AddEvent('Countdown_start', function() {
 
       let inter = setInterval(function() {
@@ -379,6 +382,7 @@ jcmp.AddEvent('chat_input_state', function(b) {
                         toggleContainer("Onclickexplained", true);
                         $is_text_key_down = true;
                     }
+                    if (event.which === 32) {event.preventDefault();}
                     if (event.keyCode === konamicode[n++]) {
                       if (n === konamicode.length) {
                         alert('Konami Code !!!');
@@ -394,6 +398,8 @@ jcmp.AddEvent('chat_input_state', function(b) {
     $(window).keyup(function(event) {
 
       const key = event.which;
+    //  if (key === 32) {event.preventDefault();}
+
       if (key === 77 && $is_text_key_down && !$chat_input_visible) { // m
           toggleContainer("Onclickexplained", false);
           $is_text_key_down = false;

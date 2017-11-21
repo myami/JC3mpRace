@@ -9,7 +9,6 @@ include('events/Settings.js');
 include('events/Spectator.js');
 include('events/UIManager.js');
 include('events/VehicleMenu.js');
-include('events/Vote.js');
 include('events/MultiCrew.js');
 include('events/TTS.js');
 include('events/Lobby.js');

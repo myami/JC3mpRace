@@ -33,7 +33,7 @@ jcmp.events.AddRemoteCallable('Lobby_remove_player',function(playername){ //Remo
 jcmp.events.AddRemoteCallable('Lobby_List', function(data) { // Call when a player join to have the list of all lobby already created
   data = JSON.parse(data);
   data.lobby.forEach(function(l) {
-  jcmp.ui.CallEvent('AddNewLobby', l.id,l.playername);
+  jcmp.ui.CallEvent('AddNewLobby', l.id,l.PlayerCreated);
   jcmp.ui.CallEvent('Lobby_Update_Player', l.id,l.numberofplayer);
  });
 
@@ -41,6 +41,7 @@ jcmp.events.AddRemoteCallable('Lobby_List', function(data) { // Call when a play
 
 jcmp.events.AddRemoteCallable('NewLobby', function(id,playername) { // string Call when a player join the server or finish the race
   jcmp.ui.CallEvent('AddNewLobby', id,playername);
+  // don't need Lobby_Update_Player because it's create automaticly with the number 1
 });
 
 jcmp.ui.AddEvent('Ready_Player',function(){ // When a player click on the ready button
@@ -58,12 +59,19 @@ jcmp.events.AddRemoteCallable('DeleteLobby',function(id){ // Remove the lobby fr
 jcmp.ui.AddEvent('JoinLobby',function(id){ // Player Join lobby
 jcmp.events.CallRemote('Player_Join_Lobby',id);
 jcmp.ui.CallEvent('PlayerLobbyList',true);
+lobbylist.hidden = true;
+playerlistlobby.hidden = false;
 
 });
 
 jcmp.ui.AddEvent('RemoveLobby',function(){ // Player Remove lobby
 jcmp.events.CallRemote('Player_Remove_Lobby');
 lobbylist.hidden = false;
+playerlistlobby.hidden = true;
+jcmp.ui.CallEvent('TypeSelectedHide');
+jcmp.ui.CallEvent('MapSelectedHide');
+jcmp.ui.CallEvent('ShowLaunchRace',false);
+jcmp.ui.CallEvent('ActiveCreateLobbyButton');
 
 });
 
@@ -72,6 +80,8 @@ jcmp.events.CallRemote('Player_Create_Lobby');
 jcmp.ui.CallEvent('PlayerLobbyList',true);
 jcmp.ui.CallEvent('TypeOfRace',true); // show the menu to select a type of race
 lobbylist.hidden = true;
+playerlistlobby.hidden = false;
+
 
 });
 
@@ -106,6 +116,9 @@ jcmp.events.AddRemoteCallable('Lobby_show',function(newplayer){ // show the lobb
   //  jcmp.ui.CallEvent('ServerLists',false);
 
   }
+  jcmp.localPlayer.controlsEnabled = false;
+
+
 });
 
 jcmp.events.AddRemoteCallable('Lobby_Update_state',function(playername,state){ // hide the lobby (Start of a race)
@@ -120,7 +133,7 @@ jcmp.ui.AddEvent('TypeOfRace',function(int){ // send the type of race
 
 jcmp.ui.AddEvent('MapRace',function(int){ // send the map for the race
   jcmp.events.CallRemote('MapRace',int);
-  jcmp.ui.CallEvent('ShowLaunchRace');
+  jcmp.ui.CallEvent('ShowLaunchRace',true);
 });
 
 jcmp.events.AddRemoteCallable('Race_List_Select', function(index, name) { // send to the player that create the lobby all the map for making a list

@@ -36,7 +36,7 @@
       position: fixed;
       top: 10%;
       right: 15%;
-      
+
     }
 
 
@@ -52,12 +52,14 @@
       <button id = "apo">APO(NotWorking)</button> <br />
     </ul>
   </div>
+
   <div id= "TypeSelected">
     <img id="TypeSelectIMG" src="" /><span id="TypeSelectedS"></span>
-
   </div>
   <script>
   $("#TypeofRace").hide();
+  $("#TypeSelected").hide();
+
 
   jcmp.AddEvent('TypeSelectedHide',function(){ // Call in race_Start_client
     $("#TypeSelected").hide();
@@ -75,6 +77,9 @@
   //    $("#MapSelectIMG").attr('src','../img' + 'tts' + '.jpg');
         $("#TypeSelectedS").text("TTS");
     }
+
+    $("#TypeSelected").show();
+
 
   });
 

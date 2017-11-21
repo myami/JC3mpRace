@@ -85,14 +85,17 @@
 
   <script>
 
-
+  let alreadylobbycreate = false;
     $("#CreateLobby").click(function() {
-      jcmp.CallEvent('CreateLobby');
-    //  $("#CreateLobby").hide();
-    //  $("#JoinLobby").hide();
-    //  $("#LobbyList").hide();
+      if (!alreadylobbycreate){
+        jcmp.CallEvent('CreateLobby');
+        $(this).prop("disabled",true);
+        alreadylobbycreate = true
+      }
 
-
+    });
+    jcmp.AddEvent('ActiveCreateLobbyButton',function(){
+      alreadylobbycreate = false;
     });
 
     $("#JoinLobbyB").click(function() {
@@ -102,9 +105,6 @@
       return;
     }
     jcmp.CallEvent('JoinLobby', id);
-    //  $("#LobbyList").hide();
-  //    $("#CreateLobby").hide();
-  //    $("#JoinLobby").hide();
       jcmp.CallEvent('PlayerListLobby',true);
     });
 

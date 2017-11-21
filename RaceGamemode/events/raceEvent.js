@@ -60,22 +60,14 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     jcmp.events.CallRemote('race_set_weather', player, "base");
 
 
-  //  jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby"));
-  //  setTimeout(function() {
-  //    jcmp.events.CallRemote('Lobby_Update_state_Server',null,player.name,JSON.stringify("OnLobby id: " + player.race.lobbyid));
 
-  //  }, 2000);
-
-                  //New Lobby version
     jcmp.events.CallRemote('Lobby_show',player,false);
     jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In the Lobby : ' + player.race.lobbyid));
-    for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
+    for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) { // Update to everyone that the player just finish the race and he is not ready
       const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
-      console.log(playertoupdate.name);
       jcmp.events.CallRemote('Lobby_Player_NotReady', playertoupdate, player.name);
-
     }
-    if(race.game.lobbys[player.race.lobbyid][0].networkId == player.networkId){
+    if(race.game.lobbys[player.race.lobbyid][0].networkId == player.networkId){ // if it's the creator of the lobby show to select the next type and map
       console.log("playershowmenu");
       jcmp.events.CallRemote('ShowSelectRace',player);
       for (var i = 0; i < race.game.RaceList.length; i++) { // Create the list of map to select for the admin of the lobby
@@ -131,10 +123,6 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
 
 
 
-jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name, value) { // for the votesystem
-
-  jcmp.events.CallRemote('Update_All_Client_toeveryone', null, name, value);
-});
 
 jcmp.events.Add('race_start_index', function(player) {
 
@@ -224,35 +212,8 @@ jcmp.events.Add('race_start_index', function(player) {
 });
 
 
-jcmp.events.Add('Race_name_index', function(player) { // Send to the client all the race name
-  let index = race.game.RaceList;
-  for (var i = 0; i < race.game.RaceList.length; i++) {
-    jcmp.events.CallRemote('Race_name_index_client_admin', player, i, index[i].NameWithoutSpace, index[i].Name);
-    jcmp.events.CallRemote('Race_name_index_client_vote', player, i, index[i].NameWithoutSpace, index[i].Name);
-
-  }
-
-});
 
 jcmp.events.AddRemoteCallable('ResetPlayer_Server', function(player) { // B button for reset player
   player.health = 0;
   race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
-});
-
-jcmp.events.AddRemoteCallable('Race_index_received_admin', function(player, index) { // launch the race from the admin.html menu
-  if (!race.utils.isAdmin(player)) {
-    return race.chat.send(player, "[SERVER] Reserved for admins, for now try the voting system");
-  }
-  jcmp.events.Call('race_start_index', index);
-});
-
-jcmp.events.AddRemoteCallable('Race_index_received_vote', function(player, index) { // from vote.html
-  if (race.game.RaceLaunch) {
-    jcmp.events.Call('race_start_index', index);
-    race.game.RaceLaunch = false;
-    setTimeout(function() {
-      race.game.RaceLaunch = true;
-    }, 5000);
-  }
-
 });
