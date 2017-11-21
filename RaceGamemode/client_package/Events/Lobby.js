@@ -133,6 +133,9 @@ jcmp.events.CallRemote('LaunchRace');
 });
 
 jcmp.events.AddRemoteCallable('ShowSelectRace', function(index, name) { // send to the player that create the lobby all the map for making a list
-  jcmp.ui.CallEvent('TypeOfRace',true); // show the menu to select a type of race
+  jcmp.ui.CallEvent('MapSelected',index , name); // show the menu to select a type of race
+});
 
+jcmp.events.AddRemoteCallable('ShowSelectType', function(int) { // send to the player that create the lobby all the map for making a list
+  jcmp.ui.CallEvent('TypeSelected',int); // show the menu to select a type of race
 });

@@ -25,7 +25,11 @@
     body {
       user-select: none;
     }
-
+#MapSelect{
+  position: fixed;
+  top: 5%;
+  right: 5%;
+}
 
   </style>
 </head>
@@ -44,8 +48,8 @@ jcmp.AddEvent('ShowMaplist',function(){
     $("#DivMap").show();
 })
 jcmp.AddEvent('MapSelected',function(int, name){
-$("#MapSelectIMG").attr('src','../img/' + name + '.jpg');
-  $("#MapSelected").text(name);
+//$("#MapSelectIMG").attr('src','../img/MapImage/' + name + '.jpg');
+  $("#MapSelectedS").text(name);
 });
 jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
   $("#MapSelect").hide();
@@ -56,7 +60,7 @@ jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
       var $submenu = $("<li></li>").attr("id", namewithoutspace);
       var $img = $("<img></>").attr({
         "id": index,
-        "src": '../img' + name + '.jpg'
+      //  "src": '../img/MapImage/' + name + '.jpg'
       });
       var $subbutton = $("<button></button>").attr({
         "id": index,

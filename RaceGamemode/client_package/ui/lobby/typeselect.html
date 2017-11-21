@@ -36,6 +36,7 @@
       position: fixed;
       top: 10%;
       right: 15%;
+      
     }
 
 
@@ -64,15 +65,15 @@
   jcmp.AddEvent('TypeSelected',function(int){
     if (int == 0){
     //  $("#MapSelectIMG").attr('src','../img' + 'classic' + '.jpg');
-        $("#MapSelected").text("Classic");
+        $("#TypeSelectedS").text("Classic");
     }
     if (int == 1){
     //  $("#MapSelectIMG").attr('src','../img' + 'multicrew' + '.jpg');
-        $("#MapSelected").text("MultiCrew");
+        $("#TypeSelectedS").text("MultiCrew");
     }
     if (int == 2){
   //    $("#MapSelectIMG").attr('src','../img' + 'tts' + '.jpg');
-        $("#MapSelected").text("TTS");
+        $("#TypeSelectedS").text("TTS");
     }
 
   });
