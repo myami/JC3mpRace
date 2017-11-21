@@ -26,7 +26,9 @@ jcmp.events.Add("PlayerCreated", function(player) {
     leadpartner : false,
     driver:false,
     lobbyid: 0,
-    ready: false
+    ready: false,
+    typeselect: undefined, // int
+    raceselect: undefined // int
 
   }
   if (race.utils.isAdmin(player)) {
@@ -74,6 +76,7 @@ jcmp.events.AddRemoteCallable('race_debug', function(player, text) {
 
 jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
   jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name);
+
 });
 
 
@@ -114,8 +117,8 @@ jcmp.events.Add('PlayerReady', function(player) {
 
     jcmp.events.Call('Race_name_index', player);
 
-    jcmp.events.CallRemote('Lobby_show',player,true);
     jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('LobbySelectMenu'));
+    jcmp.events.CallRemote('Lobby_show',player,true);
 
   }, 3000);
 

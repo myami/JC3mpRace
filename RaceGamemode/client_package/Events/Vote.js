@@ -7,7 +7,6 @@ jcmp.events.AddRemoteCallable('Update_All_Client_toeveryone', function(name, val
 });
 
 jcmp.events.AddRemoteCallable('Race_name_index_client_vote', function(index, namew, name) {
-  jcmp.print("" + index + name);
   jcmp.ui.CallEvent('Race_name_index_cef_vote', index, namew, name);
 });
 

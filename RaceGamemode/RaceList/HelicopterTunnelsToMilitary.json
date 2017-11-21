@@ -1,5 +1,5 @@
 {
-  "Name":"HELICOPTER-Tunnels-To-Military",
+  "Name":"Helicopter-TunnelsToMilitary",
   "NameWithoutSpace":"HelicopterTunnelsToMilitary",
   "VehicleType": "helicopter",
   "time" : {"hour": 11, "minute": 30},

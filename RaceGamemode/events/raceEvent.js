@@ -128,7 +128,7 @@ jcmp.events.AddRemoteCallable('Update_All_Client_server', function(player, name,
   jcmp.events.CallRemote('Update_All_Client_toeveryone', null, name, value);
 });
 
-jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
+jcmp.events.Add('race_start_index', function(player) {
 
   // type of the race (to add as an args here)
   // classic = basic race
@@ -139,8 +139,18 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
+    let races ;
+
     //const index = race.utils.random(0,race.game.RaceList.length -1);
-    const races = race.game.RaceList[indexs];
+    for (var i = 0; i < race.game.RaceList.length; i++) {
+      let racetofind = race.game.RaceList[i];
+      if (racetofind.raceid == player.race.raceselect){
+      races = racetofind;
+      }
+
+    }
+  //  const races = race.game.RaceList[player.race.raceselect];
+  console.log(races.Name);
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
@@ -158,7 +168,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
     const cameraview = races.CameraView;
-    if (TypeRace == "multicrew") {
+    if (player.race.typeselect == 1) {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
@@ -172,7 +182,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
       }
     }
-    if (TypeRace == "apo") { // wait 1.1 test build to finish it
+    if (player.race.typeselect == 3) { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
     }
 
@@ -196,7 +206,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
       ghostpoi, // the ghost poi type
       nitro, // if nitro is enabled or not
       cameraview, // the camera view for spectator
-      TypeRace // type of the race
+      player.race.raceselect // type of the race
     );
 
     race.game.games.push(Race);
@@ -208,7 +218,7 @@ jcmp.events.Add('race_start_index', function(player,indexs, TypeRace) {
 
 jcmp.events.Add('Race_name_index', function(player) { // Send to the client all the race name
   let index = race.game.RaceList;
-  for (var i = 0; i < index.length; i++) {
+  for (var i = 0; i < race.game.RaceList.length; i++) {
     jcmp.events.CallRemote('Race_name_index_client_admin', player, i, index[i].NameWithoutSpace, index[i].Name);
     jcmp.events.CallRemote('Race_name_index_client_vote', player, i, index[i].NameWithoutSpace, index[i].Name);
 

@@ -107,6 +107,7 @@ function removelobby(){       // tr loop and remove all tr exept toplistL
   });
 }
     jcmp.AddEvent('PlayerLobbyList', function(status) { // Show when a player join a lobby
+      console.log(status);
       if (status) {
         $("#tablePlayerL").show();
         $("#ReadyRace").show();

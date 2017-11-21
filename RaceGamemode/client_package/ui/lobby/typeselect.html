@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>race - TypeSelect </title>
+
+  <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../popper.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+    #TypeofRace {
+      position: fixed;
+      top: 5%;
+      right: 3%;
+      width: 20%;
+      height: 25%;
+      overflow: auto;
+      text-decoration: none;
+    }
+
+    body {
+      user-select: none;
+    }
+
+    #TypeSelected{
+      position: fixed;
+      top: 10%;
+      right: 5%;
+    }
+
+
+  </style>
+</head>
+
+<body>
+  <div id="TypeofRace">
+    <ul>
+      <button id = "classic">Classic</button>
+      <button id = "multicrew">Multicrew</button>
+      <button id = "tts">TTS</button>
+      <button id = "apo">APO(NotWorking)</button>
+    </ul>
+  </div>
+  <div id= "TypeSelected">
+    <img id="TypeSelectIMG" src="" /><span id="TypeSelectedS"></span>
+
+  </div>
+  <script>
+  $("#TypeofRace").hide();
+
+  jcmp.AddEvent('TypeSelectedHide',function(){ // Call in race_Start_client
+    $("#TypeSelected").hide();
+  })
+  jcmp.AddEvent('TypeSelected',function(int){
+    if (int == 0){
+    //  $("#MapSelectIMG").attr('src','../img' + 'classic' + '.jpg');
+        $("#MapSelected").text("Classic");
+    }
+    if (int == 1){
+    //  $("#MapSelectIMG").attr('src','../img' + 'multicrew' + '.jpg');
+        $("#MapSelected").text("MultiCrew");
+    }
+    if (int == 2){
+  //    $("#MapSelectIMG").attr('src','../img' + 'tts' + '.jpg');
+        $("#MapSelected").text("TTS");
+    }
+
+  });
+
+  $( '#classic' ).click(function() {
+    jcmp.CallEvent('TypeOfRace', 0);
+    $("#TypeofRace").hide();
+
+});
+
+$( '#multicrew' ).click(function() {
+  jcmp.CallEvent('TypeOfRace', 1);
+  $("#TypeofRace").hide();
+
+});
+
+$( '#tts' ).click(function() {
+  jcmp.CallEvent('TypeOfRace', 2);
+  $("#TypeofRace").hide();
+
+});
+$( '#apo' ).click(function() {
+  jcmp.CallEvent('TypeOfRace', 3);
+  $("#TypeofRace").hide();
+});
+    jcmp.AddEvent('TypeOfRace', function(status) {
+      if (status) {
+        $("#TypeofRace").show();
+      } else {
+        $("#TypeofRace").hide();
+      }
+    });
+
+
+
+  </script>
+</body>
+
+</html>

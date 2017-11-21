@@ -9,6 +9,9 @@ jcmp.events.AddRemoteCallable('Player_Create_Lobby', function(player) {
   jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In the Lobby : ' + player.race.lobbyid));
 
   race.chat.send(player, "[SERVER] You Create the lobby with the id" + player.race.lobbyid);
+  for (var i = 0; i < race.game.RaceList.length; i++) { // Create the list of map to select for the admin of the lobby
+    jcmp.events.CallRemote('Race_List_Select', player, race.game.RaceList[i].raceid, race.game.RaceList[i].Name);
+  }
 });
 
 jcmp.events.AddRemoteCallable('Player_Join_Lobby', function(player, id) {
@@ -20,9 +23,11 @@ jcmp.events.AddRemoteCallable('Player_Join_Lobby', function(player, id) {
     player.race.lobbyid = id;
     const data = {
       players:  race.game.lobbys[id].map(p => ({
-        name: p.escapedNametagName
+        name: p.name
+
       }))
     };
+    console.log(data.players);
     jcmp.events.CallRemote('AddPlayerLobbyArray_All', player, id, JSON.stringify(data));
     for (var i = 0; i <race.game.lobbys[id].length; i++) {
       const playertoupdate =   race.game.lobbys[id][i];
@@ -68,4 +73,34 @@ jcmp.events.AddRemoteCallable('Ready_Player_Server', function(player) {
     jcmp.events.CallRemote('Lobby_Player_Ready', playertoupdate, player.name);
 
   }
-})
+});
+jcmp.events.AddRemoteCallable('TypeOfRace',function(player,int){ // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO
+player.race.typeselect = int;
+// then send to everyone
+/*for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
+  const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
+  jcmp.events.CallRemote('TypeRaceSelected', playertoupdate, player.race.typeselect);
+
+}*/
+
+});
+jcmp.events.AddRemoteCallable('MapRace',function(player,int){ // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO
+player.race.raceselect = int;
+console.log(player.race.raceselect);
+// then send to everyone
+/*
+const race = race.game.RaceList[int];
+
+for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
+  const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
+  jcmp.events.CallRemote('MapRaceSelected', playertoupdate, race.raceid,race.Name);
+
+}
+*/
+});
+
+jcmp.events.AddRemoteCallable('LaunchRace',function(player){
+  if (player.race.typeselect != undefined && player.race.raceselect != undefined){
+    jcmp.events.Call('race_start_index',player)
+  }
+});

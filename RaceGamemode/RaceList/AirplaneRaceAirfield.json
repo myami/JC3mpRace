@@ -1,5 +1,5 @@
 {
-  "Name":"AIRPLANE-Airfield-Race",
+  "Name":"Airplane-AirfieldRace",
   "NameWithoutSpace":"AirfieldPlaneRace",
   "VehicleType": "planes",
   "time" : {"hour": 11, "minute": 30},

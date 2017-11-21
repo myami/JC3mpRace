@@ -1,5 +1,5 @@
 {
-  "Name":"CAR-Rocket-Race-Military",
+  "Name":"Car-RocketMilitary",
   "NameWithoutSpace":"CarRocketRaceMilitary",
   "VehicleType": "car",
   "time" : {"hour":11, "minute":30},

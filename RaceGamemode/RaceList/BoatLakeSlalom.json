@@ -1,5 +1,5 @@
 {
-  "Name":"BOAT-Slalom-Lake",
+  "Name":"Boat-Slalom-Lake",
   "NameWithoutSpace":"BoatSlalomLake",
   "VehicleType": "boats",
   "time" : {"hour": 11, "minute": 30},

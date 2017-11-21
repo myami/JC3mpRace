@@ -63,6 +63,7 @@
   <script>
 
     jcmp.AddEvent('AllPlayerList', function(status) { // Only hide when the game start
+      console.log(status);
       if (status) {
         $("#PlayerList").show();
         jcmp.ShowCursor();

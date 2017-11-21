@@ -108,17 +108,7 @@
       jcmp.CallEvent('PlayerListLobby',true);
     });
 
-    jcmp.AddEvent('ServerList', function(status) {
-      if (status) {
-        $("#LobbyList").show();
-        $("#CreateLobby").show();
-        $("#JoinLobby").show();
-      } else {
-        $("#LobbyList").hide();
-        $("#CreateLobby").hide();
-        $("#JoinLobby").hide();
-      }
-    });
+
 
     jcmp.AddEvent('Delete_Lobby', function(id) {
       $('tr').each(function() {
@@ -134,7 +124,21 @@
         }
 
       });
-    })
+    });
+
+    jcmp.AddEvent('ServerList', function(status) {
+      console.log(status);
+  /*    if (status) {
+        $("#LobbyList").show();
+        $("#CreateLobby").show();
+        $("#JoinLobby").show();
+      } else {
+        $("#LobbyList").hide();
+        $("#CreateLobby").hide();
+        $("#JoinLobby").hide();
+
+      }*/
+    });
 
 
     $( 'tr' ).click(function() {
@@ -146,7 +150,7 @@
       $('tr').each(function() {
         let idname = $(this).attr('id');
         let namewithoutspace = name.split(" ").join("");
-        if (idname == namewithoutspace) {
+        if (idname == id) {
           return;
         }
       });
@@ -186,7 +190,7 @@
           console.log("Lobby update number of player");
         }
       });
-    })
+    });
 
   </script>
 </body>

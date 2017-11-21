@@ -118,6 +118,14 @@
     body {
       user-select: none;
     }
+    #LaunchRace{
+      position: fixed;
+      top: 10%;
+      left: 45%;
+      font-size: 20pt;
+      font-family: 'Titillium Web', sans-serif;
+
+    }
   </style>
 </head>
 
@@ -160,12 +168,23 @@
   </div>
 <div id = "timergame"class="hidden">00:25.10</div>
 
-
+<div id="LaunchRace"class="hidden">
+  <button id="LRACE">LaunchRace</button>
+</div>
   <script>
     let timer = 30; // timer seconde
     let istts = false;
     let timegame = 0;
     let timers ;
+    jcmp.AddEvent('ShowLaunchRace',function(){
+      toggleContainer("LaunchRace", true);
+
+    })
+    $("#LRACE").click(function()
+      {
+          jcmp.CallEvent('LaunchRace');
+          toggleContainer("LaunchRace", false);
+      });
     jcmp.AddEvent('Countdown_start', function() {
 
       let inter = setInterval(function() {
