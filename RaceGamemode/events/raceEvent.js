@@ -69,6 +69,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     }
     if(race.game.lobbys[player.race.lobbyid][0].networkId == player.networkId){ // if it's the creator of the lobby show to select the next type and map
       console.log("playershowmenu");
+      jcmp.events.CallRemote('EndRaceShowOwnerTypeSelect',player);
       jcmp.events.CallRemote('ShowSelectRace',player);
       for (var i = 0; i < race.game.RaceList.length; i++) { // Create the list of map to select for the admin of the lobby
         jcmp.events.CallRemote('Race_List_Select', player, race.game.RaceList[i].raceid, race.game.RaceList[i].Name);

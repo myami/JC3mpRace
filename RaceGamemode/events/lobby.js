@@ -40,7 +40,7 @@ jcmp.events.AddRemoteCallable('Player_Join_Lobby', function(player, id) {
 
       for (var i = 0; i <race.game.lobbys[id].length; i++) {
         const playertoadd =   race.game.lobbys[id][i];
-        console.log(playertoupdate.name);
+        console.log(playertoadd.name);
         jcmp.events.CallRemote('AddPlayerLobbyArray', player,id, playertoadd.name);
       }
       for (var i = 0; i <race.game.lobbys[id].length; i++) {
@@ -51,6 +51,8 @@ jcmp.events.AddRemoteCallable('Player_Join_Lobby', function(player, id) {
       race.game.lobbys[id].push(player);
       race.chat.send(player, "[SERVER] You Just join the lobby" + id);
       jcmp.events.CallRemote('Lobby_Update_Player', null, id, race.game.lobbys[id].length);
+      jcmp.events.CallRemote('AddPlayerLobbyArray', player,id, player.name);
+
       jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In the Lobby : ' + player.race.lobbyid));
 
     } else {
@@ -64,7 +66,6 @@ jcmp.events.AddRemoteCallable('Player_Join_Lobby', function(player, id) {
 
 jcmp.events.AddRemoteCallable('Player_Remove_Lobby', function(player) {
   if (player.race.lobbyid != undefined){
-    race.game.lobbys[player.race.lobbyid].removePlayer(player);
     jcmp.events.CallRemote('Lobby_Update_Player', null, player.race.lobbyid, race.game.lobbys[player.race.lobbyid].length); // update to everyone the length of the lobby
     for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
       const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
@@ -73,6 +74,7 @@ jcmp.events.AddRemoteCallable('Player_Remove_Lobby', function(player) {
     }
     race.chat.send(player, "[SERVER] You Removed from the lobby" + player.race.lobbyid);
     // if lobby is empty remove it
+    race.game.lobbys[player.race.lobbyid].removePlayer(player);
     if (race.game.lobbys[player.race.lobbyid].length == 0) {
       delete race.game.lobbys[player.race.lobbyid] ;
       jcmp.events.CallRemote("DeleteLobby", null, player.race.lobbyid);
