@@ -97,11 +97,14 @@ jcmp.events.AddRemoteCallable('Player_Remove_Lobby', function(player) {
 jcmp.events.AddRemoteCallable('TypeOfRace',function(player,int){ // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO
 player.race.typeselect = int;
 // then send to everyone
-for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
-  const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
-  jcmp.events.CallRemote('ShowSelectType', playertoupdate, player.race.typeselect);
 
-}
+  for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) {
+    const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
+    jcmp.events.CallRemote('ShowSelectType', playertoupdate, player.race.typeselect);
+
+  }
+
+
 
 });
 jcmp.events.AddRemoteCallable('MapRace',function(player,int){ // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO

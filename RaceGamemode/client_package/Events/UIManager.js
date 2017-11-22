@@ -17,6 +17,7 @@ var playerlist = new WebUIWindow("race playerlist", "package://race/ui/lobby/pla
 playerlist.autoResize = true;
 var playerlistlobby = new WebUIWindow("race playerlistlobby", "package://race/ui/lobby/playerlistlobby.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 playerlistlobby.autoResize = true;
+playerlistlobby.hidden = true;
 var mapselect = new WebUIWindow("race mapselect", "package://race/ui/lobby/mapselect.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 mapselect.autoResize = true;
 var typeselect = new WebUIWindow("race typeselect", "package://race/ui/lobby/typeselect.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));

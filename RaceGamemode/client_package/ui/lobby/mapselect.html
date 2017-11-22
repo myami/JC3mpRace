@@ -46,8 +46,15 @@
   $("#MapSelect").hide();
 
 
-jcmp.AddEvent('ShowMaplist',function(){
+jcmp.AddEvent('ShowMaplist',function(boolean){
+  if(boolean){
     $("#DivMap").show();
+
+  }
+  else{
+    $("#DivMap").hide();
+
+  }
 })
 jcmp.AddEvent('MapSelected',function(int, name){
 //$("#MapSelectIMG").attr('src','../img/MapImage/' + name + '.jpg');
