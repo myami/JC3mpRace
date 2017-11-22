@@ -98,17 +98,17 @@
       alreadylobbycreate = false;
     });
 
-    $("#JoinLobbyB").click(function() {
-      let id = $("#lobbyid").val();
+
+
+  function  onclickjoinlobby(){
+      let id =  $(this).attr('id');
       console.log(id);
-    if (id == $("#toplistL").val()){
+      if (id == $("#toplistL").attr('id')){
       return;
     }
-    jcmp.CallEvent('JoinLobby', id);
+      jcmp.CallEvent('JoinLobby', id);
       jcmp.CallEvent('PlayerListLobby',true);
-    });
-
-
+    }
 
     jcmp.AddEvent('Delete_Lobby', function(id) {
       $('tr').each(function() {
@@ -145,6 +145,7 @@
 
 
       var $submenu = $("<tr></tr>").attr("id", id);
+      $($submenu).on("click", onclickjoinlobby);
       var $id = $("<td></td>").attr({
         "id": id + "id"
       });

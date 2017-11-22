@@ -52,9 +52,13 @@ jcmp.AddEvent('ShowMaplist',function(){
 jcmp.AddEvent('MapSelected',function(int, name){
 //$("#MapSelectIMG").attr('src','../img/MapImage/' + name + '.jpg');
   $("#MapSelectedS").text(name);
+  $("#MapSelect").show();
+
 });
 jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
   $("#MapSelect").hide();
+  $("#MapSelectedS").text(" ");
+
 })
     jcmp.AddEvent('Race_List_Select', function(index, name) {
 

@@ -59,10 +59,12 @@
   <script>
   $("#TypeofRace").hide();
   $("#TypeSelected").hide();
-
+  $("#TypeSelectedS").text(" ");
 
   jcmp.AddEvent('TypeSelectedHide',function(){ // Call in race_Start_client
     $("#TypeSelected").hide();
+    $("#TypeSelectedS").text(" ");
+
   })
   jcmp.AddEvent('TypeSelected',function(int){
     if (int == 0){
