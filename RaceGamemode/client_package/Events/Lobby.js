@@ -71,6 +71,8 @@ playerlistlobby.hidden = true;
 jcmp.ui.CallEvent('TypeSelectedHide');
 jcmp.ui.CallEvent('MapSelectedHide');
 jcmp.ui.CallEvent('ShowLaunchRace',false);
+jcmp.ui.CallEvent('PlayerLobbyList',false);
+jcmp.ui.CallEvent('TypeOfRace',false); 
 jcmp.ui.CallEvent('ActiveCreateLobbyButton');
 
 });
