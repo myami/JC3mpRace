@@ -25,55 +25,54 @@
     body {
       user-select: none;
     }
-#MapSelect{
-  position: fixed;
-  top: 5%;
-  right: 5%;
-}
 
+    #MapSelect {
+      position: fixed;
+      top: 5%;
+      right: 5%;
+    }
   </style>
 </head>
 
 <body>
-  <div id="DivMap" >
-    <ul id= "UlMap"></ul>
+  <div id="DivMap">
+    <ul id="UlMap"></ul>
   </div>
   <div id="MapSelect">
     <img id="MapSelectIMG" src="" /><span id="MapSelectedS"></span>
   </div>
   <script>
-  $("#DivMap").hide();
-  $("#MapSelect").hide();
-
-
-jcmp.AddEvent('ShowMaplist',function(boolean){
-  if(boolean){
-    $("#DivMap").show();
-
-  }
-  else{
     $("#DivMap").hide();
+    $("#MapSelect").hide();
 
-  }
-})
-jcmp.AddEvent('MapSelected',function(int, name){
-//$("#MapSelectIMG").attr('src','../img/MapImage/' + name + '.jpg');
-  $("#MapSelectedS").text(name);
-  $("#MapSelect").show();
 
-});
-jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
-  $("#MapSelect").hide();
-  $("#MapSelectedS").text(" ");
+    jcmp.AddEvent('ShowMaplist', function(boolean) {
+      if (boolean) {
+        $("#DivMap").show();
 
-})
+      } else {
+        $("#DivMap").hide();
+
+      }
+    })
+    jcmp.AddEvent('MapSelected', function(int, name) {
+      //$("#MapSelectIMG").attr('src','../img/MapImage/' + name + '.jpg');
+      $("#MapSelectedS").text(name);
+      $("#MapSelect").show();
+
+    });
+    jcmp.AddEvent('MapSelectedHide', function() { // Call in race_Start_client
+      $("#MapSelect").hide();
+      $("#MapSelectedS").text(" ");
+
+    })
     jcmp.AddEvent('Race_List_Select', function(index, name) {
 
-        let namewithoutspace = name.split(" ").join("");
+      let namewithoutspace = name.split(" ").join("");
       var $submenu = $("<li></li>").attr("id", namewithoutspace);
       var $img = $("<img></>").attr({
         "id": index,
-      //  "src": '../img/MapImage/' + name + '.jpg'
+        //  "src": '../img/MapImage/' + name + '.jpg'
       });
       var $subbutton = $("<button></button>").attr({
         "id": index,
@@ -92,20 +91,16 @@ jcmp.AddEvent('MapSelectedHide',function(){ // Call in race_Start_client
 
 
     function onclickfunctionint() {
-        var x = $(this).attr('id');
-        console.log(x);
-        jcmp.CallEvent('MapRace', x);
-        $("#DivMap").hide();
-        $( "ul" ).empty();
-        $("#MapSelect").show();
+      var x = $(this).attr('id');
+      console.log(x);
+      jcmp.CallEvent('MapRace', x);
+      $("#DivMap").hide();
+      $("ul").empty();
+      $("#MapSelect").show();
 
 
 
     }
-
-
-
-
   </script>
 </body>
 

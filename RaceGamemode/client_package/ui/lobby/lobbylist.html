@@ -50,17 +50,18 @@
     body {
       user-select: none;
     }
+
     #JoinLobby {
       position: fixed;
       top: 25%;
       right: 30%;
     }
-    #CreateLobby {
-          position: fixed;
-          bottom: 2%;
-          right: 10%;
-        }
 
+    #CreateLobby {
+      position: fixed;
+      bottom: 2%;
+      right: 10%;
+    }
   </style>
 </head>
 
@@ -84,30 +85,29 @@
   </div>
 
   <script>
-
-  let alreadylobbycreate = false;
+    let alreadylobbycreate = false;
     $("#CreateLobby").click(function() {
-      if (!alreadylobbycreate){
+      if (!alreadylobbycreate) {
         jcmp.CallEvent('CreateLobby');
-        $(this).prop("disabled",true);
+        $(this).prop("disabled", true);
         alreadylobbycreate = true
       }
 
     });
-    jcmp.AddEvent('ActiveCreateLobbyButton',function(){
+    jcmp.AddEvent('ActiveCreateLobbyButton', function() {
       alreadylobbycreate = false;
     });
 
 
 
-  function  onclickjoinlobby(){
-      let id =  $(this).attr('id');
+    function onclickjoinlobby() {
+      let id = $(this).attr('id');
       console.log(id);
-      if (id == $("#toplistL").attr('id')){
-      return;
-    }
+      if (id == $("#toplistL").attr('id')) {
+        return;
+      }
       jcmp.CallEvent('JoinLobby', id);
-      jcmp.CallEvent('PlayerListLobby',true);
+      jcmp.CallEvent('PlayerListLobby', true);
     }
 
     jcmp.AddEvent('Delete_Lobby', function(id) {
@@ -129,11 +129,11 @@
 
 
 
-    $( 'tr' ).click(function() {
+    $('tr').click(function() {
       let id = $(this).attr('id');
       let ids = parseInt(id);
       jcmp.CallEvent('JoinLobby', ids);
-});
+    });
     jcmp.AddEvent('AddNewLobby', function(id, playername) { // Create a lobby on the list
       $('tr').each(function() {
         let idname = $(this).attr('id');
@@ -180,7 +180,6 @@
         }
       });
     });
-
   </script>
 </body>
 

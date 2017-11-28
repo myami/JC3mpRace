@@ -31,6 +31,8 @@ global.race = {
     RacePeopleDie: [],
     respawntimer: 1000, // 5 seconds
     RaceLaunch: true,
+    ConvoyRaceProtector : 695483605,
+    ConvoyRaceToProtect: 911076462
 
   }
 };

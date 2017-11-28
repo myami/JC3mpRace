@@ -8,10 +8,10 @@
   <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Permanent+Marker" rel="stylesheet">
   <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
-    <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
-    <script type="text/javascript" src="popper.js"></script>
-    <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
-    <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
+  <script type="text/javascript" src="jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="popper.js"></script>
+  <script type="text/javascript" src="./bootstrap/js/bootstrap.min.js"></script>
+  <link href="./bootstrap/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
     .hidden {
       visibility: hidden;
@@ -45,7 +45,8 @@
       font-size: 15pt;
       color: #00FF00;
     }
-    #Onclickexplained{
+
+    #Onclickexplained {
       position: fixed;
       top: 96%;
       right: 20%;
@@ -65,43 +66,48 @@
       font-size: 50pt;
       color: rgba(5, 5, 11, 0.7);
     }
-    #spectator{
-      position:fixed;
-      top:60%;
-      right:50%;
+
+    #spectator {
+      position: fixed;
+      top: 60%;
+      right: 50%;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       font-size: 20pt;
 
     }
-    #spectatorcam{
-      position:fixed;
-      top:75%;
-      right:50%;
+
+    #spectatorcam {
+      position: fixed;
+      top: 75%;
+      right: 50%;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       font-size: 20pt;
     }
-    #WarningBarrel{
-      position:fixed;
-      top:10%;
-      right:35%;
+
+    #WarningBarrel {
+      position: fixed;
+      top: 10%;
+      right: 35%;
       font-size: 30pt;
       font-family: 'Passion One', cursive;
       font-weight: bold;
       color: red;
     }
-    #WaitItsyouTTS{
+
+    #WaitItsyouTTS {
       position: fixed;
-      top:10%;
-      right:28%;
+      top: 10%;
+      right: 28%;
       font-size: 40pt;
       font-family: 'Titillium Web', sans-serif;
       font-weight: bold;
       color: red;
       background-color: rgba(255, 255, 255, 0.3);
     }
-    #timergame{
+
+    #timergame {
       position: fixed;
       bottom: 1.5%;
       right: 5%;
@@ -118,7 +124,8 @@
     body {
       user-select: none;
     }
-    #LaunchRace{
+
+    #LaunchRace {
       position: fixed;
       top: 10%;
       left: 45%;
@@ -135,11 +142,11 @@
     <span id="timer">30</span>
   </div>
 
-  <div id="CheckpointContainer"class="hidden">
-  <img src="./img/CircleCheckpoint.png" height="42" width="42">  <span id="playercheckpointis">0</span> | <span id="allcheckpoint">0</span>
+  <div id="CheckpointContainer" class="hidden">
+    <img src="./img/CircleCheckpoint.png" height="42" width="42"> <span id="playercheckpointis">0</span> | <span id="allcheckpoint">0</span>
   </div>
 
-  <div id="rank"class="hidden">
+  <div id="rank" class="hidden">
     You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
   </div>
   <div id="Onclickexplained">
@@ -152,41 +159,40 @@
     <p>Early Beta</p>
   </div>
 
-  <div id="spectator"class="hidden">
+  <div id="spectator" class="hidden">
     <span id="playeritrackspan">Currently spectate on : </span> <br />
-    <button id= "spectate">&#8660;</button>
+    <button id="spectate">&#8660;</button>
   </div>
   <div id="spectatorcam" class="hidden">
     <span id="cameratrack">Currently spectate on camera number : </span> <br />
-    <button id= "spectatec">&#8660;</button>
+    <button id="spectatec">&#8660;</button>
   </div>
-  <div id="WarningBarrel"class="hidden">
+  <div id="WarningBarrel" class="hidden">
     WARNING BARREL FALLING FROM SKY
   </div>
-  <div id="WaitItsyouTTS"class="hidden">
-  Wait the countdown appear to start
+  <div id="WaitItsyouTTS" class="hidden">
+    Wait the countdown appear to start
   </div>
-<div id = "timergame"class="hidden">00:25.10</div>
+  <div id="timergame" class="hidden">00:25.10</div>
 
-<div id="LaunchRace"class="hidden">
-  <button id="LRACE">LaunchRace</button>
-</div>
+  <div id="LaunchRace" class="hidden">
+    <button id="LRACE">LaunchRace</button>
+  </div>
 
   <script>
     let timer = 30; // timer seconde
     let istts = false;
     let timegame = 0;
-    let timers ;
-    jcmp.AddEvent('ShowLaunchRace',function(boolean){
+    let timers;
+    jcmp.AddEvent('ShowLaunchRace', function(boolean) {
       toggleContainer("LaunchRace", boolean);
 
     });
 
-    $("#LRACE").click(function()
-      {
-          jcmp.CallEvent('LaunchRace');
-          toggleContainer("LaunchRace", false);
-      });
+    $("#LRACE").click(function() {
+      jcmp.CallEvent('LaunchRace');
+      toggleContainer("LaunchRace", false);
+    });
 
     jcmp.AddEvent('Countdown_start', function() {
 
@@ -199,12 +205,11 @@
           jcmp.CallEvent('AddPlayerLeaderboard');
         }
         if (timer == 0) {
-          if (!istts){
+          if (!istts) {
             jcmp.CallEvent('race_countdown_end');
             timegame = 0;
             countdownrace(true);
-          }
-          else{
+          } else {
             console.log("RaceisTTS");
             jcmp.CallEvent('TTS_race_countdown_end');
             timegame = 0;
@@ -223,25 +228,24 @@
 
 
     });
-    jcmp.AddEvent('IsTTS',function(status){
+    jcmp.AddEvent('IsTTS', function(status) {
       istts = status;
     });
 
-    function countdownrace (status){
+    function countdownrace(status) {
       console.log("Countdown" + status);
       toggleContainer("timergame", status);
-      if (status){
-         timers = setInterval(function() {
-            timegame ++ ;
-            let minute = Math.floor(timegame / 60);
-            let seconds = timegame % 60 ;
-            let hour = Math.floor(timegame / 3600);
-            document.getElementById("timergame").innerText = (`${hour}:${minute}:${seconds}`);
+      if (status) {
+        timers = setInterval(function() {
+          timegame++;
+          let minute = Math.floor(timegame / 60);
+          let seconds = timegame % 60;
+          let hour = Math.floor(timegame / 3600);
+          document.getElementById("timergame").innerText = (`${hour}:${minute}:${seconds}`);
         }, 1000);
-      }
-      else {
+      } else {
         clearInterval(timers);
-        jcmp.CallEvent('Timer_Client',timegame);
+        jcmp.CallEvent('Timer_Client', timegame);
         console.log("TimerFinish" + timegame);
         setTimeout(function() {
           document.getElementById("timergame").innerText = "";
@@ -254,9 +258,10 @@
 
 
     }
-  jcmp.AddEvent('Stop_Timer',function(){
-    countdownrace(false);
-  })
+    jcmp.AddEvent('Stop_Timer', function() {
+      countdownrace(false);
+    })
+
     function clear(vartoclear) {
       clearInterval(vartoclear);
     }
@@ -315,37 +320,33 @@
 
     jcmp.AddEvent('playeritrack', (name) => {
       $('#playeritrackspan').text("Currently spectating: " + name);
-  });
-  jcmp.AddEvent('cameratrack', (name) => {
-    $('#cameratrackspan').text("Currently spectating camera : " + name);
-});
-  $("#spectate").click(function()
-    {
-        jcmp.CallEvent('Changingtrack'); // -1 on the index
     });
-    $("#spectatec").click(function()
-      {
-          jcmp.CallEvent('Changingtrack'); // -1 on the index
-      });
+    jcmp.AddEvent('cameratrack', (name) => {
+      $('#cameratrackspan').text("Currently spectating camera : " + name);
+    });
+    $("#spectate").click(function() {
+      jcmp.CallEvent('Changingtrack'); // -1 on the index
+    });
+    $("#spectatec").click(function() {
+      jcmp.CallEvent('Changingtrack'); // -1 on the index
+    });
 
-      jcmp.AddEvent('ShowSpectatorMode',function(status){
-          toggleContainer("spectator", status);
-          if (status){
-            jcmp.ShowCursor();
-          }
-          else{
-            jcmp.HideCursor();
-          }
-      });
-      jcmp.AddEvent('ShowSpectatorCameraMode',function(status){
-          toggleContainer("spectatorcam", status);
-          if (status){
-            jcmp.ShowCursor();
-          }
-          else{
-            jcmp.HideCursor();
-          }
-      });
+    jcmp.AddEvent('ShowSpectatorMode', function(status) {
+      toggleContainer("spectator", status);
+      if (status) {
+        jcmp.ShowCursor();
+      } else {
+        jcmp.HideCursor();
+      }
+    });
+    jcmp.AddEvent('ShowSpectatorCameraMode', function(status) {
+      toggleContainer("spectatorcam", status);
+      if (status) {
+        jcmp.ShowCursor();
+      } else {
+        jcmp.HideCursor();
+      }
+    });
 
 
 
@@ -361,51 +362,51 @@
       document.getElementById("playercheckpointis").innerText = (checkpoint);
     });
 
-    jcmp.AddEvent('WarningBarrel_CEF',function(){
+    jcmp.AddEvent('WarningBarrel_CEF', function() {
       toggleContainer("WarningBarrel", true);
       setTimeout(function() {
         toggleContainer("WarningBarrel", false);
       }, 3000);
     });
-let $chat_input_visible = false;
-let $is_text_key_down = false;
-jcmp.AddEvent('chat_input_state', function(b) {
-            $chat_input_visible = b;
-        });
-        let konamicode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
+    let $chat_input_visible = false;
+    let $is_text_key_down = false;
+    jcmp.AddEvent('chat_input_state', function(b) {
+      $chat_input_visible = b;
+    });
+    let konamicode = [38, 38, 40, 40, 37, 39, 37, 39, 66, 65];
 
-        let n = 0;
+    let n = 0;
 
-                $(window).keydown(function(event) {
-                    // toggle scoreboard
-                    if (event.which === 77  && !$chat_input_visible && !$is_text_key_down) {
-                        toggleContainer("Onclickexplained", true);
-                        $is_text_key_down = true;
-                    }
-                    if (event.which === 32) {event.preventDefault();}
-                    if (event.keyCode === konamicode[n++]) {
-                      if (n === konamicode.length) {
-                        alert('Konami Code !!!');
-                        n = 0;
-                        return false;
-                      }
-                    }
-                    else {
-                      n = 0;
-                    }
-});
+    $(window).keydown(function(event) {
+      // toggle scoreboard
+      if (event.which === 77 && !$chat_input_visible && !$is_text_key_down) {
+        toggleContainer("Onclickexplained", true);
+        $is_text_key_down = true;
+      }
+      if (event.which === 32) {
+        event.preventDefault();
+      }
+      if (event.keyCode === konamicode[n++]) {
+        if (n === konamicode.length) {
+          alert('Konami Code !!!');
+          n = 0;
+          return false;
+        }
+      } else {
+        n = 0;
+      }
+    });
 
     $(window).keyup(function(event) {
 
       const key = event.which;
-    //  if (key === 32) {event.preventDefault();}
+      //  if (key === 32) {event.preventDefault();}
 
       if (key === 77 && $is_text_key_down && !$chat_input_visible) { // m
-          toggleContainer("Onclickexplained", false);
-          $is_text_key_down = false;
-      }
-      else if (key === 66 && !$chat_input_visible) { //b
-      jcmp.CallEvent('ResetPlayer_client');
+        toggleContainer("Onclickexplained", false);
+        $is_text_key_down = false;
+      } else if (key === 66 && !$chat_input_visible) { //b
+        jcmp.CallEvent('ResetPlayer_client');
       }
     });
   </script>

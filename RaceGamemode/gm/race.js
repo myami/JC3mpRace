@@ -39,11 +39,13 @@ module.exports = class Race {
       console.log("ClassicRace!!!");
       this.ClassicRace();
       return;
-    }  if (this.type == 1) {
+    }
+    if (this.type == 1) {
       console.log("Multicrew!!!");
       this.Multicrew();
       return;
-    }  if (this.type == 3) {
+    }
+    if (this.type == 3) {
       console.log("APOCALYPSE NOW!!!");
       this.ClassicRace();
       setTimeout(function() {
@@ -51,7 +53,7 @@ module.exports = class Race {
       }, 30000);
       return;
     }
-     if (this.type == 2){
+    if (this.type == 2) {
       console.log("TTS !!!!!!!!");
       this.TTSStart();
       return;
@@ -84,8 +86,8 @@ module.exports = class Race {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
 
-      jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
-      jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
+      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
 
 
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
@@ -166,8 +168,8 @@ module.exports = class Race {
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-      jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
-      jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
+      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
 
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
@@ -179,39 +181,38 @@ module.exports = class Race {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-        if (player.race.partnerplayer[0] == player) {
-          if (player.race.driver){ // UI
-            const secondplayer = player.race.partnerplayer[1];
-            jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
-            jcmp.events.CallRemote('PlayerPassager', player, false);
-            this.playersname.push(player.name + " " + secondplayer.name);
-            jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
-            player.race.vehicle = 695483605;
-          }
-          else{
-            const secondplayer = player.race.partnerplayer[1];
-            jcmp.events.CallRemote('PlayerPassager', player, true);
-            jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
-            this.playersname.push(player.name + " " + secondplayer.name);
-            jcmp.events.CallRemote('ShowPassagerUI', player);
-            secondplayer.race.vehicle = 911076462;
-          }
-
-
-
+      if (player.race.partnerplayer[0] == player) {
+        if (player.race.driver) { // UI
+          const secondplayer = player.race.partnerplayer[1];
+          jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
+          jcmp.events.CallRemote('PlayerPassager', player, false);
+          this.playersname.push(player.name + " " + secondplayer.name);
+          jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
+          player.race.vehicle = race.game.ConvoyRaceProtector;
+        } else {
+          const secondplayer = player.race.partnerplayer[1];
+          jcmp.events.CallRemote('PlayerPassager', player, true);
+          jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
+          this.playersname.push(player.name + " " + secondplayer.name);
+          jcmp.events.CallRemote('ShowPassagerUI', player);
+          secondplayer.race.vehicle = race.game.ConvoyRaceToProtect;
         }
-        if (player.race.partnerplayer[0] == undefined){
-          console.log("Someone didnt have a team");
-        }
+
+
+
+      }
+      if (player.race.partnerplayer[0] == undefined) {
+        console.log("Someone didnt have a team");
+      }
 
 
 
       if (this.alldefaultvehicle) {
         setTimeout(function() {
-            const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-            vehicle.nitroEnabled = this.nitro;
-            vehicle.dimension = player.race.game.id;
-            vehicle.SetOccupant(0, player);
+          const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
+          vehicle.nitroEnabled = this.nitro;
+          vehicle.dimension = player.race.game.id;
+          vehicle.SetOccupant(0, player);
         }, 4000);
       }
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
@@ -282,7 +283,7 @@ module.exports = class Race {
           return;
         }
       } */
-    }
+  }
 
 
 
@@ -309,128 +310,113 @@ module.exports = class Race {
 
 
 
-//////////////////////////////TTS//////////////////////////////////
+  //////////////////////////////TTS//////////////////////////////////
 
-TTSStart() {
-  console.log("TTSStart");
-  for (var i = 0; i < this.players.length; i++) {
-    const player = this.players[i];
-    jcmp.events.CallRemote('Lobby_hide',player); // Hide all the lobby UI
-    jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In a Race'));
+  TTSStart() {
+    console.log("TTSStart");
+    for (var i = 0; i < this.players.length; i++) {
+      const player = this.players[i];
+      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
+      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
 
-    let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
-    player.race.playerrotationspawn = rotation;
-    player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
-    player.rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
-    player.respawnPosition = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
-    player.race.game = this;
-    player.race.ingame = true;
-    player.dimension = this.id;
-    player.race.time = 0;
-    player.race.hasfinish = false;
-    this.playersname.push(player.name);
+      let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
+      player.race.playerrotationspawn = rotation;
+      player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
+      player.rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
+      player.respawnPosition = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
+      player.race.game = this;
+      player.race.ingame = true;
+      player.dimension = this.id;
+      player.race.time = 0;
+      player.race.hasfinish = false;
+      this.playersname.push(player.name);
 
 
-    if (player.race.vehicle == 0) {
-      // wingsuit race
-      console.log("true wingsuit");
-      this.wingsuitrace = true;
+      if (player.race.vehicle == 0) {
+        // wingsuit race
+        console.log("true wingsuit");
+        this.wingsuitrace = true;
+      }
+      if (this.alldefaultvehicle) {
+        player.race.vehicle = this.defaultvehicle;
+        //jcmp.events.Call('race_player_checkpoint_respawn', player);
+        setTimeout(function() {
+          if (player.race.vehicle != 0) {
+            const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
+            vehicle.nitroEnabled = this.nitro;
+            vehicle.dimension = player.race.game.id;
+            vehicle.SetOccupant(0, player);
+
+          }
+
+        }, 4000);
+
+      } else {
+        //  jcmp.events.CallRemote('race_vehicle_choice_menu',player);
+      }
+      let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
+      let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
+      if (this.wingsuitrace) {
+        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint), true);
+
+      } else {
+        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
+
+      }
+      // freeze all player
+      // Unfreeze only the first player after the countdown , wait 30 sec and Unfreeze an other player etc....
+      jcmp.events.CallRemote('race_Freeze_player_wait', player);
+      jcmp.events.CallRemote('PlayerPassager', player, false);
+      jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
+      jcmp.events.CallRemote('race_set_weather', player, this.weather);
+
+      //spawning the first checkpoint
+      jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
+      jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+      jcmp.events.CallRemote('race_Start_client', player, this.type);
     }
-    if (this.alldefaultvehicle) {
-      player.race.vehicle = this.defaultvehicle;
-      //jcmp.events.Call('race_player_checkpoint_respawn', player);
+    this.TTSPlayerStartRelease();
+  }
+
+  TTSRespawnCar(player) {
+    if (player.race.vehicle != 0) {
+      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
+      vehicle.nitroEnabled = player.race.nitro;
+      console.log("Vehicle spawning");
+      vehicle.dimension = player.race.game.id;
       setTimeout(function() {
-        if (player.race.vehicle != 0) {
-          const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-          vehicle.nitroEnabled = this.nitro;
-          vehicle.dimension = player.race.game.id;
-          vehicle.SetOccupant(0, player);
-
-        }
-
-      }, 4000);
-
+        vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
+        //  race.game.RacePeopleDie.removePlayer(player);
+        player.race.spawningdouble = false;
+      }, race.game.respawntimer + 1000);
     } else {
-      //  jcmp.events.CallRemote('race_vehicle_choice_menu',player);
+      //Wingsuit race
     }
-    let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
-    let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
-    if (this.wingsuitrace) {
-      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint), true);
+  }
 
+
+  TTSPlayerStartRelease() {
+
+    console.log(`${this.players.length} player length and ${this.ttsindex}`);
+    if (this.players.length > this.ttsindex) {
+      console.log(`tts unfreeze player `);
+      jcmp.events.CallRemote('TTS_race_Freeze_player', this.players[this.ttsindex]);
+      race.chat.broadcast(`${this.players[this.ttsindex].name} it's you're turn to start`)
+      console.log(this.ttsindex + "ttsunfreezeplayer : " + this.players[this.ttsindex].name);
+      this.ttsindex++;
     } else {
-      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
-
+      console.log("All the player have start");
     }
-    // freeze all player
-    // Unfreeze only the first player after the countdown , wait 30 sec and Unfreeze an other player etc....
-    jcmp.events.CallRemote('race_Freeze_player_wait',player);
-    jcmp.events.CallRemote('PlayerPassager', player, false);
-    jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
-    jcmp.events.CallRemote('race_set_weather', player, this.weather);
 
-    //spawning the first checkpoint
-    jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
-    jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-    jcmp.events.CallRemote('race_Start_client', player, this.type);
-  }
-  this.TTSPlayerStartRelease();
-}
-
-TTSRespawnCar(player) {
-  if (player.race.vehicle != 0) {
-    const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-    vehicle.nitroEnabled = player.race.nitro;
-    console.log("Vehicle spawning");
-    vehicle.dimension = player.race.game.id;
-    setTimeout(function() {
-      vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
-      //  race.game.RacePeopleDie.removePlayer(player);
-      player.race.spawningdouble = false;
-    }, race.game.respawntimer + 1000);
-  } else {
-    //Wingsuit race
-  }
-}
-
-
-TTSPlayerStartRelease(){
-
-  console.log(`${this.players.length} player length and ${this.ttsindex}`);
-  if (this.players.length > this.ttsindex){
-    console.log(`tts unfreeze player `);
-  jcmp.events.CallRemote('TTS_race_Freeze_player', this.players[this.ttsindex]);
-  race.chat.broadcast(`${this.players[this.ttsindex].name} it's you're turn to start`)
-    console.log(this.ttsindex + "ttsunfreezeplayer : " + this.players[this.ttsindex].name);
-    this.ttsindex++;
-  }
-  else{
-    console.log("All the player have start");
   }
 
-}
+  TTSUpdateEndLeaderboard(playername, minute, seconds) {
+    for (let player of this.players) {
+      jcmp.events.CallRemote('Update_leaderboard_all_TTS', player, playername, minute, seconds);
+      // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
+    }
 
-TTSUpdateEndLeaderboard(playername, minute, seconds) {
-  for (let player of this.players) {
-    jcmp.events.CallRemote('Update_leaderboard_all_TTS', player, playername, minute, seconds);
-    // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
   }
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

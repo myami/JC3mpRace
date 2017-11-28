@@ -19,10 +19,10 @@
       width: 20%;
       height: 25%;
       overflow: auto;
-       list-style: none;
-       text-align: left;
-       margin: 0;
-       padding: 0;
+      list-style: none;
+      text-align: left;
+      margin: 0;
+      padding: 0;
       text-decoration: none;
       display: inline-block;
 
@@ -32,83 +32,81 @@
       user-select: none;
     }
 
-    #TypeSelected{
+    #TypeSelected {
       position: fixed;
       top: 10%;
       right: 15%;
 
     }
-
-
   </style>
 </head>
 
 <body>
   <div id="TypeofRace">
     <ul>
-      <button id = "classic">Classic</button> <br />
-      <button id = "multicrew">Multicrew</button> <br />
-      <button id = "tts">TTS</button> <br />
-      <button id = "apo">APO(NotWorking)</button> <br />
+      <button id="classic">Classic</button> <br />
+      <button id="multicrew">Multicrew</button> <br />
+      <button id="tts">TTS</button> <br />
+      <button id="apo">APO(NotWorking)</button> <br />
     </ul>
   </div>
 
-  <div id= "TypeSelected">
+  <div id="TypeSelected">
     <img id="TypeSelectIMG" src="" /><span id="TypeSelectedS"></span>
   </div>
   <script>
-  $("#TypeofRace").hide();
-  $("#TypeSelected").hide();
-  $("#TypeSelectedS").text(" ");
-
-  jcmp.AddEvent('TypeSelectedHide',function(){ // Call in race_Start_client
+    $("#TypeofRace").hide();
     $("#TypeSelected").hide();
     $("#TypeSelectedS").text(" ");
 
+    jcmp.AddEvent('TypeSelectedHide', function() { // Call in race_Start_client
+      $("#TypeSelected").hide();
+      $("#TypeSelectedS").text(" ");
 
-  })
-  jcmp.AddEvent('TypeSelected',function(int){
-    console.log("TypeSelected");
-    if (int == 0){
-    //  $("#MapSelectIMG").attr('src','../img' + 'classic' + '.jpg');
+
+    })
+    jcmp.AddEvent('TypeSelected', function(int) {
+      console.log("TypeSelected");
+      if (int == 0) {
+        //  $("#MapSelectIMG").attr('src','../img' + 'classic' + '.jpg');
         $("#TypeSelectedS").text("Classic");
-    }
-    if (int == 1){
-    //  $("#MapSelectIMG").attr('src','../img' + 'multicrew' + '.jpg');
+      }
+      if (int == 1) {
+        //  $("#MapSelectIMG").attr('src','../img' + 'multicrew' + '.jpg');
         $("#TypeSelectedS").text("MultiCrew");
         console.log("multicrew");
-    }
-    if (int == 2){
-  //    $("#MapSelectIMG").attr('src','../img' + 'tts' + '.jpg');
+      }
+      if (int == 2) {
+        //    $("#MapSelectIMG").attr('src','../img' + 'tts' + '.jpg');
         $("#TypeSelectedS").text("TTS");
-    }
+      }
 
-    $("#TypeSelected").show();
+      $("#TypeSelected").show();
 
 
-  });
+    });
 
-  $( '#classic' ).click(function() {
-    jcmp.CallEvent('TypeOfRace', 0);
-    $("#TypeofRace").hide();
+    $('#classic').click(function() {
+      jcmp.CallEvent('TypeOfRace', 0);
+      $("#TypeofRace").hide();
 
-});
+    });
 
-$( '#multicrew' ).click(function() {
-  jcmp.CallEvent('TypeOfRace', 1);
-  $("#TypeofRace").hide();
+    $('#multicrew').click(function() {
+      jcmp.CallEvent('TypeOfRace', 1);
+      $("#TypeofRace").hide();
 
-});
+    });
 
-$( '#tts' ).click(function() {
-  jcmp.CallEvent('TypeOfRace', 2);
-  $("#TypeofRace").hide();
+    $('#tts').click(function() {
+      jcmp.CallEvent('TypeOfRace', 2);
+      $("#TypeofRace").hide();
 
-});
-$( '#apo' ).click(function() {
-  jcmp.CallEvent('TypeOfRace', 3);
-  $("#TypeofRace").hide();
-});
+    });
+    $('#apo').click(function() {
+      jcmp.CallEvent('TypeOfRace', 3);
+      $("#TypeofRace").hide();
+    });
     jcmp.AddEvent('TypeOfRace', function(status) {
       if (status) {
         $("#TypeofRace").show();
@@ -116,9 +114,6 @@ $( '#apo' ).click(function() {
         $("#TypeofRace").hide();
       }
     });
-
-
-
   </script>
 </body>
 

@@ -1,0 +1,123 @@
+.lobbyModal {
+    color: white;
+    /*display: block !important;*/
+}
+
+.lobbyModal .modal-header {
+    border-color: red;
+}
+
+.lobbyModal .modal-footer {
+    border-color: red;
+}
+
+.lobbyModal .modal-content {
+    background-color: rgba(0, 0, 0, 0.5);
+    border-radius: 0px;
+}
+
+.lobbyModal .modal-body {
+    padding: 0;
+    max-height: calc(100vh - 200px);
+    overflow-y: auto;
+}
+
+.lobbyModal .table {
+    margin: 0;
+}
+
+.lobbyModal .table td,th {
+    text-align: center;
+    vertical-align: middle;
+}
+
+.redborder {
+    border-left: 1px solid red;
+}
+
+.lobbyModal .row {
+    margin: 0px;
+}
+
+.nomargin {
+    margin: 0px;
+    padding:0px;
+}
+
+.lobbyPList {
+    list-style: none;
+    padding: 20px;
+    margin: 0px;
+}
+
+.lobbyJoinedRaceName {
+    position: relative;
+    top: -24px;
+    background-color: rgba(0, 0, 0, 0.5);
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: -24px;
+}
+
+.selectedTrack {
+    opacity: 1.0 !important;
+}
+
+.movableBody {
+    max-height: calc(100vh - 232px);
+    overflow-y: auto;
+}
+
+.lobbyPList li span:nth-child(2) {
+    float:right;
+}
+
+.raceInfoList {
+    list-style: none;
+    padding-left: 20px;
+}
+
+.tableChoose td {
+    opacity: 0.7;
+}
+
+.tableChoose td:hover {
+    opacity: 1.0;
+}
+
+.raceInfoList .info {
+    font-weight: bold;
+}
+
+::-webkit-scrollbar {
+    width: 0.5em;
+    height: 0.5em;
+}
+
+::-webkit-scrollbar-thumb {
+    background: slategray;
+}
+
+::-webkit-scrollbar-track {
+    background: #b8c0c8;
+}
+
+.norounded-inputgroup .form-control {
+    border-radius: 0px;
+    border: 0px;
+    background-color: rgba(0,0,0,0.7);
+    color: white;
+    border-bottom: 1px solid red;
+}
+
+.norounded-inputgroup .input-group-addon {
+    border-radius: 0px;
+    border: 0px;
+    background-color: rgba(111,111,111,0.5);
+    border-bottom: 1px solid red;
+}
+
+.table-lobbys tr td:first-child {
+    padding: 0px;
+    max-height: 100px;
+}

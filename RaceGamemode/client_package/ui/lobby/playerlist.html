@@ -20,6 +20,7 @@
       height: 25%;
       overflow: auto;
     }
+
     table {
       font-family: 'Passion One', cursive;
       border-collapse: collapse;
@@ -46,8 +47,6 @@
     body {
       user-select: none;
     }
-
-
   </style>
 </head>
 
@@ -61,7 +60,6 @@
     </table>
   </div>
   <script>
-
     jcmp.AddEvent('AllPlayerList', function(status) { // Only hide when the game start
       console.log(status);
       if (status) {
@@ -103,17 +101,15 @@
     jcmp.AddEvent('Lobby_Update_state', function(playername, state) {
       let st = JSON.parse(state);
       $('tr').each(function() {
-    let idname = $(this).attr('id');
-    let namewithoutspace = playername.split(" ").join("");
-    if (idname == namewithoutspace) {
-      $("#" + namewithoutspace + "2").text(`${st}`);
-      console.log("State Update" + namewithoutspace);
-    }
+        let idname = $(this).attr('id');
+        let namewithoutspace = playername.split(" ").join("");
+        if (idname == namewithoutspace) {
+          $("#" + namewithoutspace + "2").text(`${st}`);
+          console.log("State Update" + namewithoutspace);
+        }
 
-  });
-});
-
-
+      });
+    });
   </script>
 </body>
 

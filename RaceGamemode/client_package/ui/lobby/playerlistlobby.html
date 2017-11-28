@@ -12,8 +12,6 @@
   <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
   <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
-
-
     #PlayerLobbyList {
       position: fixed;
       top: 40%;
@@ -57,7 +55,7 @@
     }
 
 
-    #ReadyRace{
+    #ReadyRace {
       position: fixed;
       bottom: 2%;
       right: 2%;
@@ -86,26 +84,24 @@
 
 
   <script>
-
-
     $("#RemoveLobby").click(function() {
       jcmp.CallEvent('RemoveLobby');
-      jcmp.CallEvent('ServerList',true);
+      jcmp.CallEvent('ServerList', true);
       $("#RemoveLobby").hide();
       $("#ReadyRace").hide();
       $("#PlayerLobbyList").hide();
       removelobby()
     });
 
-function removelobby(){       // tr loop and remove all tr exept toplistL
-  $('tr').each(function() {
-    let idname = $(this).attr('id');
-    if (idname != $("#toplistL").attr('id')) {
-      $("#" + idname).remove();
-      console.log("Delete id: " + idname);
+    function removelobby() { // tr loop and remove all tr exept toplistL
+      $('tr').each(function() {
+        let idname = $(this).attr('id');
+        if (idname != $("#toplistL").attr('id')) {
+          $("#" + idname).remove();
+          console.log("Delete id: " + idname);
+        }
+      });
     }
-  });
-}
     jcmp.AddEvent('PlayerLobbyList', function(status) { // Show when a player join a lobby
       console.log(status);
       if (status) {
@@ -185,11 +181,11 @@ function removelobby(){       // tr loop and remove all tr exept toplistL
         let idname = $(this).attr('id');
         let namewithoutspace = playername.split(" ").join("");
         if (idname == namewithoutspace) {
-        /*  $("#" + namewithoutspace + "1").remove();
-          $("#" + namewithoutspace + "2").remove();
-          $("#" + namewithoutspace).remove();
-          $("#" + namewithoutspace + "n").remove();
-          $("#" + namewithoutspace + "ready").remove();*/
+          /*  $("#" + namewithoutspace + "1").remove();
+            $("#" + namewithoutspace + "2").remove();
+            $("#" + namewithoutspace).remove();
+            $("#" + namewithoutspace + "n").remove();
+            $("#" + namewithoutspace + "ready").remove();*/
           $("#" + namewithoutspace).remove();
 
           console.log("Player remove from the lobby list" + namewithoutspace);
