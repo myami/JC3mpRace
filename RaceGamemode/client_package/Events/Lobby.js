@@ -151,7 +151,6 @@ jcmp.events.AddRemoteCallable('Race_List_Select', function(index, name) { // sen
 });
 jcmp.ui.AddEvent('LaunchRace', function() { // Launch the race
   jcmp.events.CallRemote('LaunchRace');
-
 });
 
 jcmp.events.AddRemoteCallable('ShowSelectRace', function(index, name) { // send to the player that create the lobby all the map for making a list

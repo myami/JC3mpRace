@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LobbyTest</title>
+
+
+  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="../popper.js"></script>
+  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
+  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
+  <style type="text/css">
+  </style>
+</head>
+
+<body>
+
+  <script>
+    var LobbyServerList = []; 
+    var PlayerOnTheLobby = [];
+    var AllPlayerOnTheServer = [];
+
+
+    // Start function about LobbyServerList
+    function AddServerOnLobby(LobbyNameReceived, LId) {
+      let NewLobbyObject = {
+        LobbyName: LobbyNameReceived,
+        NumberofPlayer: 1,
+        MapName: "RaceIsland",
+        LobbyID: LId
+      };
+      LobbyServerList.push(NewLobbyObject)
+    }
+
+    function RemoveLobbyFromTheList(LId) {
+      for (let i = 0; i < LobbyServerList.lenght; i++) {
+        let Lobby = LobbyServerList[i];
+        if (Lobby.LobbyID == LId) {
+          delete Lobby;
+        }
+      }
+    }
+
+
+    function UpdateLobbyMap(NewMap) {
+      for (let i = 0; i < LobbyServerList.lenght; i++) {
+        let Lobby = LobbyServerList[i];
+        if (Lobby.LobbyID == LId) {
+          Lobby.MapName = NewMap;
+        }
+      }
+    }
+
+
+
+
+
+    // End function about LobbyServerList
+
+    // Start function about AllPlayerOnTheServer
+
+
+    function AddPlayerOnTheServer(playername, isYoub, Networkid, Isinl, LId) {
+      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+        let player = AllPlayerOnTheServer[i];
+        if (player.networkId == Networkid) {
+          return;
+        }
+      }
+
+
+      let newplayer = {
+        PlayerName: playername,
+        isYou: isYoub,
+        IsinLobby: Isinl,
+        LobbyID: LId
+      };
+      AllPlayerOnTheServer.push(newplayer);
+    }
+
+    function UpdatePlayerOnTheServer(IsinL, Lid, Networkid) {
+      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+        let player = AllPlayerOnTheServer[i];
+        if (player.networkId == Networkid) {
+          player.IsinLobby = IsinL;
+          player.LobbyID = Lid;
+        }
+      }
+    }
+
+    function DeletePlayerOnTheserver(Networkid) {
+      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+        let player = AllPlayerOnTheServer[i];
+        if (player.networkId == Networkid) {
+          delete player;
+        }
+      }
+    }
+
+    //End function about AllPlayerOnTheServer
+
+    // Start function about PlayerOnTheLobby
+
+    function AddPlayerOnLobby(playername, isYo, IsLea, Networkid) {
+      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
+        let player = PlayerOnTheLobby[i];
+        if (player.networkId == Networkid) {
+          return;
+        }
+      }
+      let NewPlayerOnLobby = {
+        PlayerName = "Myami",
+        isYou: isYo,
+        isLead: IsLea,
+        networkId: Networkid,
+        IsReady: False
+      }
+      PlayerOnTheLobby.push(NewPlayerOnLobby);
+
+    }
+
+    function RemovePlayerFromLobby(Networkid) {
+      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
+        let player = PlayerOnTheLobby[i];
+        if (player.networkId == Networkid) {
+          delete player;
+        }
+      }
+    }
+
+    function UpdateReadyPlayer(Networkid, isRead) {
+      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
+        let player = PlayerOnTheLobby[i];
+        if (player.networkId == Networkid) {
+          player.IsReady = isRead;
+        }
+      }
+    }
+
+    // End of function about PlayerOnTheLobby
+  </script>
+</body>
+
+</html>
