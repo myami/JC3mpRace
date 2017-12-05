@@ -18,21 +18,13 @@
 <body>
 
   <script>
-    var LobbyServerList = []; 
+    var LobbyServerList = [];
     var PlayerOnTheLobby = [];
     var AllPlayerOnTheServer = [];
 
 
     // Start function about LobbyServerList
-    function AddServerOnLobby(LobbyNameReceived, LId) {
-      let NewLobbyObject = {
-        LobbyName: LobbyNameReceived,
-        NumberofPlayer: 1,
-        MapName: "RaceIsland",
-        LobbyID: LId
-      };
-      LobbyServerList.push(NewLobbyObject)
-    }
+
 
     function RemoveLobbyFromTheList(LId) {
       for (let i = 0; i < LobbyServerList.lenght; i++) {
@@ -44,13 +36,26 @@
     }
 
 
-    function UpdateLobbyMap(NewMap) {
+    function UpdateLobby(NewObject) {
       for (let i = 0; i < LobbyServerList.lenght; i++) {
         let Lobby = LobbyServerList[i];
         if (Lobby.LobbyID == LId) {
-          Lobby.MapName = NewMap;
+          Lobby = NewObject;
         }
       }
+    }
+
+    function AddLobby (NewObject){
+
+      for (let i = 0; i < LobbyServerList.lenght; i++) {
+        let Lobby = LobbyServerList[i];
+        if (Lobby.LobbyID == LId) {
+          delete Lobby; // Delete the old one if still here
+        }
+      }
+
+      LobbyServerList.push(NewObject);
+
     }
 
 
@@ -62,22 +67,8 @@
     // Start function about AllPlayerOnTheServer
 
 
-    function AddPlayerOnTheServer(playername, isYoub, Networkid, Isinl, LId) {
-      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
-        let player = AllPlayerOnTheServer[i];
-        if (player.networkId == Networkid) {
-          return;
-        }
-      }
-
-
-      let newplayer = {
-        PlayerName: playername,
-        isYou: isYoub,
-        IsinLobby: Isinl,
-        LobbyID: LId
-      };
-      AllPlayerOnTheServer.push(newplayer);
+    function AddPlayerOnTheServer(NewObject) {
+      AllPlayerOnTheServer.push(NewObject);
     }
 
     function UpdatePlayerOnTheServer(IsinL, Lid, Networkid) {
@@ -103,22 +94,8 @@
 
     // Start function about PlayerOnTheLobby
 
-    function AddPlayerOnLobby(playername, isYo, IsLea, Networkid) {
-      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
-        let player = PlayerOnTheLobby[i];
-        if (player.networkId == Networkid) {
-          return;
-        }
-      }
-      let NewPlayerOnLobby = {
-        PlayerName = "Myami",
-        isYou: isYo,
-        isLead: IsLea,
-        networkId: Networkid,
-        IsReady: False
-      }
-      PlayerOnTheLobby.push(NewPlayerOnLobby);
-
+    function AddPlayerOnLobby(Newobject) {
+      PlayerOnTheLobby.push(Newobject);
     }
 
     function RemovePlayerFromLobby(Networkid) {
