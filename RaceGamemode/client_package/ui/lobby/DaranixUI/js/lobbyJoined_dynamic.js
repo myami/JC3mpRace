@@ -1,6 +1,6 @@
 function leaveLobby() {
     $("#lobbyJoined").modal('hide');
-    
+
     $("#lobbyMain").modal({
         backdrop: 'static',
         keyboard: false
@@ -19,10 +19,12 @@ var ctrlLobbyJoined = new Vue({
     methods: {
         lobbyKick: function(networkId) {
             // Event to kick the player
+            //jcmp.CallEvent('KickPlayer',networkId);
         },
         generateThumbUrl: generateThumbUrl,
         startRace: function() {
             // Event to start the race
+            //jcmp.CallEvent('LaunchRace');
         },
         chooseRace: function() {
             // Load modal with the races on the game
