@@ -19,104 +19,190 @@
 
   <script>
     var LobbyServerList = [];
-    var PlayerOnTheLobby = [];
+    var PlayerLobbyData = [];
     var AllPlayerOnTheServer = [];
 
-
-    // Start function about LobbyServerList
-
-
-    function RemoveLobbyFromTheList(LId) {
-      for (let i = 0; i < LobbyServerList.lenght; i++) {
-        let Lobby = LobbyServerList[i];
-        if (Lobby.LobbyID == LId) {
-          delete Lobby;
-        }
-      }
+jcmp.AddEvent('PlayerJoinLobby',function(id,obj){ // Player joining the lobby
+  let data = JSON.parse(obj);
+  let NewLobby = {
+    LobbyName: data.LobbyNameReceived,
+    NumberofPlayer: data.PlayerListName.length,
+    MapName: data.MapName,
+    TypeRace:data.TypeRace,
+    LobbyID: id,
+    PlayerListName:data.PlayerListName
+  }
+  PlayerLobbyData.push(NewLobby);
+  if (data.PlayerListName.length >= 1){
+    for (let i = 0; i <   data.PlayerListName.length; i++) {
+      let playername = data.PlayerListName[i];
+      // Add all the player was before you on the UI lobby
     }
+  }
+  else{
+    // show the data.PlayerListName[0]
+    // Show the admin UI to can select the map and type and launch the race
+  }
 
+// Show the lobby UI with the map name etc...
 
-    function UpdateLobby(NewObject) {
-      for (let i = 0; i < LobbyServerList.lenght; i++) {
-        let Lobby = LobbyServerList[i];
-        if (Lobby.LobbyID == LId) {
-          Lobby = NewObject;
-        }
-      }
+});
+jcmp.AddEvent('LobbyCreated',function(Obj){ // show the lobby on the server list
+  let data = JSON.parse(Obj);
+  let NewLobby = {
+    LobbyName: data.LobbyNameReceived,
+    NumberofPlayer: 1,
+    MapName: "RaceIsland",
+    TypeRace:"Classic",
+    LobbyID: data.id,
+    PlayerCreated: data.PlayerCreated,
+    PlayerListName:data.PlayerListName
+  }
+  LobbyServerList.push(NewLobby);
+//LobbyServerList is an array with all the lobby create on the server
+});
+
+jcmp.AddEvent('UpdateLengthLobby',function(id,newlength){
+  for (let i = 0; i <   LobbyServerList.length; i++) {
+    let lobby = LobbyServerList[i];
+    if(lobby.LobbyID == id){
+      lobby.NumberofPlayer = newlength;
+      // show to everyone that are on the main menu the new lenght
     }
-
-    function AddLobby (NewObject){
-
-      for (let i = 0; i < LobbyServerList.lenght; i++) {
-        let Lobby = LobbyServerList[i];
-        if (Lobby.LobbyID == LId) {
-          delete Lobby; // Delete the old one if still here
-        }
-      }
-
-      LobbyServerList.push(NewObject);
-
+  }
+});
+jcmp.AddEvent('AddPlayerOnLobbyMenu',function(id,playername){ // Player already on the lobby
+  for (let i = 0; i <   LobbyServerList.length; i++) {
+    let lobby = LobbyServerList[i];
+    if(lobby.LobbyID == id){
+      lobby.PlayerListName.push(player.name);
+      // show to everyone that are on the lobby the new guy
     }
+  }
+});
+jcmp.AddEvent('PlayerRemoveLobby',function(id,playername){
+  for (let i = 0; i <   LobbyServerList.length; i++) {
+    let lobby = LobbyServerList[i];
+    if(lobby.LobbyID == id){
 
-
-
-
-
-    // End function about LobbyServerList
-
-    // Start function about AllPlayerOnTheServer
-
-
-    function AddPlayerOnTheServer(NewObject) {
-      AllPlayerOnTheServer.push(NewObject);
-    }
-
-    function UpdatePlayerOnTheServer(IsinL, Lid, Networkid) {
-      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
-        let player = AllPlayerOnTheServer[i];
-        if (player.networkId == Networkid) {
-          player.IsinLobby = IsinL;
-          player.LobbyID = Lid;
-        }
-      }
-    }
-
-    function DeletePlayerOnTheserver(Networkid) {
-      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
-        let player = AllPlayerOnTheServer[i];
-        if (player.networkId == Networkid) {
+      for (let i = 0; i <   PlayerListName.length; i++) {
+        let player = PlayerListName[i];
+        if (player == playername){
           delete player;
+          //Remove player to everyone on the lobby
+
         }
+
       }
+
     }
+  }
+});
 
-    //End function about AllPlayerOnTheServer
 
-    // Start function about PlayerOnTheLobby
 
-    function AddPlayerOnLobby(Newobject) {
-      PlayerOnTheLobby.push(Newobject);
+jcmp.AddEvent('ShowLobbyList',function(boolean){
+  // show the LobbyServerList to the player or not
+});
+jcmp.AddEvent('PlayerReady_Lobby',function(id,playername){ // need to do it
+
+});
+jcmp.AddEvent('TypeOfRaceSelected',function(id,type){      // update the UI on server list
+
+  for (let i = 0; i <   LobbyServerList.length; i++) {
+    let lobby = LobbyServerList[i];
+    if(lobby.LobbyID == id){
+      lobby.TypeRace = type;
+      // change on the LobbyServerList the type
+
     }
+  }
+});
+jcmp.AddEvent('TypeOfRace',function(type){ // update for the player on the lobby menu
+PlayerLobbyData.TypeRace = type;
+});
 
-    function RemovePlayerFromLobby(Networkid) {
-      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
-        let player = PlayerOnTheLobby[i];
-        if (player.networkId == Networkid) {
-          delete player;
-        }
-      }
+jcmp.AddEvent('MapOfRaceSelected',function(id,map){      // update the UI on server list
+  for (let i = 0; i <   LobbyServerList.length; i++) {
+    let lobby = LobbyServerList[i];
+    if(lobby.LobbyID == id){
+      lobby.MapName = map;
+      // change on the LobbyServerList the map
     }
+  }
+});
+jcmp.AddEvent('MapOfRace',function(map){ // update for the player on the lobby menu
+PlayerLobbyData.MapName = map;
+});
 
-    function UpdateReadyPlayer(Networkid, isRead) {
-      for (let i = 0; i < PlayerOnTheLobby.length; i++) {
-        let player = PlayerOnTheLobby[i];
-        if (player.networkId == Networkid) {
-          player.IsReady = isRead;
-        }
-      }
+
+
+function ChangeMapButton(){
+jcmp.CallEvent('NewMapSelected',name);
+}
+function ChangeType(){
+  jcmp.CallEvent('NewTypeSelected',type);
+}
+function ReadyButton(){
+  jcmp.CallEvent('Ready_Player_Server_Test');
+}
+
+function PlayerleaveLobbyButton(){
+  PlayerLobbyData = [];
+  jcmp.CallEvent('Player_Remove_Lobby_Test');
+}
+
+
+jcmp.AddEvent('AddPlayerOnTheList',function(obj){ // for people already on the server to see the new guy
+let data = JSON.parse(obj);
+let newplayer = {
+  PlayerName: data.PlayerName,
+  PlayerNetworkid: data.PlayerNetworkid,
+  IsinLobby: data.IsinLobby,
+  LobbyID: data.LobbyID
+}
+AllPlayerOnTheServer.push(newplayer);
+// Add the new player on the UI
+
+});
+jcmp.AddEvent('AddPlayerOnTheListJoin',function(obj){ // list of all player
+let data = JSON.parse(obj);
+data.forEach(function(p) {
+  let newplayer = {
+    PlayerName: p.PlayerName,
+    PlayerNetworkid: p.PlayerNetworkid,
+    IsinLobby: p.IsinLobby,
+    LobbyID: p.LobbyID
+  }
+  AllPlayerOnTheServer.push(newplayer);
+
+});
+
+// when all the player are push show the list of player
+});
+jcmp.AddEvent('UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby){
+  for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+    let lobby = AllPlayerOnTheServer[i];
+    if(player.PlayerNetworkid == networkid){
+      player.IsinLobby = isinlobby;
+      player.LobbyID = idlobby ;
+      // update the ui
     }
+  }
+});
 
-    // End of function about PlayerOnTheLobby
+jcmp.AddEvent('RemovePlayer',function(networkid){
+  for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+    let lobby = AllPlayerOnTheServer[i];
+    if(player.PlayerNetworkid == networkid){
+      delete player;
+    }
+  }
+})
+
+
+
+
   </script>
 </body>
 

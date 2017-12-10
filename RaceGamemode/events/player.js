@@ -44,7 +44,6 @@ jcmp.events.Add("PlayerCreated", function(player) {
 
   jcmp.events.CallRemote('race_player_created', null, JSON.stringify(dsend));
 
-
 });
 
 jcmp.events.Add('PlayerDestroyed', function(player) {
@@ -60,6 +59,7 @@ jcmp.events.Add('PlayerDestroyed', function(player) {
   }
   jcmp.events.CallRemote('Lobby_remove_player', null, player.name);
   jcmp.events.CallRemote('race_player_destroyed', null, player.networkId);
+  jcmp.events.Call('DeletePlayerOnTheserver',player);
 
   if (player.race.ingame) {
     jcmp.events.Call('race_player_leave_game', player, true);
@@ -97,7 +97,7 @@ jcmp.events.Add('PlayerReady', function(player) {
           colour: p.race.colour
         }))
       };
-      const lobbylist = {
+  /*    const lobbylist = {
           lobby: Object.keys(race.game.lobbys).map((key, index) => {
               const l = race.game.lobbys[key];
               return {
@@ -106,14 +106,16 @@ jcmp.events.Add('PlayerReady', function(player) {
                   numberofplayer: l.length
               }
           })
-      };
+      };*/
 
         console.log(data);
         console.log(lobbylist);
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
-      jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
-      jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
+  //    jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
+  //    jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
+    jcmp.events.Call('PlayerJoinServer',player);
+
 
     jcmp.events.Call('Race_name_index', player);
 

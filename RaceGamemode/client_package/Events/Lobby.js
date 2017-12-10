@@ -164,3 +164,81 @@ jcmp.events.AddRemoteCallable('ShowSelectType', function(int) { // send to the p
 jcmp.events.AddRemoteCallable('EndRaceShowOwnerTypeSelect', function() { // send to the player that create the lobby all the map for making a list
   jcmp.ui.CallEvent('TypeOfRace', true); // show the menu to select a type of race
 });
+
+
+
+
+// Myami TEST Lobby
+
+
+
+jcmp.events.AddRemoteCallable('PlayerJoinLobby',function(id ,obj){
+  jcmp.ui.CallEvent('PlayerJoinLobby', id,obj); // Show the UI of the lobby with the id
+
+});
+jcmp.events.AddRemoteCallable('LobbyCreated',function(Obj){
+  jcmp.ui.CallEvent('LobbyCreated', Obj); // Show the UI of the lobby with the id
+
+});
+
+jcmp.events.AddRemoteCallable('UpdateLengthLobby',function(id,newlength){
+  jcmp.ui.CallEvent('UpdateLengthLobby', id,newlength); // Show the UI of the lobby with the id
+
+});
+
+jcmp.events.AddRemoteCallable('AddPlayerOnLobbyMenu',function(id,playername){
+  jcmp.ui.CallEvent('AddPlayerOnLobbyMenu', id,playername); // Add player to the lobby UI
+
+});
+jcmp.events.AddRemoteCallable('PlayerRemoveLobby',function(id,playername){
+  jcmp.ui.CallEvent('PlayerRemoveLobby', id,playername); // Remove player from the lobby ui
+
+});
+jcmp.events.AddRemoteCallable('ShowLobbyList',function(boolean){
+  jcmp.ui.CallEvent('ShowLobbyList', boolean); // Remove player from the lobby ui
+
+});
+
+jcmp.events.AddRemoteCallable('PlayerReady_Lobby',function(id,playername){
+  jcmp.ui.CallEvent('PlayerReady_Lobby', id,playername);
+
+});
+jcmp.events.AddRemoteCallable('TypeOfRaceSelected',function(id,type){
+  jcmp.ui.CallEvent('TypeOfRaceSelected', id,type);
+
+});
+jcmp.events.AddRemoteCallable('TypeOfRace',function(type){
+  jcmp.ui.CallEvent('TypeOfRace',type);
+
+});
+jcmp.events.AddRemoteCallable('MapOfRaceSelected',function(id,map){
+  jcmp.ui.CallEvent('MapOfRaceSelected', id,map);
+
+});
+jcmp.events.AddRemoteCallable('MapOfRace',function(map){
+  jcmp.ui.CallEvent('MapOfRace',map);
+
+});
+
+
+
+jcmp.ui.AddEvent('Player_Remove_Lobby_Test', function() { // Remove the player to the lobby
+  jcmp.events.CallRemote('Player_Remove_Lobby_Test');
+});
+
+jcmp.events.AddRemoteCallable('AddPlayerOnTheList',function(obj){
+  jcmp.ui.CallEvent('AddPlayerOnTheList',obj);
+
+});
+jcmp.events.AddRemoteCallable('AddPlayerOnTheListJoin',function(obj){
+  jcmp.ui.CallEvent('AddPlayerOnTheListJoin',obj);
+
+});
+jcmp.events.AddRemoteCallable('UpdatePlayerOnTheServer',function(networkid,IsinLobby,lobbyid){
+  jcmp.ui.CallEvent('UpdatePlayerOnTheServer',networkid,IsinLobby,lobbyid);
+
+});
+jcmp.events.AddRemoteCallable('RemovePlayer',function(networkid){
+  jcmp.ui.CallEvent('RemovePlayer',networkid);
+
+});
