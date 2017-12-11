@@ -12,6 +12,7 @@ var lobbyMain = new Vue({
             this.currentSelected = raceid;
             $("#btnJoin").removeAttr("disabled");
             this.oldSelected = event.currentTarget;
+            console.log(event.currentTarget);
         },
         generateThumbUrl: generateThumbUrl
     }
@@ -32,8 +33,8 @@ function joinLobby() {
 
 var exampleLobbies = [
     {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},
-    {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},
-    {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},
+    {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 9, mapname: 'Island race'},
+    {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 10, mapname: 'Island race'},
     {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},
     {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},
     {raceid: 1, hostName: 'Daranix', players: 1, maxPlayers: 8, mapname: 'Island race'},

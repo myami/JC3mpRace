@@ -163,9 +163,10 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let lobbytosendtoclient = {
       LobbyName: LobbyNameReceived,
       NumberofPlayer: 1,
-      MapName: "RaceIsland",
+      MapName: "Car Race Boom Island",
       TypeRace:"Classic",
       LobbyID: id,
+      RaceID: 12, // CarRaceBoomIsland
       PlayerCreated: player.name,
       PlayerListName:[player.name]
     }
@@ -195,6 +196,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
       Name :  race.game.lobbys[id].LobbyName,
       MapName : race.game.lobbys[id].MapName,
       TypeRace : race.game.lobbys[id].TypeRace,
+      RaceID : race.game.lobbys[id].RaceID,
       PlayerListName : race.game.lobbys[id].PlayerListName
       }
       jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbydata)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)

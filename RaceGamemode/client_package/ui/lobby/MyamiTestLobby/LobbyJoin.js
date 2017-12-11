@@ -2,8 +2,10 @@ var LobbyJoined = new Vue({
     el: '#DivLobbyJoined',
     data: {
       PlayerLobbyData: [],
+      imhost: true
     },
     methods: {
+      //admin commands
       selectRace: function(raceid, name) {
         jcmp.CallEvent('Client/NewMapSelected',raceid,name);
         console.log("MapSelect");
@@ -12,6 +14,11 @@ var LobbyJoined = new Vue({
         jcmp.CallEvent('Client/NewTypeSelected',typeid);
         console.log("TypeSelect");
       },
+      lobbyKick: function(name) { // need to be replace by networkid
+          // Event to kick the player
+          //jcmp.CallEvent('Client/KickPlayer',networkId);
+      },
+      // end admin commands
       leaveLobby: function() {
         LobbyJoined.PlayerLobbyData = [];
         jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
@@ -30,6 +37,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
     LobbyName: data.LobbyNameReceived,
     NumberofPlayer: data.PlayerListName.length,
     MapName: data.MapName,
+    RaceID: data.RaceID,
     TypeRace:data.TypeRace,
     LobbyID: id,
     PlayerListName:data.PlayerListName
@@ -37,6 +45,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
   console.log("CEF/PlayerJoinLobby NewLobby" + NewLobby );
   LobbyJoined.PlayerLobbyData.push(NewLobby);
   if (data.PlayerListName.length >= 1){
+      LobbyJoined.imhost = false;
     for (let i = 0; i <   data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
       // Add all the player was before you on the UI lobby
@@ -45,9 +54,10 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
   }
   else{
     console.log("CEF/PlayerJoinLobby playeralone" + data.PlayerListName[0]);
+    LobbyJoined.imhost = true; // Show the admin UI to can select the map and type and launch the race
 
     // show the data.PlayerListName[0]
-    // Show the admin UI to can select the map and type and launch the race
+
   }
 
 // Show the lobby UI with the map name etc...

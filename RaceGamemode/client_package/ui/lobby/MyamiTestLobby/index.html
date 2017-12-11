@@ -7,25 +7,88 @@
   <title>LobbyTest</title>
 
 
-  <script type="text/javascript" src="../jquery-3.2.1.min.js"></script>
-  <script type="text/javascript" src="../popper.js"></script>
-  <script type="text/javascript" src="../bootstrap/js/bootstrap.min.js"></script>
-    <script src="./js/vue.js"></script>
-    <script src="./LobbyListMain.js"></script>
-    <script src="./LobbyJoin.js"></script>
-    <script src="./ServerPlayerList.js"></script>
+  <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./popper.js"></script>
+  <script type="text/javascript" src="./bootstrap.js"></script>
+    <script src="./vue.js"></script>
 
 
-  <link href="../bootstrap/css/bootstrap.css" rel="stylesheet">
   <style type="text/css">
   </style>
 </head>
 
 <body>
 
+<div id= "DivLobbyJoined">
+
+  <li v-for="name in PlayerLobbyData.PlayerListName"> <!--  List of the player-->
+    <span>{{ name }}</span>
+
+    <span v-show="imhost" v-on:click="lobbyKick(name)"><button type="button" class="close" style="color: white !important" aria-label="Close">
+        <span aria-hidden="true">🚫</span>
+    </button>
+    </span>
+  </li>
 
 
+  <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="100%"><!--  map image-->
+  <div class="lobbyJoinedRaceName">{{ PlayerLobbyData.MapName }}</div>
 
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;"> <!--  Button for admin to can select the map -->
+    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseRace()">🔃 Choose map</button> <!--  chooseRace function check ctrlChooseRace -->
+  </div>
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;"> <!--  Button for admin to can select the map -->
+    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseType()">🔃 Choose type</button> <!--  chooseRace function check ctrlChooseRace -->
+  </div>
+
+  <ul class="raceInfoList">
+    <li><span class="info">Max players:</span> {{ 20 }}</li>
+    <li><span class="info">Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+  </ul>
+
+  <div style="text-align: center;" v-show="imhost">
+    <button type="button" class="btn btn-danger" v-on:click="startGame()">🏁 Start</button>
+  </div>
+
+  <div class="modal-footer">
+    <button type="button" class="btn btn-danger" onclick="leaveLobby()">&#10096; Back</button>
+  </div>
+
+</div>
+
+<div id= "DivServerLobbyList">
+  <table class="table table-hover table-lobbys">
+    <thead>
+      <tr>
+        <th>Race</th>
+        <th>Host</th>
+        <th>Players</th>
+      </tr>
+    </thead>
+
+    <tbody id="lobbyList">
+
+      <tr v-for="lobby in LobbyServerList" v-on:click="selectRace(lobby.raceid, $event)">
+        <td><img :src="generateThumbUrl(lobby.raceid)" width="100%">
+          <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
+        </td>
+        <td>{{ lobby.PlayerCreated }}</td>
+        <td>{{ lobby.NumberofPlayer }}/20</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" id="btnJoin" class="btn btn-danger" onclick="joinLobby()" disabled>&#8628; Join</button>
+
+</div>
+
+<div id= "ListOfPlayerOnServer">
+
+</div>
+
+<script src="./global.js"></script>
+<script src="./LobbyListMain.js"></script>
+<script src="./LobbyJoin.js"></script>
+<script src="./ServerPlayerList.js"></script>
 
   <script>
 

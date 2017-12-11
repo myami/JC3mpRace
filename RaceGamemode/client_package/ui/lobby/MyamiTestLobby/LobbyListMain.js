@@ -1,12 +1,20 @@
 var LobbyMain = new Vue({
     el: '#DivServerLobbyList',
     data: {
-      LobbyServerList = [],
+      LobbyServerList : [],
+      currentSelected: null,
+      oldSelected: null
     },
     methods: {
-      joinLobby: function(id) {
-        jcmp.CallEvent('Client/Player_Join_Lobby_Test',id);
-        console.log("PlayerJoinLobby" + id);
+      selectRace: function(raceid, event) {
+          this.currentSelected = raceid;
+          $("#btnJoin").removeAttr("disabled");
+          this.oldSelected = event.currentTarget;
+          console.log("1");
+      },
+      joinLobby: function() {
+        jcmp.CallEvent('Client/Player_Join_Lobby_Test',this.currentSelected);
+        console.log("PlayerJoinLobby" + this.currentSelected);
       },
       createLobby: function(name) {
         jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);

@@ -1,7 +1,7 @@
 var PlayerTotal = new Vue({
     el: '#ListOfPlayerOnServer',
     data: {
-AllPlayerOnTheServer = [],
+AllPlayerOnTheServer : []
     }
 
 });
