@@ -172,73 +172,87 @@ jcmp.events.AddRemoteCallable('EndRaceShowOwnerTypeSelect', function() { // send
 
 
 
-jcmp.events.AddRemoteCallable('PlayerJoinLobby',function(id ,obj){
-  jcmp.ui.CallEvent('PlayerJoinLobby', id,obj); // Show the UI of the lobby with the id
+jcmp.events.AddRemoteCallable('Server/PlayerJoinLobby',function(id ,obj){
+  jcmp.ui.CallEvent('CEF/PlayerJoinLobby', id,obj); // Show the UI of the lobby with the id
 
 });
-jcmp.events.AddRemoteCallable('LobbyCreated',function(Obj){
-  jcmp.ui.CallEvent('LobbyCreated', Obj); // Show the UI of the lobby with the id
-
-});
-
-jcmp.events.AddRemoteCallable('UpdateLengthLobby',function(id,newlength){
-  jcmp.ui.CallEvent('UpdateLengthLobby', id,newlength); // Show the UI of the lobby with the id
+jcmp.events.AddRemoteCallable('Server/LobbyCreated',function(Obj){
+  jcmp.ui.CallEvent('CEF/LobbyCreated', Obj); // Show the UI of the lobby with the id
 
 });
 
-jcmp.events.AddRemoteCallable('AddPlayerOnLobbyMenu',function(id,playername){
-  jcmp.ui.CallEvent('AddPlayerOnLobbyMenu', id,playername); // Add player to the lobby UI
-
-});
-jcmp.events.AddRemoteCallable('PlayerRemoveLobby',function(id,playername){
-  jcmp.ui.CallEvent('PlayerRemoveLobby', id,playername); // Remove player from the lobby ui
-
-});
-jcmp.events.AddRemoteCallable('ShowLobbyList',function(boolean){
-  jcmp.ui.CallEvent('ShowLobbyList', boolean); // Remove player from the lobby ui
+jcmp.events.AddRemoteCallable('Server/UpdateLengthLobby',function(id,newlength){
+  jcmp.ui.CallEvent('CEF/UpdateLengthLobby', id,newlength); // Show the UI of the lobby with the id
 
 });
 
-jcmp.events.AddRemoteCallable('PlayerReady_Lobby',function(id,playername){
-  jcmp.ui.CallEvent('PlayerReady_Lobby', id,playername);
+jcmp.events.AddRemoteCallable('Server/AddPlayerOnLobbyMenu',function(id,playername){
+  jcmp.ui.CallEvent('CEF/AddPlayerOnLobbyMenu', id,playername); // Add player to the lobby UI
 
 });
-jcmp.events.AddRemoteCallable('TypeOfRaceSelected',function(id,type){
-  jcmp.ui.CallEvent('TypeOfRaceSelected', id,type);
+jcmp.events.AddRemoteCallable('Server/PlayerRemoveLobby',function(id,playername){
+  jcmp.ui.CallEvent('CEF/PlayerRemoveLobby', id,playername); // Remove player from the lobby ui
 
 });
-jcmp.events.AddRemoteCallable('TypeOfRace',function(type){
-  jcmp.ui.CallEvent('TypeOfRace',type);
-
-});
-jcmp.events.AddRemoteCallable('MapOfRaceSelected',function(id,map){
-  jcmp.ui.CallEvent('MapOfRaceSelected', id,map);
-
-});
-jcmp.events.AddRemoteCallable('MapOfRace',function(map){
-  jcmp.ui.CallEvent('MapOfRace',map);
+jcmp.events.AddRemoteCallable('Server/ShowLobbyList',function(boolean){
+  jcmp.ui.CallEvent('CEF/ShowLobbyList', boolean); // Remove player from the lobby ui
 
 });
 
-
-
-jcmp.ui.AddEvent('Player_Remove_Lobby_Test', function() { // Remove the player to the lobby
-  jcmp.events.CallRemote('Player_Remove_Lobby_Test');
-});
-
-jcmp.events.AddRemoteCallable('AddPlayerOnTheList',function(obj){
-  jcmp.ui.CallEvent('AddPlayerOnTheList',obj);
+jcmp.events.AddRemoteCallable('Server/PlayerReady_Lobby',function(id,playername){
+  jcmp.ui.CallEvent('CEF/PlayerReady_Lobby', id,playername);
 
 });
-jcmp.events.AddRemoteCallable('AddPlayerOnTheListJoin',function(obj){
-  jcmp.ui.CallEvent('AddPlayerOnTheListJoin',obj);
+jcmp.events.AddRemoteCallable('Server/TypeOfRaceSelected',function(id,type){
+  jcmp.ui.CallEvent('CEF/TypeOfRaceSelected', id,type);
 
 });
-jcmp.events.AddRemoteCallable('UpdatePlayerOnTheServer',function(networkid,IsinLobby,lobbyid){
-  jcmp.ui.CallEvent('UpdatePlayerOnTheServer',networkid,IsinLobby,lobbyid);
+jcmp.events.AddRemoteCallable('Server/TypeOfRace',function(type){
+  jcmp.ui.CallEvent('CEF/TypeOfRace',type);
 
 });
-jcmp.events.AddRemoteCallable('RemovePlayer',function(networkid){
-  jcmp.ui.CallEvent('RemovePlayer',networkid);
+jcmp.events.AddRemoteCallable('Server/MapOfRaceSelected',function(id,map){
+  jcmp.ui.CallEvent('CEF/MapOfRaceSelected', id,map);
 
+});
+jcmp.events.AddRemoteCallable('Server/MapOfRace',function(map){
+  jcmp.ui.CallEvent('CEF/MapOfRace',map);
+
+});
+
+jcmp.events.AddRemoteCallable('Server/AddPlayerOnTheList',function(obj){
+  jcmp.ui.CallEvent('CEF/AddPlayerOnTheList',obj);
+
+});
+jcmp.events.AddRemoteCallable('Server/AddPlayerOnTheListJoin',function(obj){
+  jcmp.ui.CallEvent('CEF/AddPlayerOnTheListJoin',obj);
+
+});
+jcmp.events.AddRemoteCallable('Server/UpdatePlayerOnTheServer',function(networkid,IsinLobby,lobbyid){
+  jcmp.ui.CallEvent('CEF/UpdatePlayerOnTheServer',networkid,IsinLobby,lobbyid);
+
+});
+jcmp.events.AddRemoteCallable('Server/RemovePlayer',function(networkid){
+  jcmp.ui.CallEvent('CEF/RemovePlayer',networkid);
+
+});
+
+jcmp.ui.AddEvent('Client/Player_Remove_Lobby_Test', function() { // Remove the player to the lobby
+  jcmp.events.CallRemote('Server/Player_Remove_Lobby_Test');
+});
+
+jcmp.ui.AddEvent('Client/Player_Join_Lobby_Test', function(id) { // Add a player to the lobby
+  jcmp.events.CallRemote('Server/Player_Join_Lobby_Test',id);
+});
+
+jcmp.ui.AddEvent('Client/Player_Created_Lobby_Test', function(name) { // Create a lobby
+  jcmp.events.CallRemote('Server/Player_Create_Lobby_Test',name);
+});
+
+jcmp.ui.AddEvent('Client/NewMapSelected', function(int,name) { // Admin change map
+  jcmp.events.CallRemote('Server/MapRace_Test',int,name);
+});
+
+jcmp.ui.AddEvent('Client/NewTypeSelected', function(int) { // Admin change type
+  jcmp.events.CallRemote('Server/TypeOfRace_Test',int);
 });

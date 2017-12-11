@@ -22,7 +22,7 @@
     var PlayerLobbyData = [];
     var AllPlayerOnTheServer = [];
 
-jcmp.AddEvent('PlayerJoinLobby',function(id,obj){ // Player joining the lobby
+jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobby
   let data = JSON.parse(obj);
   let NewLobby = {
     LobbyName: data.LobbyNameReceived,
@@ -32,14 +32,18 @@ jcmp.AddEvent('PlayerJoinLobby',function(id,obj){ // Player joining the lobby
     LobbyID: id,
     PlayerListName:data.PlayerListName
   }
+  console.log("CEF/PlayerJoinLobby NewLobby" + NewLobby );
   PlayerLobbyData.push(NewLobby);
   if (data.PlayerListName.length >= 1){
     for (let i = 0; i <   data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
       // Add all the player was before you on the UI lobby
+      console.log("CEF/PlayerJoinLobby player" + playername);
     }
   }
   else{
+    console.log("CEF/PlayerJoinLobby playeralone" + data.PlayerListName[0]);
+
     // show the data.PlayerListName[0]
     // Show the admin UI to can select the map and type and launch the race
   }
@@ -47,7 +51,7 @@ jcmp.AddEvent('PlayerJoinLobby',function(id,obj){ // Player joining the lobby
 // Show the lobby UI with the map name etc...
 
 });
-jcmp.AddEvent('LobbyCreated',function(Obj){ // show the lobby on the server list
+jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server list
   let data = JSON.parse(Obj);
   let NewLobby = {
     LobbyName: data.LobbyNameReceived,
@@ -58,29 +62,33 @@ jcmp.AddEvent('LobbyCreated',function(Obj){ // show the lobby on the server list
     PlayerCreated: data.PlayerCreated,
     PlayerListName:data.PlayerListName
   }
+  console.log("CEF/LobbyCreated NewLobby" + NewLobby);
   LobbyServerList.push(NewLobby);
+  console.log("LobbyServerList " + LobbyServerList);
 //LobbyServerList is an array with all the lobby create on the server
 });
 
-jcmp.AddEvent('UpdateLengthLobby',function(id,newlength){
+jcmp.AddEvent('CEF/UpdateLengthLobby',function(id,newlength){
   for (let i = 0; i <   LobbyServerList.length; i++) {
     let lobby = LobbyServerList[i];
     if(lobby.LobbyID == id){
       lobby.NumberofPlayer = newlength;
+      console.log("CEF/UpdateLengthLobby" +  lobby.NumberofPlayer);
       // show to everyone that are on the main menu the new lenght
     }
   }
 });
-jcmp.AddEvent('AddPlayerOnLobbyMenu',function(id,playername){ // Player already on the lobby
+jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player already on the lobby
   for (let i = 0; i <   LobbyServerList.length; i++) {
     let lobby = LobbyServerList[i];
     if(lobby.LobbyID == id){
-      lobby.PlayerListName.push(player.name);
+      lobby.PlayerListName.push(playername);
       // show to everyone that are on the lobby the new guy
+      console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
     }
   }
 });
-jcmp.AddEvent('PlayerRemoveLobby',function(id,playername){
+jcmp.AddEvent('CEF/PlayerRemoveLobby',function(id,playername){
   for (let i = 0; i <   LobbyServerList.length; i++) {
     let lobby = LobbyServerList[i];
     if(lobby.LobbyID == id){
@@ -90,7 +98,7 @@ jcmp.AddEvent('PlayerRemoveLobby',function(id,playername){
         if (player == playername){
           delete player;
           //Remove player to everyone on the lobby
-
+          console.log("CEF/PlayerRemoveLobby" +playername + "NewArray" + lobby.PlayerListName);
         }
 
       }
@@ -101,59 +109,47 @@ jcmp.AddEvent('PlayerRemoveLobby',function(id,playername){
 
 
 
-jcmp.AddEvent('ShowLobbyList',function(boolean){
+jcmp.AddEvent('CEF/ShowLobbyList',function(boolean){
   // show the LobbyServerList to the player or not
 });
-jcmp.AddEvent('PlayerReady_Lobby',function(id,playername){ // need to do it
+jcmp.AddEvent('CEF/PlayerReady_Lobby',function(id,playername){ // need to do it
 
 });
-jcmp.AddEvent('TypeOfRaceSelected',function(id,type){      // update the UI on server list
+jcmp.AddEvent('CEF/TypeOfRaceSelected',function(id,type){      // update the UI on server list
 
   for (let i = 0; i <   LobbyServerList.length; i++) {
     let lobby = LobbyServerList[i];
     if(lobby.LobbyID == id){
       lobby.TypeRace = type;
       // change on the LobbyServerList the type
-
+      console.log("CEF/TypeOfRaceSelected NewType for serverlists" + lobby.TypeRace);
     }
   }
 });
-jcmp.AddEvent('TypeOfRace',function(type){ // update for the player on the lobby menu
+jcmp.AddEvent('CEF/TypeOfRace',function(type){ // update for the player on the lobby menu
 PlayerLobbyData.TypeRace = type;
+console.log("CEF/TypeOfRace for player in the lobby that change" + PlayerLobbyData.TypeRace);
 });
 
-jcmp.AddEvent('MapOfRaceSelected',function(id,map){      // update the UI on server list
+jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map){      // update the UI on server list
   for (let i = 0; i <   LobbyServerList.length; i++) {
     let lobby = LobbyServerList[i];
     if(lobby.LobbyID == id){
       lobby.MapName = map;
       // change on the LobbyServerList the map
+      console.log("CEF/MapOfRaceSelected Newmap for the serverlists" + lobby.MapName);
     }
   }
 });
-jcmp.AddEvent('MapOfRace',function(map){ // update for the player on the lobby menu
+jcmp.AddEvent('CEF/MapOfRace',function(map){ // update for the player on the lobby menu
 PlayerLobbyData.MapName = map;
+console.log("CEF/MapOfRace for player in the lobby that change" + PlayerLobbyData.MapName );
 });
 
 
 
-function ChangeMapButton(){
-jcmp.CallEvent('NewMapSelected',name);
-}
-function ChangeType(){
-  jcmp.CallEvent('NewTypeSelected',type);
-}
-function ReadyButton(){
-  jcmp.CallEvent('Ready_Player_Server_Test');
-}
 
-function PlayerleaveLobbyButton(){
-  PlayerLobbyData = [];
-  jcmp.CallEvent('Player_Remove_Lobby_Test');
-}
-
-
-jcmp.AddEvent('AddPlayerOnTheList',function(obj){ // for people already on the server to see the new guy
+jcmp.AddEvent('CEF/AddPlayerOnTheList',function(obj){ // for people already on the server to see the new guy
 let data = JSON.parse(obj);
 let newplayer = {
   PlayerName: data.PlayerName,
@@ -161,11 +157,12 @@ let newplayer = {
   IsinLobby: data.IsinLobby,
   LobbyID: data.LobbyID
 }
+console.log("CEF/AddPlayerOnTheList new player join : " + newplayer);
 AllPlayerOnTheServer.push(newplayer);
 // Add the new player on the UI
 
 });
-jcmp.AddEvent('AddPlayerOnTheListJoin',function(obj){ // list of all player
+jcmp.AddEvent('CEF/AddPlayerOnTheListJoin',function(obj){ // list of all player
 let data = JSON.parse(obj);
 data.forEach(function(p) {
   let newplayer = {
@@ -174,32 +171,66 @@ data.forEach(function(p) {
     IsinLobby: p.IsinLobby,
     LobbyID: p.LobbyID
   }
+  console.log("NewPlayerAdd : " + newplayer.PlayerName);
   AllPlayerOnTheServer.push(newplayer);
 
 });
-
+  console.log("CEF/AddPlayerOnTheListJoin All player on the server : " + AllPlayerOnTheServer);
 // when all the player are push show the list of player
+
 });
-jcmp.AddEvent('UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby){
+jcmp.AddEvent('CEF/UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby){
   for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
-    let lobby = AllPlayerOnTheServer[i];
+    let player = AllPlayerOnTheServer[i];
     if(player.PlayerNetworkid == networkid){
       player.IsinLobby = isinlobby;
       player.LobbyID = idlobby ;
       // update the ui
+      console.log("CEF/UpdatePlayerOnTheServer Player Update Lobby: " + player.IsinLobby + "lobbyId: " + player.LobbyID);
     }
   }
 });
 
-jcmp.AddEvent('RemovePlayer',function(networkid){
+jcmp.AddEvent('CEF/RemovePlayer',function(networkid){
   for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
     let lobby = AllPlayerOnTheServer[i];
     if(player.PlayerNetworkid == networkid){
       delete player;
+      console.log("CEF/RemovePlayer networkId" + networkid);
     }
   }
-})
+});
 
+  // BUTTON function
+
+function ChangeMapButton(){ // list of button with as background race image of each
+jcmp.CallEvent('Client/NewMapSelected',raceid,name);
+console.log("MapSelect");
+}
+function ChangeType(){
+  jcmp.CallEvent('Client/NewTypeSelected',typeid);
+  console.log("TypeSelect");
+}
+/* not work yet
+function ReadyButton(){
+  jcmp.CallEvent('Client/Ready_Player_Server_Test');
+}*/
+
+function PlayerleaveLobbyButton(){
+  PlayerLobbyData = [];
+  jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
+  console.log("PlayerLeave");
+}
+
+function JoinLobbyButton(id){
+  jcmp.CallEvent('Client/Player_Join_Lobby_Test',id);
+  console.log("PlayerJoinLobby" + id);
+}
+
+function CreateLobbyButton(name){
+  jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
+  console.log("Lobby created with the name : " + name);
+}
 
 
 
