@@ -22,3 +22,6 @@ var mapselect = new WebUIWindow("race mapselect", "package://race/ui/lobby/mapse
 mapselect.autoResize = true;
 var typeselect = new WebUIWindow("race typeselect", "package://race/ui/lobby/typeselect.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 typeselect.autoResize = true;
+
+var lobbytest = new WebUIWindow("race LobbyTestMyami", "package://race/ui/lobby/MyamiTestLobby/index.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+lobbytest.autoResize = true;
