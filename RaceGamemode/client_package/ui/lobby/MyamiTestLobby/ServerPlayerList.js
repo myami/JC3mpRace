@@ -21,21 +21,21 @@ PlayerTotal.AllPlayerOnTheServer.push(newplayer);
 });
 jcmp.AddEvent('CEF/AddPlayerOnTheListJoin',function(obj){ // list of all player
 let data = JSON.parse(obj);
-data.forEach(function(p) {
+/*data.forEach(function(p) {
   let newplayer = {
     PlayerName: p.PlayerName,
     PlayerNetworkid: p.PlayerNetworkid,
     IsinLobby: p.IsinLobby,
     LobbyID: p.LobbyID
-  }
-  console.log("NewPlayerAdd : " + newplayer.PlayerName);
-  PlayerTotal.AllPlayerOnTheServer.push(newplayer);
-
-});
-  console.log("CEF/AddPlayerOnTheListJoin All player on the server : " + PlayerTotal.AllPlayerOnTheServer);
+  }*/
+//  console.log("NewPlayerAdd : " + p.PlayerName);
+//  PlayerTotal.AllPlayerOnTheServer.push(newplayer);
+PlayerTotal.AllPlayerOnTheServer = data;
+console.log("CEF/AddPlayerOnTheListJoin All player on the server : " + PlayerTotal.AllPlayerOnTheServer);
 // when all the player are push show the list of player
 
 });
+
 jcmp.AddEvent('CEF/UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby){
   for (let i = 0; i < PlayerTotal.AllPlayerOnTheServer.length; i++) {
     let player = PlayerTotal.AllPlayerOnTheServer[i];

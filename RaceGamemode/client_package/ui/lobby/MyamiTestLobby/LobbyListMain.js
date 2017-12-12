@@ -16,7 +16,8 @@ var LobbyMain = new Vue({
         jcmp.CallEvent('Client/Player_Join_Lobby_Test',this.currentSelected);
         console.log("PlayerJoinLobby" + this.currentSelected);
       },
-      createLobby: function(name) {
+      createLobby: function() {
+        let name = "TestLobby";
         jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
         console.log("Lobby created with the name : " + name);
       }

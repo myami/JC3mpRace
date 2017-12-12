@@ -21,37 +21,37 @@
 
 <div id= "DivLobbyJoined">
 
-  <li v-for="name in PlayerLobbyData.PlayerListName"> <!--  List of the player-->
+  <li v-for="name in PlayerLobbyData.PlayerListName"> <!--  List of the player on the lobby-->
     <span>{{ name }}</span>
-
+<!--
     <span v-show="imhost" v-on:click="lobbyKick(name)"><button type="button" class="close" style="color: white !important" aria-label="Close">
         <span aria-hidden="true">🚫</span>
     </button>
-    </span>
+  </span> -->
   </li>
 
 
-  <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="100%"><!--  map image-->
-  <div class="lobbyJoinedRaceName">{{ PlayerLobbyData.MapName }}</div>
-
-  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;"> <!--  Button for admin to can select the map -->
-    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseRace()">🔃 Choose map</button> <!--  chooseRace function check ctrlChooseRace -->
+<!--   <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="100%"> map image-->
+<!--   <div class="lobbyJoinedRaceName">{{ PlayerLobbyData.MapName }}</div> -->
+<!--  map image
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseRace()"> Choose map</button>  chooseRace function check ctrlChooseRace
   </div>
-  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;"> <!--  Button for admin to can select the map -->
-    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseType()">🔃 Choose type</button> <!--  chooseRace function check ctrlChooseRace -->
-  </div>
+  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
+    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseType()"> Choose type</button>   chooseRace function check ctrlChooseRace
+  </div> -->
 
   <ul class="raceInfoList">
-    <li><span class="info">Max players:</span> {{ 20 }}</li>
+  <li><span class="info">Map:</span> {{ PlayerLobbyData.MapName }}</li>
     <li><span class="info">Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
   </ul>
 
   <div style="text-align: center;" v-show="imhost">
-    <button type="button" class="btn btn-danger" v-on:click="startGame()">🏁 Start</button>
+    <button type="button" class="btn btn-danger" v-on:click="startGame()"> Start Race</button>
   </div>
 
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" onclick="leaveLobby()">&#10096; Back</button>
+    <button type="button" class="btn btn-danger" onclick="leaveLobby()">LeaveLobby</button>
   </div>
 
 </div>
@@ -69,7 +69,7 @@
     <tbody id="lobbyList">
 
       <tr v-for="lobby in LobbyServerList" v-on:click="selectRace(lobby.raceid, $event)">
-        <td><img :src="generateThumbUrl(lobby.raceid)" width="100%">
+        <td><!--<img :src="generateThumbUrl(lobby.raceid)" width="100%"> -->
           <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
         </td>
         <td>{{ lobby.PlayerCreated }}</td>
@@ -77,12 +77,34 @@
       </tr>
     </tbody>
   </table>
-  <button type="button" id="btnJoin" class="btn btn-danger" onclick="joinLobby()" disabled>&#8628; Join</button>
+  <button type="button" id="btnJoin" class="btn btn-danger" v-on:click="joinLobby()" disabled>&#8628; Join lobby</button>
+  <button type="button" id="btnCreate" class="btn btn-info" v-on:click="createLobby()" >&#8628; Create lobby</button>
 
 </div>
 
 <div id= "ListOfPlayerOnServer">
+  <table class="table table-hover table-lobbys">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>IsInlobby</th>
+        <th>LobbyId</th>
+      </tr>
+    </thead>
 
+    <tbody id="lobbyList">
+
+      <tr v-for="player in AllPlayerOnTheServer" >
+        <td><!--<img :src="generateThumbUrl(lobby.raceid)" width="100%"> -->
+
+        </td>
+        <td>{{ player.PlayerName }}</td>
+        <td>{{ player.IsinLobby }}</td>
+        <td>{{ player.LobbyID }}</td>
+
+      </tr>
+    </tbody>
+  </table>
 </div>
 
 <script src="./global.js"></script>
