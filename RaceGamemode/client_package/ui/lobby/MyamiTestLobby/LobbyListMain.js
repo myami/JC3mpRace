@@ -38,7 +38,7 @@ jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server 
   }
   console.log("CEF/LobbyCreated NewLobby" + NewLobby);
   LobbyMain.LobbyServerList.push(NewLobby);
-  console.log("LobbyServerList " + LobbyMain.LobbyServerList);
+  console.log("LobbyServerList " + JSON.stringify(LobbyMain.LobbyServerList));
 //LobbyServerList is an array with all the lobby create on the server
 });
 

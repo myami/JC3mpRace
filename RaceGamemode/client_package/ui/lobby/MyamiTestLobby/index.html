@@ -42,8 +42,8 @@
   </div> -->
 
   <ul class="raceInfoList">
-  <li><span class="info">Map:</span> {{ PlayerLobbyData.MapName }}</li>
-    <li><span class="info">Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+  <li>><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
+    <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
   </ul>
 
   <div style="text-align: center;" v-show="imhost">
@@ -92,16 +92,12 @@
       </tr>
     </thead>
 
-    <tbody id="lobbyList">
+    <tbody id="PlayerLis">
 
       <tr v-for="player in AllPlayerOnTheServer" >
-        <td><!--<img :src="generateThumbUrl(lobby.raceid)" width="100%"> -->
-
-        </td>
         <td>{{ player.PlayerName }}</td>
         <td>{{ player.IsinLobby }}</td>
         <td>{{ player.LobbyID }}</td>
-
       </tr>
     </tbody>
   </table>

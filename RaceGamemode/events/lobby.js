@@ -176,7 +176,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     }
     console.log(lobbytosendtoclient);
     jcmp.events.CallRemote('Client/LobbyCreated',null,JSON.stringify(lobbytosendtoclient)); // send to everyone the new lobby object for the array in cef
-    jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
+    jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbytosendtoclient)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
 
 
 
@@ -199,10 +199,13 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
       race.game.lobbys[id].PlayerList.push(player);
       race.game.lobbys[id].NumberofPlayer =  race.game.lobbys[id].PlayerList.length;
       let lobbydata = {
-      Name :  race.game.lobbys[id].LobbyName,
+      LobbyName :  race.game.lobbys[id].LobbyName,
+      NumberofPlayer: race.game.lobbys[id].PlayerListName.length,
       MapName : race.game.lobbys[id].MapName,
       TypeRace : race.game.lobbys[id].TypeRace,
+      LobbyID: id,
       RaceID : race.game.lobbys[id].RaceID,
+      PlayerCreated: race.game.lobbys[id].PlayerCreated,
       PlayerListName : race.game.lobbys[id].PlayerListName
       }
       console.log(lobbydata);
@@ -336,7 +339,7 @@ jcmp.events.Add('PlayerJoinServer',function(player){ // call when the player joi
           PlayerName: player.name,
           PlayerNetworkid: player.networkId,
           IsinLobby: false,
-          LobbyID: undefined
+          LobbyID: 5
         };
         console.log("1");
         race.AllPlayerOnTheServer.push(newplayer); // save the same data that will be on cef

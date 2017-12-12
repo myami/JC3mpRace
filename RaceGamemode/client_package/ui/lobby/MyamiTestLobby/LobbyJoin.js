@@ -1,7 +1,15 @@
 var LobbyJoined = new Vue({
     el: '#DivLobbyJoined',
     data: {
-      PlayerLobbyData: [],
+      PlayerLobbyData: {
+          LobbyName: undefined,
+          NumberofPlayer: undefined,
+          MapName: undefined,
+          RaceID: undefined,
+          TypeRace:undefined,
+          LobbyID: undefined,
+          PlayerListName:undefined
+        },
       imhost: true
     },
     methods: {
@@ -43,7 +51,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
     PlayerListName:data.PlayerListName
   }
   console.log("CEF/PlayerJoinLobby NewLobby" + NewLobby );
-  LobbyJoined.PlayerLobbyData.push(NewLobby);
+  LobbyJoined.PlayerLobbyData = NewLobby;
   if (data.PlayerListName.length >= 1){
       LobbyJoined.imhost = false;
     for (let i = 0; i <   data.PlayerListName.length; i++) {
@@ -68,7 +76,7 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player alre
   for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {
     let lobby = LobbyMain.LobbyServerList[i];
     if(lobby.LobbyID == id){
-      lobby.PlayerListName.push(playername);
+      LobbyJoined.PlayerLobbyData.PlayerListName.push(playername);
       // show to everyone that are on the lobby the new guy
       console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
     }
