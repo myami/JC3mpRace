@@ -6,11 +6,9 @@ var LobbyMain = new Vue({
       oldSelected: null
     },
     methods: {
-      selectRace: function(raceid, event) {
+      selectLobby: function(raceid) {
           this.currentSelected = raceid;
           $("#btnJoin").removeAttr("disabled");
-          this.oldSelected = event.currentTarget;
-          console.log("1");
       },
       joinLobby: function() {
         jcmp.CallEvent('Client/Player_Join_Lobby_Test',this.currentSelected);

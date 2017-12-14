@@ -234,9 +234,9 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
 
 
 
-jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player) {
+jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player) { // need to rewrite it a little
   if (player.race.lobbyid != undefined) {
-    for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) { // Delete the player from the serverside array
+    for (let i = 0; i <  race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) { // Delete the player from the serverside array
       let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
     if (players.networkId == player.networkId){
       delete players;

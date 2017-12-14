@@ -49,10 +49,11 @@
   <div style="text-align: center;" v-show="imhost">
     <button type="button" class="btn btn-danger" v-on:click="startGame()"> Start Race</button>
   </div>
-
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" onclick="leaveLobby()">LeaveLobby</button>
+    <button type="button" class="btn btn-danger" v-on:click="leaveLobby()">LeaveLobby</button>
   </div>
+
+
 
 </div>
 
@@ -68,7 +69,7 @@
 
     <tbody id="lobbyList">
 
-      <tr v-for="lobby in LobbyServerList" v-on:click="selectRace(lobby.raceid, $event)">
+      <tr v-for="lobby in LobbyServerList" v-on:click="selectLobby(lobby.RaceID)">
         <td><!--<img :src="generateThumbUrl(lobby.raceid)" width="100%"> -->
           <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
         </td>
@@ -79,6 +80,7 @@
   </table>
   <button type="button" id="btnJoin" class="btn btn-danger" v-on:click="joinLobby()" disabled>&#8628; Join lobby</button>
   <button type="button" id="btnCreate" class="btn btn-info" v-on:click="createLobby()" >&#8628; Create lobby</button>
+
 
 </div>
 

@@ -28,18 +28,20 @@ var LobbyJoined = new Vue({
       },
       // end admin commands
       leaveLobby: function() {
-        LobbyJoined.PlayerLobbyData = [];
         jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
         console.log("PlayerLeave");
       },
+
       ready: function() { // not working yet
         jcmp.CallEvent('Client/Ready_Player_Server_Test');
       }
     }
+
 });
 
 
 jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobby
+
   let data = JSON.parse(obj);
   let NewLobby = {
     LobbyName: data.LobbyNameReceived,
@@ -85,6 +87,7 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player alre
 
 
 jcmp.AddEvent('CEF/PlayerRemoveLobby',function(id,playername){
+  console.log("REmoveTSTE");
   for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {
     let lobby = LobbyMain.LobbyServerList[i];
     if(lobby.LobbyID == id){
