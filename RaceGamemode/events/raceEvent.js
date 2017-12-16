@@ -126,7 +126,6 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
 
 
 jcmp.events.Add('race_start_index', function(player) {
-
   // type of the race (to add as an args here)
   // classic = basic race
   // multicrew = 2 people in a car the driver don't see the checkpoint and the passager does
@@ -141,13 +140,15 @@ jcmp.events.Add('race_start_index', function(player) {
     //const index = race.utils.random(0,race.game.RaceList.length -1);
     for (var i = 0; i < race.game.RaceList.length; i++) {
       let racetofind = race.game.RaceList[i];
-      if (racetofind.raceid == player.race.raceselect){
+      console.log(racetofind.raceid);
+      if (racetofind.raceid == race.game.lobbys[player.race.lobbyid][0].RaceID){
       races = racetofind;
+      console.log("Find!!!");
       }
 
     }
   //  const races = race.game.RaceList[player.race.raceselect];
-  console.log(races.Name);
+  //console.log(races.Name);
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
@@ -165,7 +166,7 @@ jcmp.events.Add('race_start_index', function(player) {
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
     const cameraview = races.CameraView;
-    if (player.race.typeselect == 1) {
+    if (race.game.lobbys[player.race.lobbyid][0].TypeRace == "MultiCrew") {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
@@ -179,7 +180,7 @@ jcmp.events.Add('race_start_index', function(player) {
 
       }
     }
-    if (player.race.typeselect == 3) { // wait 1.1 test build to finish it
+    if (race.game.lobbys[player.race.lobbyid][0].TypeRace == "Apo") { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
     }
 
@@ -203,7 +204,7 @@ jcmp.events.Add('race_start_index', function(player) {
       ghostpoi, // the ghost poi type
       nitro, // if nitro is enabled or not
       cameraview, // the camera view for spectator
-      player.race.typeselect // type of the race
+      race.game.lobbys[player.race.lobbyid][0].TypeRace // type of the race
     );
 
     race.game.games.push(Race);

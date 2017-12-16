@@ -10,7 +10,7 @@ var LobbyJoined = new Vue({
           LobbyID: undefined,
           PlayerListName:undefined
         },
-      imhost: true
+      imhost: false
     },
     methods: {
       //admin commands
@@ -34,6 +34,10 @@ var LobbyJoined = new Vue({
 
       ready: function() { // not working yet
         jcmp.CallEvent('Client/Ready_Player_Server_Test');
+      },
+      StartRace : function(){
+          jcmp.CallEvent('LaunchRace');
+          console.log("Start Race");
       }
     }
 
@@ -54,20 +58,16 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
   }
   console.log("CEF/PlayerJoinLobby NewLobby" + NewLobby );
   LobbyJoined.PlayerLobbyData = NewLobby;
-  if (data.PlayerListName.length >= 1){
+  if (data.PlayerListName.length > 1){
       LobbyJoined.imhost = false;
     for (let i = 0; i <   data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
-      // Add all the player was before you on the UI lobby
       console.log("CEF/PlayerJoinLobby player" + playername);
     }
   }
   else{
     console.log("CEF/PlayerJoinLobby playeralone" + data.PlayerListName[0]);
     LobbyJoined.imhost = true; // Show the admin UI to can select the map and type and launch the race
-
-    // show the data.PlayerListName[0]
-
   }
 
 // Show the lobby UI with the map name etc...

@@ -35,17 +35,17 @@ module.exports = class Race {
     console.log("type of the race: " + this.type);
 
 
-    if (this.type == 0) {
+    if (this.type == "Classic") {
       console.log("ClassicRace!!!");
       this.ClassicRace();
       return;
     }
-    if (this.type == 1) {
+    if (this.type == "MultiCrew") {
       console.log("Multicrew!!!");
       this.Multicrew();
       return;
     }
-    if (this.type == 3) {
+    if (this.type == "Apo") {
       console.log("APOCALYPSE NOW!!!");
       this.ClassicRace();
       setTimeout(function() {
@@ -53,7 +53,7 @@ module.exports = class Race {
       }, 30000);
       return;
     }
-    if (this.type == 2) {
+    if (this.type == "TTS") {
       console.log("TTS !!!!!!!!");
       this.TTSStart();
       return;

@@ -129,11 +129,7 @@ jcmp.events.AddRemoteCallable('MapRace', function(player, int) { // 0 is classic
 
 });
 
-jcmp.events.AddRemoteCallable('LaunchRace', function(player) {
-  if (player.race.typeselect != undefined && player.race.raceselect != undefined) {
-    jcmp.events.Call('race_start_index', player)
-  }
-});
+
 */
 
 // Myami TEST LOBBY
@@ -150,13 +146,13 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let id = Object.keys(race.game.lobbys).length;
     console.log(id);
     race.game.lobbys[id] = [];
-    race.game.lobbys[id].push(player);
+    
     player.race.lobbyid = id;
     let NewLobbyObject = {
       LobbyName: LobbyNameReceived,
       NumberofPlayer: 1,
       MapName: "RaceIsland",
-      RaceID: 12,
+      RaceID: 50,
       TypeRace:"Classic",
       LobbyID: id,
       PlayerCreated: player.name,
@@ -165,16 +161,16 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     };
     race.game.lobbys[id].push(NewLobbyObject);
     let lobbytosendtoclient = {
-      LobbyName: LobbyNameReceived,
+      LobbyName: "testlobby", //LobbyNameReceived
       NumberofPlayer: 1,
       MapName: "Car Race Boom Island",
       TypeRace:"Classic",
       LobbyID: id,
-      RaceID: 12, // CarRaceBoomIsland
+      RaceID: 50, // CarRaceBoomIsland
       PlayerCreated: player.name,
       PlayerListName:[player.name]
     }
-    console.log(lobbytosendtoclient);
+    console.log(  race.game.lobbys);
     jcmp.events.CallRemote('Client/LobbyCreated',null,JSON.stringify(lobbytosendtoclient)); // send to everyone the new lobby object for the array in cef
     jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbytosendtoclient)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
 
@@ -238,7 +234,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
   if (player.race.lobbyid != undefined) {
     for (let i = 0; i <  race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) { // Delete the player from the serverside array
       let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
-    if (players.networkId == player.networkId){
+        if (players.networkId == player.networkId){
       delete players;
       race.game.lobbys[player.race.lobbyid].NumberofPlayer = race.game.lobbys[player.race.lobbyid].PlayerList.length; // update the new length serverside
       jcmp.events.CallRemote('Client/UpdateLengthLobby',null,id,race.game.lobbys[id].NumberofPlayer); // Update the length of a lobby
@@ -253,6 +249,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
     jcmp.events.CallRemote('Client/ShowLobbyList',player,true);
     player.race.lobbyid = undefined;
     player.race.ready = false;
+    jcmp.events.Call('UpdatePlayerOnTheServer',player);
   }
   else{
     race.chat.send(player,"[SERVER] Player already out of a lobby")
@@ -339,7 +336,7 @@ jcmp.events.Add('PlayerJoinServer',function(player){ // call when the player joi
           PlayerName: player.name,
           PlayerNetworkid: player.networkId,
           IsinLobby: false,
-          LobbyID: 5
+          LobbyID: undefined
         };
         console.log("1");
         race.AllPlayerOnTheServer.push(newplayer); // save the same data that will be on cef
@@ -410,4 +407,8 @@ else{
               jcmp.events.CallRemote("Client/RemovePlayer",null,player.networkId);
         }
       }
+    });
+
+    jcmp.events.AddRemoteCallable('LaunchRace', function(player) {
+        jcmp.events.Call('race_start_index', player)
     });

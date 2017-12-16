@@ -47,7 +47,7 @@
   </ul>
 
   <div style="text-align: center;" v-show="imhost">
-    <button type="button" class="btn btn-danger" v-on:click="startGame()"> Start Race</button>
+    <button type="button" class="btn btn-danger" v-on:click="StartRace()"> Start Race</button>
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" v-on:click="leaveLobby()">LeaveLobby</button>
@@ -69,8 +69,8 @@
 
     <tbody id="lobbyList">
 
-      <tr v-for="lobby in LobbyServerList" v-on:click="selectLobby(lobby.RaceID)">
-        <td><!--<img :src="generateThumbUrl(lobby.raceid)" width="100%"> -->
+      <tr v-for="lobby in LobbyServerList" v-on:click="selectLobby(lobby.LobbyID)">
+        <td> <generateThumbUrl></generateThumbUrl>
           <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
         </td>
         <td>{{ lobby.PlayerCreated }}</td>

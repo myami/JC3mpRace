@@ -9,6 +9,7 @@ var LobbyMain = new Vue({
       selectLobby: function(raceid) {
           this.currentSelected = raceid;
           $("#btnJoin").removeAttr("disabled");
+          console.log("RaceId: "+raceid);
       },
       joinLobby: function() {
         jcmp.CallEvent('Client/Player_Join_Lobby_Test',this.currentSelected);
@@ -27,10 +28,10 @@ jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server 
   let data = JSON.parse(Obj);
   let NewLobby = {
     LobbyName: data.LobbyNameReceived,
-    NumberofPlayer: 1,
+    NumberofPlayer: data.PlayerListName.length,
     MapName: "RaceIsland",
     TypeRace:"Classic",
-    LobbyID: data.id,
+    LobbyID: data.LobbyID,
     PlayerCreated: data.PlayerCreated,
     PlayerListName:data.PlayerListName
   }
