@@ -25,7 +25,7 @@ jcmp.events.AddRemoteCallable('race_Start_client', function(type) {
 
 });
 jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
-//  jcmp.localPlayer.controlsEnabled = false;
+ jcmp.localPlayer.controlsEnabled = false;
   countdowninprogress = true;
   jcmp.ui.CallEvent('IsTTS',false);
   jcmp.ui.CallEvent('Race_Timer_container', true);

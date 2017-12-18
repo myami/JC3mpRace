@@ -61,22 +61,6 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
 
 
 
-    jcmp.events.CallRemote('Lobby_show',player,false);
-    jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('In the Lobby : ' + player.race.lobbyid));
-    for (var i = 0; i < race.game.lobbys[player.race.lobbyid].length; i++) { // Update to everyone that the player just finish the race and he is not ready
-      const playertoupdate = race.game.lobbys[player.race.lobbyid][i];
-      jcmp.events.CallRemote('Lobby_Player_NotReady', playertoupdate, player.name);
-    }
-    if(race.game.lobbys[player.race.lobbyid][0].networkId == player.networkId){ // if it's the creator of the lobby show to select the next type and map
-      console.log("playershowmenu");
-      jcmp.events.CallRemote('EndRaceShowOwnerTypeSelect',player);
-      jcmp.events.CallRemote('ShowSelectRace',player);
-      for (var i = 0; i < race.game.RaceList.length; i++) { // Create the list of map to select for the admin of the lobby
-        jcmp.events.CallRemote('Race_List_Select', player, race.game.RaceList[i].raceid, race.game.RaceList[i].Name);
-      }
-    }
-
-
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
       // NOTE: Maybe include here the update needPlayers update event and the lobby push
@@ -135,7 +119,7 @@ jcmp.events.Add('race_start_index', function(player) {
 
     race.game.toStart = false;
     race.game.timeToStart = race.config.game.timeToStart;
-    let races ;
+/*    let races ;
 
     //const index = race.utils.random(0,race.game.RaceList.length -1);
     for (var i = 0; i < race.game.RaceList.length; i++) {
@@ -146,14 +130,15 @@ jcmp.events.Add('race_start_index', function(player) {
       console.log("Find!!!");
       }
 
-    }
-  //  const races = race.game.RaceList[player.race.raceselect];
-  //console.log(races.Name);
+    }*/
+
+    const races = race.game.RaceList[player.race.raceselect];
+
     const VehicleType = races.VehicleType;
     const RaceCheckpoint = races.RaceCheckpoint;
     const StartingPoint = races.StartingPoint;
-    const NumberofPlayer = race.game.lobbys[player.race.lobbyid].length;
-    const PlayerArray = race.game.lobbys[player.race.lobbyid];
+    const NumberofPlayer = race.game.lobbys[player.race.lobbyid][0].PlayerList.length;
+    const PlayerArray = race.game.lobbys[player.race.lobbyid][0].PlayerList;
     const Raceid = race.game.games.length + 1;
     const times = races.time;
     const weatherr = races.weather;
@@ -166,7 +151,7 @@ jcmp.events.Add('race_start_index', function(player) {
     const ghostpoi = races.GhostPOIType;
     const nitro = races.nitroenabled;
     const cameraview = races.CameraView;
-    if (race.game.lobbys[player.race.lobbyid][0].TypeRace == "MultiCrew") {
+    if (player.race.typeselect == 1) {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
@@ -180,7 +165,7 @@ jcmp.events.Add('race_start_index', function(player) {
 
       }
     }
-    if (race.game.lobbys[player.race.lobbyid][0].TypeRace == "Apo") { // wait 1.1 test build to finish it
+    if (player.race.typeselect == 3) { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
     }
 
@@ -204,7 +189,7 @@ jcmp.events.Add('race_start_index', function(player) {
       ghostpoi, // the ghost poi type
       nitro, // if nitro is enabled or not
       cameraview, // the camera view for spectator
-      race.game.lobbys[player.race.lobbyid][0].TypeRace // type of the race
+      player.race.typeselect // type of the race
     );
 
     race.game.games.push(Race);

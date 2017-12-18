@@ -33,19 +33,19 @@ module.exports = class Race {
   Start() {
     console.log("Id of the race: " + this.id);
     console.log("type of the race: " + this.type);
+    console.log(this.players);
 
-
-    if (this.type == "Classic") {
+    if (this.type == 0) {
       console.log("ClassicRace!!!");
       this.ClassicRace();
       return;
     }
-    if (this.type == "MultiCrew") {
+    if (this.type == 1) {
       console.log("Multicrew!!!");
       this.Multicrew();
       return;
     }
-    if (this.type == "Apo") {
+    if (this.type == 3) {
       console.log("APOCALYPSE NOW!!!");
       this.ClassicRace();
       setTimeout(function() {
@@ -53,7 +53,7 @@ module.exports = class Race {
       }, 30000);
       return;
     }
-    if (this.type == "TTS") {
+    if (this.type == 2) {
       console.log("TTS !!!!!!!!");
       this.TTSStart();
       return;
@@ -85,10 +85,7 @@ module.exports = class Race {
   ClassicRace() {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-
-      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
-      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
-
+      console.log(player.race.playerrotationspawn);
 
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;

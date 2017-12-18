@@ -146,12 +146,12 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let id = Object.keys(race.game.lobbys).length;
     console.log(id);
     race.game.lobbys[id] = [];
-    
+
     player.race.lobbyid = id;
     let NewLobbyObject = {
       LobbyName: LobbyNameReceived,
       NumberofPlayer: 1,
-      MapName: "RaceIsland",
+      MapName: "CarRaceBoomIsland",
       RaceID: 50,
       TypeRace:"Classic",
       LobbyID: id,
@@ -163,7 +163,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let lobbytosendtoclient = {
       LobbyName: "testlobby", //LobbyNameReceived
       NumberofPlayer: 1,
-      MapName: "Car Race Boom Island",
+      MapName: "CarRaceBoomIsland",
       TypeRace:"Classic",
       LobbyID: id,
       RaceID: 50, // CarRaceBoomIsland
@@ -173,8 +173,18 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     console.log(  race.game.lobbys);
     jcmp.events.CallRemote('Client/LobbyCreated',null,JSON.stringify(lobbytosendtoclient)); // send to everyone the new lobby object for the array in cef
     jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbytosendtoclient)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
-
-
+      // setting the map to the player admin
+    let races;
+    let havefind = false;
+    for (var i = 0; i < race.game.RaceList.length; i++) {
+      let racetofind = race.game.RaceList[i];
+      if (racetofind.raceid == 50) { // should be 12 . 50 is testing
+        races = racetofind;
+        havefind = true;
+        player.race.raceselect = i;
+      }
+    }
+    player.race.typeselect = 0; // seting the type
 
   } else {
     console.log("Lobby Already created");
@@ -292,25 +302,21 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
 });
 
 jcmp.events.AddRemoteCallable('Server/MapRace_Test', function(player, int,name) { //raceid
-  player.race.raceselect = int;
   console.log(player.race.raceselect);
-  // then send to everyone
-
   let races;
   let havefind = false;
   for (var i = 0; i < race.game.RaceList.length; i++) {
     let racetofind = race.game.RaceList[i];
-    if (racetofind.raceid == player.race.raceselect) {
+    if (racetofind.raceid == int) {
       races = racetofind;
       havefind = true;
-        race.game.lobbys[id].MapName = name;
-
+      player.race.raceselect = i;
+      race.game.lobbys[id].MapName = name;
         jcmp.events.CallRemote('Client/MapOfRaceSelected',null,id,name);
         for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
           let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
           jcmp.events.CallRemote('Client/MapOfRace',players,name);
         }
-
     }
   }
 
