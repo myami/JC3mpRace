@@ -1,9 +1,12 @@
 var LobbyMain = new Vue({
     el: '#DivServerLobbyList',
-    data: {
-      LobbyServerList : [],
-      currentSelected: null,
-      oldSelected: null
+    data: function() {
+      return{
+        LobbyServerList : [],
+        currentSelected: null,
+        oldSelected: null
+    };
+  
     },
     methods: {
       selectLobby: function(raceid) {
@@ -19,6 +22,9 @@ var LobbyMain = new Vue({
         let name = "TestLobby";
         jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
         console.log("Lobby created with the name : " + name);
+      },
+      addthumbnaillobby: function (raceid){
+        return require ("./img/racethumb/" + raceid + ".jpg");
       }
     }
 });
