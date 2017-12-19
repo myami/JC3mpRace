@@ -8,7 +8,7 @@ var LobbyJoined = new Vue({
           RaceID: undefined,
           TypeRace:undefined,
           LobbyID: undefined,
-          PlayerListName:undefined
+          PlayerListName:[]
         },
       imhost: false
     },
@@ -30,6 +30,14 @@ var LobbyJoined = new Vue({
       leaveLobby: function() {
         jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
         console.log("PlayerLeave");
+        this.PlayerLobbyData.LobbyName = undefined ;
+        this.PlayerLobbyData.NumberofPlayer = undefined ;
+        this.PlayerLobbyData.MapName = undefined ;
+        this.PlayerLobbyData.RaceID = undefined ;
+        this.PlayerLobbyData.TypeRace = undefined ;
+        this.PlayerLobbyData.LobbyID = undefined ;
+        this.PlayerLobbyData.PlayerListName = [] ;
+
       },
 
       ready: function() { // not working yet
@@ -47,26 +55,27 @@ var LobbyJoined = new Vue({
 jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobby
 
   let data = JSON.parse(obj);
-  let NewLobby = {
-    LobbyName: data.LobbyNameReceived,
-    NumberofPlayer: data.PlayerListName.length,
-    MapName: data.MapName,
-    RaceID: data.RaceID,
-    TypeRace:data.TypeRace,
-    LobbyID: id,
-    PlayerListName:data.PlayerListName
-  }
-  console.log("CEF/PlayerJoinLobby NewLobby" + NewLobby );
-  LobbyJoined.PlayerLobbyData = NewLobby;
-  if (data.PlayerListName.length > 1){
-      LobbyJoined.imhost = false;
-    for (let i = 0; i <   data.PlayerListName.length; i++) {
+
+    LobbyJoined.PlayerLobbyData.LobbyName = data.LobbyName;
+    LobbyJoined.PlayerLobbyData.NumberofPlayer = data.NumberofPlayer;
+    LobbyJoined.PlayerLobbyData.MapName = data.MapName;
+    LobbyJoined.PlayerLobbyData.RaceID = data.RaceID;
+    LobbyJoined.PlayerLobbyData.TypeRace = data.TypeRace;
+    LobbyJoined.PlayerLobbyData.LobbyID = id;
+      console.log("playerlist" + data.PlayerListName);
+
+    for (let i = 0; i < data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
+      LobbyJoined.PlayerLobbyData.PlayerListName.push(playername)
       console.log("CEF/PlayerJoinLobby player" + playername);
     }
+
+
+  if (LobbyJoined.PlayerLobbyData.PlayerListName.length > 1){
+      LobbyJoined.imhost = false;
   }
   else{
-    console.log("CEF/PlayerJoinLobby playeralone" + data.PlayerListName[0]);
+    console.log("CEF/PlayerJoinLobby playeralone" +   LobbyJoined.PlayerLobbyData.PlayerListName[0]);
     LobbyJoined.imhost = true; // Show the admin UI to can select the map and type and launch the race
   }
 
@@ -86,23 +95,21 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player alre
 });
 
 
-jcmp.AddEvent('CEF/PlayerRemoveLobby',function(id,playername){
-  console.log("REmoveTSTE");
-  for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {
-    let lobby = LobbyMain.LobbyServerList[i];
-    if(lobby.LobbyID == id){
-      for (let i = 0; i <   PlayerListName.length; i++) {
-        let player = PlayerListName[i];
-        if (player == playername){
-          delete player;
-          //Remove player to everyone on the lobby
-          console.log("CEF/PlayerRemoveLobby" +playername + "NewArray" + lobby.PlayerListName);
-        }
 
-      }
-
+jcmp.AddEvent('CEF/PlayerRemoveLobby',function(playername){
+  console.log("EVENT IS CALL LOL YOU SEE ME ");
+  console.log(LobbyJoined.PlayerLobbyData.PlayerListName);
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    console.log("HOW YEAH I AM CALL " + i);
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    console.log("AND MY FUCKING NAME IS" + playerlist);
+    console.log(playerlist);
+    if (playerlist == playername){
+      console.log("PlayerFindLOLILOL");
+      LobbyJoined.PlayerLobbyData.PlayerListName.splice(i,1);
     }
   }
+  console.log("AND I AM DEAD ");
 });
 
 

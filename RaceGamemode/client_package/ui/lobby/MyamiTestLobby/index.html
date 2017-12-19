@@ -42,7 +42,7 @@
   </div> -->
 
   <ul class="raceInfoList">
-  <li>><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
+  <li><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
     <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
   </ul>
 
@@ -69,11 +69,10 @@
 
     <tbody id="lobbyList">
 
-      <tr v-for="lobby in LobbyServerList" v-bind:src="addthumbnaillobby(lobby.LobbyID)">
-        <td>
-          <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
-        </td>
+      <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" > <!-- v-bind:src="addthumbnaillobby(lobby.LobbyID)" -->
+        <td>{{ lobby.MapName }}</td>
         <td>{{ lobby.PlayerCreated }}</td>
+        <td>{{ lobby.LobbyID }} lobbyid</td>
         <td>{{ lobby.NumberofPlayer }}/20</td>
       </tr>
     </tbody>

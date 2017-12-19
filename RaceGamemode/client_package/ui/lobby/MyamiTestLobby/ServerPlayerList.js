@@ -52,7 +52,7 @@ jcmp.AddEvent('CEF/RemovePlayer',function(networkid){
   for (let i = 0; i < PlayerTotal.AllPlayerOnTheServer.length; i++) {
     let lobby = PlayerTotal.AllPlayerOnTheServer[i];
     if(player.PlayerNetworkid == networkid){
-      delete player;
+      PlayerTotal.AllPlayerOnTheServer.splice(i,1);
       console.log("CEF/RemovePlayer networkId" + networkid);
     }
   }

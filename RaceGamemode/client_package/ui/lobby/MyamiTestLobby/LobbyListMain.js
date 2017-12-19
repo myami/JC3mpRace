@@ -6,7 +6,7 @@ var LobbyMain = new Vue({
         currentSelected: null,
         oldSelected: null
     };
-  
+
     },
     methods: {
       selectLobby: function(raceid) {
@@ -23,9 +23,10 @@ var LobbyMain = new Vue({
         jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
         console.log("Lobby created with the name : " + name);
       },
-      addthumbnaillobby: function (raceid){
-        return require ("./img/racethumb/" + raceid + ".jpg");
+      logtest: function (raceid){
+        console.log(raceid);
       }
+
     }
 });
 
@@ -33,13 +34,13 @@ var LobbyMain = new Vue({
 jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server list
   let data = JSON.parse(Obj);
   let NewLobby = {
-    LobbyName: data.LobbyNameReceived,
-    NumberofPlayer: data.PlayerListName.length,
+    LobbyName: data.LobbyName,
+    NumberofPlayer: data.NumberofPlayer,
     MapName: "RaceIsland",
     TypeRace:"Classic",
     LobbyID: data.LobbyID,
     PlayerCreated: data.PlayerCreated,
-    PlayerListName:data.PlayerListName
+
   }
   console.log("CEF/LobbyCreated NewLobby" + NewLobby);
   LobbyMain.LobbyServerList.push(NewLobby);

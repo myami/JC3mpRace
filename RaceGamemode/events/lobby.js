@@ -149,7 +149,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
 
     player.race.lobbyid = id;
     let NewLobbyObject = {
-      LobbyName: LobbyNameReceived,
+      LobbyName: "testlobby", //LobbyNameReceived
       NumberofPlayer: 1,
       MapName: "CarRaceBoomIsland",
       RaceID: 50,
@@ -170,7 +170,6 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
       PlayerCreated: player.name,
       PlayerListName:[player.name]
     }
-    console.log(  race.game.lobbys);
     jcmp.events.CallRemote('Client/LobbyCreated',null,JSON.stringify(lobbytosendtoclient)); // send to everyone the new lobby object for the array in cef
     jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbytosendtoclient)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
       // setting the map to the player admin
@@ -184,7 +183,8 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
         player.race.raceselect = i;
       }
     }
-    player.race.typeselect = 0; // seting the type
+    player.race.typeselect = 0; // setting the type
+    jcmp.events.Call('UpdatePlayerOnTheServer',player);
 
   } else {
     console.log("Lobby Already created");
@@ -195,36 +195,38 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
 
 jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, id) {
   if (player.race.lobbyid == undefined) {
-    console.log(id);
+    console.log(  race.game.lobbys[id][0]);
     if (id == undefined) {
       return;
     }
-    if (race.game.lobbys[id]) {
+    if (race.game.lobbys[id][0]) {
       player.race.lobbyid = id;
-      race.game.lobbys[id].PlayerListName.push(player.name);
-      race.game.lobbys[id].PlayerList.push(player);
-      race.game.lobbys[id].NumberofPlayer =  race.game.lobbys[id].PlayerList.length;
+      race.game.lobbys[id][0].PlayerListName.push(player.name);
+      race.game.lobbys[id][0].PlayerList.push(player);
+      race.game.lobbys[id][0].NumberofPlayer =  race.game.lobbys[id][0].PlayerList.length;
       let lobbydata = {
-      LobbyName :  race.game.lobbys[id].LobbyName,
-      NumberofPlayer: race.game.lobbys[id].PlayerListName.length,
-      MapName : race.game.lobbys[id].MapName,
-      TypeRace : race.game.lobbys[id].TypeRace,
+      LobbyName :  race.game.lobbys[id][0].LobbyName,
+      NumberofPlayer: race.game.lobbys[id][0].PlayerListName.length,
+      MapName : race.game.lobbys[id][0].MapName,
+      TypeRace : race.game.lobbys[id][0].TypeRace,
       LobbyID: id,
-      RaceID : race.game.lobbys[id].RaceID,
-      PlayerCreated: race.game.lobbys[id].PlayerCreated,
-      PlayerListName : race.game.lobbys[id].PlayerListName
+      RaceID : race.game.lobbys[id][0].RaceID,
+      PlayerCreated: race.game.lobbys[id][0].PlayerCreated,
+      PlayerListName : race.game.lobbys[id][0].PlayerListName
       }
-      console.log(lobbydata);
-      jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbydata)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
-      jcmp.events.CallRemote('Client/UpdateLengthLobby',null,id,race.game.lobbys[id].NumberofPlayer); // Update the length of a lobby
 
-      for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
-        let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
+      jcmp.events.CallRemote('Client/PlayerJoinLobby',player,id,JSON.stringify(lobbydata)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
+      jcmp.events.CallRemote('Client/UpdateLengthLobby',null,id,race.game.lobbys[id][0].NumberofPlayer); // Update the length of a lobby
+
+      for (let i = 0; i <   race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+        let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
         if (players.networkId != player.networkId){
           console.log("Show new lobby");
           jcmp.events.CallRemote('Client/AddPlayerOnLobbyMenu',players,player.race.lobbyid,player.name); // Add on the lobby menu of everyone in the lobby the name of the new guy
         }
       }
+      jcmp.events.Call('UpdatePlayerOnTheServer',player);
+
 
     } else {
       race.chat.send(player, "[SERVER] ID not correct");
@@ -242,19 +244,34 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
 
 jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player) { // need to rewrite it a little
   if (player.race.lobbyid != undefined) {
-    for (let i = 0; i <  race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) { // Delete the player from the serverside array
-      let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
+    for (let i = 0; i <   race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+      let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
+      if (players.networkId != player.networkId){
+        jcmp.events.CallRemote('Client/PlayerRemoveLobby',players,player.name);
+      }
+    }
+    console.log("0");
+    for (let i = 0; i <  race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) { // Delete the player from the serverside array
+      let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
         if (players.networkId == player.networkId){
-      delete players;
-      race.game.lobbys[player.race.lobbyid].NumberofPlayer = race.game.lobbys[player.race.lobbyid].PlayerList.length; // update the new length serverside
-      jcmp.events.CallRemote('Client/UpdateLengthLobby',null,id,race.game.lobbys[id].NumberofPlayer); // Update the length of a lobby
+      race.game.lobbys[player.race.lobbyid][0].PlayerList.splice(i,1);
+      race.game.lobbys[player.race.lobbyid][0].PlayerListName.splice(i,1);
+      console.log(race.game.lobbys[player.race.lobbyid][0].PlayerList);
+      race.game.lobbys[player.race.lobbyid][0].NumberofPlayer = race.game.lobbys[player.race.lobbyid][0].PlayerList.length; // update the new length serverside
+      jcmp.events.CallRemote('Client/UpdateLengthLobby',null,player.race.lobbyid,race.game.lobbys[player.race.lobbyid][0].NumberofPlayer); // Update the length of a lobby
 
       }
     }
+    for (let i = 0; i <  race.game.lobbys[player.race.lobbyid][0].PlayerListName.length; i++) { // Delete the player from the serverside array PlayerListName
+      let players = race.game.lobbys[player.race.lobbyid][0].PlayerListName[i];
+        if (players.name == player.name){
+      race.game.lobbys[player.race.lobbyid][0].PlayerListName.splice(i,1);
+      console.log("remove in PlayerListName" +race.game.lobbys[player.race.lobbyid][0].PlayerListName);
+      }
+    }
 
-    for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
-      let players = race.game.lobbys[player.race.lobbyid].PlayerList[i]; // Remove the player to the people in the same lobby
-      jcmp.events.CallRemote('Client/PlayerRemoveLobby',players,player.race.lobbyid,player.name);
+    if (race.game.lobbys[player.race.lobbyid][0].PlayerList <= 0){ // delete lobby
+  console.log("DeleteLobby");
     }
     jcmp.events.CallRemote('Client/ShowLobbyList',player,true);
     player.race.lobbyid = undefined;
@@ -269,8 +286,8 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
 jcmp.events.AddRemoteCallable('Server/Ready_Player_Server_Test', function(player) { // need to add it on cef
   player.race.ready = true;
   // jcmp.CallRemote on   race.game.lobbys[player.race.lobbyid].PlayerList
-  for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
-    let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
+  for (let i = 0; i <   race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+    let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
     jcmp.events.CallRemote('Client/PlayerReady_Lobby',players,player.race.lobbyid,player.name);
   }
 });
@@ -294,8 +311,8 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
   race.game.lobbys[id].TypeRace = name;
 
   jcmp.events.CallRemote('Server/TypeOfRaceSelected',null,id,name);
-  for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
-    let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
+  for (let i = 0; i <   race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+    let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
     jcmp.events.CallRemote('Client/TypeOfRace',players,name);
   }
 
@@ -313,8 +330,8 @@ jcmp.events.AddRemoteCallable('Server/MapRace_Test', function(player, int,name) 
       player.race.raceselect = i;
       race.game.lobbys[id].MapName = name;
         jcmp.events.CallRemote('Client/MapOfRaceSelected',null,id,name);
-        for (let i = 0; i <   race.game.lobbys[player.race.lobbyid].PlayerList.length; i++) {
-          let players = race.game.lobbys[player.race.lobbyid].PlayerList[i];
+        for (let i = 0; i <   race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+          let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
           jcmp.events.CallRemote('Client/MapOfRace',players,name);
         }
     }
@@ -344,28 +361,28 @@ jcmp.events.Add('PlayerJoinServer',function(player){ // call when the player joi
           IsinLobby: false,
           LobbyID: undefined
         };
-        console.log("1");
+
         race.AllPlayerOnTheServer.push(newplayer); // save the same data that will be on cef
         //CallRemote to everyone to see the new Player
-        console.log(race.AllPlayerOnTheServer);
+
         if (race.AllPlayerOnTheServer.length > 1){
-          console.log("3");
+
           for (let i = 0; i < race.AllPlayerOnTheServer.length; i++) {
             let o = race.AllPlayerOnTheServer[i];
             if (o.networkId != player.networkId) {
               jcmp.events.CallRemote("Client/AddPlayerOnTheList",o,JSON.stringify(newplayer));
-              console.log("4");
+
 
             }
           }
         }
 
         // send to the player the all list with himslef
-        console.log("5");
+
 
         jcmp.events.CallRemote("Client/AddPlayerOnTheListJoin",player,JSON.stringify(race.AllPlayerOnTheServer));
 
-        console.log("6");
+
 
 
 });
@@ -373,43 +390,60 @@ jcmp.events.Add('PlayerJoinServer',function(player){ // call when the player joi
 
 
 jcmp.events.Add('UpdatePlayerOnTheServer',function(player){
+  let playertochange ;
 if (player.race.lobbyid != undefined){
+  console.log("0");
+  console.log("length"+race.AllPlayerOnTheServer.length);
   for (let i = 0; i < race.AllPlayerOnTheServer.length; i++) {
-    let player = race.AllPlayerOnTheServer[i];
-    if (player.networkId == Networkid) {
-      player.IsinLobby = true;
-      player.LobbyID = player.race.lobbyid;
-      //CallRemote
-      for (let y = 0; y < race.AllPlayerOnTheServer.length; y++) {
-        let o = race.AllPlayerOnTheServer[y];
-          jcmp.events.CallRemote("Client/UpdatePlayerOnTheServer",o,race.AllPlayerOnTheServer[i].networkId,true,player.race.lobbyid);
+    let players = race.AllPlayerOnTheServer[i];
+    console.log(players);
+    if (players.PlayerNetworkid == player.networkId) {
+      console.log("1");
 
-      }
+      players.IsinLobby = true;
+      players.LobbyID = player.race.lobbyid;
+
+      playertochange = players;
+
 
     }
   }
+  console.log("4");
+
 }
 else{
+  console.log("5");
+
   for (let i = 0; i < race.AllPlayerOnTheServer.length; i++) {
-    let player = race.AllPlayerOnTheServer[i];
-    if (player.networkId == Networkid) {
-      player.IsinLobby = false;
-      player.LobbyID = undefined;
+    let players = race.AllPlayerOnTheServer[i];
+    if (players.PlayerNetworkid == player.networkId) {
+      console.log("6");
+
+      players.IsinLobby = false;
+      players.LobbyID = undefined;
+        playertochange = players;
       //CallRemote
-      for (let y = 0; y < race.AllPlayerOnTheServer.length; y++) {
-        let o = race.AllPlayerOnTheServer[y];
-          jcmp.events.CallRemote("Client/UpdatePlayerOnTheServer",o,race.AllPlayerOnTheServer[i].networkId,false,undefined);
-      }
+
     }
   }
+  console.log("8");
+
 }
+
+for (let i = 0; i < jcmp.players.length; i++) {
+  console.log("7" +i);
+  let playerss = jcmp.players[i];
+    jcmp.events.CallRemote("Client/UpdatePlayerOnTheServer",playerss,playertochange.PlayerNetworkid,playertochange.IsinLobby,playertochange.LobbyID);
+}
+console.log("FINISH!!!!");
+
 });
 
     jcmp.events.Add('DeletePlayerOnTheserver',function(player){
-      for (let i = 0; i < AllPlayerOnTheServer.length; i++) {
+      for (let i = 0; i < race.AllPlayerOnTheServer.length; i++) {
         let players = AllPlayerOnTheServer[i];
         if (players.networkId == player.networkId) {
-          delete player;
+          race.AllPlayerOnTheServer.splice(i,1);
               jcmp.events.CallRemote("Client/RemovePlayer",null,player.networkId);
         }
       }
