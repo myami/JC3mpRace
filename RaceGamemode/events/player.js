@@ -75,7 +75,7 @@ jcmp.events.AddRemoteCallable('race_debug', function(player, text) {
 });
 
 jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
-  //jcmp.events.CallRemote('Add_Player_On_Lobby',null,player.name);
+
 
 
 
@@ -111,18 +111,13 @@ jcmp.events.Add('PlayerReady', function(player) {
       };*/
 
         console.log(data);
-      //  console.log(lobbylist);
+
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
-  //    jcmp.events.CallRemote('Lobby_ready',player,JSON.stringify(data));
-  //    jcmp.events.CallRemote('Lobby_List',player,JSON.stringify(lobbylist));
-  jcmp.events.Call('PlayerJoinServer',player);
+      jcmp.events.Call('PlayerJoinServer',player);
 
 
-  //  jcmp.events.Call('Race_name_index', player);
 
-  //  jcmp.events.CallRemote('Lobby_Update_state',null,player.name,JSON.stringify('LobbySelectMenu'));
-  //  jcmp.events.CallRemote('Lobby_show',player,true);
 
 }, 4000);
 

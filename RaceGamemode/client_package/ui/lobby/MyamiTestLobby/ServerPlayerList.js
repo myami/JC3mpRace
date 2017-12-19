@@ -15,8 +15,15 @@ let newplayer = {
   LobbyID: data.LobbyID
 }
 console.log("CEF/AddPlayerOnTheList new player join : " + newplayer);
+for (let i = 0; i < PlayerTotal.AllPlayerOnTheServer.length; i++) {
+  let player = PlayerTotal.AllPlayerOnTheServer[i];
+  if (player.PlayerName == newplayer.PlayerName){
+    return;
+  }
+}
 PlayerTotal.AllPlayerOnTheServer.push(newplayer);
 // Add the new player on the UI
+
 
 });
 jcmp.AddEvent('CEF/AddPlayerOnTheListJoin',function(obj){ // list of all player
@@ -51,7 +58,7 @@ jcmp.AddEvent('CEF/UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby
 jcmp.AddEvent('CEF/RemovePlayer',function(networkid){
   for (let i = 0; i < PlayerTotal.AllPlayerOnTheServer.length; i++) {
     let lobby = PlayerTotal.AllPlayerOnTheServer[i];
-    if(player.PlayerNetworkid == networkid){
+    if(lobby.PlayerNetworkid == networkid){
       PlayerTotal.AllPlayerOnTheServer.splice(i,1);
       console.log("CEF/RemovePlayer networkId" + networkid);
     }
