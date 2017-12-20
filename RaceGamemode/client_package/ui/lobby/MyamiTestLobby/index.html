@@ -14,6 +14,53 @@
 
 
   <style type="text/css">
+  .hidden {
+    display: none;
+  }
+
+      #TimerContainer {
+        position: fixed;
+        top: 20%;
+        right: 47%;
+        font-family: 'Passion One', cursive;
+        font-weight: bold;
+        font-size: 160pt;
+        color: yellow;
+      }
+
+
+          #CheckpointContainer {
+            position: fixed;
+            top: 2%;
+            right: 49%;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            font-size: 27pt;
+          }
+
+          #timergame {
+            position: fixed;
+            bottom: 1.5%;
+            right: 5%;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            font-size: 27pt;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+
+          }
+
+          #alpha {
+            position: fixed;
+            top: 95%;
+            right: 92%;
+            font-family: 'Permanent Marker', cursive;
+            font-weight: bold;
+            font-size: 15pt;
+            color: #00FF00;
+          }
+
   </style>
 </head>
 
@@ -104,10 +151,97 @@
   </table>
 </div>
 
+<div id="MultiCrew">
+<!--
+  <div id="Request"class="hidden">  maybe like a popup or a modal
+    You just received a request to be on the team of : <span id="playerrequest">{{ MultiCrew.PlayerRequest }}</span> <br>
+    <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
+    <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
+  </div>
+
+  <div id="MultiCrewUI"class="hidden"> maybe replace like a color for each team on the lobby and t hen show the name of the partner during the race on top right
+      <span id="PartnerNameS">{{ MultiCrew.Partner }}</span>
+  </div>
+-->
+</div>
+
+<div id="Leaderboard" > <!-- At the end of the race -->
+  <!--
+  <table class="table table-hover table-lobbys">
+    <thead>
+      <tr>
+        <th>Player</th>
+        <th>Time</th>
+        <th>Rank</th>
+      </tr>
+    </thead>
+
+    <tbody id="PlayerList"class="hidden">
+      <tr v-if="Classic" v-for="player in LeaderboardPlayerClassic" > if it's a leaderboard for each people : Classic,TTS,Apo
+        <td>{{ player.PlayerName }}</td>
+        <td>{{ player.Time }}</td>
+        <td>{{ player.Rank }}</td>
+      </tr>
+      <tr v-if="Multicrew" v-for="player in LeaderboardPlayerMultiCrew"  class="hidden"> if it's a leaderboard for like multicrew
+        <td>{{ player.NameGroup }}</td>
+        <td>{{ player.Time }}</td>
+        <td>{{ player.Rank }}</td>
+      </tr>
+
+    </tbody>
+  </table>
+-->
+</div>
+
+<div id="Ingame">
+
+  <div id="TimerContainer" >
+    <span id="timer">{{ StartTimer }}</span>
+  </div>
+
+  <div id="CheckpointContainer" >
+    <img src="./img/CircleCheckpoint.png" height="42" width="42"> <span id="playercheckpointis">{{ CurrentCheckpoint }}</span> | <span id="allcheckpoint">{{ TotalOfCheckpoint }}</span>
+  </div>
+<!-- Not sure if i add it here
+  <div id="rank" class="hidden">
+    You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
+  </div> -->
+
+  <div id="Onclickexplained">
+    Press "N" to show the leaderboard . Press "B" to reset to the last checkpoint. Press "M" to hide this message
+  </div>
+
+  <div id="alpha" >
+    <p>Early Beta</p>
+  </div>
+
+  <div id="WarningBarrel" >
+    WARNING BARREL FALLING FROM SKY
+  </div>
+  <div id="WaitItsyouTTS" >
+    Wait the countdown appear to start
+  </div>
+  <div id="timergame" > {{ RaceTime.Hour }} : {{ RaceTime.Minutes}} : {{RaceTime.Seconds}} </div>
+
+<!-- Not sure it will be on it
+  <div id="spectator" class="hidden">
+    <span id="playeritrackspan">Currently spectate on : </span> <br />
+    <button id="spectate">&#8660;</button>
+  </div>
+  <div id="spectatorcam" class="hidden">
+    <span id="cameratrack">Currently spectate on camera number : </span> <br />
+    <button id="spectatec">&#8660;</button>
+  </div>   -->
+
+</div>
+
 <script src="./global.js"></script>
 <script src="./LobbyListMain.js"></script>
 <script src="./LobbyJoin.js"></script>
 <script src="./ServerPlayerList.js"></script>
+<script src="./multicrew.js"></script>
+<script src="./leaderboard.js"></script>
+<script src="./ingame.js"></script>
 
   <script>
 
