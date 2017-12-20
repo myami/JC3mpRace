@@ -17,9 +17,9 @@ var InGame = new Vue({
     }
 
 });
- $("#Ingame").hide();
+
     jcmp.AddEvent('Countdown_start', function() {
-      $("#Ingame").show();
+    toggleContainer("TimerContainer", true);
       let inter = setInterval(function() {
         if (InGame.StartTimer > 0) {
           InGame.StartTimer--;
@@ -90,9 +90,11 @@ var InGame = new Vue({
 
     });
 
-    jcmp.AddEvent('Race_Timer_container', function(status) {
-      toggleContainer("TimerContainer", status);
+    jcmp.AddEvent('Race_Checkpoint_container', function(status) {
+      toggleContainer("CheckpointContainer", status);
+
     });
+
     jcmp.AddEvent('Checkpointmax', function(checkpointlength) { // the racecheckpoint.lenght
       InGame.TotalOfCheckpoint = checkpointlength;
     });
@@ -117,3 +119,22 @@ var InGame = new Vue({
           $("#" + container).hide();
         }
     }
+
+    let $chat_input_visible = false;
+    let $is_text_key_down = true;
+    jcmp.AddEvent('chat_input_state', function(b) {
+      $chat_input_visible = b;
+    });
+
+    $(window).keyup(function(event) {
+
+      const key = event.which;
+      //  if (key === 32) {event.preventDefault();}
+
+      if (key === 77 && $is_text_key_down && !$chat_input_visible) { // m
+        toggleContainer("Onclickexplained", false);
+        $is_text_key_down = false;
+      } else if (key === 66 && !$chat_input_visible) { //b
+        jcmp.CallEvent('ResetPlayer_client');
+      }
+    });

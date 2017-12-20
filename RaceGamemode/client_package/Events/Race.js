@@ -28,7 +28,6 @@ jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
  jcmp.localPlayer.controlsEnabled = false;
   countdowninprogress = true;
   jcmp.ui.CallEvent('IsTTS',false);
-  jcmp.ui.CallEvent('Race_Timer_container', true);
   jcmp.ui.CallEvent('Countdown_start');
   //doing the countdown for the race to start
     jcmp.events.CallRemote('race_debug', "RaceFreezeClassic");

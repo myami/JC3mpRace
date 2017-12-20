@@ -46,7 +46,7 @@
     <img src="./img/deathimg.png" width="30%" height="45%" />
 
     <h1>You are respawning</h1>
-    <h3>Don't worry you will respawn in the lobby on <span id="respawnTime">5</span> seconds ..</h4>
+    <h3>Don't worry you will respawn in <span id="respawnTime">5</span> seconds ..</h4>
     </div>
 
     <script>
@@ -63,7 +63,6 @@
         }
 
         jcmp.AddEvent('race_deathui_show', function(killerName) {
-            // TODO: Reproduce sound as myami requested
             document.getElementById("respawnTime").innerText = "5";
             fadeIn(document.getElementById("deathcontent"));
             var deathUItimer = setInterval(function() {
