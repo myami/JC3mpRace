@@ -73,9 +73,9 @@ module.exports = class Race {
   }
 
 
-  UpdateEndLeaderboard(playername, leaderboardplace, minute, seconds) {
+  UpdateEndLeaderboard(playername, leaderboardplace, time) {
     for (let player of this.players) {
-      jcmp.events.CallRemote('Update_leaderboard_all', player, playername, leaderboardplace, minute, seconds);
+      jcmp.events.CallRemote('Update_leaderboard_all', player, playername,leaderboardplace,time);
       // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
     }
 
@@ -409,8 +409,7 @@ module.exports = class Race {
 
   TTSUpdateEndLeaderboard(playername, minute, seconds) {
     for (let player of this.players) {
-      jcmp.events.CallRemote('Update_leaderboard_all_TTS', player, playername, minute, seconds);
-      // Don't update on people that have finish the race before you maybe because they are remove from the Race constructor
+      jcmp.events.CallRemote('Update_leaderboard_all_TTS', player, playername, time);
     }
 
   }

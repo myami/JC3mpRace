@@ -166,7 +166,7 @@ if(res[0].race.partnerplayer.length != 0){
    return;
 }
   race.chat.send(player,`Request send to the player ${res[0].name}`);
-  jcmp.events.CallRemote('PartnerRequest',res[0],player.name);
+  jcmp.events.CallRemote('PartnerRequest',res[0],player.name,res[0].name);
 
  }))
 

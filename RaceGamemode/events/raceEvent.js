@@ -4,7 +4,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   if (Race.type == 1) {
     jcmp.events.Call('MC_Race_Checkpoint', player);
 
-  }  if (Race.type == 0 ||Race.type == 3) {
+  }  if (Race.type == 0 ||Race.type == 3) { // classic or apo
     jcmp.events.Call('C_Race_Checkpoint', player);
 
   }
@@ -64,6 +64,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
       // NOTE: Maybe include here the update needPlayers update event and the lobby push
+        console.log(player.race.game.players);
       player.Respawn();
     }, 5000));
 

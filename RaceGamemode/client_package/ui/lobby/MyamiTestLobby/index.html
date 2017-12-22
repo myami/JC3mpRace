@@ -165,21 +165,29 @@
 </div>
 
 <div id="MultiCrew">
-<!--
-  <div id="Request"class="hidden">  maybe like a popup or a modal
+
+  <div id="Request"class="hidden">  <!-- maybe like a popup or a modal -->
     You just received a request to be on the team of : <span id="playerrequest">{{ MultiCrew.PlayerRequest }}</span> <br>
     <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
     <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
   </div>
 
-  <div id="MultiCrewUI"class="hidden"> maybe replace like a color for each team on the lobby and t hen show the name of the partner during the race on top right
+  <div id="MultiCrewUI"class="hidden"><!-- maybe replace like a color for each team on the lobby and t hen show the name of the partner during the race on top right -->
       <span id="PartnerNameS">{{ MultiCrew.Partner }}</span>
   </div>
--->
+  <div id="SelectWho">
+    <span id="PartnerName">{{ MultiCrew.MyName }}</span><tr>
+      <td  v-on:click="SelectRole(1)">Protector</td>
+      <td v-on:click="SelectRole(0)">Protected</td>
+    </tr><br> <!-- on the side of the name a list of choce : Protector or Protected -->
+    <span id="MyName">{{ MultiCrew.Partner }}</span> <span id="Roleother"></span><!-- if he select protector on the list on this one will change auto to Protected-->
+
+  </div>
+
 </div>
 
 <div id="Leaderboard" > <!-- At the end of the race -->
-  <!--
+
   <table class="table table-hover table-lobbys">
     <thead>
       <tr>
@@ -190,20 +198,16 @@
     </thead>
 
     <tbody id="PlayerList"class="hidden">
-      <tr v-if="Classic" v-for="player in LeaderboardPlayerClassic" > if it's a leaderboard for each people : Classic,TTS,Apo
+      <tr v-if="Classic" v-for="player in LeaderboardPlayer" >
         <td>{{ player.PlayerName }}</td>
         <td>{{ player.Time }}</td>
         <td>{{ player.Rank }}</td>
       </tr>
-      <tr v-if="Multicrew" v-for="player in LeaderboardPlayerMultiCrew"  class="hidden"> if it's a leaderboard for like multicrew
-        <td>{{ player.NameGroup }}</td>
-        <td>{{ player.Time }}</td>
-        <td>{{ player.Rank }}</td>
-      </tr>
+
 
     </tbody>
   </table>
--->
+
 </div>
 
 <div id="Ingame">
