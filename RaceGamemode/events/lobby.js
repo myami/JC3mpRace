@@ -42,6 +42,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
       }
     }
     player.race.typeselect = 0; // setting the type
+    jcmp.events.Call('Server/MapList',player);
     jcmp.events.Call('UpdatePlayerOnTheServer', player);
 
   } else {
@@ -255,6 +256,7 @@ jcmp.events.Add('UpdatePlayerOnTheServer', function(player) {
         players.IsinLobby = true;
         players.LobbyID = player.race.lobbyid;
         playertochange = players;
+        console.log(playertochange);
       }
     }
 
@@ -270,6 +272,8 @@ jcmp.events.Add('UpdatePlayerOnTheServer', function(player) {
         players.IsinLobby = false;
         players.LobbyID = undefined;
         playertochange = players;
+        console.log(playertochange);
+
         //CallRemote
 
       }
@@ -314,3 +318,31 @@ jcmp.events.AddRemoteCallable('Server/MultiCrew_SelectRole',function(player,int)
     jcmp.events.CallRemote('Client/MultiCrew_RoleSelected',player.race.partnerplayer[1],1);
   }
 });
+
+jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lobby admin to see the list
+
+  for (var i = 0; i < race.game.RaceList.length; i++) {
+    let races = race.game.RaceList[i];
+    if (races.multicrew){
+      let map = {
+            raceid: races.raceid,
+            name: races.Name,
+            type: "All"
+      }
+      console.log(races.Name);
+      jcmp.events.CallRemote('Client/MapList',player,JSON.stringify(map));
+
+    }
+    else{ // like wingsuit
+      let map = {
+          raceid: races.raceid,
+          name: races.Name,
+          type: "Classic,TTS,Apo"
+      }
+      jcmp.events.CallRemote('Client/MapList',player,JSON.stringify(map));
+    }
+
+    }
+
+
+})

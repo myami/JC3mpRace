@@ -37,6 +37,10 @@ var LobbyJoined = new Vue({
         this.PlayerLobbyData.TypeRace = undefined ;
         this.PlayerLobbyData.LobbyID = undefined ;
         this.PlayerLobbyData.PlayerListName = [] ;
+        if (this.imhost){
+          MapSelected.raceList = [];
+          // delete the lobby
+        }
 
       },
 

@@ -158,7 +158,6 @@
     </thead>
 
     <tbody id="PlayerLis">
-
       <tr v-for="player in AllPlayerOnTheServer" >
         <td>{{ player.PlayerName }}</td>
         <td>{{ player.IsinLobby }}</td>
@@ -256,19 +255,21 @@
 
 </div>
 
-<div id="MapSelect">
-<!--  <table class="tableChoose">
-    <tr v-for="raceGroup in raceList">
-      <td v-for="race in raceGroup" v-on:click="selectMap(race.raceid, $event)">
-        <img :src="generateThumbUrl(race.raceid)" width="100%" /> the src change need to be done with jquery i think
-        <div class="lobbyJoinedRaceName">{{ race.name }}</div>
+<div id="MapSelectdiv">
+  <table class="tableChoose">
+      <tbody id="MapSelect">
+    <tr v-for="race in raceList"v-on:click="selectMap(race.raceid, $event)">
+      <td><img :src="generateThumbUrls(race.raceid)" width="100%">
+        <div class="">{{ race.name }}</div>
       </td>
+      <td>{{ race.type }}</td>
     </tr>
-  </table>-->
+  </tbody>
+  </table>
 </div>
 
-<script src="./MapSelect.js"></script>
 <script src="./global.js"></script>
+<script src="./MapSelect.js"></script>
 <script src="./LobbyListMain.js"></script>
 <script src="./LobbyJoin.js"></script>
 <script src="./ServerPlayerList.js"></script>

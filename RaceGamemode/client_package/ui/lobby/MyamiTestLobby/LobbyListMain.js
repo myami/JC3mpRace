@@ -24,11 +24,11 @@ var LobbyMain = new Vue({
 $("#btnCreate").click(function(){
   let name = "TestLobby";
   jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
-  console.log("2Lobby created with the name : " + name);
+  console.log("Lobby created with the name : " + name);
 });
 $("#btnJoin").click(function(){
   jcmp.CallEvent('Client/Player_Join_Lobby_Test',LobbyMain.currentSelected);
-  console.log("2PlayerJoinLobby" + LobbyMain.currentSelected);
+  console.log("PlayerJoinLobby" + LobbyMain.currentSelected);
 });
 
 
@@ -44,7 +44,6 @@ jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server 
     LobbyID: data.LobbyID,
     RaceID:data.RaceID,
     PlayerCreated: data.PlayerCreated,
-
   }
   console.log("CEF/LobbyCreated NewLobby" + NewLobby);
   LobbyMain.LobbyServerList.push(NewLobby);
