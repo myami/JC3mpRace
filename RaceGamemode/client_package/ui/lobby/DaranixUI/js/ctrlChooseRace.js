@@ -11,7 +11,6 @@ var ctrlChooseRace = new Vue({
             this.selectedTrack = raceid;
             $(".selectedTrack").removeClass("selectedTrack");
             $(event.currentTarget).addClass("selectedTrack");
-            
         }
     },
     watch: {
@@ -31,8 +30,8 @@ var ctrlChooseRace = new Vue({
 });
 
 function orderForChoose(arr, chunk_size) {
-    var groups = arr.map( function(e,i){ 
-        return i%chunk_size===0 ? arr.slice(i,i+chunk_size) : null; 
+    var groups = arr.map( function(e,i){
+        return i%chunk_size===0 ? arr.slice(i,i+chunk_size) : null;
     })
     .filter(function(e){ return e; });
     return groups;

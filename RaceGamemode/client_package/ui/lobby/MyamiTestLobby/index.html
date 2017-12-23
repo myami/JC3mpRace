@@ -13,6 +13,7 @@
     <script src="./vue.js"></script>
 
 
+
   <style type="text/css">
   .hidden {
     display: none;
@@ -79,6 +80,8 @@
 
 <body>
 
+
+
 <div id= "DivLobbyJoined">
 
   <li v-for="name in PlayerLobbyData.PlayerListName"> <!--  List of the player on the lobby-->
@@ -128,17 +131,18 @@
     </thead>
 
     <tbody id="lobbyList">
-
-      <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" > <!-- v-bind:src="addthumbnaillobby(lobby.LobbyID)" -->
-        <td>{{ lobby.MapName }}</td>
+      <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" >
+        <td><img :src="generateThumbUrl(lobby.RaceID)" width="100%">
+          <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
+        </td>
         <td>{{ lobby.PlayerCreated }}</td>
         <td>{{ lobby.LobbyID }} lobbyid</td>
         <td>{{ lobby.NumberofPlayer }}/20</td>
       </tr>
     </tbody>
   </table>
-  <button type="button" id="btnJoin" class="btn btn-danger" v-on:click="joinLobby()" disabled>&#8628; Join lobby</button>
-  <button type="button" id="btnCreate" class="btn btn-info" v-on:click="createLobby()" >&#8628; Create lobby</button>
+  <button type="button" id="btnJoin" class="btn btn-danger" v-on:click="lobbyList.joinLobby()" disabled>&#8628; Join lobby</button>
+  <button type="button" id="btnCreate" class="btn btn-info" v-on:click="lobbyList.createLobby()" >&#8628; Create lobby</button>
 
 
 </div>
@@ -165,25 +169,25 @@
 </div>
 
 <div id="MultiCrew">
-
-  <div id="Request"class="hidden">  <!-- maybe like a popup or a modal -->
+<!--
+  <div id="Request"class="hidden">   maybe like a popup or a modal
     You just received a request to be on the team of : <span id="playerrequest">{{ MultiCrew.PlayerRequest }}</span> <br>
     <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
     <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
   </div>
 
-  <div id="MultiCrewUI"class="hidden"><!-- maybe replace like a color for each team on the lobby and t hen show the name of the partner during the race on top right -->
+  <div id="MultiCrewUI"class="hidden">maybe replace like a color for each team on the lobby and then show the name of the partner during the race on top right
       <span id="PartnerNameS">{{ MultiCrew.Partner }}</span>
   </div>
-  <div id="SelectWho">
-    <span id="PartnerName">{{ MultiCrew.MyName }}</span><tr>
+  <div id="SelectWho"v-show="imlead">
+    <span id="MyName">{{ MultiCrew.MyName }}</span><span id="RoleMe"v-if="Lead.Protector">Protector</span><span id="RoleMe"v-else>Protected</span><tr>
       <td  v-on:click="SelectRole(1)">Protector</td>
       <td v-on:click="SelectRole(0)">Protected</td>
-    </tr><br> <!-- on the side of the name a list of choce : Protector or Protected -->
-    <span id="MyName">{{ MultiCrew.Partner }}</span> <span id="Roleother"></span><!-- if he select protector on the list on this one will change auto to Protected-->
+    </tr><br>
+    <span id="PartnerName">{{ MultiCrew.Partner }}</span><span id="Roleother"v-if="Other.Protector">Protector</span><span id="Roleother"v-else>Protected</span>
 
   </div>
-
+-->
 </div>
 
 <div id="Leaderboard" > <!-- At the end of the race -->
@@ -252,6 +256,18 @@
 
 </div>
 
+<div id="MapSelect">
+<!--  <table class="tableChoose">
+    <tr v-for="raceGroup in raceList">
+      <td v-for="race in raceGroup" v-on:click="selectMap(race.raceid, $event)">
+        <img :src="generateThumbUrl(race.raceid)" width="100%" /> the src change need to be done with jquery i think
+        <div class="lobbyJoinedRaceName">{{ race.name }}</div>
+      </td>
+    </tr>
+  </table>-->
+</div>
+
+<script src="./MapSelect.js"></script>
 <script src="./global.js"></script>
 <script src="./LobbyListMain.js"></script>
 <script src="./LobbyJoin.js"></script>
@@ -259,6 +275,7 @@
 <script src="./multicrew.js"></script>
 <script src="./leaderboard.js"></script>
 <script src="./ingame.js"></script>
+
 
   <script>
 

@@ -20,8 +20,6 @@ jcmp.events.AddRemoteCallable('race_Start_client', function(type) {
   playeringame = true;
   typeofrace = type;
   jcmp.ui.CallEvent('Race_Checkpoint_container', true);
-  jcmp.ui.CallEvent('TypeSelectedHide');
-  jcmp.ui.CallEvent('MapSelectedHide');
 
 });
 jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
@@ -47,7 +45,6 @@ jcmp.ui.AddEvent('ResetPlayer_client', function() {
   if (countdowninprogress || playerpassager) {
     return;
   }
-
   jcmp.events.CallRemote('ResetPlayer_Server');
 });
 jcmp.events.AddRemoteCallable('race_end_point_client', function() {

@@ -277,3 +277,11 @@ jcmp.events.AddRemoteCallable('Client/RemovePlayer',function(networkid){
 jcmp.ui.AddEvent('LaunchRace', function() { // Launch the race
   jcmp.events.CallRemote('LaunchRace');
 });
+
+jcmp.ui.AddEvent('Client/MultiCrew_SelectRole', function(int) {
+  jcmp.events.CallRemote('Server/MultiCrew_SelectRole',int);
+});
+
+jcmp.events.AddRemoteCallable('Client/MultiCrew_RoleSelected',function(int){
+  jcmp.ui.CallEvent('CEF/MultiCrew_SelectRoleReceived',int);
+});

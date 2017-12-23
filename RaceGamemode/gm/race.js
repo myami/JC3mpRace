@@ -161,7 +161,7 @@ module.exports = class Race {
 
   /////////////////////////////////// MULTICREW ////////////////////////////////////////////////////////////////////
 
-  Multicrew() {
+  Multicrew() { // need to be rewrite
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];

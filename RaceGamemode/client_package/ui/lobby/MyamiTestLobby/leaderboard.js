@@ -8,7 +8,7 @@ var LeaderBoard = new Vue({
     }
 
 });
-  // ALL NEED REWRITE
+
 
 jcmp.AddEvent('AddPlayerOnLeaderboard', function(playerlist) {
   let playerl = JSON.parse(playerlist);

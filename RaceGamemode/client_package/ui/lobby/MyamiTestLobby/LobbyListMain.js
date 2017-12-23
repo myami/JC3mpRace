@@ -1,5 +1,5 @@
 var LobbyMain = new Vue({
-    el: '#DivServerLobbyList',
+    el: '#lobbyList',
     data: function() {
       return{
         LobbyServerList : [],
@@ -14,22 +14,25 @@ var LobbyMain = new Vue({
           $("#btnJoin").removeAttr("disabled");
           console.log("RaceId: "+raceid);
       },
-      joinLobby: function() {
-        jcmp.CallEvent('Client/Player_Join_Lobby_Test',this.currentSelected);
-        console.log("PlayerJoinLobby" + this.currentSelected);
-      },
-      createLobby: function() {
-        let name = "TestLobby";
-        jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
-        console.log("Lobby created with the name : " + name);
-      },
       logtest: function (raceid){
         console.log(raceid);
-      }
+      },
+      generateThumbUrl: generateThumbUrl
 
     }
 });
+$("#btnCreate").click(function(){
+  let name = "TestLobby";
+  jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
+  console.log("2Lobby created with the name : " + name);
+});
+$("#btnJoin").click(function(){
+  jcmp.CallEvent('Client/Player_Join_Lobby_Test',LobbyMain.currentSelected);
+  console.log("2PlayerJoinLobby" + LobbyMain.currentSelected);
+});
 
+
+//{LobbyName:"test1",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:0,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:1,PlayerCreated:"Myami"}
 
 jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server list
   let data = JSON.parse(Obj);
@@ -39,6 +42,7 @@ jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server 
     MapName: "RaceIsland",
     TypeRace:"Classic",
     LobbyID: data.LobbyID,
+    RaceID:data.RaceID,
     PlayerCreated: data.PlayerCreated,
 
   }
