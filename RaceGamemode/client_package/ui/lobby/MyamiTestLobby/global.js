@@ -5,6 +5,7 @@ $("#TypeSelect").hide();
 $("#MapSelectdiv").hide();
 $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
+jcmp.ShowCursor();
 
 
 
@@ -66,4 +67,9 @@ jcmp.AddEvent('RaceFinishShowLobby',function(){
   $("#ListOfPlayerOnServer").show();
   $("#Leaderboard").show();
   $("#DivLobbyJoined").show();
+  jcmp.ShowCursor();
+})
+
+jcmp.AddEvent('Race_Start',function(){
+  jcmp.HideCursor();
 })

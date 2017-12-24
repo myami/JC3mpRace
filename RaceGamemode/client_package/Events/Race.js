@@ -21,6 +21,7 @@ jcmp.events.AddRemoteCallable('race_Start_client', function(type) {
   playeringame = true;
   typeofrace = type;
   jcmp.ui.CallEvent('Race_Checkpoint_container', true);
+  jcmp.ui.CallEvent('Race_Start');
 
 });
 jcmp.events.AddRemoteCallable('race_Freeze_player', function() {

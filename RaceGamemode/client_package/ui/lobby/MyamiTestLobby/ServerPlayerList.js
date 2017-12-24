@@ -48,7 +48,13 @@ jcmp.AddEvent('CEF/UpdatePlayerOnTheServer',function(networkid,isinlobby,idlobby
     let player = PlayerTotal.AllPlayerOnTheServer[i];
     if(player.PlayerNetworkid == networkid){
       player.IsinLobby = isinlobby;
-      player.LobbyID = idlobby ;
+      if (idlobby != 500){
+        player.LobbyID = idlobby ;
+
+      }
+      else{
+        player.LobbyID = undefined;
+      }
       // update the ui
       console.log("CEF/UpdatePlayerOnTheServer Player Update Lobby: " + player.IsinLobby + "lobbyId: " + player.LobbyID);
     }

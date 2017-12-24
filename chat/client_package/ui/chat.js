@@ -2,7 +2,7 @@ window.Chat = Vue.component('chat', {
 	data() {
 		return {
 			messageInput: '',
-			visible: true,
+			visible: false,
 			inputVisible: false,
 			messages: [],
 			history: [],
@@ -33,7 +33,7 @@ window.Chat = Vue.component('chat', {
 			if ((code === 84 || code === 116) && !this.inputVisible && !this.uiVisible) {
 				this.setInputVisibility(true);
 				e.preventDefault();
-			
+
 				setTimeout(() => document.getElementById('chat-input').focus(), 1);
 			}
 
@@ -81,7 +81,7 @@ window.Chat = Vue.component('chat', {
 		inputVisible(v) {
 			// this event is needed to lock the player controls and is also used by the command-hints package.
 			jcmp.CallEvent('chat_input_state', v);
-			
+
     		if (v) {
 				jcmp.ShowCursor();
 			} else {
@@ -110,7 +110,7 @@ window.Chat = Vue.component('chat', {
 
 			this.historyPos = 0;
 			if (this.history.length === 0 || (this.history.length > 0 && this.history[this.history.length - 1] !== msg)) {
-				this.history.push(msg);	
+				this.history.push(msg);
 			}
 
 			cleanup();
@@ -155,7 +155,7 @@ window.Chat = Vue.component('chat', {
 			}
 
 			obj.text = obj.text.replace(/\n/g, '<br />');
-			
+
 			setTimeout(() => this.$el.children['chat-box'].scrollTop = this.$el.children['chat-box'].scrollHeight, 2);
 		},
 		navigateHistory(direction) {

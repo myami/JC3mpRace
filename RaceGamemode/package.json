@@ -1,7 +1,6 @@
 {
     "authors":"Myami",
     "jcmp_dependencies": [
-        "chat",
         "command-manager",
         "jcmp-toast"
     ],

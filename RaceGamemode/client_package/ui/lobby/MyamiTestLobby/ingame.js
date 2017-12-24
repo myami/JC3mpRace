@@ -19,6 +19,7 @@ var InGame = new Vue({
 });
 
     jcmp.AddEvent('Countdown_start', function() {
+      jcmp.HideCursor();
     toggleContainer("TimerContainer", true);
       let inter = setInterval(function() {
         if (InGame.StartTimer > 0) {
