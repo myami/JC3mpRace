@@ -7,9 +7,8 @@ var MapSelected = new Vue({
     methods: {
       generateThumbUrls: generateThumbUrl,
       selectTrack: function(raceid, event) {
+        $("#btnSelectMap").removeAttr("disabled");
           this.selectedTrack = raceid;
-          $(".selectedTrack").removeClass("selectedTrack");
-          $(event.currentTarget).addClass("selectedTrack");
       },
 
     }

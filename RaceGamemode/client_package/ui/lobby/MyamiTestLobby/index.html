@@ -94,15 +94,6 @@
   </li>
 
 
-<!--   <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="100%"> map image-->
-<!--   <div class="lobbyJoinedRaceName">{{ PlayerLobbyData.MapName }}</div> -->
-<!--  map image
-  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseRace()"> Choose map</button>  chooseRace function check ctrlChooseRace
-  </div>
-  <div style="text-align: center; margin-top: 20px; margin-bottom: 20px;">
-    <button v-show="imhost" type="button" class="btn btn-danger" v-on:click="chooseType()"> Choose type</button>   chooseRace function check ctrlChooseRace
-  </div> -->
 
   <ul class="raceInfoList">
   <li><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
@@ -111,6 +102,10 @@
 
   <div style="text-align: center;" v-show="imhost">
     <button type="button" class="btn btn-danger" v-on:click="StartRace()"> Start Race</button>
+    <button type="button" class="btn btn-danger" v-on:click="ShowMapList()">Map List</button>
+    <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()">Type List</button>
+
+
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-danger" v-on:click="leaveLobby()">LeaveLobby</button>
@@ -132,7 +127,7 @@
 
     <tbody id="lobbyList">
       <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" >
-        <td><img :src="generateThumbUrl(lobby.RaceID)" width="100%">
+        <td><img :src="generateThumbUrl(lobby.RaceID)" width="25%" height="25%">
           <div class="lobbyJoinedRaceName">{{ lobby.MapName }}</div>
         </td>
         <td>{{ lobby.PlayerCreated }}</td>
@@ -141,8 +136,8 @@
       </tr>
     </tbody>
   </table>
-  <button type="button" id="btnJoin" class="btn btn-danger" v-on:click="lobbyList.joinLobby()" disabled>&#8628; Join lobby</button>
-  <button type="button" id="btnCreate" class="btn btn-info" v-on:click="lobbyList.createLobby()" >&#8628; Create lobby</button>
+  <button type="button" id="btnJoin" class="btn btn-danger" disabled>&#8628; Join lobby</button>
+  <button type="button" id="btnCreate" class="btn btn-info">&#8628; Create lobby</button>
 
 
 </div>
@@ -255,10 +250,10 @@
 
 </div>
 
-<div id="MapSelectdiv">
-  <table class="tableChoose">
+<div id="MapSelectdiv" v-show="imhost">
+  <table class="tableChoose" >
       <tbody id="MapSelect">
-    <tr v-for="race in raceList"v-on:click="selectMap(race.raceid, $event)">
+    <tr v-for="race in raceList"v-on:click="selectTrack(race.raceid, $event)">
       <td><img :src="generateThumbUrls(race.raceid)" width="100%">
         <div class="">{{ race.name }}</div>
       </td>
@@ -266,6 +261,29 @@
     </tr>
   </tbody>
   </table>
+  <button type="button" id="btnSelectMap" class="btn btn-danger">&#8628; SelectMap</button>
+</div>
+<div id="TypeSelect">
+  <table v-show="imhost">
+    <tr id="ClassicType">
+      <td>Classic</td>
+      <td>Run from the point A to the point B and reach all checkpoint</td>
+    </tr>
+    <tr id="MultiCrewType">
+      <td>MultiCrew</td>
+      <td>Protect or get protected and try to reach all the checkpoint and finish the race before the other team win</td>
+    </tr>
+    <tr id="TTSType">
+      <td>TTS</td>
+      <td>Run from the point A to the point B and reach all checkpoint alone and the winner is the one with the best time</td>
+    </tr>
+    <tr id="ApoType">
+      <td>Apo</td>
+      <td>Run from the point A to the point B and reach all checkpoint but be carefull because fallen explosive barrel appear around you every X seconds</td>
+    </tr>
+  </table>
+
+
 </div>
 
 <script src="./global.js"></script>

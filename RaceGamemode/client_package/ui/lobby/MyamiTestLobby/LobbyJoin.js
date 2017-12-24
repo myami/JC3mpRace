@@ -38,9 +38,15 @@ var LobbyJoined = new Vue({
         this.PlayerLobbyData.LobbyID = undefined ;
         this.PlayerLobbyData.PlayerListName = [] ;
         if (this.imhost){
-          MapSelected.raceList = [];
           // delete the lobby
         }
+        $("#DivLobbyJoined").hide();
+        $("#DivServerLobbyList").show();
+        $("#btnJoin").show();
+        $("#btnCreate").show();
+
+
+
 
       },
 
@@ -50,6 +56,20 @@ var LobbyJoined = new Vue({
       StartRace : function(){
           jcmp.CallEvent('LaunchRace');
           console.log("Start Race");
+          $("#TypeSelect").hide();
+          $("#DivServerLobbyList").hide();
+          $("#ListOfPlayerOnServer").hide();
+          $("#Leaderboard").hide();
+          $("#MapSelectdiv").hide();
+          $("#DivLobbyJoined").hide();
+      },
+      ShowMapList: function(){
+        $("#MapSelectdiv").show();
+
+      },
+      ShowTypeList: function(){
+        $("#TypeSelect").show();
+
       }
     }
 

@@ -248,8 +248,8 @@ jcmp.ui.AddEvent('Client/Player_Created_Lobby_Test', function(name) { // Create 
   jcmp.events.CallRemote('Server/Player_Create_Lobby_Test',name);
 });
 
-jcmp.ui.AddEvent('Client/NewMapSelected', function(int,name) { // Admin change map
-  jcmp.events.CallRemote('Server/MapRace_Test',int,name);
+jcmp.ui.AddEvent('Client/NewMapSelected', function(int) { // Admin change map
+  jcmp.events.CallRemote('Server/MapRace_Test',int);
 });
 
 jcmp.ui.AddEvent('Client/NewTypeSelected', function(int) { // Admin change type

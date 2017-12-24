@@ -21,15 +21,7 @@ var LobbyMain = new Vue({
 
     }
 });
-$("#btnCreate").click(function(){
-  let name = "TestLobby";
-  jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
-  console.log("Lobby created with the name : " + name);
-});
-$("#btnJoin").click(function(){
-  jcmp.CallEvent('Client/Player_Join_Lobby_Test',LobbyMain.currentSelected);
-  console.log("PlayerJoinLobby" + LobbyMain.currentSelected);
-});
+
 
 
 //{LobbyName:"test1",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:0,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:1,PlayerCreated:"Myami"}

@@ -12,6 +12,7 @@ jcmp.events.AddRemoteCallable('race_End_client', function() {
   deletePOI();
   deleteCheckpoint();
   jcmp.ui.CallEvent('Race_Checkpoint_container', false);
+  jcmp.ui.CallEvent('RaceFinishShowLobby');
 
 
 });
