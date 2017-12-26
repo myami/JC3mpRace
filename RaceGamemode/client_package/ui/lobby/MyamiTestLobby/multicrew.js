@@ -1,35 +1,34 @@
 var MultiCrew = new Vue({
-    el: '#MultiCrew',
+    el: '#MultiCrewDiv',
     data: {
-      PlayerRequest: "",
-      MyName: "",
+      PlayerRequest: " ",
+      MyName: " ",
       imlead: false,
       Lead:{Name:"",Protector:true},
       Other:{Name:"",Protector:false}
     },
     methods: {
       YesRequest: function(){
-        jcmp.CallEvent('ValidateRequest', MultiCrew.PlayerRequest);
-        MultiCrew.Partner = PlayerRequest;
-        MultiCrew.Lead.Name = MultiCrew.PlayerRequest;
-        MultiCrew.Other.Name =   MultiCrew.MyName;
+        jcmp.CallEvent('ValidateRequest', this.PlayerRequest);
+        this.Lead.Name = this.PlayerRequest;
+        this.Other.Name =   this.MyName;
         $("#Request").hide();
         jcmp.HideCursor();
       },
       NoRequest: function(){
-        jcmp.CallEvent('RefuseRequest', playerthatrequest);
+        jcmp.CallEvent('RefuseRequest', this.PlayerRequest);
         $("#Request").hide();
         jcmp.HideCursor();
       },
       SelectRole:function(int){
         if(int == 0){ // protected
-          MultiCrew.Lead.Protector = false;
-          MultiCrew.Other.Protector = true;
+          this.Lead.Protector = false;
+          this.Other.Protector = true;
           jcmp.CallEvent('Client/MultiCrew_SelectRole',0);
         }
         if (int == 1){ // protector
-          MultiCrew.Lead.Protector = true;
-          MultiCrew.Other.Protector = false;
+          this.Lead.Protector = true;
+          this.Other.Protector = false;
           jcmp.CallEvent('Client/MultiCrew_SelectRole',1);
         }
       }

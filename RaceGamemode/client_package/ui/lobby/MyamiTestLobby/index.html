@@ -162,15 +162,15 @@
   </table>
 </div>
 
-<div id="MultiCrew">
-<!--
-  <div id="Request"class="hidden">   maybe like a popup or a modal
+<div id="MultiCrewDiv">
+
+  <div id="Request"class="hidden">
     You just received a request to be on the team of : <span id="playerrequest">{{ MultiCrew.PlayerRequest }}</span> <br>
     <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
     <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
   </div>
 
-  <div id="MultiCrewUI"class="hidden">maybe replace like a color for each team on the lobby and then show the name of the partner during the race on top right
+  <div id="MultiCrewUI"class="hidden">
       <span id="PartnerNameS">{{ MultiCrew.Partner }}</span>
   </div>
   <div id="SelectWho"v-show="imlead">
@@ -181,7 +181,7 @@
     <span id="PartnerName">{{ MultiCrew.Partner }}</span><span id="Roleother"v-if="Other.Protector">Protector</span><span id="Roleother"v-else>Protected</span>
 
   </div>
--->
+
 </div>
 <!--
 <div id="Leaderboard" >
@@ -285,7 +285,6 @@
 
 
 </div>
-
 <script src="./global.js"></script>
 <script src="./MapSelect.js"></script>
 <script src="./LobbyListMain.js"></script>
@@ -294,6 +293,7 @@
 <script src="./multicrew.js"></script>
 <!--<script src="./leaderboard.js"></script> -->
 <script src="./ingame.js"></script>
+
 
 
   <script>

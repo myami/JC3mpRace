@@ -86,7 +86,6 @@ module.exports = class Race {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
       console.log(player.race.playerrotationspawn);
-
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -161,13 +160,11 @@ module.exports = class Race {
 
   /////////////////////////////////// MULTICREW ////////////////////////////////////////////////////////////////////
 
-  Multicrew() { // need to be rewrite
+  Multicrew() {
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
       jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
-      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
-
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -179,14 +176,14 @@ module.exports = class Race {
       player.race.time = 0;
       player.race.hasfinish = false;
       if (player.race.partnerplayer[0] == player) {
-        if (player.race.driver) { // UI
+        if (player.race.driver) { // Protector
           const secondplayer = player.race.partnerplayer[1];
           jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
           jcmp.events.CallRemote('PlayerPassager', player, false);
           this.playersname.push(player.name + " " + secondplayer.name);
           jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
           player.race.vehicle = race.game.ConvoyRaceProtector;
-        } else {
+        } else { // Protected
           const secondplayer = player.race.partnerplayer[1];
           jcmp.events.CallRemote('PlayerPassager', player, true);
           jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
@@ -215,7 +212,7 @@ module.exports = class Race {
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
 
-      if (player.race.partnerplayer[0].name == player.name) { // don't show to protector
+      if (!player.race.drive) { // don't show to protector
         jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
       }
       jcmp.events.CallRemote('race_Freeze_player', player);
@@ -248,38 +245,7 @@ module.exports = class Race {
         //  race.game.RacePeopleDie.removePlayer(player);
         player.race.spawningdouble = false;
       }, race.game.respawntimer + 1000);
-    } else {
-      //Wingsuit race
     }
-    /*let driver;
-    let passager;
-    for (var i = 0; i < player.race.partnerplayer.length; i++) {
-      if (player.race.partnerplayer[i].race.driver){
-        driver = player.race.partnerplayer[i];
-
-        console.log(`Driver is ${driver.name}`);
-        if (player.networkId == driver.networkId){
-          if (vehicleold != undefined) {
-            vehicleold.Destroy();
-          }
-          const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-          vehicle.nitroEnabled = this.nitro;
-          vehicle.dimension = player.race.game.id;
-          vehicle.SetOccupant(0, driver);
-          vehicle.SetOccupant(1, passager);
-          console.log("Driver");
-          return;
-        }
-      }
-      if (!player.race.partnerplayer[i].race.driver){
-        passager = player.race.partnerplayer[i];
-        console.log(`Passager is ${passager.name}`);
-        if (player.networkId == passager.networkId){
-          driver.vehicle.SetOccupant(1, player);
-          console.log("Passager");
-          return;
-        }
-      } */
   }
 
 
@@ -314,8 +280,6 @@ module.exports = class Race {
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
       jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
-      jcmp.events.CallRemote('Lobby_Update_state', null, player.name, JSON.stringify('In a Race'));
-
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
