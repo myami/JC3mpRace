@@ -5,6 +5,8 @@ $("#TypeSelect").hide();
 $("#MapSelectdiv").hide();
 $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
+$("#MultiCrewDiv").hide();
+
 jcmp.ShowCursor();
 
 
@@ -45,6 +47,14 @@ $("#TypeSelect").hide();
 $("#MultiCrewType").click(function(){
   jcmp.CallEvent('Client/NewTypeSelected',1);
   $("#TypeSelect").hide();
+  $("#MultiCrewDiv").show();
+  $("#MultiCrewUI").hide(); // appear when the race start
+  $("#SelectWho").hide(); // appear after you made a request
+  $("#Request").hide(); // Appear when you want to do a request to a player
+
+
+
+
 });
 
 $("#TTSType").click(function(){

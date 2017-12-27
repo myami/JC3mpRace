@@ -164,7 +164,6 @@ module.exports = class Race {
 
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);
@@ -181,7 +180,6 @@ module.exports = class Race {
           jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
           jcmp.events.CallRemote('PlayerPassager', player, false);
           this.playersname.push(player.name + " " + secondplayer.name);
-          jcmp.events.CallRemote('ShowPassagerUI', secondplayer);
           player.race.vehicle = race.game.ConvoyRaceProtector;
         } else { // Protected
           const secondplayer = player.race.partnerplayer[1];
@@ -279,7 +277,6 @@ module.exports = class Race {
     console.log("TTSStart");
     for (var i = 0; i < this.players.length; i++) {
       const player = this.players[i];
-      jcmp.events.CallRemote('Lobby_hide', player); // Hide all the lobby UI
       let rotation = new Vector3f(this.startingpoint[i].rotx, this.startingpoint[i].roty, this.startingpoint[i].rotz);
       player.race.playerrotationspawn = rotation;
       player.position = new Vector3f(this.startingpoint[i].x, this.startingpoint[i].y, this.startingpoint[i].z);

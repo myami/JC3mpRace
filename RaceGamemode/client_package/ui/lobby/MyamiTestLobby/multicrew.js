@@ -31,6 +31,30 @@ var MultiCrew = new Vue({
           this.Other.Protector = false;
           jcmp.CallEvent('Client/MultiCrew_SelectRole',1);
         }
+      },
+      LeadRole: function(){
+        if (this.Lead.Protector){
+          return 'Protector';
+        }
+        else{
+          return 'Protected';
+        }
+      },
+      OtherRole: function(){
+        if (this.Other.Protector){
+          return 'Protector';
+        }
+        else{
+          return 'Protected';
+        }
+      },
+      NameUI: function(){
+        if (this.imlead){
+          return this.Other.Name;
+        }
+        else{
+          return this.Lead.Name;
+        }
       }
 
     }
@@ -56,5 +80,4 @@ jcmp.AddEvent('PartnerRequest_CEF', function(playername) {
 
 jcmp.AddEvent('MyName', function(playername) {
   MultiCrew.MyName = playername;
-
 });

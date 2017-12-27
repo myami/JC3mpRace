@@ -164,49 +164,27 @@
 
 <div id="MultiCrewDiv">
 
-  <div id="Request"class="hidden">
-    You just received a request to be on the team of : <span id="playerrequest">{{ MultiCrew.PlayerRequest }}</span> <br>
+  <div id="Request">
+    You just received a request to be on the team of : <span id="playerrequest">{{ PlayerRequest }}</span> <br>
     <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
     <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
   </div>
 
-  <div id="MultiCrewUI"class="hidden">
-      <span id="PartnerNameS">{{ MultiCrew.Partner }}</span>
+  <div id="MultiCrewUI">
+      <span id="PartnerNameS">{{ NameUI() }}</span>
   </div>
+
   <div id="SelectWho"v-show="imlead">
-    <span id="MyName">{{ MultiCrew.MyName }}</span><span id="RoleMe"v-if="Lead.Protector">Protector</span><span id="RoleMe"v-else>Protected</span><tr>
+    <span id="MyName">{{ MyName }}</span>You are : <span>{{  LeadRole()  }}</span><tr>
+      You can change you're role :
       <td  v-on:click="SelectRole(1)">Protector</td>
       <td v-on:click="SelectRole(0)">Protected</td>
     </tr><br>
-    <span id="PartnerName">{{ MultiCrew.Partner }}</span><span id="Roleother"v-if="Other.Protector">Protector</span><span id="Roleother"v-else>Protected</span>
-
+    <span id="PartnerName">{{ NameUI() }}</span>You're partner is <span> {{ OtherRole() }}</span>
   </div>
 
 </div>
-<!--
-<div id="Leaderboard" >
 
-  <table class="table table-hover table-lobbys">
-    <thead>
-      <tr>
-        <th>Player</th>
-        <th>Time</th>
-        <th>Rank</th>
-      </tr>
-    </thead>
-
-    <tbody id="PlayerList"class="hidden">
-      <tr v-if="Classic" v-for="player in LeaderboardPlayer" >
-        <td>{{ player.PlayerName }}</td>
-        <td>{{ player.Time }}</td>
-        <td>{{ player.Rank }}</td>
-      </tr>
-
-
-    </tbody>
-  </table>
-
-</div> -->
 
 <div id="Ingame">
 
@@ -217,10 +195,7 @@
   <div id="CheckpointContainer" >
     <img src="./img/CircleCheckpoint.png" height="42" width="42"> <span id="playercheckpointis">{{ CurrentCheckpoint }}</span> | <span id="allcheckpoint">{{ TotalOfCheckpoint }}</span>
   </div>
-<!-- Not sure if i add it here
-  <div id="rank" class="hidden">
-    You are <span id="playerleaderboardplace">0</span> with a time of : <span id="timesecond">0</span> <span id="minutesecond">minutes and 0 secondes</span>
-  </div> -->
+
 
   <div id="Onclickexplained">
     Press "N" to show the leaderboard . Press "B" to reset to the last checkpoint. Press "M" to hide this message
@@ -291,7 +266,7 @@
 <script src="./LobbyJoin.js"></script>
 <script src="./ServerPlayerList.js"></script>
 <script src="./multicrew.js"></script>
-<!--<script src="./leaderboard.js"></script> -->
+
 <script src="./ingame.js"></script>
 
 
