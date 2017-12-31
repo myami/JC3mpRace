@@ -174,20 +174,22 @@ module.exports = class Race {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-      if (player.race.partnerplayer[0] == player) {
-        if (player.race.driver) { // Protector
+    //    player.race.vehicle = 695483605;
+
+      if (player.race.partnerplayer[0].networkId == player.networkId) {
+        if (player.race.driver) {
           const secondplayer = player.race.partnerplayer[1];
-          jcmp.events.CallRemote('PlayerPassager', secondplayer, true);
-          jcmp.events.CallRemote('PlayerPassager', player, false);
           this.playersname.push(player.name + " " + secondplayer.name);
-          player.race.vehicle = race.game.ConvoyRaceProtector;
-        } else { // Protected
+          player.race.vehicle = 695483605;
+          secondplayer.race.vehicle = 911076462;
+          console.log(player.race.vehicle);
+          console.log(secondplayer.race.vehicle);
+        }
+        else{
           const secondplayer = player.race.partnerplayer[1];
-          jcmp.events.CallRemote('PlayerPassager', player, true);
-          jcmp.events.CallRemote('PlayerPassager', secondplayer, false);
           this.playersname.push(player.name + " " + secondplayer.name);
-          jcmp.events.CallRemote('ShowPassagerUI', player);
-          secondplayer.race.vehicle = race.game.ConvoyRaceToProtect;
+          secondplayer.race.vehicle = 695483605;
+          player.race.vehicle = 911076462;
         }
 
 
@@ -199,14 +201,14 @@ module.exports = class Race {
 
 
 
-      if (this.alldefaultvehicle) {
+
         setTimeout(function() {
-          const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
+          const vehicle = new Vehicle(parseInt(player.race.vehicle), player.position, rotation);
           vehicle.nitroEnabled = this.nitro;
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
-        }, 4000);
-      }
+        }, 5000);
+
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
 

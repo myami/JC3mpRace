@@ -174,11 +174,10 @@
   </div>
 
   <div id="SelectWho"v-show="imlead">
-    <span id="MyName">{{ MyName }}</span>You are : <span>{{  LeadRole()  }}</span><tr>
-      You can change you're role :
-      <td  v-on:click="SelectRole(1)">Protector</td>
-      <td v-on:click="SelectRole(0)">Protected</td>
-    </tr><br>
+    <span id="MyName">{{ MyName }}</span>You are : <span>{{  LeadRole()  }}</span><br>
+      You can change you're role : <br>
+    <button type="button"  v-on:click="SelectRole(1)"> Protector</button>
+    <button type="button"  v-on:click="SelectRole(0)"> Protected</button><br>
     <span id="PartnerName">{{ NameUI() }}</span>You're partner is <span> {{ OtherRole() }}</span>
   </div>
 

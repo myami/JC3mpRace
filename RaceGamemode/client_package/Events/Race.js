@@ -44,7 +44,7 @@ jcmp.ui.AddEvent('AddPlayerLeaderboard', function() {
   jcmp.events.CallRemote('AddPlayerLeaderboard');
 });
 jcmp.ui.AddEvent('ResetPlayer_client', function() {
-  if (countdowninprogress || playerpassager) {
+  if (countdowninprogress) {
     return;
   }
   jcmp.events.CallRemote('ResetPlayer_Server');

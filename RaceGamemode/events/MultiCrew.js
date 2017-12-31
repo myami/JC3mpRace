@@ -4,7 +4,7 @@
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;
   const partner = player.race.partnerplayer[0];
-  if (player.race.partnerplayer[1].name == player.name) { // no checkpoint for the defenders
+  if (!player.race.driver) { // no checkpoint for the defenders
     return;
   }
   let checkpointcoordinate = new Vector3f(Race.raceCheckpoint[player.race.checkpoints].x, Race.raceCheckpoint[player.race.checkpoints].y + Race.AddingYatrespawn, Race.raceCheckpoint[player.race.checkpoints].z);
@@ -76,12 +76,6 @@ jcmp.events.Add('MC_race_end_point', function(player) {
 
         partner.race.time = 0;
         player.race.time = 0;
-        player.race.partnerplayer = [];
-        partner.race.partnerplayer = [];
-        player.race.leadpartner = false;
-        partner.race.leadpartner = false;
-        jcmp.events.CallRemote('PartnerNameUI_Client', player, " ");
-        jcmp.events.CallRemote('PartnerNameUI_Client', partner, " ");
 
 
       }, 2000);
@@ -97,39 +91,6 @@ jcmp.events.AddRemoteCallable('CheckpointSoundDriver', function(player) {
   jcmp.events.CallRemote('CheckpointSoundDriver_client', driver);
 });
 
-jcmp.events.AddRemoteCallable('MC_Passenger_click_Server', function(player, MacroChat) {
-  if (player.race.partnerplayer[0].networkId != player.networkId){
-    let driver = player.race.partnerplayer[0];
-    if (MacroChat == "F"){
-      race.chat.send(driver,"Go Infront",race.config.colours.red);
-    }
-    if (MacroChat == "B"){
-      race.chat.send(driver,"It's Behind",race.config.colours.red);
-    }
-    if (MacroChat == "L"){
-      race.chat.send(driver,"Turn Left",race.config.colours.red);
-    }
-    if (MacroChat == "R"){
-      race.chat.send(driver,"Turn Right",race.config.colours.red);
-    }
-  }
-  else{
-    let driver = player.race.partnerplayer[1];
-    if (MacroChat == "F"){
-      race.chat.send(driver,"Go Infront",race.config.colours.red);
-    }
-    if (MacroChat == "B"){
-      race.chat.send(driver,"It's Behind",race.config.colours.red);
-    }
-    if (MacroChat == "L"){
-      race.chat.send(driver,"Turn Left",race.config.colours.red);
-    }
-    if (MacroChat == "R"){
-      race.chat.send(driver,"Turn Right",race.config.colours.red);
-    }
-  }
-
-});
 
 jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playername) {
   for (var i = 0; i < jcmp.players.length; i++) {
@@ -137,9 +98,12 @@ jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playern
     if (requestguy.name == playername) {
       player.race.partnerplayer.push(requestguy);
       player.race.partnerplayer.push(player);
+      requestguy.race.partnerplayer.push(requestguy);
+      requestguy.race.partnerplayer.push(player);
       requestguy.race.leadpartner = true;
         requestguy.race.driver = true;
-      requestguy.race.partnerplayer = player.race.partnerplayer;
+
+      console.log(player.race.partnerplayer);
       race.chat.send(player, `You are now partner with ${requestguy.name}`);
       race.chat.send(requestguy, `You are now partner with ${player.name}`);
       jcmp.events.CallRemote('PartnerNameUI_Client', player, requestguy.name);

@@ -305,11 +305,14 @@ jcmp.events.AddRemoteCallable('LaunchRace', function(player) {
 
 jcmp.events.AddRemoteCallable('Server/MultiCrew_SelectRole',function(player,int){
   if(int == 0){
+    console.log("0multicrerole");
     player.race.partnerplayer[0].race.driver = true;
     player.race.partnerplayer[1].race.driver = false;
     jcmp.events.CallRemote('Client/MultiCrew_RoleSelected',player.race.partnerplayer[1],0);
   }
   if (int == 1){
+    console.log("1multicrerole");
+
     player.race.partnerplayer[0].race.driver = false;
     player.race.partnerplayer[1].race.driver = true;
     jcmp.events.CallRemote('Client/MultiCrew_RoleSelected',player.race.partnerplayer[1],1);
