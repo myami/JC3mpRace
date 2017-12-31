@@ -108,6 +108,7 @@ jcmp.events.AddRemoteCallable('ValidateRequest_Server', function(player, playern
       race.chat.send(requestguy, `You are now partner with ${player.name}`);
       jcmp.events.CallRemote('PartnerNameUI_Client', player, requestguy.name);
       jcmp.events.CallRemote('PartnerNameUI_Client', requestguy, player.name);
+      jcmp.events.CallRemote('IsLead', requestguy);
     }
   }
 });

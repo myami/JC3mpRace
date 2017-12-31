@@ -84,3 +84,6 @@ jcmp.AddEvent('PartnerRequest_CEF', function(playername) {
 jcmp.AddEvent('MyName', function(playername) {
   MultiCrew.MyName = playername;
 });
+jcmp.AddEvent('Imlead',function(){
+  MultiCrew.imlead = true;
+})

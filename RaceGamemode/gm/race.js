@@ -208,21 +208,24 @@ module.exports = class Race {
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 5000);
+        jcmp.events.CallRemote('race_Freeze_player', player);
+        jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
+        jcmp.events.CallRemote('race_set_weather', player, this.weather);
+        //spawning the first checkpoint
+
+        jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
+        jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+        jcmp.events.CallRemote('race_Start_client', player, this.type);
 
       let firstcheckpoint = this.raceCheckpoint[player.race.checkpoints];
       let ghostcheckpoint = this.raceCheckpoint[player.race.checkpoints + 1];
 
-      if (!player.race.drive) { // don't show to protector
-        jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
+      if (!player.race.drive) { // need to be test
+      return;
       }
-      jcmp.events.CallRemote('race_Freeze_player', player);
-      jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
-      jcmp.events.CallRemote('race_set_weather', player, this.weather);
-      //spawning the first checkpoint
+      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
 
-      jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length);
-      jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player, this.type);
+
 
 
 

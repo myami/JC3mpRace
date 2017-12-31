@@ -288,3 +288,6 @@ jcmp.events.AddRemoteCallable('Client/MultiCrew_RoleSelected',function(int){
 jcmp.events.AddRemoteCallable('Client/MapList',function(obj){
   jcmp.ui.CallEvent('CEF/MapList',obj);
 });
+jcmp.events.AddRemoteCallable('IsLead',function(){
+  jcmp.ui.CallEvent('Imlead');
+});
