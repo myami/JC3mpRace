@@ -200,6 +200,51 @@ jcmp.events.Add('race_start_index', function(player) {
 });
 
 
+jcmp.events.Add('race_start_index_TEST', function(player) {
+
+    race.game.toStart = false;
+    race.game.timeToStart = race.config.game.timeToStart;
+
+    const races = race.game.RaceList[player.race.raceselect];
+    const NumberofPlayer = race.game.lobbys[player.race.lobbyid][0].PlayerList.length;
+    const PlayerArray = race.game.lobbys[player.race.lobbyid][0].PlayerList;
+    const Raceid = race.game.games.length + 1;
+
+    if (player.race.typeselect == 1) {
+      if (!races.multicrew) {
+        return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
+      }
+
+      for (var i = 0; i < NumberofPlayer; i++) {
+        const player = PlayerArray[i];
+        if (player.race.partnerplayer[1] == undefined){
+          race.utils.broadcastToLobby("Someone don't have a team partner");
+          return;
+        }
+
+      }
+    }
+    if (player.race.typeselect == 3) { // wait 1.1 test build to finish it
+        return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
+    }
+
+        race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
+
+    let Race = new race.Race(
+      races,
+      Raceid, // id
+      NumberofPlayer,
+      PlayerArray,
+      player.race.typeselect // type of the race
+    );
+
+    race.game.games.push(Race);
+    Race.Start();
+    // send an event to say the lobby is in race
+
+});
+
+
 
 jcmp.events.AddRemoteCallable('ResetPlayer_Server', function(player) { // B button for reset player
   player.health = 0;

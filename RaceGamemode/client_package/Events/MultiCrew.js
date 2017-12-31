@@ -14,7 +14,7 @@ jcmp.events.AddRemoteCallable('PlayerPassager',function(statue){
 });
 jcmp.events.AddRemoteCallable('PartnerRequest',function(playername,myname){
   jcmp.ui.CallEvent('PartnerRequest_CEF',playername);
-  jcmp.ui.CallEvent('MyName',localPlayer.name);
+  jcmp.ui.CallEvent('MyName',myname);
 });
 jcmp.ui.AddEvent('ValidateRequest',function(playerrequest){
   jcmp.events.CallRemote('ValidateRequest_Server',playerrequest);

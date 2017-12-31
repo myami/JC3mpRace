@@ -28,7 +28,8 @@ jcmp.events.Add("PlayerCreated", function(player) {
     lobbyid: undefined,
     ready: false,
     typeselect: undefined, // int
-    raceselect: undefined // int
+    raceselect: undefined, // int
+    path: undefined
 
   }
   if (race.utils.isAdmin(player)) {

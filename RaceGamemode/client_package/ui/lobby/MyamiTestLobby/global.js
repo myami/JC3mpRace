@@ -82,4 +82,4 @@ jcmp.AddEvent('RaceFinishShowLobby',function(){
 
 jcmp.AddEvent('Race_Start',function(){
   jcmp.HideCursor();
-})
+});

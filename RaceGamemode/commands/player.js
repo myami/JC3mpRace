@@ -222,19 +222,7 @@ if(res[0].race.partnerplayer.length != 0){
 
  }))
 
- .add(new Command('CreateLobby').description('Create a lobby').handler(function(player) {
 
- race.game.lobbys["lobby" + race.game.lobbycount] = [];
- race.game.lobbys["lobby" + race.game.lobbycount].push(player);
- player.race.lobbyid = race.game.lobbycount;
- jcmp.events.CallRemote('NewLobby',JSON.stringify("lobby" + race.game.lobbycount),JSON.stringify(player.name)); // id of the lobby and name of the creator of the lobby
-
- race.game.lobbycount ++;
- console.log(race.game.lobbys);
-
-
-
- }))
 
 
   // Commands end ---

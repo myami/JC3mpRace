@@ -12,6 +12,7 @@ global.race = {
   workarounds: require('./gm/_workarounds'),
   workarounds2: require('./gm/_workarounds2.js'),
   Race: require('./gm/race.js'),
+    RaceBeta: require('./gm/raceBeta.js'), // rewrite of the race constructor to have random path and have more feature
   AllPlayerOnTheServer:[],
   game: {
     players: {
