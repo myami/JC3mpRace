@@ -7,7 +7,7 @@ $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
 
-jcmp.ShowCursor();
+//jcmp.ShowCursor();
 
 
 
@@ -25,18 +25,7 @@ $("#btnCreate").click(function(){
   $("#DivLobbyJoined").show();
 
 });
-$("#btnJoin").click(function(){
-  jcmp.CallEvent('Client/Player_Join_Lobby_Test',LobbyMain.currentSelected);
-  console.log("PlayerJoinLobby" + LobbyMain.currentSelected);
-  $("#DivServerLobbyList").hide();
-  $("#btnJoin").hide();
-  $("#btnCreate").hide();
-  $("#DivLobbyJoined").show();
 
-
-
-
-});
 
 
 $("#ClassicType").click(function(){

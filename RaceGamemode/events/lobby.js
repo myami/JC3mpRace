@@ -188,7 +188,7 @@ jcmp.events.AddRemoteCallable('Server/MapRace_Test', function(player, int) { //r
       name = racetofind.Name;
       player.race.raceselect = i;
       race.game.lobbys[player.race.lobbyid].MapName = name;
-      jcmp.events.CallRemote('Client/MapOfRaceSelected', null, player.race.lobbyid, name);
+      jcmp.events.CallRemote('Client/MapOfRaceSelected', null, player.race.lobbyid, name,int);
       for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
         let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
         jcmp.events.CallRemote('Client/MapOfRace', players, name);

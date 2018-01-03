@@ -210,8 +210,8 @@ jcmp.events.AddRemoteCallable('Client/TypeOfRace',function(type){
   jcmp.ui.CallEvent('CEF/TypeOfRace',type);
 
 });
-jcmp.events.AddRemoteCallable('Client/MapOfRaceSelected',function(id,map){
-  jcmp.ui.CallEvent('CEF/MapOfRaceSelected', id,map);
+jcmp.events.AddRemoteCallable('Client/MapOfRaceSelected',function(id,map,int){
+  jcmp.ui.CallEvent('CEF/MapOfRaceSelected', id,map,int);
 
 });
 jcmp.events.AddRemoteCallable('Client/MapOfRace',function(map){

@@ -1,0 +1,56 @@
+
+      #TimerContainer {
+        position: fixed;
+        top: 20%;
+        right: 47%;
+        font-family: 'Passion One', cursive;
+        font-weight: bold;
+        font-size: 160pt;
+        color: yellow;
+          display: none;
+      }
+
+
+          #CheckpointContainer {
+            position: fixed;
+            top: 2%;
+            right: 49%;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            font-size: 27pt;
+              display: none;
+          }
+
+          #timergame {
+            position: fixed;
+            bottom: 1.5%;
+            right: 5%;
+            font-family: 'Roboto', sans-serif;
+            color: white;
+            font-size: 27pt;
+            border: 1px solid black;
+            border-radius: 5px;
+            background-color: rgba(255, 255, 255, 0.3);
+              display: none;
+
+          }
+
+          #alpha {
+            position: fixed;
+            top: 95%;
+            right: 92%;
+            font-family: 'Permanent Marker', cursive;
+            font-weight: bold;
+            font-size: 15pt;
+            color: #00FF00;
+          }
+          #Onclickexplained {
+            position: fixed;
+            top: 96%;
+            right: 20%;
+            color: rgb(97, 0, 255);
+            font-family: 'Titillium Web', sans-serif;
+            font-weight: bold;
+            font-size: 15pt;
+
+          }

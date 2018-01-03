@@ -11,6 +11,12 @@
   <script type="text/javascript" src="./popper.js"></script>
   <script type="text/javascript" src="./bootstrap.js"></script>
     <script src="./vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="Ingame.css">
+    <link rel="stylesheet" type="text/css" href="LobbyJoin.css">
+    <link rel="stylesheet" type="text/css" href="LobbyList.css">
+    <link rel="stylesheet" type="text/css" href="ServerPlayer.css">
+
+
 
 
 
@@ -19,61 +25,6 @@
     display: none;
   }
 
-      #TimerContainer {
-        position: fixed;
-        top: 20%;
-        right: 47%;
-        font-family: 'Passion One', cursive;
-        font-weight: bold;
-        font-size: 160pt;
-        color: yellow;
-          display: none;
-      }
-
-
-          #CheckpointContainer {
-            position: fixed;
-            top: 2%;
-            right: 49%;
-            font-family: 'Roboto', sans-serif;
-            color: white;
-            font-size: 27pt;
-              display: none;
-          }
-
-          #timergame {
-            position: fixed;
-            bottom: 1.5%;
-            right: 5%;
-            font-family: 'Roboto', sans-serif;
-            color: white;
-            font-size: 27pt;
-            border: 1px solid black;
-            border-radius: 5px;
-            background-color: rgba(255, 255, 255, 0.3);
-              display: none;
-
-          }
-
-          #alpha {
-            position: fixed;
-            top: 95%;
-            right: 92%;
-            font-family: 'Permanent Marker', cursive;
-            font-weight: bold;
-            font-size: 15pt;
-            color: #00FF00;
-          }
-          #Onclickexplained {
-            position: fixed;
-            top: 96%;
-            right: 20%;
-            color: rgb(97, 0, 255);
-            font-family: 'Titillium Web', sans-serif;
-            font-weight: bold;
-            font-size: 15pt;
-
-          }
 
   </style>
 </head>
@@ -82,16 +33,14 @@
 
 
 
-<div id= "DivLobbyJoined">
-
-  <li v-for="name in PlayerLobbyData.PlayerListName"> <!--  List of the player on the lobby-->
+<div id= "DivLobbyJoined"class="lobbyJoin">
+<div class = "Squarearound">
+  <li v-for="name in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
     <span>{{ name }}</span>
-<!--
-    <span v-show="imhost" v-on:click="lobbyKick(name)"><button type="button" class="close" style="color: white !important" aria-label="Close">
-        <span aria-hidden="true">🚫</span>
-    </button>
-  </span> -->
+
   </li>
+</div>
+
 
 
 
@@ -108,7 +57,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-danger" v-on:click="leaveLobby()">LeaveLobby</button>
+    <button type="button" class="leavelobby" v-on:click="leaveLobby()">LeaveLobby</button>
   </div>
 
 
@@ -116,10 +65,11 @@
 </div>
 
 <div id= "DivServerLobbyList">
-  <table class="table table-hover table-lobbys">
-    <thead>
+  <table class="table lobbylist">
+    <thead class = "theadlistlobby">
       <tr>
-        <th>Race</th>
+        <th>Thumbnail</th>
+        <th>Map</th>
         <th>Host</th>
         <th>Players</th>
       </tr>
@@ -127,22 +77,21 @@
 
     <tbody id="lobbyList">
       <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" >
-        <td><img :src="generateThumbUrl(lobby.RaceID)" width="25%" height="25%">
-          <div class="lobbyJoinedRaceName">{{ lobby.LobbyName }}</div>
+        <td><img :src="generateThumbUrl(lobby.RaceID)" width="15%" height="10%">
         </td>
+        <td>{{ lobby.MapName }}</td>
         <td>{{ lobby.PlayerCreated }}</td>
         <td>{{ lobby.NumberofPlayer }}/20</td>
       </tr>
     </tbody>
   </table>
-  <button type="button" id="btnJoin" class="btn btn-danger" disabled>&#8628; Join lobby</button>
-  <button type="button" id="btnCreate" class="btn btn-info">&#8628; Create lobby</button>
+  <button type="button" id="btnCreate" class="btnCreate">Create lobby</button>
 
 
 </div>
 
 <div id= "ListOfPlayerOnServer">
-  <table class="table table-hover table-lobbys">
+  <table class="hidden">
     <thead>
       <tr>
         <th>Player</th>
@@ -195,7 +144,7 @@
   </div>
 
 
-  <div id="Onclickexplained">
+  <div id="Onclickexplained" class= "hidden">
     Press "N" to show the leaderboard . Press "B" to reset to the last checkpoint. Press "M" to hide this message
   </div>
 

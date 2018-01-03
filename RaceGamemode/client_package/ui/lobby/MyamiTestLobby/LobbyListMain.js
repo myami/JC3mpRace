@@ -2,7 +2,8 @@ var LobbyMain = new Vue({
     el: '#lobbyList',
     data: function() {
       return{
-        LobbyServerList : [],
+      //  LobbyServerList : [],
+         LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
         currentSelected: null,
         oldSelected: null
     };
@@ -11,8 +12,12 @@ var LobbyMain = new Vue({
     methods: {
       selectLobby: function(raceid) {
           this.currentSelected = raceid;
-          $("#btnJoin").removeAttr("disabled");
           console.log("RaceId: "+raceid);
+      //    jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); for testing it's remove need to be add again
+          $("#DivServerLobbyList").hide();
+          $("#btnJoin").hide();
+          $("#btnCreate").hide();
+          $("#DivLobbyJoined").show();
       },
       logtest: function (raceid){
         console.log(raceid);
@@ -75,12 +80,13 @@ jcmp.AddEvent('CEF/TypeOfRaceSelected',function(id,type){    // update the UI on
 });
 
 
-jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map){      // update the UI on server list
+jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map,int){      // update the UI on server list
   for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {   // maybe can remove this event
     let lobby = LobbyMain.LobbyServerList[i];
     if(lobby.LobbyID == id){
       lobby.MapName = map;
       // change on the LobbyServerList the map
+      lobby.RaceID = int;
       console.log("CEF/MapOfRaceSelected Newmap for the serverlists" + lobby.MapName);
     }
   }
