@@ -1,7 +1,7 @@
 var MapSelected = new Vue({
     el: '#MapSelect',
     data: {
-      raceList: [],
+      raceList: [{raceid:1,name:"TestMap1",type:"ALL"},{raceid:2,name:"TestMap2",type:"Classic,TTS,Apo"},{raceid:3,name:"TestMap3",type:"MultiplePath"}],
       selectedTrack: 0
     },
     methods: {
@@ -9,6 +9,8 @@ var MapSelected = new Vue({
       selectTrack: function(raceid, event) {
         $("#btnSelectMap").removeAttr("disabled");
           this.selectedTrack = raceid;
+          jcmp.CallEvent('Client/NewMapSelected',this.selectedTrack);
+          $("#MapSelectdiv").hide();
       },
 
     }

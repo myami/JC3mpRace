@@ -33,7 +33,7 @@
 
 
 
-<div id= "DivLobbyJoined"class="lobbyJoin">
+<div id= "DivLobbyJoined">
 <div class = "Squarearound">
   <li v-for="name in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
     <span>{{ name }}</span>
@@ -49,7 +49,7 @@
     <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
   </ul>
 
-  <div style="text-align: center;" v-show="imhost">
+  <div>
     <button type="button" class="btn btn-danger" v-on:click="StartRace()"> Start Race</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()">Type List</button>
@@ -64,7 +64,7 @@
 
 </div>
 
-<div id= "DivServerLobbyList">
+<div id= "DivServerLobbyList" >
   <table class="table lobbylist">
     <thead class = "theadlistlobby">
       <tr>
@@ -172,18 +172,23 @@
 
 </div>
 
-<div id="MapSelectdiv" v-show="imhost">
+<div id="MapSelectdiv" v-show="imhost" >
   <table class="tableChoose" >
+    <thead class = "theadlistlobby">
+      <tr>
+        <th>Thumbnail</th>
+        <th>Name</th>
+        <th>Type</th>
+      </tr>
+    </thead>
       <tbody id="MapSelect">
     <tr v-for="race in raceList"v-on:click="selectTrack(race.raceid, $event)">
-      <td><img :src="generateThumbUrls(race.raceid)" width="100%">
-        <div class="">{{ race.name }}</div>
-      </td>
+      <td><img :src="generateThumbUrls(race.raceid)"width="15%" height="10%"></td>
+      <td>{{race.name}}</td>
       <td>{{ race.type }}</td>
     </tr>
   </tbody>
   </table>
-  <button type="button" id="btnSelectMap" class="btn btn-danger">&#8628; SelectMap</button>
 </div>
 <div id="TypeSelect">
   <table v-show="imhost">

@@ -7,7 +7,7 @@ $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
 
-//jcmp.ShowCursor();
+jcmp.ShowCursor();
 
 
 
@@ -56,10 +56,7 @@ $("#ApoType").click(function(){
   $("#TypeSelect").hide();
 });
 
-$("#btnSelectMap").click(function(){
-  jcmp.CallEvent('Client/NewMapSelected',MapSelected.selectedTrack);
-  $("#MapSelectdiv").hide();
-});
+
 
 jcmp.AddEvent('RaceFinishShowLobby',function(){
   $("#DivServerLobbyList").hide();
