@@ -33,25 +33,25 @@ module.exports = class RaceBeta {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-       // need to find a way to can choice how many people willbe on each starting point at the place of random because if one starting point have only 2 spawn and an other 3 to be sure they are the corect ammount
-      player.race.path = race.utils.random(0 , this.racedata.NumberOfDifferentStartingPoint);
-      // then spawning vehicle
+      player.position = new Vector3f(this.racedata.startingpoint[i].x, this.racedata.startingpoint[i].y, this.racedata.startingpoint[i].z);
+      player.rotation = new Vector3f(this.racedata.startingpoint[i].rotx, this.racedata.startingpoint[i].roty, this.racedata.startingpoint[i].rotz);
+      player.race.path = this.racedata.startingpoint[i].CheckpointArray ;
 
 
 
 
 
-      let firstcheckpoint = this.racedata.raceCheckpoint[player.race.checkpoints];
-      if (this.racedata.raceCheckpoint[player.race.checkpoints + 1].LaunchANewBranch == false){
-        let ghostcheckpoint = this.racedata.raceCheckpoint[player.race.checkpoints + 1];
-        // need to rewrite the  race_checkpoint_client
-          jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(firstcheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(ghostcheckpoint));
-      }
+
+      let FirstCheckpoint = this.racedata[player.race.path][player.race.checkpoints];
+      let SecondCheckpoint = this.racedata[player.race.path][player.race.checkpoints + 1];
+
+
       jcmp.events.CallRemote('PlayerPassager', player, false);
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
       jcmp.events.CallRemote('race_set_weather', player, this.weather);
       //spawning the first checkpoint
+      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(FirstCheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(SecondCheckpoint));
 
       jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length); // from the starting point to the first random path
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
