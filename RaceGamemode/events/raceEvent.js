@@ -210,7 +210,7 @@ jcmp.events.Add('race_start_index_TEST', function(player) {
     const PlayerArray = race.game.lobbys[player.race.lobbyid][0].PlayerList;
     const Raceid = race.game.games.length + 1;
 
-    if (player.race.typeselect == 1) {
+/*    if (player.race.typeselect == 1) {
       if (!races.multicrew) {
         return race.utils.broadcastToLobby("[SERVER] This race are not allowed for multicrew");
       }
@@ -226,16 +226,16 @@ jcmp.events.Add('race_start_index_TEST', function(player) {
     }
     if (player.race.typeselect == 3) { // wait 1.1 test build to finish it
         return race.utils.broadcastToLobby("[SERVER] This type of race is not fully working");
-    }
+    } */
 
         race.utils.broadcastToLobby("[SERVER] The race is starting be ready!!!!");
 
-    let Race = new race.Race(
+    let Race = new race.RaceBeta(
       races,
       Raceid, // id
       NumberofPlayer,
       PlayerArray,
-      player.race.typeselect // type of the race
+      4 //  player.race.typeselect // type of the race
     );
 
     race.game.games.push(Race);

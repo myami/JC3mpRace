@@ -1,7 +1,7 @@
 var LobbyJoined = new Vue({
     el: '#DivLobbyJoined',
     data: {
-    /*  PlayerLobbyData: {
+      PlayerLobbyData: {
           LobbyName: undefined,
           NumberofPlayer: undefined,
           MapName: undefined,
@@ -9,8 +9,8 @@ var LobbyJoined = new Vue({
           TypeRace:undefined,
           LobbyID: undefined,
           PlayerListName:[]
-        },*/
-        PlayerLobbyData: {
+        },
+      /*  PlayerLobbyData: {
         LobbyName: "YOLO",
         NumberofPlayer: "5",
         MapName: "TESTMAP",
@@ -18,7 +18,7 @@ var LobbyJoined = new Vue({
         TypeRace:"Classic",
         LobbyID: "5",
         PlayerListName:["Myami","Btje","Protato"]
-      },
+      },*/
       imhost: false
     },
     methods: {

@@ -440,3 +440,11 @@ jcmp.events.AddRemoteCallable('MulticrewChange_server', function(player, number,
   createrace.chat.send(player, `You just set the multicrew to ${number}`);
 
 });
+
+
+jcmp.events.Add("PlayerReady", (player) => {
+
+
+
+});
+

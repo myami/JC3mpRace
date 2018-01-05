@@ -12,13 +12,9 @@ module.exports = class RaceBeta {
   Start() {
     console.log("Id of the race: " + this.id);
     console.log("type of the race: " + this.Type);
-    console.log(this.players);
 
-    if (this.type == 4) {
-      console.log("MultiplePath");
       this.MPSTART();
-      return;
-    }
+
 
 
   }
@@ -33,29 +29,25 @@ module.exports = class RaceBeta {
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
-      player.position = new Vector3f(this.racedata.startingpoint[i].x, this.racedata.startingpoint[i].y, this.racedata.startingpoint[i].z);
-      player.rotation = new Vector3f(this.racedata.startingpoint[i].rotx, this.racedata.startingpoint[i].roty, this.racedata.startingpoint[i].rotz);
-      player.race.path = this.racedata.startingpoint[i].CheckpointArray ;
-
-
-
-
-
+      player.position = new Vector3f(this.racedata.StartingPoint[i].x, this.racedata.StartingPoint[i].y, this.racedata.StartingPoint[i].z);
+      player.rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);
+      player.race.path = this.racedata.StartingPoint[i].CheckpointArray ;
+      console.log(player.race.path);
 
       let FirstCheckpoint = this.racedata[player.race.path][player.race.checkpoints];
       let SecondCheckpoint = this.racedata[player.race.path][player.race.checkpoints + 1];
-
+    //  console.log("X:" + FirstCheckpoint.x);
 
       jcmp.events.CallRemote('PlayerPassager', player, false);
       jcmp.events.CallRemote('race_Freeze_player', player);
-      jcmp.events.CallRemote('race_set_time', player, this.time.hour, this.time.minute);
-      jcmp.events.CallRemote('race_set_weather', player, this.weather);
+      jcmp.events.CallRemote('race_set_time', player, this.racedata.time.hour, this.racedata.time.minute);
+      jcmp.events.CallRemote('race_set_weather', player, this.racedata.weather);
       //spawning the first checkpoint
-      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(FirstCheckpoint), this.id, this.PoiType, this.checkpointhash, this.ChekpointType, JSON.stringify(SecondCheckpoint));
+      jcmp.events.CallRemote('race_checkpoint_client', player, JSON.stringify(FirstCheckpoint), this.id, this.racedata.PoiType, this.racedata.checkpointhash, this.racedata.ChekpointType, JSON.stringify(SecondCheckpoint));
 
-      jcmp.events.CallRemote('Checkpoint_length_client', player, this.raceCheckpoint.length); // from the starting point to the first random path
+      jcmp.events.CallRemote('Checkpoint_length_client', player, this.racedata[player.race.path].length); // from the starting point to the first random path
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player, this.type);
+      jcmp.events.CallRemote('race_Start_client', player, this.Type);
 
     }
   }

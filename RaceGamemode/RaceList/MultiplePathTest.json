@@ -1,0 +1,66 @@
+{
+  "Name":"BOAT-[TEST]MultiplePathHarbor",
+  "NameWithoutSpace":"BOAT-[TEST]MultiplePathHarbor",
+  "VehicleType": "boat",
+  "time" : {"hour":11, "minute":30},
+  "weather": "fog",
+  "defaultVehicle": 1442821020,
+  "AllDefault": true,
+  "AddingYatrespawn": 0,
+  "CheckpointHash": "0x301477DB",
+  "ChekpointType": 1,
+  "PoiType": 10,
+  "GhostPOIType": 23,
+  "nitroenabled": true,
+  "max_player": 20,
+  "CheckpointHash": "0x301477DB",
+  "ChekpointType": 1,
+  "PoiType": 10,
+  "GhostPOIType": 23,
+  "nitroenabled": true,
+  "max_player": 20,
+  "raceid":50,
+  "laps":0,
+
+
+
+  "StartingPoint":[
+    {"x": 3059.21728515625,"y":1023.6073608398438,"z":1510.5380859375,"rotx":-0.11444880813360214,"roty":1.5089534521102905,"rotz":0.004298354033380747,"CheckpointArray":"RaceCheckpoint0"},
+    {"x": 3060.906005859375,"y":1024.1495361328125,"z":1501.7188720703125,"rotx":0.14013969898223877,"roty":1.8367092609405518,"rotz":-0.009980686940252781,"CheckpointArray":"RaceCheckpoint0"},
+    {"x": 3063.3876953125,"y":1023.9978637695312,"z":1480.068115234375,"rotx":-0.07853804528713226,"roty":1.8459535837173462,"rotz":-0.005376789718866348,"CheckpointArray":"RaceCheckpoint1"},
+    {"x": 3071.56298828125,"y":1023.81787109375,"z":1467.1007080078125,"rotx":0.029717544093728065,"roty":1.7902438640594482,"rotz":-0.00018707542039919645,"CheckpointArray":"RaceCheckpoint1"},
+    {"x": 3081.16455078125,"y":1024.0498046875,"z":1443.6728515625,"rotx":-0.000982808182016015,"roty":1.7339560985565186,"rotz":-0.0012871259823441505,"CheckpointArray":"RaceCheckpoint2"},
+    {"x": 3088.58740234375,"y":1023.880126953125,"z":1430.1707763671875,"rotx":0.0006827667239122093,"roty":1.9456706047058105,"rotz":0.00010327993368264288,"CheckpointArray":"RaceCheckpoint2"}
+
+  ],
+
+  "RaceCheckpoint0":[
+      {"x": 3117.84765625,"y":1024.032958984375,"z":1519.772216796875,"rotx":0.06535482406616211,"roty":1.8283828496932983,"rotz":0.001240607351064682,"id":0,"LaunchANewBranch":false},
+      {"x": 3182.755615234375,"y":1024.042724609375,"z":1539.43505859375,"rotx":-0.026824401691555977,"roty":1.8845080137252808,"rotz":-0.0012617841130122542,"id":1,"LaunchANewBranch":true,"CheckpointArray":["RaceCheckpoint3","RaceCheckpoint4"]}
+  ],
+  "RaceCheckpoint1":[
+      {"x": 3138.45556640625,"y":1023.91845703125,"z":1488.2830810546875,"rotx":0.056084197014570236,"roty":1.9285190105438232,"rotz":0.005392804741859436,"id":0,"LaunchANewBranch":false},
+      {"x": 3194.62646484375,"y":1023.9832153320312,"z":1503.910888671875,"rotx":0.07019126415252686,"roty":1.8390449285507202,"rotz":-0.013076568953692913,"id":3,"LaunchANewBranch":true,"CheckpointArray":["RaceCheckpoint3","RaceCheckpoint4"]}
+  ],
+  "RaceCheckpoint2":[
+      {"x": 3149.598388671875,"y":1023.97705078125,"z":1449.472900390625,"rotx":0.0719417929649353,"roty":1.8079547882080078,"rotz":-0.009621016681194305,"id":0,"LaunchANewBranch":false},
+      {"x": 3194.729736328125,"y":1023.8592529296875,"z":1453.2196044921875,"rotx":0.02994789369404316,"roty":1.6607037782669067,"rotz":-0.00593169592320919,"id":3,"LaunchANewBranch":true,"CheckpointArray":["RaceCheckpoint3","RaceCheckpoint4"]}
+  ],
+  "RaceCheckpoint3":[
+      {"x": 3239.979736328125,"y": 1023.9917602539062,"z": 1474.284423828125,"rotx": -0.04080715775489807,"roty": 1.6015982627868652,"rotz": 0.0019240109249949455,"id":0,"LaunchANewBranch":false},
+      {"x": 3462.500732421875,"y": 1023.7251586914062,"z": 1489.5291748046875,"rotx": 0.021735670045018196,"roty": 1.6233885288238525,"rotz": 0.0024550477974116802,"id":3,"LaunchANewBranch":true,"CheckpointArray":["FinalPath"]}
+  ],
+  "RaceCheckpoint4":[
+      {"x": 3287.2177734375,"y": 1023.7124633789062,"z": 1511.1392822265625,"rotx": 0.07903841882944107,"roty": 1.1391054391860962,"rotz": -0.00441558426246047,"id":0,"LaunchANewBranch":false},
+      {"x": 3485.424072265625,"y": 1024.165771484375,"z": 1444.3099365234375,"rotx": -0.0683467909693718,"roty": 1.6415611505508423,"rotz": 0.007830711081624031,"id":3,"LaunchANewBranch":true,"CheckpointArray":["FinalPath"]}
+  ],
+
+
+  "FinalPath":[
+      {"x": 3660.894775390625,"y": 1024.6468505859375,"z": 1516.8985595703125,"rotx": 0.12179730087518692,"roty": 1.409537434577942,"rotz": 0.003487398149445653,"id":0,"LaunchANewBranch":false},
+      {"x": 3815.878662109375,"y": 1023.8797607421875,"z": 1411.2445068359375,"rotx": 0.11792664974927902,"roty": 1.0183556079864502,"rotz": -0.005503988359123468,"id":3,"LaunchANewBranch":false,"finish":true}
+  ]
+
+
+
+}

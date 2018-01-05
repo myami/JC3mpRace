@@ -2,8 +2,8 @@ var LobbyMain = new Vue({
     el: '#lobbyList',
     data: function() {
       return{
-      //  LobbyServerList : [],
-         LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
+     LobbyServerList : [],
+    //     LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
         currentSelected: null,
         oldSelected: null
     };
@@ -13,7 +13,7 @@ var LobbyMain = new Vue({
       selectLobby: function(raceid) {
           this.currentSelected = raceid;
           console.log("RaceId: "+raceid);
-      //    jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); for testing it's remove need to be add again
+     jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); //for testing it's remove need to be add again
           $("#DivServerLobbyList").hide();
           $("#btnJoin").hide();
           $("#btnCreate").hide();

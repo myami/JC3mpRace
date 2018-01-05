@@ -47,6 +47,18 @@ module.exports = ({
       race.chat.send(player, "[SERVER] Race Start");
 
     }))
+    .add(new Command('startracebeta').description('Start a race with id').handler(function(player) {
+      if (!race.utils.isAdmin(player)) {
+        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
+      }
+    /*  if (race.game.lobbys["lobby" + player.race.lobbyid][0].networkId == player.networkId){ // only the guy that create the lobby (so is at id 0) can launch the race
+        jcmp.events.Call('race_start_index',player, id, type);
+        race.chat.send(player, "[SERVER] Race Start");
+      }*/
+      jcmp.events.Call('race_start_index_TEST',player);
+      race.chat.send(player, "[SERVER] Race Start BETA");
+
+    }))
     .add(new Command('gotolobby').description('tptolobby').handler(function(player) {
       if (player.race.ingame) {
         jcmp.events.Call('race_player_leave_game', player);

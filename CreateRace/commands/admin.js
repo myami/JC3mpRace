@@ -86,14 +86,25 @@ module.exports = ({
 
     }))
 
-    .add(new Command('ResetUI').description('Reset the UI').handler(function(player) {
-      jcmp.events.CallRemote('ResetUI', null);
+    .add(new Command('respawn').description('Respawn').handler(function(player) {
+    player.Respawn();
 
     }))
     .add(new Command('HideMenu').description('Hide the menu').handler(function(player) {
       jcmp.events.CallRemote('HideMenuServer', player);
 
     }))
+	  .add(new Command('saveposp').description('Save a position to file').handler(function(player) {
+
+  var fs = require('fs');
+ var text = `"x": ${player.position.x},"y": ${player.position.y},"z": ${player.position.z},"rotx": ${player.rotation.x},"roty": ${player.rotation.y},"rotz": ${player.rotation.z}`;
+  if(!fs.existsSync('./saveposp.txt')) {
+    fs.writeFileSync("./saveposp.txt", text + ",\n");
+  } else {
+    fs.appendFileSync("./saveposp.txt", text+ ",\n");
+  }
+}))
+
 
 
     .add(new Command('CreateFile').description('Create the Json file ').parameter('name', 'string', 'Name of the race without space').handler(function(player, name) {
