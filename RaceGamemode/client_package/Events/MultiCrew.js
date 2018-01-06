@@ -2,12 +2,6 @@ jcmp.ui.AddEvent('MC_Passenger_click',function(MacroChat){
 jcmp.events.CallRemote('MC_Passenger_click_Server',MacroChat);
 });
 
-jcmp.events.AddRemoteCallable('ShowPassagerUI',function(){
-  jcmp.ui.CallEvent('ShowUIPassenger',true);
-});
-jcmp.events.AddRemoteCallable('HidePassagerUI',function(){
-  jcmp.ui.CallEvent('ShowUIPassenger',false);
-});
 
 jcmp.events.AddRemoteCallable('PlayerPassager',function(statue){
   playerpassager = statue;

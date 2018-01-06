@@ -35,18 +35,7 @@ module.exports = ({
       }, 5000);
 
     }))
-    .add(new Command('startrace').description('Start a race with id').parameter('id', 'number', 'index of the race').parameter('type', 'string', 'Type of the race: classic , multicrew  , apo , tts').handler(function(player, id, type) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-    /*  if (race.game.lobbys["lobby" + player.race.lobbyid][0].networkId == player.networkId){ // only the guy that create the lobby (so is at id 0) can launch the race
-        jcmp.events.Call('race_start_index',player, id, type);
-        race.chat.send(player, "[SERVER] Race Start");
-      }*/
-      jcmp.events.Call('race_start_index',player, id, type);
-      race.chat.send(player, "[SERVER] Race Start");
 
-    }))
     .add(new Command('startracebeta').description('Start a race with id').handler(function(player) {
       if (!race.utils.isAdmin(player)) {
         return race.chat.send(player, "[SERVER] You're not allowed to use this command");
@@ -55,7 +44,7 @@ module.exports = ({
         jcmp.events.Call('race_start_index',player, id, type);
         race.chat.send(player, "[SERVER] Race Start");
       }*/
-      jcmp.events.Call('race_start_index_TEST',player);
+      jcmp.events.Call('race_start_index_Beta',player);
       race.chat.send(player, "[SERVER] Race Start BETA");
 
     }))
@@ -66,44 +55,11 @@ module.exports = ({
       }
     }))
 
-    .add(new Command('adminmenu').description('Open the race menu').handler(function(player) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-      if (!player.race.ingame)
-        jcmp.events.CallRemote('Open_admin_menu_client', player);
-      race.chat.send(player, "[SERVER] Open the race menu");
 
-    }))
-    .add(new Command('TypeofRace').description('Explain all the type of race').handler(function(player) {
-      if (!player.race.ingame)
-      race.chat.send(player, "[SERVER] classic : Basic race");
-      race.chat.send(player, "[SERVER] multicrew : 2 people in a car the driver don't see the checkpoint and the passager does");
-      race.chat.send(player, "[SERVER] tts : everyone is released one at a time with a time difference, everyone just finishes the race as fast as possible without needing to worry about other people");
 
-    }))
-    .add(new Command('multicrewhelp').description('Explain all the type of race').handler(function(player) {
-      if (!player.race.ingame)
-      race.chat.send(player, "[SERVER] '/partner [nameofthepartner]' to request the partner");
-      race.chat.send(player, "[SERVER] '/choicerole [nameofthedriver] to choice who is the driver (work only for the guy that made the request(considering as the leader of the group))");
-
-    }))
-
-    .add(new Command('votemenu').description('Open the vote menu to everyone').handler(function(player) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-      if (!player.race.ingame)
-        jcmp.events.CallRemote('Open_voting_menu_client', null, race.config.game.timervote);
-      race.chat.send(player, "[SERVER] Open the vote menu");
-
-    }))
     .add(new Command('reset').description('reset').handler(function(player) {
-
       player.health = 0;
-
       race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
-
     }))
 
     .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {

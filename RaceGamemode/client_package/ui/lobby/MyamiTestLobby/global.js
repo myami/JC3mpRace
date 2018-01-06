@@ -59,10 +59,9 @@ $("#ApoType").click(function(){
 
 
 jcmp.AddEvent('RaceFinishShowLobby',function(){
-  $("#DivServerLobbyList").hide();
   $("#ListOfPlayerOnServer").show();
-  $("#Leaderboard").show();
   $("#DivLobbyJoined").show();
+  console.log("RaceFinish");
   jcmp.ShowCursor();
 })
 
