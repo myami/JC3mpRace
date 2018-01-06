@@ -8,21 +8,17 @@ Copy the files into your server/packages folder
 
 ## Feature
 
-1. Race for Car, Boats, Airplane, Wingsuit and More....
-2. Vote System
-3. Leaderboard
-4. Menu to create you're own race
-5. Spectator mode
-6. Different type of race
-7. Lobby System
-8. More coming ...
+1. Race for Car, Boats, Airplane, Wingsuit
+2. Menu to create you're own race
+3. Different type of race ( Classic,Time Trial Solo,ConvoyProtection,ApocalypseNow,MultiplePath, .....)
+4. Lobby System fully working (Design by Myami and Btje)
 
 ## Next Feature
-1. Adding possibility to add multiple path for a race for a certain people and then join the basic path
-2. Vehicle menu
-3. More coming...
+1. Finishing Design of the lobby
+2. Cleaning/Optimise code
+3. Update the Menu to create Race
 
 
 ### Credits
 
-Created by Myami(FR),Daranix(ES) and the help of lordFarquaad for scripting. || JSON File (Race) created by Protato.
+Created by Myami(FR)and the help of lordFarquaad and Daranix for scripting. || JSON File (Race) created by Protato.

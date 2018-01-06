@@ -8,7 +8,6 @@ jcmp.events.AddRemoteCallable('race_checkpoint_client', function(checkpoint, dim
     wingsuitrace = wg;
   }
 
-  jcmp.print(" " + wingsuitrace);
   const poi = new POI(typepoi, new Vector3f(nextcheckpointDATA.x, nextcheckpointDATA.y, nextcheckpointDATA.z));
   poi.minDistance = 10.0;
   poi.maxDistance = 100000.0;

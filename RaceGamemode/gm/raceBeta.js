@@ -6,12 +6,12 @@ module.exports = class RaceBeta {
     this.id = raceid;
     this.NumberofPlayer = numplayer;
     this.Players = playerarray;
-    this.Type = typeselect;
+    this.type = typeselect;
   }
 
   Start() {
     console.log("Id of the race: " + this.id);
-    console.log("type of the race: " + this.Type);
+    console.log("type of the race: " + this.type);
 
       this.MPSTART();
 
@@ -38,7 +38,7 @@ module.exports = class RaceBeta {
       let SecondCheckpoint = this.racedata[player.race.path][player.race.checkpoints + 1];
     //  console.log("X:" + FirstCheckpoint.x);
 
-      jcmp.events.CallRemote('PlayerPassager', player, false);
+
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.racedata.time.hour, this.racedata.time.minute);
       jcmp.events.CallRemote('race_set_weather', player, this.racedata.weather);
@@ -47,7 +47,7 @@ module.exports = class RaceBeta {
 
       jcmp.events.CallRemote('Checkpoint_length_client', player, this.racedata[player.race.path].length); // from the starting point to the first random path
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player, this.Type);
+      jcmp.events.CallRemote('race_Start_client', player, this.type);
 
     }
   }

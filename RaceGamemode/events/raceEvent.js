@@ -13,6 +13,11 @@ jcmp.events.AddRemoteCallable('race_checkpoint', function(player) {
   jcmp.events.Call('TTS_Race_Checkpoint', player);
   console.log("TTS_Race_Checkpoint");
 }
+if (Race.type == 4){
+  jcmp.events.Call('MP_Race_Checkpoint', player);
+  console.log("MP_Race_Checkpoint");
+
+}
 });
 
 jcmp.events.AddRemoteCallable('Timer_Server',function(player,time){
