@@ -149,7 +149,7 @@ jcmp.events.AddRemoteCallable('Server/Ready_Player_Server_Test', function(player
   }
 });
 
-jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO
+jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO , 4 MultiplePath
   player.race.typeselect = int;
   let name;
   // then send to everyone
@@ -164,6 +164,9 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
   }
   if (int == 3) {
     name = "Apo"
+  }
+  if (int == 4) {
+    name = "MultiplePath"
   }
   race.game.lobbys[player.race.lobbyid].TypeRace = name;
 
@@ -213,7 +216,7 @@ jcmp.events.Add('PlayerJoinServer', function(player) { // call when the player j
       return;
     }
   }
-  
+
 
   let newplayer = {
     PlayerName: player.name,

@@ -29,7 +29,8 @@ jcmp.events.Add("PlayerCreated", function(player) {
     ready: false,
     typeselect: undefined, // int
     raceselect: undefined, // int
-    path: undefined
+    path: undefined,
+    arraycheckpoint:[]
 
   }
   if (race.utils.isAdmin(player)) {

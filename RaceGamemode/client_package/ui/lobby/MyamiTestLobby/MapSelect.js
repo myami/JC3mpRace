@@ -1,7 +1,7 @@
 var MapSelected = new Vue({
     el: '#MapSelect',
     data: {
-      raceList: [{raceid:1,name:"TestMap1",type:"ALL"},{raceid:2,name:"TestMap2",type:"Classic,TTS,Apo"},{raceid:3,name:"TestMap3",type:"MultiplePath"}],
+      raceList: [],
       selectedTrack: 0
     },
     methods: {

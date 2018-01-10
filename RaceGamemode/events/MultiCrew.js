@@ -81,12 +81,7 @@ jcmp.events.Add('MC_race_end_point', function(player) {
         partner.race.time = 0;
         player.race.time = 0;
 
-
       }, 2000);
-
-
-
-
 
 });
 

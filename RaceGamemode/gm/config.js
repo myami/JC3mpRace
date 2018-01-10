@@ -24,7 +24,6 @@ module.exports = {
       pos: new Vector3f(-13574.3154296875, 1267.666748046875, 15097.6630859375),
       radius: 1000
     },
-    battle_StartRadius: 2000,
     minPlayers: 22,
     timeToStart: 120000,
     timervote: 0

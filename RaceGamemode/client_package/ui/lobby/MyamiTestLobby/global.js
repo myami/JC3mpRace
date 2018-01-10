@@ -32,6 +32,11 @@ $("#ClassicType").click(function(){
 jcmp.CallEvent('Client/NewTypeSelected',0);
 $("#TypeSelect").hide();
 });
+$("#MultiplePath").click(function(){
+jcmp.CallEvent('Client/NewTypeSelected',4);
+$("#TypeSelect").hide();
+});
+
 
 $("#MultiCrewType").click(function(){
   jcmp.CallEvent('Client/NewTypeSelected',1);
