@@ -12,12 +12,7 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) { // need rewrite
     player.race.checkpoints++;
     console.log("0");
     if (Race.racedata[player.race.path][player.race.checkpoints + 1] == undefined) {
-      if (Race.racedata[player.race.path][player.race.checkpoints].finish) { // End of the race
-        jcmp.events.CallRemote('race_checkpoint_client_Beta', player, player.race.checkpoints);
-        race.chat.send(player, "[SERVER] You finished the race! Well done!!");
-        jcmp.events.CallRemote('End_Timer', player);
-        return;
-      }
+
       console.log("5");
 
       if (Race.racedata[player.race.path].length <= player.race.checkpoints + 1){
@@ -50,6 +45,7 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) { // need rewrite
                PoiType : Race.racedata.PoiType,
                CheckpointHash : Race.racedata.checkpointhash,
                CheckpointType : Race.racedata.ChekpointType,
+               FirstCheckpoint : Race.racedata[player.race.path][player.race.checkpoints],
                SecondCheckpoint : Race.racedata[player.race.path][player.race.checkpoints], // render only the POI on the new path
            };
            console.log("second" + datas.SecondCheckpoint.x);
@@ -63,13 +59,19 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) { // need rewrite
 
       return;
     }
+    if (Race.racedata[player.race.path][player.race.checkpoints].finish) { // End of the race
+      jcmp.events.CallRemote('race_checkpoint_client_Beta', player, player.race.checkpoints);
+      race.chat.send(player, "[SERVER] You finished the race! Well done!!");
+      jcmp.events.CallRemote('End_Timer', player);
+      return;
+    }
     if (Race.racedata[player.race.path][player.race.checkpoints + 1].LaunchANewBranch == false) { // if the one after is not a new branch
       let datas ={
           Dimension : Race.id,
           PoiType : Race.racedata.PoiType,
           CheckpointHash : Race.racedata.checkpointhash,
           CheckpointType : Race.racedata.ChekpointType,
-          FirstCheckpoint : Race.racedata[player.race.path][player.race.checkpoints],
+          FirstCheckpoint : Race.racedata[player.race.path][player.race.checkpoints], // generate as checkpoint and poi
           SecondCheckpoint : Race.racedata[player.race.path][player.race.checkpoints + 1]
 
       };
