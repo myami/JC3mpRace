@@ -20,6 +20,7 @@
 	"raceid":18,
 	"laps":0,
 	"multicrew": false,
+	  "multiplepath":false,
 	"StartingPoint": [
 		{
 			"x": -12584.76953125,

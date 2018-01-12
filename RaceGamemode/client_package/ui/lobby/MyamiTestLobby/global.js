@@ -38,7 +38,7 @@ $("#TypeSelect").hide();
 });
 
 
-$("#MultiCrewType").click(function(){
+$("#MultiCrewType").click(function(){ 
   jcmp.CallEvent('Client/NewTypeSelected',1);
   $("#TypeSelect").hide();
   $("#MultiCrewDiv").show();

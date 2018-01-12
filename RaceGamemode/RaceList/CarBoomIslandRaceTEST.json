@@ -23,6 +23,8 @@
   "raceid":50,
   "laps":0,
   "multicrew": true,
+  "multiplepath":false,
+
 
 
   "StartingPoint":[

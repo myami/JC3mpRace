@@ -21,6 +21,7 @@
   "max_player": 20,
   "raceid":51,
   "laps":0,
+  "multiplepath":true,
 
 
 

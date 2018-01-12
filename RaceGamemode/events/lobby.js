@@ -156,7 +156,7 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
   if (int == 0) {
     name = "Classic"
   }
-  if (int == 1) {
+  if (int == 1) { // don't work for the release
     name = "MultiCrew"
   }
   if (int == 2) {
@@ -326,17 +326,17 @@ jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lo
 
   for (var i = 0; i < race.game.RaceList.length; i++) {
     let races = race.game.RaceList[i];
-    if (races.multicrew){
+    if (races.multiplepath){
       let map = {
             raceid: races.raceid,
             name: races.Name,
-            type: "All"
+            type: "MultiplePath"
       }
       console.log(races.Name);
       jcmp.events.CallRemote('Client/MapList',player,JSON.stringify(map));
 
     }
-    else{ // like wingsuit
+    else{ 
       let map = {
           raceid: races.raceid,
           name: races.Name,
