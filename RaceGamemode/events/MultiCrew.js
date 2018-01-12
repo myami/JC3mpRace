@@ -1,5 +1,4 @@
-// TODO: A way to select who is the driver and the passenger
-
+// TODO: Rewrite all the MC
 
 jcmp.events.Add('MC_Race_Checkpoint', function(player) {
   const Race = player.race.game;

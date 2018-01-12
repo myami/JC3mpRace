@@ -71,6 +71,9 @@ var LobbyJoined = new Vue({
           $("#Leaderboard").hide();
           $("#MapSelectdiv").hide();
           $("#DivLobbyJoined").hide();
+          $("#LoadingPage").show();
+
+
       },
       ShowMapList: function(){
         $("#MapSelectdiv").show();

@@ -50,7 +50,7 @@ if (Race.type == 4){
 jcmp.events.Add('race_player_leave_game', function(player, destroy) {
   //Call it when a player is disconnect of the game or to foreach with race_timer_end to remove all the data from the race
   // Destroy on TRUE = No put the player into de lobby again
-
+jcmp.events.CallRemote('Race_end_Loading_Page',player);
   const Race = player.race.game;
   //  Race.players.removePlayer(player);
   race.game.players.ingame.removePlayer(player);
@@ -72,7 +72,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
       // NOTE: Maybe include here the update needPlayers update event and the lobby push
-      
+
       player.Respawn();
     }, 5000));
 

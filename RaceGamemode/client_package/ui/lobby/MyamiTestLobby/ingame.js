@@ -19,38 +19,49 @@ var InGame = new Vue({
 });
 
     jcmp.AddEvent('Countdown_start', function() {
-    toggleContainer("TimerContainer", true);
-      let inter = setInterval(function() {
-        if (InGame.StartTimer > 0) {
-          InGame.StartTimer--;
-        }
-        if (InGame.StartTimer == 15) {
-      
+      // here setTimeout for the loading page and then start the countdown
+      setTimeout(function() {
+        $("#LoadingPage").hide();
 
-        //  jcmp.CallEvent('AddPlayerLeaderboard');
-        console.log("15 seconds");
-        }
-        if (InGame.StartTimer == 0) {
-          if (!InGame.isTTS) {
-            jcmp.CallEvent('race_countdown_end');
-            InGame.RaceTimer = 0;
-            countdownrace(true);
-          } else {
-            console.log("RaceisTTS");
-            jcmp.CallEvent('TTS_race_countdown_end');
-            InGame.RaceTimer = 0;
-            countdownrace(true);
-          }
-          InGame.StartTimer = 30;
-          clearInterval(inter);
-          //document.getElementById("timer").innerText = "GO";
-          setTimeout(function() {
-          //  document.getElementById("timer").innerText = "";
-            toggleContainer("TimerContainer", false);
-          }, 2000);
-        }
+        toggleContainer("TimerContainer", true);
+          let inter = setInterval(function() {
+            if (InGame.StartTimer > 0) {
+              InGame.StartTimer--;
+            }
+            if (InGame.StartTimer == 15) {
 
-      }, 1000);
+
+            //  jcmp.CallEvent('AddPlayerLeaderboard');
+            console.log("15 seconds");
+            }
+            if (InGame.StartTimer == 0) {
+              if (!InGame.isTTS) {
+                jcmp.CallEvent('race_countdown_end');
+                InGame.RaceTimer = 0;
+                countdownrace(true);
+              } else {
+                console.log("RaceisTTS");
+                jcmp.CallEvent('TTS_race_countdown_end');
+                InGame.RaceTimer = 0;
+                countdownrace(true);
+              }
+
+              clearInterval(inter);
+              document.getElementById("timer").innerText = "GO";
+              setTimeout(function() {
+                document.getElementById("timer").innerText = "";
+                toggleContainer("TimerContainer", false);
+                InGame.StartTimer = 30;
+              }, 2000);
+            }
+
+          }, 1000);
+
+      }, 10000);
+
+
+
+
 
 
     });

@@ -8,46 +8,6 @@ module.exports = ({
 
 
 
-    .add(new Command('index').description('index').handler(function(player) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-      let index = race.game.RaceList;
-      for (var i = 0; i < index.length; i++) {
-        race.chat.send(player, `[SERVER] Index: ${i} , Name of the race: ${index[i].Name}`);
-      console.log(`Index: ${i} , Name of the race: ${index[i].Name}`);
-      }
-
-
-    }))
-
-    .add(new Command('resetlist').description('Reset the race list folder to add a race without restart server').handler(function(player) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-      race.game.RaceList = [];
-      race.utils.GetRaceData();
-      setTimeout(function() {
-        jcmp.players.forEach(player => {
-          jcmp.events.Call('Race_name_index', player);
-        })
-
-      }, 5000);
-
-    }))
-
-    .add(new Command('startracebeta').description('Start a race with id').handler(function(player) {
-      if (!race.utils.isAdmin(player)) {
-        return race.chat.send(player, "[SERVER] You're not allowed to use this command");
-      }
-    /*  if (race.game.lobbys["lobby" + player.race.lobbyid][0].networkId == player.networkId){ // only the guy that create the lobby (so is at id 0) can launch the race
-        jcmp.events.Call('race_start_index',player, id, type);
-        race.chat.send(player, "[SERVER] Race Start");
-      }*/
-      jcmp.events.Call('race_start_index_Beta',player);
-      race.chat.send(player, "[SERVER] Race Start BETA");
-
-    }))
     .add(new Command('gotolobby').description('tptolobby').handler(function(player) {
       if (player.race.ingame) {
         jcmp.events.Call('race_player_leave_game', player);
@@ -60,9 +20,12 @@ module.exports = ({
     .add(new Command('reset').description('reset').handler(function(player) {
       player.health = 0;
       race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
-    }))
+    }));
 
-    .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
+
+
+
+  /*  .add(new Command('spectatortp').description('Join a race as spectator(trackingplayer)').parameter('id', 'number', 'Dimension of the race').handler(function(player,id) {
       if(player.race.ingame){
         return race.chat.send(player,`[SERVER] You are already on a game you can't spectate until you finish it`)
       }
@@ -188,7 +151,7 @@ if(res[0].race.partnerplayer.length != 0){
 
 
 
- }))
+ }))*/
 
 
 

@@ -291,3 +291,6 @@ jcmp.events.AddRemoteCallable('Client/MapList',function(obj){
 jcmp.events.AddRemoteCallable('IsLead',function(){
   jcmp.ui.CallEvent('Imlead');
 });
+jcmp.events.AddRemoteCallable('Race_end_Loading_Page',function(){
+  jcmp.ui.CallEvent('CEF/Race_end_Loading_Page');
+});

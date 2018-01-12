@@ -6,6 +6,8 @@ $("#MapSelectdiv").hide();
 $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
+$("#LoadingPage").hide();
+
 
 jcmp.ShowCursor();
 
@@ -38,7 +40,7 @@ $("#TypeSelect").hide();
 });
 
 
-$("#MultiCrewType").click(function(){ 
+$("#MultiCrewType").click(function(){
   jcmp.CallEvent('Client/NewTypeSelected',1);
   $("#TypeSelect").hide();
   $("#MultiCrewDiv").show();
@@ -64,12 +66,22 @@ $("#ApoType").click(function(){
 
 
 jcmp.AddEvent('RaceFinishShowLobby',function(){
-  $("#ListOfPlayerOnServer").show();
-  $("#DivLobbyJoined").show();
-  console.log("RaceFinish");
-  jcmp.ShowCursor();
+  setTimeout(function() {
+    $("#LoadingPage").hide();
+    $("#ListOfPlayerOnServer").show();
+    $("#DivLobbyJoined").show();
+    console.log("Lobby loaded");
+    jcmp.ShowCursor();
+
+  }, 5000);
+
 })
 
 jcmp.AddEvent('Race_Start',function(){
   jcmp.HideCursor();
+
 });
+
+jcmp.AddEvent('CEF/Race_end_Loading_Page',function(){
+  $("#LoadingPage").show();
+})

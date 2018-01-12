@@ -58,7 +58,10 @@ jcmp.events.Add('TTS_race_end_point', function(player) {
       let playername = player.name;
       race.chat.broadcast(`[SERVER] ${playername} has made a time of ${minute} minutes and ${seconds} seconds!`, race.config.colours.red);
 
+
+
       setTimeout(function() {
+        
         jcmp.events.Call('race_player_leave_game', player)
         player.race.time = 0;
       }, 2000);
