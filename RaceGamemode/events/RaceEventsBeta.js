@@ -36,6 +36,11 @@ jcmp.events.AddRemoteCallable('Timer_Server_Beta',function(player,time){
 
 }
 
+if (Race.type == 4){
+  jcmp.events.Call('MP_race_end_point', player);
+
+}
+
 
 });
 
@@ -67,7 +72,7 @@ jcmp.events.Add('race_player_leave_game', function(player, destroy) {
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
       // NOTE: Maybe include here the update needPlayers update event and the lobby push
-        console.log(player.race.game.players);
+      
       player.Respawn();
     }, 5000));
 

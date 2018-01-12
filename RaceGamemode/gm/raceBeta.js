@@ -78,7 +78,7 @@ module.exports = class RaceBeta {
         player.race.vehicle = this.racedata.defaultVehicle;
         setTimeout(function() {
           const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-          vehicle.nitroEnabled = this.racedata.nitroenabled;
+      //    vehicle.nitroEnabled = this.racedata.nitroenabled;
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 4000);
@@ -136,25 +136,6 @@ module.exports = class RaceBeta {
       let rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);
       player.race.playerrotationspawn = rotation;
        player.race.path = this.racedata.StartingPoint[i].CheckpointArray;
-/*
-      for(var i=0; i< firstarrayofcheckpoint.length;i++){
-        let cp = firstarrayofcheckpoint[i];
-        player.race.arraycheckpoint.push(cp);
-        if(cp.LaunchANewBranch){
-          let newpathi = race.utils.random(0, cp.CheckpointArray.length - 1);
-          let newpath = cp.CheckpointArray[newpathi];
-          for(var i=0; i< newpath.length;i++){
-            let cp2 = newpath[i];
-            player.race.arraycheckpoint.push(cp2);
-            if(cp2.LaunchANewBranch){
-              let newpathi = race.utils.random(0, cp.CheckpointArray.length - 1);
-              let newpath = cp.CheckpointArray[newpathi];
-            }
-
-          }
-        }
-
-      }*/
 
 
 
@@ -260,7 +241,7 @@ module.exports = class RaceBeta {
 
       setTimeout(function() {
         const vehicle = new Vehicle(parseInt(player.race.vehicle), player.position, rotation);
-        vehicle.nitroEnabled = this.nitro;
+    //    vehicle.nitroEnabled = this.nitro;
         vehicle.dimension = player.race.game.id;
         vehicle.SetOccupant(0, player);
       }, 5000);
@@ -359,7 +340,7 @@ module.exports = class RaceBeta {
         player.race.vehicle = this.racedata.defaultVehicle;
         setTimeout(function() {
           const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-          vehicle.nitroEnabled = this.nitro;
+      //    vehicle.nitroEnabled = this.nitro;
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 4000);
