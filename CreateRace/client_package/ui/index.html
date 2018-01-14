@@ -160,21 +160,7 @@
           </select>
           <button class="waves-effect waves-light btn amber" type="button" id="nitrob" onclick="hidenitro()">Next</button>
         </div>
-        <div id="ImageDiv">
-          <p>Path of the image in the imgs folder</p>
-            <input class="input-field" type="text" name="RaceImage" placeholder="./imgs/test.png" id="RaceImage">
-              <button class="waves-effect waves-light btn amber" type="button" id="RaceImageb" onclick="RaceImage()">AddRaceImage</button>
-        </div>
-        <div id="LapsDiv">
-          <p>If you're race can have laps (0 is no)</p>
-            <input class="input-field" type="text" name="GhostPoiType" value="0" id="Lapsid">
-              <button class="waves-effect waves-light btn amber" type="button" id="Lapsidb" onclick="LapsNumber()">Add Laps</button>
-        </div>
-        <div id="RaceIDDiv">
-          <p>Id of the race</p>
-            <input class="input-field" type="text" name="GhostPoiType" value="0" id="RaceID">
-              <button class="waves-effect waves-light btn amber" type="button" id="RaceIDb" onclick="RaceIdNumber()">Add id of the race</button>
-        </div>
+
         <div id="MultiCrewDiv">
           <p>Is you're race multicrew allowed ?</p>
           <select id="multicrew" onchange="Multicrew()" class="input-field">
@@ -283,6 +269,7 @@
     jcmp.CallEvent('race_name', name, nameoftherace);
     $("#CreateRacediv").hide();
     $("#VehicleSelectdiv").show();
+
   }
 
 
@@ -400,20 +387,22 @@
     let MaxPlayer = $("#MaxPlayerv").val();
     jcmp.CallEvent('Add_MaxPlayer', parseInt(MaxPlayer), nameoftherace);
     $("#MaxPlayerdiv").hide();
-    $("#ImageDiv").show();
+    $("#StartingPointdiv").show();
+        startingpointcan =true;
+
   }
   function RaceImage() {
     let RaceImage = $("#RaceImage").val();
     jcmp.CallEvent('RaceImagePath', RaceImage, nameoftherace);
     $("#ImageDiv").hide();
-    $("#LapsDiv").show();
+
 
   }
 function LapsNumber (){
     let lapsnumber = $("#Lapsid").val();
     jcmp.CallEvent('LapsNumber', parseInt(lapsnumber), nameoftherace);
     $("#LapsDiv").hide();
-    $("#RaceIDDiv").show();
+      $("#MultiCrewDiv").show();
 
 }
 function RaceIdNumber (){

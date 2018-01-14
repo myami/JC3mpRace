@@ -15,12 +15,11 @@ jcmp.events.AddRemoteCallable('HideMenuServer', function() {
 jcmp.events.AddRemoteCallable('ResetUI', function() {
   CreateRace.Reload(true);
 });
-localPlayer.wingsuit.boostEnabled = true;
+jcmp.localPlayer.wingsuit.boostEnabled = true;
 
-
-localPlayer.wingsuit.boostCooldown = 100000;
-localPlayer.wingsuit.boostDuration = 100000;
-localPlayer.wingsuit.boostPower = 100000;
+jcmp.localPlayer.wingsuit.boostCooldown = 100000;
+jcmp.localPlayer.wingsuit.boostDuration = 100000;
+jcmp.localPlayer.wingsuit.boostPower = 100000;
 
 let poiid = 0;
 jcmp.events.AddRemoteCallable('Creating_POI_startingPoint', function(position) {

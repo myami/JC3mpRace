@@ -15,7 +15,7 @@ module.exports = ({
 
         var arrayOfObjects = JSON.parse(data)
         arrayOfObjects.StartingPoint.push({
-          x: player.position.x,
+          x: camera.position.x,
           y: player.position.y,
           z: player.position.z,
           rotx: player.rotation.x,
@@ -97,7 +97,7 @@ module.exports = ({
 	  .add(new Command('saveposp').description('Save a position to file').handler(function(player) {
 
   var fs = require('fs');
- var text = `"x": ${player.position.x},"y": ${player.position.y},"z": ${player.position.z},"rotx": ${player.rotation.x},"roty": ${player.rotation.y},"rotz": ${player.rotation.z}`;
+  var text = `"x": ${player.position.x},"y": ${player.position.y},"z": ${player.position.z},"rotx": ${player.rotation.x},"roty": ${player.rotation.y},"rotz": ${player.rotation.z}`;
   if(!fs.existsSync('./saveposp.txt')) {
     fs.writeFileSync("./saveposp.txt", text + ",\n");
   } else {

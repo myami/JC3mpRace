@@ -110,6 +110,12 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
           vehicleold.Destroy();
         }
       }
+      if (player.race.game.racedata.type == 4) {
+        player.race.game.CRRespawnCar(player);
+        if (vehicleold != undefined) {
+          vehicleold.Destroy();
+        }
+      }
     }, race.game.respawntimer + 2000);
   }
 

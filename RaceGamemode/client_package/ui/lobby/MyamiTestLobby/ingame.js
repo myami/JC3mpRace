@@ -47,9 +47,9 @@ var InGame = new Vue({
               }
 
               clearInterval(inter);
-              document.getElementById("timer").innerText = "GO";
+          //    document.getElementById("timer").innerText = "GO";
               setTimeout(function() {
-                document.getElementById("timer").innerText = "";
+            //    document.getElementById("timer").innerText = "";
                 toggleContainer("TimerContainer", false);
                 InGame.StartTimer = 30;
               }, 2000);

@@ -23,7 +23,9 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) {
 
     let checkpoint = Race.racedata[player.race.path][player.race.checkpoints - 1];
     let newpathi;
+
     if(checkpoint.CheckpointArray.length > 1){
+
        newpathi = race.utils.random(0, checkpoint.CheckpointArray.length );
     }
     else{
@@ -48,6 +50,8 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) {
      console.log("3");
        jcmp.events.CallRemote('race_checkpoint_client_Beta', player, JSON.stringify(datas));
        jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+       jcmp.events.CallRemote('Checkpoint_length_client', player, Race.racedata[player.race.path].length);
+
        changerezposition(player);
        return;
 
@@ -106,7 +110,7 @@ jcmp.events.Add('MP_race_end_point', function(player) {
   setTimeout(function() {
     jcmp.events.Call('race_player_leave_game', player)
     player.race.time = 0;
-    
+
   }, 2000);
 
 });
