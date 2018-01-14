@@ -7,10 +7,10 @@ function changerezposition(player){
 }
 jcmp.events.Add('MP_Race_Checkpoint', function(player) {
   const Race = player.race.game;
+  changerezposition(player);
   player.race.checkpoints++;
   if (Race.racedata[player.race.path].length == player.race.checkpoints){
-    console.log("Egal");
-    console.log(Race.racedata[player.race.path][player.race.checkpoints - 1]);
+
     if(Race.racedata[player.race.path][player.race.checkpoints - 1].finish){
       jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
       race.chat.send(player, "[SERVER] You finished the race! Well done!!");
@@ -26,14 +26,15 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) {
 
     if(checkpoint.CheckpointArray.length > 1){
 
-       newpathi = race.utils.random(0, checkpoint.CheckpointArray.length );
+       newpathi = race.utils.random(0, checkpoint.CheckpointArray.length - 1);
     }
     else{
       newpathi = 0;
     }
 
+
     let newpath = checkpoint.CheckpointArray[newpathi];
-    console.log(newpath);
+
     player.race.path = newpath;
     player.race.checkpoints = 0;
 
@@ -47,12 +48,12 @@ jcmp.events.Add('MP_Race_Checkpoint', function(player) {
      };
 
 
-     console.log("3");
+
        jcmp.events.CallRemote('race_checkpoint_client_Beta', player, JSON.stringify(datas));
        jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
        jcmp.events.CallRemote('Checkpoint_length_client', player, Race.racedata[player.race.path].length);
 
-       changerezposition(player);
+
        return;
 
 }
@@ -67,13 +68,11 @@ if (player.race.checkpoints == Race.racedata[player.race.path].length - 1) { // 
 
 
   jcmp.events.CallRemote('race_checkpoint_client_Beta', player, JSON.stringify(datas));
-  console.log("last checkpoint multiplepath of the array");
   jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-  changerezposition(player);
+
 
   return;
 }
-console.log("Basic MultiplePath should not appearing on race test");
 
 let data ={
     Dimension : Race.id,
@@ -87,6 +86,7 @@ let data ={
 
 jcmp.events.CallRemote('race_checkpoint_client_Beta', player, JSON.stringify(data));
 jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
+
 
 
 

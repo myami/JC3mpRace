@@ -95,23 +95,23 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
     }, race.game.respawntimer));
     setTimeout(function() {
       player.race.spawningdouble = false;
-      if (player.race.game.racedata.type == 0 || player.race.game.racedata.type == 3) {
+      if (player.race.game.type == 0 || player.race.game.type == 3) {
         player.race.game.CRRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
         }
       }
-      if (player.race.game.racedata.type == 1) {
+      if (player.race.game.type == 1) {
         player.race.game.MCVehicleReset(player,vehicleold);
       }
-      if (player.race.game.racedata.type == 2) {
+      if (player.race.game.type == 2) {
         player.race.game.TTSRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
         }
       }
-      if (player.race.game.racedata.type == 4) {
-        player.race.game.CRRespawnCar(player);
+      if (player.race.game.type == 4) {
+        player.race.game.MPRespawnCar(player);
         if (vehicleold != undefined) {
           vehicleold.Destroy();
         }
