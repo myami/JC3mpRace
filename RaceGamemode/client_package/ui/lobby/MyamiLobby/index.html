@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>LobbyTest</title>
+  <title>Lobby</title>
 
 
   <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
@@ -107,27 +107,7 @@
   </table>
 </div>
 
-<div id="MultiCrewDiv">
 
-  <div id="Request">
-    You just received a request to be on the team of : <span id="playerrequest">{{ PlayerRequest }}</span> <br>
-    <button type="button" id="YesRequestB" v-on:click="YesRequest()"> Accept</button>
-    <button type="button" id="NoRequestB" v-on:click="NoRequest()"> Refuse</button>
-  </div>
-
-  <div id="MultiCrewUI">
-      <span id="PartnerNameS">{{ NameUI() }}</span>
-  </div>
-
-  <div id="SelectWho"v-show="imlead">
-    <span id="MyName">{{ MyName }}</span>You are : <span>{{  LeadRole()  }}</span><br>
-      You can change you're role : <br>
-    <button type="button"  v-on:click="SelectRole(1)"> Protector</button>
-    <button type="button"  v-on:click="SelectRole(0)"> Protected</button><br>
-    <span id="PartnerName">{{ NameUI() }}</span>You're partner is <span> {{ OtherRole() }}</span>
-  </div>
-
-</div>
 
 
 <div id="Ingame">
@@ -193,18 +173,15 @@
       <td>Classic</td>
       <td>Run from the point A to the point B and reach all checkpoint</td>
     </tr>
-  <!--  <tr id="MultiCrewType"> removing for the first release need a lot more test
-      <td>MultiCrew</td>
-      <td>Protect or get protected and try to reach all the checkpoint and finish the race before the other team win</td>
-    </tr> -->
+
     <tr id="TTSType">
       <td>TTS</td>
       <td>Run from the point A to the point B and reach all checkpoint alone and the winner is the one with the best time</td>
     </tr>
-    <tr id="ApoType">
+    <!--   <tr id="ApoType">
       <td>Apo</td>
       <td>Run from the point A to the point B and reach all checkpoint but be carefull because fallen explosive barrel appear around you every X seconds</td>
-    </tr>
+    </tr> -->
     <tr id="MultiplePath">
       <td>MultiplePath</td>
       <td>Run from the point A to the point B and reach all checkpoint to finish the race but be carefull path is never the same </td>
@@ -218,7 +195,7 @@
 <script src="./LobbyListMain.js"></script>
 <script src="./LobbyJoin.js"></script>
 <script src="./ServerPlayerList.js"></script>
-<script src="./multicrew.js"></script>
+
 
 <script src="./ingame.js"></script>
 

@@ -7,7 +7,6 @@ let chksghost = [];
 // player
 let playeringame = false;
 let countdowninprogress = false;
-let playerpassager = false;
 let typeofrace = undefined;
 const playersCache = [];
 //Spectator

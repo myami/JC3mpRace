@@ -75,9 +75,17 @@ jcmp.AddEvent('RaceFinishShowLobby',function(){
 
   }, 5000);
 
-})
+});
+
 
 jcmp.AddEvent('Race_Start',function(){
+  $("#TypeSelect").hide();
+  $("#DivServerLobbyList").hide();
+  $("#ListOfPlayerOnServer").hide();
+  $("#Leaderboard").hide();
+  $("#MapSelectdiv").hide();
+  $("#DivLobbyJoined").hide();
+  $("#LoadingPage").show();
   jcmp.HideCursor();
 
 });

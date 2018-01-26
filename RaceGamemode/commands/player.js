@@ -20,6 +20,11 @@ module.exports = ({
     .add(new Command('reset').description('reset').handler(function(player) {
       player.health = 0;
       race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
+    }))
+
+    .add(new Command('resetUI').description('reset the UI').handler(function(player) {
+      jcmp.events.CallRemote('Race_Reset_UI_Lobby',player);
+      race.chat.send(player, "[SERVER] UI RESET");
     }));
 
 
@@ -83,75 +88,7 @@ module.exports = ({
    }
 
  }))
-
- .add(new Command('partner').description('Send a request for became partner for MultiCrew').parameter('partner', 'string', 'Name of the player to request').handler(function(player,partner) {
-
- const res = race.utils.getPlayer(partner);
- if (res.length === 0 || res.length > 1) {
-          race.chat.send(player, 'no / too many matching players!');
-          return;
-        }
-
-if(res[0].race.partnerplayer.length != 0){
-   race.chat.send(player,"The player you select already have a partner");
-   return;
-}
-  race.chat.send(player,`Request send to the player ${res[0].name}`);
-  jcmp.events.CallRemote('PartnerRequest',res[0],player.name,res[0].name);
-
- }))
-
- .add(new Command('choicerole').description('Choice who is the driver and passager').parameter('partner', 'string', 'Name of the player to put as driver').handler(function(player,partner) {
-   if (player.race.partnerplayer.length == 0){
-     race.chat.send(player,"You don't have a partner")
-     return;
-   }
-   if (!player.race.leadpartner){
-     race.chat.send(player,"You don't have the right to do this commands ask you're parner");
-     return;
-   }
-   const res = race.utils.getPlayer(partner);
-   if (res.length === 0 || res.length > 1) {
-            race.chat.send(player, 'no / too many matching players!');
-            return;
-          }
-          if (res[0].race.partnerplayer[0].name == res[0].name)
-          {
-            if (res[0].race.partnerplayer[0].race.driver)
-            {
-              console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
-              console.log("driver 1");
-              res[0].race.partnerplayer[0].race.driver = true;
-              res[0].race.partnerplayer[1].race.driver = false;
-            }
-            else{
-                console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
-                console.log("driver 2");
-              res[0].race.partnerplayer[1].race.driver = true;
-              res[0].race.partnerplayer[0].race.driver = false;
-            }
-          }
-          if (res[0].race.partnerplayer[1].name == res[0].name)
-          {
-            if (res[0].race.partnerplayer[1].race.driver)
-            {
-                console.log(`${res[0].race.partnerplayer[0].name} is the driver`);
-                console.log("driver 3");
-              res[0].race.partnerplayer[1].race.driver = true;
-              res[0].race.partnerplayer[0].race.driver = false;
-            }
-            else{
-                console.log(`${res[0].race.partnerplayer[1].name} is the driver`);
-                console.log("driver4");
-              res[0].race.partnerplayer[0].race.driver = true;
-              res[0].race.partnerplayer[1].race.driver = false;
-            }
-          }
-
-
-
-
- }))*/
+*/
 
 
 

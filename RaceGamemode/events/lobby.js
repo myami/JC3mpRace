@@ -7,7 +7,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
 
     player.race.lobbyid = id;
     let NewLobbyObject = {
-      LobbyName: "testlobby", //LobbyNameReceived
+      LobbyName: `Lobby ${player.name}`, //LobbyNameReceived
       NumberofPlayer: 1,
       MapName: "CarRaceBoomIsland",
       RaceID: 50,
@@ -19,7 +19,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     };
     race.game.lobbys[id].push(NewLobbyObject);
     let lobbytosendtoclient = {
-      LobbyName: "testlobby", //LobbyNameReceived
+      LobbyName: `Lobby ${player.name}`, //LobbyNameReceived
       NumberofPlayer: 1,
       MapName: "CarRaceBoomIsland",
       TypeRace: "Classic",
@@ -156,15 +156,12 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
   if (int == 0) {
     name = "Classic"
   }
-  if (int == 1) { // don't work for the release
-    name = "MultiCrew"
-  }
   if (int == 2) {
     name = "TTS"
   }
-  if (int == 3) {
+/*  if (int == 3) {
     name = "Apo"
-  }
+  } */
   if (int == 4) {
     name = "MultiplePath"
   }
@@ -306,21 +303,6 @@ jcmp.events.AddRemoteCallable('LaunchRace', function(player) {
 });
 
 
-jcmp.events.AddRemoteCallable('Server/MultiCrew_SelectRole',function(player,int){
-  if(int == 0){
-    console.log("0multicrerole");
-    player.race.partnerplayer[0].race.driver = true;
-    player.race.partnerplayer[1].race.driver = false;
-    jcmp.events.CallRemote('Client/MultiCrew_RoleSelected',player.race.partnerplayer[1],0);
-  }
-  if (int == 1){
-    console.log("1multicrerole");
-
-    player.race.partnerplayer[0].race.driver = false;
-    player.race.partnerplayer[1].race.driver = true;
-    jcmp.events.CallRemote('Client/MultiCrew_RoleSelected',player.race.partnerplayer[1],1);
-  }
-});
 
 jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lobby admin to see the list
 
@@ -336,7 +318,7 @@ jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lo
       jcmp.events.CallRemote('Client/MapList',player,JSON.stringify(map));
 
     }
-    else{ 
+    else{
       let map = {
           raceid: races.raceid,
           name: races.Name,

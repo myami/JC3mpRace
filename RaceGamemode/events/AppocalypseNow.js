@@ -1,4 +1,4 @@
-jcmp.events.Add('AppoBarrelSpawnAroundPlayer', function(players) {
+ /* jcmp.events.Add('AppoBarrelSpawnAroundPlayer', function(players) {
   for (var i = 0; i < players.length; i++) {
     const player = players[i];
     for (var g = 0; g < 5; g++) { // 5 limit of barrel spawn around the player
@@ -9,4 +9,4 @@ jcmp.events.Add('AppoBarrelSpawnAroundPlayer', function(players) {
     jcmp.events.CallRemote('WarningBarrel', player);
   }
 
-});
+}); */

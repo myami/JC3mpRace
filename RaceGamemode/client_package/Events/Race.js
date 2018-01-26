@@ -48,10 +48,10 @@ jcmp.ui.AddEvent('ResetPlayer_client', function() {
   jcmp.events.CallRemote('ResetPlayer_Server');
 });
 
-
+/*
 jcmp.events.AddRemoteCallable('WarningBarrel',function(){
   jcmp.ui.CallEvent('WarningBarrel_CEF');
-});
+});*/
 
 
 jcmp.events.AddRemoteCallable('End_Timer',function(){

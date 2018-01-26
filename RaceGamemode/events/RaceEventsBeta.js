@@ -1,10 +1,7 @@
 jcmp.events.AddRemoteCallable('race_checkpoint_Beta', function(player) {
   const Race = player.race.game;
 
-  if (Race.type == 1) {
-    jcmp.events.Call('MC_Race_Checkpoint', player);
 
-  }
    if (Race.type == 0 ) { // classic
     jcmp.events.Call('C_Race_Checkpoint', player);
   }
@@ -101,9 +98,7 @@ jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
           vehicleold.Destroy();
         }
       }
-      if (player.race.game.type == 1) {
-        player.race.game.MCVehicleReset(player,vehicleold);
-      }
+
       if (player.race.game.type == 2) {
         player.race.game.TTSRespawnCar(player);
         if (vehicleold != undefined) {

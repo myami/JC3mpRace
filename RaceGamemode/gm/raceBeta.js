@@ -23,11 +23,7 @@ module.exports = class RaceBeta {
       this.ClassicRace();
       return;
     }
-    if (this.type == 1) {
-      console.log("Multicrew!!!");
-      this.Multicrew();
-      return;
-    }
+
 
     if (this.type == 2) {
       console.log("TTS !!!!!!!!");
@@ -196,104 +192,6 @@ module.exports = class RaceBeta {
 
 
 
-
-
-
-  /////////////////////////////////// MULTICREW ////////////////////////////////////////////////////////////////////
-
-  Multicrew() {
-    for (var i = 0; i < this.Players.length; i++) {
-      const player = this.Players[i];
-      player.race.game = this;
-      player.race.ingame = true;
-      player.dimension = this.id;
-      player.race.time = 0;
-      player.race.hasfinish = false;
-      // Player spawn
-      player.position = new Vector3f(this.racedata.StartingPoint[i].x, this.racedata.StartingPoint[i].y, this.racedata.StartingPoint[i].z);
-      player.rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);
-      // Player rotation if they die to restart in the good direction
-      let rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);
-      player.race.playerrotationspawn = rotation;
-      player.respawnPosition = new Vector3f(this.racedata.StartingPoint[i].x, this.racedata.StartingPoint[i].y, this.racedata.StartingPoint[i].z);
-      player.race.path = "RaceCheckpoint";
-
-
-
-
-      if (player.race.partnerplayer[0].networkId == player.networkId) {
-        if (player.race.driver) {
-          const secondplayer = player.race.partnerplayer[1];
-          player.race.vehicle = 695483605;
-          secondplayer.race.vehicle = 911076462;
-        } else {
-          const secondplayer = player.race.partnerplayer[1];
-          secondplayer.race.vehicle = 695483605;
-          player.race.vehicle = 911076462;
-        }
-
-
-
-      }
-      if (player.race.partnerplayer[0] == undefined) {
-        console.log("Someone didnt have a team");
-      }
-
-      setTimeout(function() {
-        const vehicle = new Vehicle(parseInt(player.race.vehicle), player.position, rotation);
-    //    vehicle.nitroEnabled = this.nitro;
-        vehicle.dimension = player.race.game.id;
-        vehicle.SetOccupant(0, player);
-      }, 5000);
-
-
-
-
-
-      jcmp.events.CallRemote('race_Freeze_player', player);
-      jcmp.events.CallRemote('race_set_time', player, this.racedata.time.hour, this.racedata.time.minute, 0);
-      jcmp.events.CallRemote('race_set_weather', player, this.racedata.weather);
-      jcmp.events.CallRemote('Checkpoint_length_client', player, this.racedata[player.race.path].length); // from the starting point to the first random path
-      jcmp.events.CallRemote('Checkpoint_current_client', player, player.race.checkpoints);
-      jcmp.events.CallRemote('race_Start_client', player, this.type);
-
-
-      if (!player.race.drive) { // need to be test Convoyer can see the checkpoint
-        return;
-      }
-
-      let data = {
-        Dimension: this.id,
-        PoiType: this.racedata.PoiType,
-        CheckpointHash: this.racedata.checkpointhash,
-        CheckpointType: this.racedata.ChekpointType,
-        FirstCheckpoint: this.racedata[player.race.path][player.race.checkpoints],
-        SecondCheckpoint: this.racedata[player.race.path][player.race.checkpoints + 1]
-
-      };
-      jcmp.events.CallRemote('race_checkpoint_client_Beta', player, JSON.stringify(data));
-
-    }
-
-
-  }
-
-
-
-
-  MCVehicleReset(player, vehicleold) {
-    if (player.race.vehicle != 0) {
-      const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = player.race.nitro;
-      console.log("Vehicle spawning");
-      vehicle.dimension = player.race.game.id;
-      setTimeout(function() {
-        vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
-        //  race.game.RacePeopleDie.removePlayer(player);
-        player.race.spawningdouble = false;
-      }, race.game.respawntimer + 1000);
-    }
-  }
 
 
 

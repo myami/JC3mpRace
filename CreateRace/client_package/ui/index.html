@@ -162,7 +162,7 @@
         </div>
 
         <div id="MultiCrewDiv">
-          <p>Is you're race multicrew allowed ?</p>
+          <p>Is you're race multiplepath allowed ?</p>
           <select id="multicrew" onchange="Multicrew()" class="input-field">
             <option value="true">true</option>
             <option value="false">false</option>
@@ -186,12 +186,18 @@
         </div>
 
         <div id="CheckpointPointdiv">
-          <p>Press "C" to add a Checkpoint and press "L" to add a CameraView</p>
+          <p>Press "C" to add a Checkpoint</p>
           <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpoint()">Checkpoint</button>
-          <button class="waves-effect waves-light btn amber" type="button" id="CameraRace" onclick="CreateCamera()">CameraView</button>
           <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
 
       </div>
+      <div id="CheckpointPointdivMP">
+        <p>Press "C" to add a Checkpoint press "N" to create a new path</p>
+        <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpointMP()">Checkpoint</button>
+        <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="NewPath()">Newpath</button>
+        <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
+
+    </div>
 
       </div>
 
@@ -430,7 +436,13 @@ function Multicrew(){
 
   function showcheckpointhidestatingpoint() {
     $("#StartingPointdiv").hide();
-    $("#CheckpointPointdiv").show();
+    if (document.getElementById("multicrew").selectedIndex == 0){
+      $("#CheckpointPointdivMP").show();
+    }
+    else{
+        $("#CheckpointPointdiv").show();
+    }
+
     startingpointcan = false;
     checkpointcan = true;
   }
@@ -442,13 +454,23 @@ function Multicrew(){
     avoiddoublepoint = true;
     }, 1000);
   }
-  function CreateCamera() {
-      avoiddoublepoints = false;
-    jcmp.CallEvent('CreateCamera', nameoftherace);
+
+  function CreateCheckpointmp() {
+      avoiddoublepoint = false;
+    jcmp.CallEvent('CreateCheckpoint', nameoftherace);
     setTimeout(function() {
-    avoiddoublepoints = true;
+    avoiddoublepoint = true;
     }, 1000);
   }
+
+  function NewPath() {
+      avoiddoublepoint = false;
+    jcmp.CallEvent('NewPath', nameoftherace);
+    setTimeout(function() {
+    avoiddoublepoint = true;
+    }, 1000);
+  }
+
 
 
   function finishit() {

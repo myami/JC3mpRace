@@ -86,9 +86,7 @@ function nextcheckpoint(){
     jcmp.ui.CallEvent('Checkpoint_Sound');
     jcmp.events.CallRemote('race_checkpoint_Beta');
 
-  if (typeofrace == 1){
-    jcmp.events.CallRemote('CheckpointSoundDriver');
-  }
+
 
 }
 
