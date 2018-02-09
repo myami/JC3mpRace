@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ingame</title>
+
+
+  <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./popper.js"></script>
+  <script type="text/javascript" src="./bootstrap.js"></script>
+    <script src="./vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="Ingame.css">
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+<div id="Ingame">
+
+  <div id="TimerContainer" >
+    <span id="timer">{{ StartTimer }}</span>
+  </div>
+
+  <div id="CheckpointContainer" >
+    <img src="./img/CircleCheckpoint.png" height="42" width="42"> <span id="playercheckpointis">{{ CurrentCheckpoint }}</span> | <span id="allcheckpoint">{{ TotalOfCheckpoint }}</span>
+  </div>
+
+
+  <div id="Onclickexplained" class= "hidden">
+    Press "N" to show the leaderboard . Press "B" to reset to the last checkpoint. Press "M" to hide this message
+  </div>
+
+  <div id="alpha" >
+    <p>Early Beta</p>
+  </div>
+
+  <div id="WarningBarrel" class="hidden">
+    WARNING BARREL FALLING FROM SKY
+  </div>
+  <div id="WaitItsyouTTS"class="hidden" >
+    Wait the countdown appear to start
+  </div>
+  <div id="timergame" > {{ RaceTime.Hour }} : {{ RaceTime.Minutes}} : {{RaceTime.Seconds}} </div>
+
+
+
+</div>
+
+
+<script src="./ingame.js"></script>
+
+
+
+  <script>
+
+
+  </script>
+</body>
+
+</html>

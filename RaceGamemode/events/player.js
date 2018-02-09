@@ -101,22 +101,22 @@ jcmp.events.Add('PlayerReady', function(player) {
           colour: p.race.colour
         }))
       };
-  /*    const lobbylist = {
+
+   const lobbylist = {
           lobby: Object.keys(race.game.lobbys).map((key, index) => {
               const l = race.game.lobbys[key];
               return {
-                  id: index,
-                  PlayerCreated: l[0].escapedNametagName,
-                  numberofplayer: l.length
+                  data: l,
               }
           })
-      };*/
+      };
 
         console.log(data);
 
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
       jcmp.events.Call('PlayerJoinServer',player);
+      jcmp.events.Call('PlayerJoinSeeOldLobby',player,JSON.stringify(lobbylist))
 
 
 

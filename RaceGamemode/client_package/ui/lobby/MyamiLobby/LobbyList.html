@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LobbyList</title>
+
+
+  <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./popper.js"></script>
+  <script type="text/javascript" src="./bootstrap.js"></script>
+    <script src="./vue.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="LobbyList.css">
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+<div id= "DivServerLobbyList" >
+  <table class="table lobbylist">
+    <thead class = "theadlistlobby">
+      <tr>
+        <th>Thumbnail</th>
+        <th>Map</th>
+        <th>Host</th>
+        <th>Players</th>
+      </tr>
+    </thead>
+
+    <tbody id="lobbyList">
+      <tr v-for="lobby in LobbyServerList"v-on:click="selectLobby(lobby.LobbyID)" >
+        <td><img :src="generateThumbUrl(lobby.RaceID)" width="15%" height="10%">
+        </td>
+        <td>{{ lobby.MapName }}</td>
+        <td>{{ lobby.PlayerCreated }}</td>
+        <td>{{ lobby.NumberofPlayer }}/20</td>
+      </tr>
+    </tbody>
+  </table>
+  <button type="button" id="btnCreate" class="btnCreate">Create lobby</button>
+
+
+</div>
+
+
+
+
+<script src="./global.js"></script>
+<script src="./LobbyListMain.js"></script>
+
+
+
+
+  <script>
+
+
+  </script>
+</body>
+
+</html>

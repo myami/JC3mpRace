@@ -330,4 +330,25 @@ jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lo
     }
 
 
+});
+
+jcmp.events.Add('PlayerJoinSeeOldLobby',function(player,serverlist){
+  data = JSON.parse(serverlist);
+  data.lobby.forEach(function(l) {
+
+    let lobbytosendtoclient = {
+      LobbyName: l.data[0].LobbyName,
+      NumberofPlayer: l.data[0].NumberofPlayer,
+      MapName: l.data[0].MapName,
+      TypeRace: l.data[0].TypeRace,
+      LobbyID: l.data[0].LobbyID,
+      RaceID: l.data[0].RaceID,
+      PlayerCreated: l.data[0].PlayerCreated,
+      PlayerListName: l.data[0].PlayerListName
+    }
+    jcmp.events.CallRemote('Client/LobbyCreated', player, JSON.stringify(lobbytosendtoclient));
+    console.log(`Lobby add to the player ${player.name}  name of the lobby : ${l.data[0].LobbyName}`);
+  });
+console.log("All Lobby are add on the new player");
+
 })

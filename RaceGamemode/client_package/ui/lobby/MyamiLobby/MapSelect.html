@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>LobbyMapSelect</title>
+
+
+  <script type="text/javascript" src="./jquery-3.2.1.min.js"></script>
+  <script type="text/javascript" src="./popper.js"></script>
+  <script type="text/javascript" src="./bootstrap.js"></script>
+    <script src="./vue.js"></script>
+
+    <link rel="stylesheet" type="text/css" href="MapSelect.css">
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+
+
+<div id="MapSelectdiv" v-show="imhost" >
+  <table class="tableChoose" >
+    <thead class = "theadlistlobby">
+      <tr>
+        <th>Thumbnail</th>
+        <th>Name</th>
+        <th>Type</th>
+      </tr>
+    </thead>
+      <tbody id="MapSelect">
+    <tr v-for="race in raceList"v-on:click="selectTrack(race.raceid, $event)">
+      <td><img :src="generateThumbUrls(race.raceid)"width="15%" height="10%"></td>
+      <td>{{race.name}}</td>
+      <td>{{ race.type }}</td>
+    </tr>
+  </tbody>
+  </table>
+</div>
+<div id="TypeSelect">
+  <table v-show="imhost">
+    <tr id="ClassicType">
+      <td>Classic</td>
+      <td>Run from the point A to the point B and reach all checkpoint</td>
+    </tr>
+
+    <tr id="TTSType">
+      <td>TTS</td>
+      <td>Run from the point A to the point B and reach all checkpoint alone and the winner is the one with the best time</td>
+    </tr>
+    <!--   <tr id="ApoType">
+      <td>Apo</td>
+      <td>Run from the point A to the point B and reach all checkpoint but be carefull because fallen explosive barrel appear around you every X seconds</td>
+    </tr> -->
+    <tr id="MultiplePath">
+      <td>MultiplePath</td>
+      <td>Run from the point A to the point B and reach all checkpoint to finish the race but be carefull path is never the same </td>
+    </tr>
+  </table>
+
+
+</div>
+<script src="./global.js"></script>
+<script src="./MapSelect.js"></script>
+<script src="./LobbyJoin.js"></script>
+
+
+
+  <script>
+
+
+  </script>
+</body>
+
+</html>

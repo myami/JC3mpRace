@@ -2,8 +2,8 @@ var LobbyMain = new Vue({
     el: '#lobbyList',
     data: function() {
       return{
-     LobbyServerList : [],
-    //     LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
+    LobbyServerList : [],
+     // LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
         currentSelected: null,
         oldSelected: null
     };
@@ -15,9 +15,7 @@ var LobbyMain = new Vue({
           console.log("RaceId: "+raceid);
      jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); //for testing it's remove need to be add again
           $("#DivServerLobbyList").hide();
-          $("#btnJoin").hide();
-          $("#btnCreate").hide();
-          $("#DivLobbyJoined").show();
+          jcmp.CallEvent('ShowLobbyList');
       },
       logtest: function (raceid){
         console.log(raceid);
@@ -29,7 +27,6 @@ var LobbyMain = new Vue({
 
 
 
-//{LobbyName:"test1",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:0,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Yolo",TypeRace:"Classic",LobbyID:1,PlayerCreated:"Myami"}
 
 jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server list
   let data = JSON.parse(Obj);
@@ -91,3 +88,18 @@ jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map,int){      // update the U
     }
   }
 });
+
+
+
+$("#btnCreate").click(function(){
+  let name = "TestLobby";
+  jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
+  console.log("Lobby created with the name : " + name);
+  $("#DivServerLobbyList").hide();
+  jcmp.CallEvent('ShowLobbyList');
+
+});
+
+jcmp.AddEvent('CEF/ShowServerList',function(){
+    $("#DivServerLobbyList").show();
+})

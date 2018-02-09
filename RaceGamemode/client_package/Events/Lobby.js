@@ -117,4 +117,16 @@ jcmp.events.AddRemoteCallable('Race_end_Loading_Page',function(){
 
 jcmp.events.AddRemoteCallable('Race_Reset_UI_Lobby',function(){
   lobbytest.Reload(true);
-})
+});
+
+jcmp.ui.AddEvent('ShowLobbyList', function() {
+  jcmp.ui.CallEvent('CEF/ShowLobbyList');
+});
+
+jcmp.ui.AddEvent('ShowServerList', function() {
+  jcmp.ui.CallEvent('CEF/ShowServerList');
+});
+
+jcmp.ui.AddEvent('LoadingHide', function() {
+  jcmp.ui.CallEvent('CEF/LoadingHide');
+});

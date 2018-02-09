@@ -50,9 +50,7 @@ var LobbyJoined = new Vue({
           // delete the lobby
         }
         $("#DivLobbyJoined").hide();
-        $("#DivServerLobbyList").show();
-        $("#btnJoin").show();
-        $("#btnCreate").show();
+        jcmp.CallEvent('ShowServerList');
 
 
 
@@ -66,12 +64,9 @@ var LobbyJoined = new Vue({
           jcmp.CallEvent('LaunchRace');
           console.log("Start Race");
           $("#TypeSelect").hide();
-          $("#DivServerLobbyList").hide();
-          $("#ListOfPlayerOnServer").hide();
-          $("#Leaderboard").hide();
           $("#MapSelectdiv").hide();
           $("#DivLobbyJoined").hide();
-          $("#LoadingPage").show();
+
 
 
       },
@@ -133,19 +128,13 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player alre
 
 
 jcmp.AddEvent('CEF/PlayerRemoveLobby',function(playername){
-  console.log("EVENT IS CALL LOL YOU SEE ME ");
-  console.log(LobbyJoined.PlayerLobbyData.PlayerListName);
   for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
-    console.log("HOW YEAH I AM CALL " + i);
     let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
-    console.log("AND MY FUCKING NAME IS" + playerlist);
-    console.log(playerlist);
     if (playerlist == playername){
-      console.log("PlayerFindLOLILOL");
       LobbyJoined.PlayerLobbyData.PlayerListName.splice(i,1);
     }
   }
-  console.log("AND I AM DEAD ");
+
 });
 
 
@@ -163,4 +152,8 @@ console.log("CEF/TypeOfRace for player in the lobby that change" + LobbyJoined.P
 jcmp.AddEvent('CEF/MapOfRace',function(map){ // update for the player on the lobby menu
 LobbyJoined.PlayerLobbyData.MapName = map;
 console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.PlayerLobbyData.MapName );
+});
+
+jcmp.AddEvent('CEF/ShowLobbyList',function(){
+    $("#DivLobbyJoined").show();
 });
