@@ -113,6 +113,9 @@ jcmp.events.AddRemoteCallable('Client/MapList',function(obj){
 
 jcmp.events.AddRemoteCallable('Race_end_Loading_Page',function(){
   jcmp.ui.CallEvent('CEF/Race_end_Loading_Page');
+  PlayerCameraHomeCEF();
+
+
 });
 
 jcmp.events.AddRemoteCallable('Race_Reset_UI_Lobby',function(){
@@ -129,4 +132,9 @@ jcmp.ui.AddEvent('ShowServerList', function() {
 
 jcmp.ui.AddEvent('LoadingHide', function() {
   jcmp.ui.CallEvent('CEF/LoadingHide');
+   jcmp.localPlayer.camera.position = jcmp.localPlayer.position;
+    jcmp.localPlayer.camera.attachedToPlayer = true;
+    jcmp.localPlayer.frozen = false;
+
+
 });

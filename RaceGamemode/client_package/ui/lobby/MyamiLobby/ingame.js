@@ -21,7 +21,7 @@ var InGame = new Vue({
     jcmp.AddEvent('Countdown_start', function() {
       // here setTimeout for the loading page and then start the countdown
       setTimeout(function() {
-        jcmp.CallEvent('LoadingHide');
+        jcmp.CallEvent('LoadingHide',true);
     //    $("#LoadingPage").hide();
 
         toggleContainer("TimerContainer", true);
