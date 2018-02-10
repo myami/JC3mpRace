@@ -17,14 +17,6 @@ jcmp.events.Add("PlayerCreated", function(player) {
     time: 0,
     spawningdouble: false,
     playerrotationspawn: new Vector3f(0, 0, 0),
-    playertotrack: [],
-    indextotrack: 0,
-    spectate: false,
-    cameras: [],
-    camspectate: false,
-    partnerplayer: [] ,// for multicrew save team in the array
-    leadpartner : false,
-    driver:false,
     lobbyid: undefined,
     ready: false,
     typeselect: undefined, // int

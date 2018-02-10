@@ -1,3 +1,9 @@
+
+/*
+TODO: REWRITE ALL THE LEADERBOARD PART
+
+*/
+
 var LeaderBoard = new Vue({
     el: '#Leaderboard',
     data: {
@@ -45,8 +51,4 @@ jcmp.AddEvent('Leaderboard_update_end_TTS',function(playername,time){
       }
   }
 
-})
-
-jcmp.AddEvent('Leaderboard_remove_all', function() {
-MultiCrew.LeaderboardPlayer = [];
 });

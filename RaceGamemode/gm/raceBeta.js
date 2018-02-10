@@ -31,14 +31,7 @@ module.exports = class RaceBeta {
       return;
     }
 
-    if (this.type == 3) { // need to be rewrite
-      console.log("APOCALYPSE NOW!!!");
-      this.ClassicRace();
-      setTimeout(function() {
-        this.apoStart();
-      }, 30000);
-      return;
-    }
+
     if (this.type == 4) {
       console.log("MULTIPLEPATH!!!!!!!!!");
       this.MPSTART();
@@ -193,22 +186,6 @@ module.exports = class RaceBeta {
 
 
 
-
-
-
-
-  ///////////////////////////////// AppocalypseNOW ////////////////////////////////////////////////////
-
-
-  // Falling explosive barrel around player every x seconds
-
-  // NEED REWRITE
-
-  apoStart() {
-    this.intervalapo = setInterval(function() {
-      jcmp.events.Call('AppoBarrelSpawnAroundPlayer', this.Players);
-    }, 15000);
-  }
 
 
 

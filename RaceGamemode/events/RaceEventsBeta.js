@@ -24,10 +24,7 @@ jcmp.events.AddRemoteCallable('Timer_Server_Beta',function(player,time){
     jcmp.events.Call('C_race_end_point', player);
 
   }
-  if (Race.type == 1) {
-    jcmp.events.Call('MC_race_end_point', player);
 
-  }
   if (Race.type == 2) {
   jcmp.events.Call('TTS_race_end_point', player);
 

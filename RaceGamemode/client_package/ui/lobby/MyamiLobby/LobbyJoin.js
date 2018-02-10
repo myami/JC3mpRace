@@ -10,15 +10,7 @@ var LobbyJoined = new Vue({
           LobbyID: undefined,
           PlayerListName:[]
         },
-      /*  PlayerLobbyData: {
-        LobbyName: "YOLO",
-        NumberofPlayer: "5",
-        MapName: "TESTMAP",
-        RaceID: "50",
-        TypeRace:"Classic",
-        LobbyID: "5",
-        PlayerListName:["Myami","Btje","Protato"]
-      },*/
+
       imhost: false
     },
     methods: {
@@ -101,7 +93,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
       console.log("CEF/PlayerJoinLobby player" + playername);
     }
 
-
+/*
   if (LobbyJoined.PlayerLobbyData.PlayerListName.length > 1){
       LobbyJoined.imhost = false;
   }
@@ -109,7 +101,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
     console.log("CEF/PlayerJoinLobby playeralone" +   LobbyJoined.PlayerLobbyData.PlayerListName[0]);
     LobbyJoined.imhost = true; // Show the admin UI to can select the map and type and launch the race
   }
-
+*/
 // Show the lobby UI with the map name etc...
 
 });

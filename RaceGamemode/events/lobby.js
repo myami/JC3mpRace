@@ -159,9 +159,7 @@ jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { 
   if (int == 2) {
     name = "TTS"
   }
-/*  if (int == 3) {
-    name = "Apo"
-  } */
+
   if (int == 4) {
     name = "MultiplePath"
   }

@@ -1,8 +1,7 @@
 jcmp.events.Add("GameUpdateRender", function(renderer) {
 
   const cam = jcmp.localPlayer.camera.position;
-  trackPlayer(renderer);
-  CameraView(renderer);
+
   jcmp.players.forEach(player => {
     //if (!player.localPlayer) {
     const playerCache = playersCache[player.networkId];
@@ -19,9 +18,9 @@ jcmp.events.Add("GameUpdateRender", function(renderer) {
 
       const mat = head.LookAt(head.position, cam, up).Scale(scale);
       renderer.SetTransform(mat);
-      if (!spectate && !cameraview) {
+    
         RenderNametag(renderer, playerCache, d);
-      }
+
 
     }
 

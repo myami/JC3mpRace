@@ -3,15 +3,13 @@
 }
 
 
-
+// At startup hide all exept the lobby list and show the cursor
 $("#TypeSelect").hide();
 $("#MapSelectdiv").hide();
 $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
 $("#LoadingPage").hide();
-
-
 jcmp.ShowCursor();
 
 
@@ -21,28 +19,9 @@ jcmp.ShowCursor();
 
 
 
-$("#ClassicType").click(function(){
-jcmp.CallEvent('Client/NewTypeSelected',0);
-$("#TypeSelect").hide();
-});
-$("#MultiplePath").click(function(){
-jcmp.CallEvent('Client/NewTypeSelected',4);
-$("#TypeSelect").hide();
-});
 
 
-$("#TTSType").click(function(){
-  jcmp.CallEvent('Client/NewTypeSelected',2);
-  $("#TypeSelect").hide();
-});
-
-$("#ApoType").click(function(){
-  jcmp.CallEvent('Client/NewTypeSelected',3);
-  $("#TypeSelect").hide();
-});
-
-
-
+// need to be here to acces all div
 jcmp.AddEvent('RaceFinishShowLobby',function(){
   setTimeout(function() {
     $("#LoadingPage").hide();
@@ -67,11 +46,3 @@ jcmp.AddEvent('Race_Start',function(){
   jcmp.HideCursor();
 
 });
-jcmp.AddEvent('CEF/LoadingHide',function(){
-  $("#LoadingPage").hide();
-
-})
-
-jcmp.AddEvent('CEF/Race_end_Loading_Page',function(){
-  $("#LoadingPage").show();
-})

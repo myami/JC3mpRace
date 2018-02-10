@@ -1,8 +1,7 @@
 {
     "authors":"Myami",
     "jcmp_dependencies": [
-        "command-manager",
-        "jcmp-toast"
+        "command-manager"
     ],
     "license":"MIT",
     "name":"Race",

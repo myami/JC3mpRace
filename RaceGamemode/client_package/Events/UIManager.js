@@ -20,3 +20,9 @@ lobbyPlayerServer.autoResize = true;
 
 var Ingame = new WebUIWindow("Ingame", "package://race/ui/lobby/MyamiLobby/Ingame.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
 Ingame.autoResize = true;
+
+var MapSelect = new WebUIWindow("MapSelect", "package://race/ui/lobby/MyamiLobby/MapSelect.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+MapSelect.autoResize = true;
+
+var TypeSelect = new WebUIWindow("TypeSelect", "package://race/ui/lobby/MyamiLobby/TypeSelect.html", new Vector2(jcmp.viewportSize.x, jcmp.viewportSize.y));
+TypeSelect.autoResize = true;

@@ -118,12 +118,7 @@ var InGame = new Vue({
       InGame.CurrentCheckpoint = checkpoint;
     });
 
-    jcmp.AddEvent('WarningBarrel_CEF', function() {
-      toggleContainer("WarningBarrel", true);
-      setTimeout(function() {
-        toggleContainer("WarningBarrel", false);
-      }, 3000);
-    });
+
 
     function toggleContainer(container, status) {
       // Status true = SHOW, false = HIDE

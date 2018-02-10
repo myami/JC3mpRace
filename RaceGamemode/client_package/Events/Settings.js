@@ -9,15 +9,7 @@ let playeringame = false;
 let countdowninprogress = false;
 let typeofrace = undefined;
 const playersCache = [];
-//Spectator
-let tracked_player = null;
-let tracked_id = null;
-let currentindex = 0;
-let to_pos = new Vector3f(0, 0, 0);
-let to_rot = new Vector3f(0, 0, 0);
-let spectate = false;
-let cameraview = false;
-let cm_pos = new Vector3f(0, 0, 0);
+
 // NameTags
 const up = new Vector3f(0, 1, 0);
 const scaleFactor = new Vector3f(0.0001, 0.0001, 0.0001);
