@@ -14,3 +14,13 @@ $("#TTSType").click(function(){
   jcmp.CallEvent('Client/NewTypeSelected',2);
   $("#TypeSelect").hide();
 });
+
+
+jcmp.AddEvent('CEF/ShowTypeSelectDiv',function(bool){
+  if(bool){
+    $("#TypeSelect").show();
+  }
+  else{
+    $("#TypeSelect").hide();
+  }
+});

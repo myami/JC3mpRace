@@ -97,8 +97,8 @@ $("#btnCreate").click(function(){
   console.log("Lobby created with the name : " + name);
   $("#DivServerLobbyList").hide();
   jcmp.CallEvent('ShowLobbyList');
-  LobbyJoined.imhost = true; // or do an event call
-  console.log(LobbyJoined.imhost);
+  jcmp.CallEvent('ImHost',true);
+
 
 });
 

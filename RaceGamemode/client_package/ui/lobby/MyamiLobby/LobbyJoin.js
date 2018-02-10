@@ -64,10 +64,13 @@ var LobbyJoined = new Vue({
       },
       ShowMapList: function(){
         $("#MapSelectdiv").show();
+        jcmp.CallEvent('ShowMapSelectDiv',true);
 
       },
       ShowTypeList: function(){
         $("#TypeSelect").show();
+        jcmp.CallEvent('ShowTypeSelectDiv',true);
+
 
       }
     }
@@ -148,4 +151,8 @@ console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.Pl
 
 jcmp.AddEvent('CEF/ShowLobbyList',function(){
     $("#DivLobbyJoined").show();
+});
+
+jcmp.AddEvent('CEF/ImHost',function(bool){
+  LobbyJoined.imhost = bool;
 });

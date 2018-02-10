@@ -25,3 +25,13 @@ jcmp.AddEvent('CEF/MapList',function(obj){
   console.log(mapobj);
   MapSelected.raceList.push(mapobj);
 });
+
+
+jcmp.AddEvent('CEF/ShowMapSelectDiv',function(bool){
+  if(bool){
+    $("#MapSelectdiv").show();
+  }
+  else{
+    $("#MapSelectdiv").hide();
+  }
+});

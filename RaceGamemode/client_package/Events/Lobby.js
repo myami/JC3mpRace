@@ -138,3 +138,14 @@ jcmp.ui.AddEvent('LoadingHide', function() {
 
 
 });
+jcmp.ui.AddEvent('ImHost', function(bool) {
+  jcmp.ui.CallEvent('CEF/ImHost',bool);
+});
+
+jcmp.ui.AddEvent('ShowMapSelectDiv', function(bool) {
+  jcmp.ui.CallEvent('CEF/ShowMapSelectDiv',bool);
+});
+
+jcmp.ui.AddEvent('ShowTypeSelectDiv', function(bool) {
+  jcmp.ui.CallEvent('CEF/ShowTypeSelectDiv',bool);
+});
