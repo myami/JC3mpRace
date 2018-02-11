@@ -80,7 +80,6 @@ jcmp.events.Add('PlayerReady', function(player) {
 
 player.respawnPosition = new Vector3f(-13196,1326,14827);
 
-  //player.respawnPosition = new Vector3f(-1330, 1035, 14827);
   player.Respawn();
 
 
@@ -130,11 +129,9 @@ jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
 
 
   if (!player.race.ingame) {
-    let killerName = 'Environment';
-    if (killer != null) {
-      killerName = killer.escapedNametagName;
+  console.log("NotIngame");
     }
-    console.log("NotIngame");
+
 
     jcmp.events.CallRemote('race_deathui_show', player, killerName);
 
@@ -150,7 +147,7 @@ jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
   }
 
 
-});
+);
 
 
 jcmp.events.Add('PlayerVehicleExited', (player, vehicle, seatIndex) => {

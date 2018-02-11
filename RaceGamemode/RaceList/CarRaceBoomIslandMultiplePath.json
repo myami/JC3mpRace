@@ -12,16 +12,7 @@
   "PoiType": 10,
   "GhostPOIType": 23,
   "nitroenabled": true,
-  "max_player": 20,
-  "CheckpointHash": "0x301477DB",
-  "ChekpointType": 1,
-  "PoiType": 10,
-  "GhostPOIType": 23,
-  "nitroenabled": true,
-  "max_player": 20,
   "raceid":55,
-  "laps":0,
-  "multicrew": false,
   "multiplepath":true,
 
 

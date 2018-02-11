@@ -2,10 +2,7 @@
 	"Name": "Wingsuit-CityExploration",
 	"NameWithoutSpace": "WingsuitCityExploration",
 	"VehicleType": "Wingsuit",
-	"time": {
-		"hour": 16,
-		"minute": 30
-	},
+	"time": {"hour": 16,"minute": 30},
 	"weather": "base",
 	"defaultVehicle": 0,
 	"AllDefault": true,
@@ -15,11 +12,7 @@
 	"PoiType": 10,
 	"GhostPOIType": 23,
 	"nitroenabled": "true",
-	"max_player": 16,
-	"image":"Wingsuit-City.jpg",
 	"raceid":16,
-	"laps":0,
-	"multicrew": false,
 	"multiplepath":false,
 
 	"StartingPoint": [

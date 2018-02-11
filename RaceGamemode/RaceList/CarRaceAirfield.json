@@ -12,11 +12,7 @@
   "PoiType": 10,
   "GhostPOIType": 23,
   "nitroenabled": true,
-  "max_player": 20,
-  "image":"Car-AirfieldRace.jpg",
   "raceid":10,
-  "laps":0,
-  "multicrew": true,
   "multiplepath":false,
 
 
@@ -93,9 +89,6 @@
     {"x": -4542.87451171875,"y":1116.56884765625,"z":-5457.5234375,"rotx":0,"roty":-1.1413904428482056,"rotz":0,"id":39},
     {"x": -4759.267578125,"y":1067.7899169921875,"z":-5555.654296875,"rotx":0,"roty":-1.21230947971344,"rotz":0,"id":40}
 
-
-  ],
-  "CameraView":[
 
   ]
 

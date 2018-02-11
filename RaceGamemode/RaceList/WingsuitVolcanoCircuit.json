@@ -2,10 +2,7 @@
 	"Name": "Wingsuit-VolcanoCircuit",
 	"NameWithoutSpace": "WingsuitVolcanoCircuit",
 	"VehicleType": "Wingsuit",
-	"time": {
-		"hour": 16,
-		"minute": 30
-	},
+	"time": {"hour": 16,"minute": 30},
 	"weather": "overcast",
 	"defaultVehicle": 0,
 	"AllDefault": true,
@@ -15,12 +12,9 @@
 	"PoiType": 10,
 	"GhostPOIType": 23,
 	"nitroenabled": true,
-	"max_player": 20,
-	"image":"Wingsuit-Volcano.jpg",
 	"raceid":18,
-	"laps":0,
-	"multicrew": false,
-	  "multiplepath":false,
+	"multiplepath":false,
+
 	"StartingPoint": [
 		{
 			"x": -12584.76953125,
