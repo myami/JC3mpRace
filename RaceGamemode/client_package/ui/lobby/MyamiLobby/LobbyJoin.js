@@ -29,7 +29,11 @@ var LobbyJoined = new Vue({
       },
       // end admin commands
       leaveLobby: function() {
-        jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
+        if (this.imhost){
+          // delete the lobby
+          jcmp.CallEvent('DeleteLobby');
+          this.imhost = false;
+        }
         console.log("PlayerLeave");
         this.PlayerLobbyData.LobbyName = undefined ;
         this.PlayerLobbyData.NumberofPlayer = undefined ;
@@ -38,11 +42,11 @@ var LobbyJoined = new Vue({
         this.PlayerLobbyData.TypeRace = undefined ;
         this.PlayerLobbyData.LobbyID = undefined ;
         this.PlayerLobbyData.PlayerListName = [] ;
-        if (this.imhost){
-          // delete the lobby
-        }
+
         $("#DivLobbyJoined").hide();
         jcmp.CallEvent('ShowServerList');
+
+        jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
 
 
 
@@ -149,8 +153,21 @@ LobbyJoined.PlayerLobbyData.MapName = map;
 console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.PlayerLobbyData.MapName );
 });
 
-jcmp.AddEvent('CEF/ShowLobbyList',function(){
+jcmp.AddEvent('CEF/ShowLobbyMenu',function(){
     $("#DivLobbyJoined").show();
+});
+jcmp.AddEvent('CEF/HideLobbyMenu',function(){
+    $("#DivLobbyJoined").hide();
+    jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
+    console.log("PlayerLeave");
+    LobbyJoined.PlayerLobbyData.LobbyName = undefined ;
+    LobbyJoined.PlayerLobbyData.NumberofPlayer = undefined ;
+    LobbyJoined.PlayerLobbyData.MapName = undefined ;
+    LobbyJoined.PlayerLobbyData.RaceID = undefined ;
+    LobbyJoined.PlayerLobbyData.TypeRace = undefined ;
+    LobbyJoined.PlayerLobbyData.LobbyID = undefined ;
+    LobbyJoined.PlayerLobbyData.PlayerListName = [] ;
+      jcmp.CallEvent('ShowServerList');
 });
 
 jcmp.AddEvent('CEF/ImHost',function(bool){

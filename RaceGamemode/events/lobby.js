@@ -108,7 +108,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
         jcmp.events.CallRemote('Client/PlayerRemoveLobby', players, player.name);
       }
     }
-    console.log("0");
+
     for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) { // Delete the player from the serverside array
       let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
       if (players.networkId == player.networkId) {
@@ -130,6 +130,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
 
     if (race.game.lobbys[player.race.lobbyid][0].PlayerList <= 0) { // delete lobby
       console.log("DeleteLobby");
+        LobbyDelete(player);
     }
 
     player.race.lobbyid = undefined;
@@ -349,4 +350,37 @@ jcmp.events.Add('PlayerJoinSeeOldLobby',function(player,serverlist){
   });
 console.log("All Lobby are add on the new player");
 
-})
+});
+
+jcmp.events.AddRemoteCallable('DeleteLobby',function(player){
+  LobbyDelete(player);
+});
+
+function LobbyDelete(player){
+let id = player.race.lobbyid;
+//Remove it on the client side on all
+
+jcmp.events.CallRemote('Client/DeleteLobby',null,id);
+
+if (race.game.lobbys[player.race.lobbyid][0].PlayerList.length > 1){
+  //kick and send message to people that whas inside that the lobby is remove
+  for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+    let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
+    jcmp.events.CallRemote('Client/LobbyIsRemoved', players);
+      players.race.lobbyid = undefined;
+  }
+}
+
+
+// Remove it on the server side
+for (let i = 0; i <  race.game.lobbys.length; i++) {
+  let lobbylist =  race.game.lobbys[i];
+  if (lobbylist[0].LobbyID == id){
+  race.game.lobbys.splice(i,1);
+  }
+}
+
+
+
+
+}

@@ -123,7 +123,7 @@ jcmp.events.AddRemoteCallable('Race_Reset_UI_Lobby',function(){
 });
 
 jcmp.ui.AddEvent('ShowLobbyList', function() {
-  jcmp.ui.CallEvent('CEF/ShowLobbyList');
+  jcmp.ui.CallEvent('CEF/ShowLobbyMenu');
 });
 
 jcmp.ui.AddEvent('ShowServerList', function() {
@@ -148,4 +148,16 @@ jcmp.ui.AddEvent('ShowMapSelectDiv', function(bool) {
 
 jcmp.ui.AddEvent('ShowTypeSelectDiv', function(bool) {
   jcmp.ui.CallEvent('CEF/ShowTypeSelectDiv',bool);
+});
+
+jcmp.ui.AddEvent('DeleteLobby', function() {
+  jcmp.events.CallRemote('DeleteLobby');
+});
+jcmp.events.AddRemoteCallable('Client/DeleteLobby',function(id){
+  jcmp.ui.CallEvent('CEF/DeleteLobby',id);
+});
+
+jcmp.events.AddRemoteCallable('Client/LobbyIsRemoved',function(){
+  jcmp.ui.CallEvent('CEF/HideLobbyMenu');
+
 });

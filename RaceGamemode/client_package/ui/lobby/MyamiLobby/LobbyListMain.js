@@ -13,7 +13,7 @@ var LobbyMain = new Vue({
       selectLobby: function(raceid) {
           this.currentSelected = raceid;
           console.log("RaceId: "+raceid);
-     jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); //for testing it's remove need to be add again
+          jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); //for testing it's remove need to be add again
           $("#DivServerLobbyList").hide();
           jcmp.CallEvent('ShowLobbyList');
       },
@@ -60,9 +60,6 @@ jcmp.AddEvent('CEF/UpdateLengthLobby',function(id,newlength){
 
 
 
-jcmp.AddEvent('CEF/ShowLobbyList',function(boolean){
-  // show the LobbyServerList to the player or not
-});
 
 
 jcmp.AddEvent('CEF/TypeOfRaceSelected',function(id,type){    // update the UI on server list
@@ -104,4 +101,14 @@ $("#btnCreate").click(function(){
 
 jcmp.AddEvent('CEF/ShowServerList',function(){
     $("#DivServerLobbyList").show();
-})
+});
+
+
+jcmp.AddEvent('CEF/DeleteLobby',function(id){
+  for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {
+    let lobby = LobbyMain.LobbyServerList[i];
+    if(lobby.LobbyID == id){
+      LobbyMain.LobbyServerList.splice(i,1);
+    }
+  }
+});
