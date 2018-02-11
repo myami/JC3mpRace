@@ -76,7 +76,8 @@ var LobbyJoined = new Vue({
         jcmp.CallEvent('ShowTypeSelectDiv',true);
 
 
-      }
+      },
+        generateThumbUrl: generateThumbUrl
     }
 
 });
@@ -148,8 +149,9 @@ console.log("CEF/TypeOfRace for player in the lobby that change" + LobbyJoined.P
 });
 
 
-jcmp.AddEvent('CEF/MapOfRace',function(map){ // update for the player on the lobby menu
+jcmp.AddEvent('CEF/MapOfRace',function(map,id){ // update for the player on the lobby menu
 LobbyJoined.PlayerLobbyData.MapName = map;
+LobbyJoined.PlayerLobbyData.RaceID = id;
 console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.PlayerLobbyData.MapName );
 });
 
