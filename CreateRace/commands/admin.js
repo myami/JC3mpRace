@@ -31,15 +31,7 @@ module.exports = ({
         })
       })
 
-      jcmp.events.Call('toast_show', null, {
-        heading: 'Add Startingpoint',
-        text: `You just add a startingpoint on the race: ${name}`,
-        icon: 'info',
-        loader: true,
-        loaderBg: '#9EC600',
-        position: 'top-right',
-        hideAfter: 5000
-      });
+
       createrace.chat.send(player, "Position saved sucesfully");
     }))
 
@@ -54,15 +46,7 @@ module.exports = ({
     .add(new Command('resetraceid').description('Reset the race id for checkpoint').handler(function(player) {
 
       createrace.id = 0;
-      jcmp.events.Call('toast_show', null, {
-        heading: 'ID reset',
-        text: "You have reset the id",
-        icon: 'info',
-        loader: true,
-        loaderBg: '#9EC600',
-        position: 'top-right',
-        hideAfter: 5000
-      });
+
       createrace.chat.send(player, "ID changed to 0");
     }))
 
@@ -116,15 +100,7 @@ module.exports = ({
       } else {
         fs.appendFileSync(`./${name}.json`, Createfile);
       }
-      jcmp.events.Call('toast_show', null, {
-        heading: 'Create file',
-        text: `You just create the file race call ${name}`,
-        icon: 'info',
-        loader: true,
-        loaderBg: '#9EC600',
-        position: 'top-right',
-        hideAfter: 5000
-      });
+
       createrace.chat.send(player, `Creating JSON file call ${name}`);
     }))
 

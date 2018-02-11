@@ -9,15 +9,7 @@ jcmp.events.AddRemoteCallable('CreateJsonFile_server', function(player, name) {
   } else {
     fs.appendFileSync(`./${name}.json`, Createfile);
   }
-  jcmp.events.Call('toast_show', null, {
-    heading: 'Create file',
-    text: `You just create the file race call ${name}`,
-    icon: 'info',
-    loader: true,
-    loaderBg: '#9EC600',
-    position: 'top-right',
-    hideAfter: 5000
-  });
+
 
   createrace.chat.send(player, `Creating JSON file call ${name}`);
 });
@@ -447,4 +439,3 @@ jcmp.events.Add("PlayerReady", (player) => {
 
 
 });
-

@@ -3,7 +3,6 @@
     "jcmp_dependencies": [
         "chat",
         "command-manager",
-        "jcmp-toast"
     ],
     "license":"MIT",
     "name":"CreateRace",
