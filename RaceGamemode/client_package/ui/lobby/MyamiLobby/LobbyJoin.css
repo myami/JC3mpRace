@@ -9,7 +9,8 @@
 .raceInfoList{
   list-style-type: none;
   position: fixed;
-  top: 5%;
+  top: 55%;
+  right: 25%;
 text-align: left;
 
 }
@@ -22,4 +23,11 @@ text-align: left;
   position: fixed;
   top: 90%;
   right: 5%;
+}
+
+.MapThumbnail{
+  position: fixed;
+  top: 35%;
+  right: 20%;
+
 }
