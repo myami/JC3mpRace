@@ -352,19 +352,9 @@ jcmp.events.AddRemoteCallable('DeleteLobby',function(player){
 
 function LobbyDelete(player){
 let id = player.race.lobbyid;
+
 //Remove it on the client side on all
-
 jcmp.events.CallRemote('Client/DeleteLobby',null,id);
-
-if (race.game.lobbys[player.race.lobbyid][0].PlayerList.length > 1){
-  //kick and send message to people that whas inside that the lobby is remove
-  for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) { // not working
-    let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
-
-    jcmp.events.CallRemote('Client/LobbyIsRemoved', players);
-      players.race.lobbyid = undefined;
-  }
-}
 
 
 // Remove it on the server side
@@ -379,3 +369,7 @@ for (let i = 0; i <  race.game.lobbys.length; i++) {
 
 
 }
+
+jcmp.events.AddRemoteCallable('LobbyIsRemovedP',function(player){
+  player.race.lobbyid = undefined;
+});

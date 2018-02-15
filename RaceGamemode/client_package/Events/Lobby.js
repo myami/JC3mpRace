@@ -155,9 +155,9 @@ jcmp.ui.AddEvent('DeleteLobby', function() {
 });
 jcmp.events.AddRemoteCallable('Client/DeleteLobby',function(id){
   jcmp.ui.CallEvent('CEF/DeleteLobby',id);
+    jcmp.ui.CallEvent('CEF/HideLobbyMenu',id);
 });
 
-jcmp.events.AddRemoteCallable('Client/LobbyIsRemoved',function(){
-  jcmp.ui.CallEvent('CEF/HideLobbyMenu');
-
+jcmp.ui.AddEvent('LobbyIsRemovedP', function() {
+  jcmp.events.CallRemote('LobbyIsRemovedP');
 });

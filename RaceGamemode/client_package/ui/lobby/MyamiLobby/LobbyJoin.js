@@ -157,7 +157,9 @@ console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.Pl
 jcmp.AddEvent('CEF/ShowLobbyMenu',function(){
     $("#DivLobbyJoined").show();
 });
-jcmp.AddEvent('CEF/HideLobbyMenu',function(){
+jcmp.AddEvent('CEF/HideLobbyMenu',function(id){
+
+  if (id == LobbyJoined.PlayerLobbyData.LobbyID){
     $("#DivLobbyJoined").hide();
     jcmp.CallEvent('Client/Player_Remove_Lobby_Test');
     console.log("PlayerLeave");
@@ -169,6 +171,9 @@ jcmp.AddEvent('CEF/HideLobbyMenu',function(){
     LobbyJoined.PlayerLobbyData.LobbyID = undefined ;
     LobbyJoined.PlayerLobbyData.PlayerListName = [] ;
       jcmp.CallEvent('ShowServerList');
+      jcmp.CallEvent('LobbyIsRemovedP');
+  }
+
 });
 
 jcmp.AddEvent('CEF/ImHost',function(bool){
