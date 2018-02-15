@@ -101,28 +101,27 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
       console.log("CEF/PlayerJoinLobby player" + playername);
     }
 
-/*
-  if (LobbyJoined.PlayerLobbyData.PlayerListName.length > 1){
-      LobbyJoined.imhost = false;
-  }
-  else{
-    console.log("CEF/PlayerJoinLobby playeralone" +   LobbyJoined.PlayerLobbyData.PlayerListName[0]);
-    LobbyJoined.imhost = true; // Show the admin UI to can select the map and type and launch the race
-  }
-*/
-// Show the lobby UI with the map name etc...
+
 
 });
 
-jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){ // Player already on the lobby to see the new guy
-  for (let i = 0; i <   LobbyMain.LobbyServerList.length; i++) {
-    let lobby = LobbyMain.LobbyServerList[i];
-    if(lobby.LobbyID == id){
-      LobbyJoined.PlayerLobbyData.PlayerListName.push(playername);
-      // show to everyone that are on the lobby the new guy
-      console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
+jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
+  if (LobbyJoined.PlayerLobbyData.LobbyID == id){
+    for (let i = 0; i <   LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+      let player = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+      if(player == playername){
+        return;
+
+      }
     }
+    LobbyJoined.PlayerLobbyData.PlayerListName.push(playername);
+    // show to everyone that are on the lobby the new guy
+    console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
+
   }
+
+
+
 });
 
 

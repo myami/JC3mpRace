@@ -43,7 +43,7 @@
 
   <div id="deathcontent" style="transition: opacity 500ms; opacity: 0;">
 
-    <img src="./img/deathimg.png" width="30%" height="45%" />
+  <!--  <img src="./img/deathimg.png" width="30%" height="45%" /> -->
 
     <h1>You are respawning</h1>
     <h3>Don't worry you will respawn in <span id="respawnTime">5</span> seconds ..</h4>
@@ -62,7 +62,7 @@
             }, 1000);
         }
 
-        jcmp.AddEvent('race_deathui_show', function(killerName) {
+        jcmp.AddEvent('race_deathui_show', function() {
             document.getElementById("respawnTime").innerText = "5";
             fadeIn(document.getElementById("deathcontent"));
             var deathUItimer = setInterval(function() {

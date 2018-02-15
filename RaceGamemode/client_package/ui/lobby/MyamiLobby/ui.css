@@ -1,0 +1,100 @@
+body {
+    font-family: sans-serif;
+    /*background: url('http://cdn.akamai.steamstatic.com/steam/apps/225540/ss_3f7f935e42ab9a7816a6e0f9442da5a5a6362789.1920x1080.jpg?t=1515663874');*/
+}
+
+table {
+    border-collapse: collapse;
+    width: 95%;
+    margin: 0 auto;
+}
+
+th, td {
+    text-align: left;
+    padding: 25px;
+}
+
+th {
+    color: white;
+}
+
+td {
+    border-bottom: 1px solid rgba(255,255,255,.1);
+}
+
+td img {
+    width: 15%;
+}
+
+thead {
+    border-bottom: 1px solid rgba(255,255,255,.5);
+}
+
+button {
+    background: none;
+    color: #000;
+    background: rgba(165,255,0,.5);
+    outline: 1px solid rgba(0,0,0,.6);
+    outline-offset: -3px;
+    border: none;
+    cursor: pointer;
+    padding: 15px;
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+
+button:hover {
+    background: rgba(165,255,0,.8);
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    -webkit-transition: all .2s;
+    -moz-transition: all .2s;
+    -ms-transition: all .2s;
+    -o-transition: all .2s;
+    transition: all .2s;
+}
+
+#DivServerLobbyList, #DivLobbyJoined {
+    background: rgba(0,0,0,.7);
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    left: 0; right: 0;
+    top: 0; bottom: 0;
+    margin: auto;
+    overflow: auto;
+    outline: 1px solid rgba(255,255,255,.5);
+    outline-offset: -3px;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19);
+    color: #fff;
+}
+
+#btnCreate, #btnLeave {
+    position: absolute;
+    bottom: 4%;
+    right: 2.5%;
+}
+
+#DivLobbyJoined {
+    padding: 25px;
+}
+
+#DivLobbyJoined .PlayerList {
+    max-width: 30%;
+    max-height: 100%;
+    list-style: none;
+}
+
+#DivLobbyJoined .MapThumbnail {
+    position: fixed;
+    left: 25px;
+    top: 25px;
+}
+
+#DivLobbyJoined .raceInfoList {
+    list-style: none;
+    position: fixed;
+    left: 25px;
+}

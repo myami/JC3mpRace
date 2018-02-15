@@ -32,8 +32,8 @@ jcmp.events.AddRemoteCallable('race_cachelist', function() {
 
 jcmp.events.CallRemote('race_clientside_ready');
 
-jcmp.events.AddRemoteCallable('race_deathui_show', function(killerName) {
-  jcmp.ui.CallEvent('race_deathui_show', killerName);
+jcmp.events.AddRemoteCallable('race_deathui_show', function() {
+  jcmp.ui.CallEvent('race_deathui_show');
 });
 
 jcmp.events.CallRemote('race_debug', 'DeathUI LOADED');

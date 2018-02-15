@@ -12,7 +12,7 @@
   <script type="text/javascript" src="./bootstrap.js"></script>
     <script src="./vue.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="LobbyJoin.css">
+    <link rel="stylesheet" type="text/css" href="ui.css">
 
 
 
@@ -26,7 +26,9 @@
 
 
 <div id= "DivLobbyJoined">
+  <h2 v-show="!imhost">Waiting for the host to start the race...</h2>
 <div class = "Squarearound">
+  <h3>Player list</h3>
   <li v-for="name in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
     <span>{{ name }}</span>
 
@@ -52,7 +54,7 @@
 
   </div>
   <div class="modal-footer">
-    <button type="button" class="leavelobby" v-on:click="leaveLobby()">LeaveLobby</button>
+    <button type="button" id="btnLeave" class="leavelobby" v-on:click="leaveLobby()">LeaveLobby</button>
   </div>
 
 

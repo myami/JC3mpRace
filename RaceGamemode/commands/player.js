@@ -25,6 +25,13 @@ module.exports = ({
     .add(new Command('resetUI').description('reset the UI').handler(function(player) {
       jcmp.events.CallRemote('Race_Reset_UI_Lobby',player);
       race.chat.send(player, "[SERVER] UI RESET");
+    }))
+
+    .add(new Command('Test1').description('').handler(function(player) {
+      for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+        let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
+        console.log(players.name);
+      }
     }));
 
 

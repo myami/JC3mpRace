@@ -77,13 +77,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
       jcmp.events.CallRemote('Client/PlayerJoinLobby', player, id, JSON.stringify(lobbydata)); // Show the UI of the lobby (player on the lobby , map of the lobby etc..)
       jcmp.events.CallRemote('Client/UpdateLengthLobby', null, id, race.game.lobbys[id][0].NumberofPlayer); // Update the length of a lobby
 
-      for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
-        let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
-        if (players.networkId != player.networkId) {
-          console.log("Show new lobby");
-          jcmp.events.CallRemote('Client/AddPlayerOnLobbyMenu', players, player.race.lobbyid, player.name); // Add on the lobby menu of everyone in the lobby the name of the new guy
-        }
-      }
+      jcmp.events.CallRemote('Client/AddPlayerOnLobbyMenu', null, player.race.lobbyid, player.name);
       jcmp.events.Call('UpdatePlayerOnTheServer', player);
 
 
@@ -364,8 +358,9 @@ jcmp.events.CallRemote('Client/DeleteLobby',null,id);
 
 if (race.game.lobbys[player.race.lobbyid][0].PlayerList.length > 1){
   //kick and send message to people that whas inside that the lobby is remove
-  for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
+  for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) { // not working
     let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
+
     jcmp.events.CallRemote('Client/LobbyIsRemoved', players);
       players.race.lobbyid = undefined;
   }

@@ -133,7 +133,7 @@ jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
     }
 
 
-    jcmp.events.CallRemote('race_deathui_show', player, killerName);
+    jcmp.events.CallRemote('race_deathui_show', player);
 
     race.chat.send(player, "Respawning in 5 seconds ...")
 
