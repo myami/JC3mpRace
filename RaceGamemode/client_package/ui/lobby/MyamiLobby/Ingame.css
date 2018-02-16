@@ -4,13 +4,15 @@
 
       #TimerContainer {
         position: fixed;
-        top: 20%;
-        right: 47%;
-        font-family: 'Passion One', cursive;
-        font-weight: bold;
-        font-size: 160pt;
-        color: yellow;
-          display: none;
+                top: 20%;
+                left: 50%;
+            transform: translateX(-50%);
+                font-family: sans-serif;
+                font-weight: bold;
+                font-size: 160pt;
+                color: yellow;
+                  display: none;
+            text-align: center;
       }
 
 

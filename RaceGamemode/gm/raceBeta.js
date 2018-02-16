@@ -73,6 +73,9 @@ module.exports = class RaceBeta {
         }, 4000);
 
       }
+      if (this.IsWingsuit){
+        player.race.vehicle = undefined;
+      }
 
       jcmp.events.CallRemote('race_Freeze_player', player);
       jcmp.events.CallRemote('race_set_time', player, this.racedata.time.hour, this.racedata.time.minute, 0);

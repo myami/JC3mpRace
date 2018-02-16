@@ -89,12 +89,13 @@ button:hover {
 
 #DivLobbyJoined .MapThumbnail {
     position: fixed;
-    left: 25px;
-    top: 25px;
+    right: 25px;
+    top: 200px;
 }
 
 #DivLobbyJoined .raceInfoList {
     list-style: none;
     position: fixed;
-    left: 25px;
+    right: 200px;
+    top: 400px;
 }
