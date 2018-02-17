@@ -161,3 +161,7 @@ jcmp.events.AddRemoteCallable('Client/DeleteLobby',function(id){
 jcmp.ui.AddEvent('LobbyIsRemovedP', function() {
   jcmp.events.CallRemote('LobbyIsRemovedP');
 });
+jcmp.events.AddRemoteCallable('Client/isAdmin',function(){
+  jcmp.ui.CallEvent('CEF/ShowUILobbyCreated');
+
+});

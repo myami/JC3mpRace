@@ -1,6 +1,10 @@
 
 jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player, LobbyNameReceived) {
+  if (!race.utils.isAdmin(player)){
+    return;
+  }
   if (player.race.lobbyid == undefined) {
+      jcmp.events.CallRemote('Client/isAdmin', player); // send to everyone the new lobby object for the array in cef
     let id = Object.keys(race.game.lobbys).length;
     console.log(id);
     race.game.lobbys[id] = [];
@@ -124,7 +128,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
 
     if (race.game.lobbys[player.race.lobbyid][0].PlayerList <= 0) { // delete lobby
       console.log("DeleteLobby");
-        LobbyDelete(player);
+       LobbyDelete(player);
     }
 
     player.race.lobbyid = undefined;
@@ -327,27 +331,27 @@ jcmp.events.Add('Server/MapList',function(player){ // call when a player is a lo
 
 jcmp.events.Add('PlayerJoinSeeOldLobby',function(player,serverlist){
   data = JSON.parse(serverlist);
-  data.lobby.forEach(function(l) {
+
 
     let lobbytosendtoclient = {
-      LobbyName: l.data[0].LobbyName,
-      NumberofPlayer: l.data[0].NumberofPlayer,
-      MapName: l.data[0].MapName,
-      TypeRace: l.data[0].TypeRace,
-      LobbyID: l.data[0].LobbyID,
-      RaceID: l.data[0].RaceID,
-      PlayerCreated: l.data[0].PlayerCreated,
-      PlayerListName: l.data[0].PlayerListName
+      LobbyName: data[0].LobbyName,
+      NumberofPlayer: data[0].NumberofPlayer,
+      MapName: data[0].MapName,
+      TypeRace: data[0].TypeRace,
+      LobbyID: data[0].LobbyID,
+      RaceID: data[0].RaceID,
+      PlayerCreated: data[0].PlayerCreated,
+      PlayerListName: data[0].PlayerListName
     }
-    jcmp.events.CallRemote('Client/LobbyCreated', player, JSON.stringify(lobbytosendtoclient));
-    console.log(`Lobby add to the player ${player.name}  name of the lobby : ${l.data[0].LobbyName}`);
-  });
-console.log("All Lobby are add on the new player");
+  jcmp.events.CallRemote('Client/LobbyCreated', player, JSON.stringify(lobbytosendtoclient));
+    console.log(`Lobby add to the player ${player.name}  name of the lobby : ${data[0].LobbyName}`);
+
+
 
 });
 
 jcmp.events.AddRemoteCallable('DeleteLobby',function(player){
-  LobbyDelete(player);
+ LobbyDelete(player);
 });
 
 function LobbyDelete(player){

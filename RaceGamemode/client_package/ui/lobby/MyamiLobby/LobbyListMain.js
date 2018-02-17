@@ -91,12 +91,15 @@ jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map,int){      // update the U
 $("#btnCreate").click(function(){
   let name = "TestLobby";
   jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
-  console.log("Lobby created with the name : " + name);
+
+
+
+});
+
+jcmp.AddEvent('CEF/ShowUILobbyCreated',function(){
   $("#DivServerLobbyList").hide();
   jcmp.CallEvent('ShowLobbyList');
   jcmp.CallEvent('ImHost',true);
-
-
 });
 
 jcmp.AddEvent('CEF/ShowServerList',function(){
