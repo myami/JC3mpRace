@@ -74,8 +74,8 @@ jcmp.ui.AddEvent('Client/Player_Join_Lobby_Test', function(id) { // Add a player
   jcmp.events.CallRemote('Server/Player_Join_Lobby_Test',id);
 });
 
-jcmp.ui.AddEvent('Client/Player_Created_Lobby_Test', function(name) { // Create a lobby
-  jcmp.events.CallRemote('Server/Player_Create_Lobby_Test',name);
+jcmp.ui.AddEvent('Client/Player_Created_Lobby_Test', function() { // Create a lobby
+  jcmp.events.CallRemote('Server/Player_Create_Lobby_Test');
 });
 
 jcmp.ui.AddEvent('Client/NewMapSelected', function(int) { // Admin change map
@@ -163,5 +163,27 @@ jcmp.ui.AddEvent('LobbyIsRemovedP', function() {
 });
 jcmp.events.AddRemoteCallable('Client/isAdmin',function(){
   jcmp.ui.CallEvent('CEF/ShowUILobbyCreated');
+
+});
+
+jcmp.events.AddRemoteCallable('PlayerMeLobby',function(name){
+  jcmp.ui.CallEvent('CEF/PlayerMeLobby',name);
+
+});
+jcmp.ui.AddEvent('CEF/ReadyButton', function() {
+  jcmp.events.CallRemote('Server/ReadyButton');
+});
+jcmp.events.AddRemoteCallable('Client/PlayerIsReady',function(id,name){
+  jcmp.ui.CallEvent('CEF/PlayerIsReady',id,name);
+
+});
+
+jcmp.events.AddRemoteCallable('Client/LobbyPlayerIngame',function(id,name){
+  jcmp.ui.CallEvent('CEF/PlayerIngame',id,name);
+
+});
+
+jcmp.events.AddRemoteCallable('Client/LobbyJoinNotIngame',function(id,name){
+  jcmp.ui.CallEvent('CEF/PlayerNotIngame',id,name);
 
 });

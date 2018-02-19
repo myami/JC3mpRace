@@ -29,8 +29,11 @@
   <h2 v-show="!imhost">Waiting for the host to start the race...</h2>
 <div class = "Squarearound">
   <h3>Player list</h3>
-  <li v-for="name in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
-    <span>{{ name }}</span>
+  <li v-for="player in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
+    <span>{{ player.Name }}</span>
+    <span> || Ready : {{ player.Ready }}</span>
+    <span v-show="player.Ingame" > || Ingame : {{ player.Ingame }}</span>
+
 
   </li>
 </div>
@@ -50,6 +53,7 @@
     <button type="button" class="btn btn-danger" v-on:click="StartRace()" v-show="imhost"> Start Race</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()" v-show="imhost">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()" v-show="imhost">Type List</button>
+    <button type="button" class="btn btn-danger" v-on:click="Ready()" id="ReadyB">Ready</button>
 
 
   </div>

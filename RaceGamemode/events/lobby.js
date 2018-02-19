@@ -1,5 +1,5 @@
 
-jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player, LobbyNameReceived) {
+jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player) {
   if (!race.utils.isAdmin(player)){
     return;
   }
@@ -139,14 +139,6 @@ jcmp.events.AddRemoteCallable('Server/Player_Remove_Lobby_Test', function(player
   }
 });
 
-jcmp.events.AddRemoteCallable('Server/Ready_Player_Server_Test', function(player) { // need to add it on cef
-  player.race.ready = true;
-  // jcmp.CallRemote on   race.game.lobbys[player.race.lobbyid].PlayerList
-  for (let i = 0; i < race.game.lobbys[player.race.lobbyid][0].PlayerList.length; i++) {
-    let players = race.game.lobbys[player.race.lobbyid][0].PlayerList[i];
-    jcmp.events.CallRemote('Client/PlayerReady_Lobby', players, player.race.lobbyid, player.name);
-  }
-});
 
 jcmp.events.AddRemoteCallable('Server/TypeOfRace_Test', function(player, int) { // 0 is classic , 1 MultiCrew , 2 TTS , 3 APO , 4 MultiplePath
   player.race.typeselect = int;
@@ -376,4 +368,10 @@ for (let i = 0; i <  race.game.lobbys.length; i++) {
 
 jcmp.events.AddRemoteCallable('LobbyIsRemovedP',function(player){
   player.race.lobbyid = undefined;
+});
+
+jcmp.events.AddRemoteCallable('Server/ReadyButton',function(player){
+player.race.ready = true;
+jcmp.events.CallRemote('Client/PlayerIsReady',null,player.race.lobbyid,player.name);
+
 });

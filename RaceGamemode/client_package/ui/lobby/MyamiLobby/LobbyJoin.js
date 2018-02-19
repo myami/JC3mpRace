@@ -9,9 +9,13 @@ var LobbyJoined = new Vue({
           TypeRace:undefined,
           LobbyID: undefined,
           PlayerListName:[]
+          // PlayerListName : [Myami,Btje,CharleyTank]
+          // PlayerListName : [{Name:"Myami",Ready:true,Ingame:False},{Name:"Btje",Ready:true,Ingame:False},{Name:"CharleyTank",Ready:true,Ingame:False}]
+
         },
 
-      imhost: false
+      imhost: false,
+      me: undefined
     },
     methods: {
       //admin commands
@@ -30,7 +34,7 @@ var LobbyJoined = new Vue({
       // end admin commands
       leaveLobby: function() {
         if (this.imhost){
-          // delete the lobby
+
           jcmp.CallEvent('DeleteLobby');
           this.imhost = false;
         }
@@ -53,8 +57,9 @@ var LobbyJoined = new Vue({
 
       },
 
-      ready: function() { // not working yet
-        jcmp.CallEvent('Client/Ready_Player_Server_Test');
+      Ready: function() {
+        jcmp.CallEvent('CEF/ReadyButton');
+        $("#ReadyB").hide();
       },
       StartRace : function(){
           jcmp.CallEvent('LaunchRace');
@@ -97,10 +102,15 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
 
     for (let i = 0; i < data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
-      LobbyJoined.PlayerLobbyData.PlayerListName.push(playername)
+      let object = {
+        Name: playername,
+        Ready:false,
+        Ingame:false
+      }
+      LobbyJoined.PlayerLobbyData.PlayerListName.push(object)
       console.log("CEF/PlayerJoinLobby player" + playername);
     }
-
+  $("#ReadyB").show();
 
 
 });
@@ -109,12 +119,17 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
   if (LobbyJoined.PlayerLobbyData.LobbyID == id){
     for (let i = 0; i <   LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
       let player = LobbyJoined.PlayerLobbyData.PlayerListName[i];
-      if(player == playername){
+      if(player.Name == playername){
         return;
 
       }
     }
-    LobbyJoined.PlayerLobbyData.PlayerListName.push(playername);
+    let object = {
+      Name: playername,
+      Ready:false,
+      Ingame:false
+    }
+    LobbyJoined.PlayerLobbyData.PlayerListName.push(object);
     // show to everyone that are on the lobby the new guy
     console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
 
@@ -129,7 +144,7 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
 jcmp.AddEvent('CEF/PlayerRemoveLobby',function(playername){
   for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
     let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
-    if (playerlist == playername){
+    if (playerlist.Name == playername){
       LobbyJoined.PlayerLobbyData.PlayerListName.splice(i,1);
     }
   }
@@ -178,4 +193,54 @@ jcmp.AddEvent('CEF/HideLobbyMenu',function(id){
 
 jcmp.AddEvent('CEF/ImHost',function(bool){
   LobbyJoined.imhost = bool;
+});
+
+jcmp.AddEvent('CEF/PlayerMeLobby',function(name){
+  LobbyJoined.me = name;
+});
+
+
+
+jcmp.AddEvent('CEF/PlayerIsReady',function(id,name){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Ready = true;
+    }
+  }
+
+
+});
+
+
+jcmp.AddEvent('CEF/PlayerIngame',function(id,name){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Ready = false;
+      playerlist.Ingame = true;
+    }
+  }
+
+});
+
+jcmp.AddEvent('CEF/PlayerNotIngame',function(id,name){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Ready = false;
+      playerlist.Ingame = false;
+        $("#ReadyB").show();
+    }
+  }
+
 });

@@ -111,7 +111,7 @@ player.respawnPosition = new Vector3f(-13196,1326,14827);
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
       jcmp.events.Call('PlayerJoinServer',player);
-    //  jcmp.events.Call('PlayerJoinSeeOldLobby',player,JSON.stringify(lobbylistf));
+      jcmp.events.CallRemote('PlayerMeLobby',player,player.name);
 
       jcmp.events.CallRemote('PlayerCameraHome',player);
 

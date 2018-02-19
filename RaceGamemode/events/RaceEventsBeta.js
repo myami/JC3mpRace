@@ -56,6 +56,7 @@ jcmp.events.CallRemote('Race_end_Loading_Page',player);
   if (!destroy) {
 
     player.race.ingame = false;
+    jcmp.events.CallRemote('Client/LobbyJoinNotIngame',null,player.race.lobbyid,player.name);
     player.dimension = 0;
     player.respawnPosition = race.config.game.lobby.pos;
     jcmp.events.CallRemote('race_set_time', player, 11, 0);

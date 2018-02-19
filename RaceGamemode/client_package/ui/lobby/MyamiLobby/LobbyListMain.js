@@ -89,11 +89,7 @@ jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map,int){      // update the U
 
 
 $("#btnCreate").click(function(){
-  let name = "TestLobby";
-  jcmp.CallEvent('Client/Player_Created_Lobby_Test',name);
-
-
-
+  jcmp.CallEvent('Client/Player_Created_Lobby_Test');
 });
 
 jcmp.AddEvent('CEF/ShowUILobbyCreated',function(){
