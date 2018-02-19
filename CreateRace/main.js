@@ -3,7 +3,9 @@ global.createrace = {
   chat: jcmp.events.Call('get_chat')[0],
   utils: require('./gm/utility'),
   config: require('./gm/config'),
-  id: 0
+  id: 0,
+  startingpointlength : 0,
+  checkpointlength : 0
 
 };
 

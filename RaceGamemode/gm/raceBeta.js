@@ -55,7 +55,7 @@ module.exports = class RaceBeta {
       player.race.time = 0;
       player.race.hasfinish = false;
       // Player spawn
-      player.position = new Vector3f(this.racedata.StartingPoint[i].x, this.racedata.StartingPoint[i].y, this.racedata.StartingPoint[i].z);
+      player.position = new Vector3f(this.racedata.StartingPoint[i].x, this.racedata.StartingPoint[i].y + 3, this.racedata.StartingPoint[i].z);
       player.rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);
       // Player rotation if they die to restart in the good direction
       let rotation = new Vector3f(this.racedata.StartingPoint[i].rotx, this.racedata.StartingPoint[i].roty, this.racedata.StartingPoint[i].rotz);

@@ -92,6 +92,12 @@
           <input class="input-field" type="text" name="Seconds" placeholder="Minutes" id="minute">
           <button class="waves-effect waves-light btn amber" type="button" id="TimeButon" onclick="AddTimeonrace()">Add time</button>
         </div>
+        <div id="RaceId">
+          <p>Id of the race :</p>
+          <input class="input-field" type="number" name="ID" placeholder="ID" id="RaceID">
+          <button class="waves-effect waves-light btn amber" type="button" id="IDB" onclick="hideID()">Next</button>
+
+        </div>
 
         <div id="WeatherSelectdiv">
           <p>Select the weather you want: (select on the menu before clicking next)</p>
@@ -105,11 +111,8 @@
           </select>
           <button class="waves-effect waves-light btn amber" type="button" id="weatherb" onclick="hideweather()">Next</button>
         </div>
-        <div id="MaxPlayerdiv">
-          <p>MaxPlayer:</p>
-          <input class="input-field" type="text" name="MaxPlayer" value="20" id="MaxPlayerv">
-          <button class="waves-effect waves-light btn amber" type="button" id="maxplayerb" onclick="MaxPlayerf()">ChangeMaxPlayer</button>
-        </div>
+
+
 
       </div>
 
@@ -124,7 +127,7 @@
 
         </div>
         <div id="AddingYatrespawndiv">
-          <p>Adding Y at respawn : (more fore airplane,helicopter)</p>
+          <p>Adding Y at respawn : (more fore airplane,helicopter to avoid spawning under ground)</p>
           <input class="input-field" type="text" name="Yatrespawn" value="0" id="Yatrespawnv">
           <button class="waves-effect waves-light btn amber" type="button" id="Yatrespawnb" onclick="AddYatRespawn()">AddY</button>
         </div>
@@ -191,13 +194,7 @@
           <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
 
       </div>
-      <div id="CheckpointPointdivMP">
-        <p>Press "C" to add a Checkpoint press "N" to create a new path</p>
-        <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="CreateCheckpointMP()">Checkpoint</button>
-        <button class="waves-effect waves-light btn amber" type="button" id="CheckpointRace" onclick="NewPath()">Newpath</button>
-        <button class="waves-effect waves-light btn amber" type="button" id="Hidethemenu" onclick="finishit()">End</button>
 
-    </div>
 
       </div>
 
@@ -238,10 +235,7 @@
     $("#PoiTypediv").hide();
     $("#GhostPoiTypediv").hide();
     $("#NitroEnableddiv").hide();
-    $("#MaxPlayerdiv").hide();
-    $("#ImageDiv").hide();
-    $("#LapsDiv").hide();
-    $("#RaceIDDiv").hide();
+    $("#RaceId").hide();
     $("#MultiCrewDiv").hide();
     $("#StartingPointdiv").hide();
     $("#CheckpointPointdiv").hide();
@@ -301,7 +295,14 @@
     let minute = $("#minute").val();
     jcmp.CallEvent('Add_Minute_second', parseInt(hours), parseInt(minute), nameoftherace);
     $("#Timediv").hide();
+    $("#RaceId").show();
+  }
+  function hideID (){
+    let RaceIDnumber = $("#RaceID").val();
+    jcmp.CallEvent('RaceIdNumber', parseInt(RaceIDnumber), nameoftherace);
+    $("#RaceId").hide();
     $("#WeatherSelectdiv").show();
+
   }
 
 
@@ -386,38 +387,11 @@
 
   function hidenitro() {
     $("#NitroEnableddiv").hide();
-    $("#MaxPlayerdiv").show();
-  }
-
-  function MaxPlayerf() {
-    let MaxPlayer = $("#MaxPlayerv").val();
-    jcmp.CallEvent('Add_MaxPlayer', parseInt(MaxPlayer), nameoftherace);
-    $("#MaxPlayerdiv").hide();
     $("#StartingPointdiv").show();
-        startingpointcan =true;
-
+      startingpointcan =true;
   }
-  function RaceImage() {
-    let RaceImage = $("#RaceImage").val();
-    jcmp.CallEvent('RaceImagePath', RaceImage, nameoftherace);
-    $("#ImageDiv").hide();
 
 
-  }
-function LapsNumber (){
-    let lapsnumber = $("#Lapsid").val();
-    jcmp.CallEvent('LapsNumber', parseInt(lapsnumber), nameoftherace);
-    $("#LapsDiv").hide();
-      $("#MultiCrewDiv").show();
-
-}
-function RaceIdNumber (){
-  let RaceIDnumber = $("#RaceID").val();
-  jcmp.CallEvent('RaceIdNumber', parseInt(RaceIDnumber), nameoftherace);
-  $("#RaceIDDiv").hide();
-  $("#MultiCrewDiv").show();
-  startingpointcan =true;
-}
 function Multicrew(){
   var x = document.getElementById("multicrew");
   var i = x.selectedIndex;
@@ -429,19 +403,15 @@ function Multicrew(){
 
 }
 
-
+  
   function CreateStartingPoint() {
     jcmp.CallEvent('CreateStartingPoint', nameoftherace);
   }
 
   function showcheckpointhidestatingpoint() {
     $("#StartingPointdiv").hide();
-    if (document.getElementById("multicrew").selectedIndex == 0){
-      $("#CheckpointPointdivMP").show();
-    }
-    else{
-        $("#CheckpointPointdiv").show();
-    }
+    $("#CheckpointPointdiv").show();
+
 
     startingpointcan = false;
     checkpointcan = true;
@@ -455,21 +425,7 @@ function Multicrew(){
     }, 1000);
   }
 
-  function CreateCheckpointmp() {
-      avoiddoublepoint = false;
-    jcmp.CallEvent('CreateCheckpoint', nameoftherace);
-    setTimeout(function() {
-    avoiddoublepoint = true;
-    }, 1000);
-  }
 
-  function NewPath() {
-      avoiddoublepoint = false;
-    jcmp.CallEvent('NewPath', nameoftherace);
-    setTimeout(function() {
-    avoiddoublepoint = true;
-    }, 1000);
-  }
 
 
 

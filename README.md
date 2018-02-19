@@ -3,11 +3,11 @@
 
 ## Installation
 
-For Creating race :
+##### For Creating race :
 Copy : chat,command-manager,CreateRace into the server/packages files
 
-For playing race gamemode :
-Copy Chat,command-manager,RaceGamemode into the server/packages files
+##### For playing race gamemode :
+Copy : Chat,command-manager,RaceGamemode into the server/packages files
 
 ## Feature
 

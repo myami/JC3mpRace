@@ -5,7 +5,6 @@
   "time" : {"hour":11, "minute":30},
   "weather": "fog",
   "defaultVehicle": 4225384683,
-  "AllDefault": true,
   "AddingYatrespawn": 0,
   "CheckpointHash": "0x301477DB",
   "ChekpointType": 1,

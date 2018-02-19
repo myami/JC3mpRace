@@ -2,7 +2,7 @@
     "authors":"Myami",
     "jcmp_dependencies": [
         "chat",
-        "command-manager",
+        "command-manager"
     ],
     "license":"MIT",
     "name":"CreateRace",

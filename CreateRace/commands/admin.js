@@ -15,7 +15,7 @@ module.exports = ({
 
         var arrayOfObjects = JSON.parse(data)
         arrayOfObjects.StartingPoint.push({
-          x: camera.position.x,
+          x: player.position.x,
           y: player.position.y,
           z: player.position.z,
           rotx: player.rotation.x,
