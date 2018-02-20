@@ -31,7 +31,7 @@
   <h3>Player list</h3>
   <li v-for="player in PlayerLobbyData.PlayerListName" class="PlayerList"> <!--  List of the player on the lobby-->
     <span>{{ player.Name }}</span>
-    <!-- Tooltip on top of each circle to explain what it is-->
+    <!-- TODO :Tooltip on top of each circle to explain what it is-->
     <span v-show="player.Ready" > <img src="./img/Greencircle.png" height="20" width="20" /> </span> <!-- Player is ready-->
     <span v-show="!player.Ready" ><img src="./img/RedCircle.png"  height="20" width="20"/> </span> <!-- Player is not ready-->
     <span v-show="player.Ingame" > <img src="./img/PurpleCircle.png" height="20" width="20" /> </span> <!-- Player is still in a race -->

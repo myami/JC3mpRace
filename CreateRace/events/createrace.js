@@ -398,3 +398,16 @@ jcmp.events.AddRemoteCallable('MulticrewChange_server', function(player, bool, n
   createrace.chat.send(player, `You just set the multicrew to ${number}`);
 
 });
+
+
+jcmp.events.Add('PlayerReady', function(player) {
+
+player.respawnPosition = new Vector3f(957,1617,-5782);
+
+  player.Respawn();
+
+
+
+
+
+});
