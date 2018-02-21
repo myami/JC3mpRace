@@ -62,6 +62,10 @@ jcmp.events.AddRemoteCallable('Server/Player_Join_Lobby_Test', function(player, 
     if (id == undefined) {
       return;
     }
+    if (race.game.lobbys[id][0].NumberofPlayer >= 20){
+      console.log("Lobby Full");
+      return;
+    }
     if (race.game.lobbys[id][0]) {
       player.race.lobbyid = id;
       race.game.lobbys[id][0].PlayerListName.push(player.name);
@@ -373,5 +377,11 @@ jcmp.events.AddRemoteCallable('LobbyIsRemovedP',function(player){
 jcmp.events.AddRemoteCallable('Server/ReadyButton',function(player){
 player.race.ready = true;
 jcmp.events.CallRemote('Client/PlayerIsReady',null,player.race.lobbyid,player.name);
+
+});
+
+jcmp.events.AddRemoteCallable('Server/NotReadyButton',function(player){
+player.race.ready = false;
+jcmp.events.CallRemote('Client/PlayerIsNotReady',null,player.race.lobbyid,player.name);
 
 });

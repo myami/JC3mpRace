@@ -23,7 +23,7 @@
 </head>
 
 <body>
-<h1>LOBBY WORK IN PROGRESS</h1>
+<h1>WORK IN PROGRESS</h1>
 
 <div id= "DivLobbyJoined">
   <h2 v-show="!imhost">Waiting for the host to start the race...</h2>
@@ -56,6 +56,7 @@
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()" v-show="imhost">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()" v-show="imhost">Type List</button>
     <button type="button" class="btn btn-danger" v-on:click="Ready()" id="ReadyB">Ready</button>
+    <button type="button" class="btn btn-danger" v-on:click="NotReady()" id="NReadyB">NotReady</button>
 
 
   </div>

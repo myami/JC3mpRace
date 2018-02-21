@@ -11,6 +11,7 @@ var MapSelected = new Vue({
           this.selectedTrack = raceid;
           jcmp.CallEvent('Client/NewMapSelected',this.selectedTrack);
           $("#MapSelectdiv").hide();
+            jcmp.CallEvent('ShowLobbyList');
       },
 
     }

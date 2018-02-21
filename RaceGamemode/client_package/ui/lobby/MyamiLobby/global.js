@@ -10,6 +10,9 @@ $("#DivLobbyJoined").hide();
 $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
 $("#LoadingPage").hide();
+$("#NReadyB").hide();
+
+
 jcmp.ShowCursor();
 
 
@@ -27,6 +30,8 @@ jcmp.AddEvent('RaceFinishShowLobby',function(){
     $("#LoadingPage").hide();
     $("#ListOfPlayerOnServer").show();
     $("#DivLobbyJoined").show();
+    $("#ReadyB").show();
+    $("#NReadyB").hide();
     console.log("Lobby loaded");
     jcmp.ShowCursor();
 

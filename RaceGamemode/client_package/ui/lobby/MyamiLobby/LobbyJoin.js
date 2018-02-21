@@ -60,6 +60,16 @@ var LobbyJoined = new Vue({
       Ready: function() {
         jcmp.CallEvent('CEF/ReadyButton');
         $("#ReadyB").hide();
+        $("#NReadyB").show();
+
+
+      },
+      NotReady: function() {
+        jcmp.CallEvent('CEF/NotReadyButton');
+        $("#ReadyB").show();
+        $("#NReadyB").hide();
+
+
       },
       StartRace : function(){
           jcmp.CallEvent('LaunchRace');
@@ -74,11 +84,13 @@ var LobbyJoined = new Vue({
       ShowMapList: function(){
         $("#MapSelectdiv").show();
         jcmp.CallEvent('ShowMapSelectDiv',true);
+        $("#DivLobbyJoined").hide();
 
       },
       ShowTypeList: function(){
         $("#TypeSelect").show();
         jcmp.CallEvent('ShowTypeSelectDiv',true);
+        $("#DivLobbyJoined").hide();
 
 
       },
@@ -242,5 +254,19 @@ jcmp.AddEvent('CEF/PlayerNotIngame',function(id,name){
         $("#ReadyB").show();
     }
   }
+
+});
+
+jcmp.AddEvent('CEF/PlayerIsNotReady',function(id,name){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Ready = false;
+    }
+  }
+
 
 });

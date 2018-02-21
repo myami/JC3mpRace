@@ -187,3 +187,12 @@ jcmp.events.AddRemoteCallable('Client/LobbyJoinNotIngame',function(id,name){
   jcmp.ui.CallEvent('CEF/PlayerNotIngame',id,name);
 
 });
+
+jcmp.ui.AddEvent('CEF/NotReadyButton', function() {
+  jcmp.events.CallRemote('Server/NotReadyButton');
+});
+
+jcmp.events.AddRemoteCallable('Client/PlayerIsNotReady',function(id,name){
+  jcmp.ui.CallEvent('CEF/PlayerIsNotReady',id,name);
+
+});
