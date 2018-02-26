@@ -110,7 +110,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
     LobbyJoined.PlayerLobbyData.RaceID = data.RaceID;
     LobbyJoined.PlayerLobbyData.TypeRace = data.TypeRace;
     LobbyJoined.PlayerLobbyData.LobbyID = id;
-      console.log("playerlist" + data.PlayerListName);
+
 
     for (let i = 0; i < data.PlayerListName.length; i++) {
       let playername = data.PlayerListName[i];
@@ -120,7 +120,7 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
         Ingame:false
       }
       LobbyJoined.PlayerLobbyData.PlayerListName.push(object)
-      console.log("CEF/PlayerJoinLobby player" + playername);
+
     }
   $("#ReadyB").show();
 
@@ -143,7 +143,7 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
     }
     LobbyJoined.PlayerLobbyData.PlayerListName.push(object);
     // show to everyone that are on the lobby the new guy
-    console.log("CEF/AddPlayerOnLobbyMenu newplayer" + playername + "PlayerListName" + lobby.PlayerListName);
+
 
   }
 
@@ -153,32 +153,31 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
 
 
 
-jcmp.AddEvent('CEF/PlayerRemoveLobby',function(playername){
-  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
-    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
-    if (playerlist.Name == playername){
-      LobbyJoined.PlayerLobbyData.PlayerListName.splice(i,1);
+jcmp.AddEvent('CEF/PlayerRemoveLobby',function(id,playername){
+    if (id == LobbyJoined.PlayerLobbyData.LobbyID){
+      for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+        let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+        if (playerlist.Name == playername){
+          LobbyJoined.PlayerLobbyData.PlayerListName.splice(i,1);
     }
   }
+}
 
 });
 
 
-jcmp.AddEvent('CEF/PlayerReady_Lobby',function(id,playername){ // need to do it
 
-});
 
 
 jcmp.AddEvent('CEF/TypeOfRace',function(type){ // update for the player on the lobby menu
 LobbyJoined.PlayerLobbyData.TypeRace = type;
-console.log("CEF/TypeOfRace for player in the lobby that change" + LobbyJoined.PlayerLobbyData.TypeRace);
+
 });
 
 
 jcmp.AddEvent('CEF/MapOfRace',function(map,id){ // update for the player on the lobby menu
 LobbyJoined.PlayerLobbyData.MapName = map;
 LobbyJoined.PlayerLobbyData.RaceID = id;
-console.log("CEF/MapOfRace for player in the lobby that change" + LobbyJoined.PlayerLobbyData.MapName );
 });
 
 jcmp.AddEvent('CEF/ShowLobbyMenu',function(){

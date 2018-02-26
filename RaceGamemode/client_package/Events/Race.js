@@ -32,14 +32,14 @@ jcmp.events.AddRemoteCallable('race_Freeze_player', function() {
 
 
   //doing the countdown for the race to start
-    jcmp.events.CallRemote('race_debug', "RaceFreezeClassic");
+//    jcmp.events.CallRemote('race_debug', "RaceFreezeClassic");
 
 });
 
 jcmp.ui.AddEvent('race_countdown_end', function() {
   jcmp.localPlayer.controlsEnabled = true;
   countdowninprogress = false; // no respawn during countdown
-  jcmp.events.CallRemote('race_debug', "CountdownEND");
+  //jcmp.events.CallRemote('race_debug', "CountdownEND");
 
 });
 

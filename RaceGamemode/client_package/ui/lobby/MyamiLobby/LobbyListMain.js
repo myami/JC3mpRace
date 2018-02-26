@@ -3,7 +3,6 @@ var LobbyMain = new Vue({
     data: function() {
       return{
     LobbyServerList : [],
-     // LobbyServerList : [{LobbyName:"test1",NumberofPlayer:5,MapName:"CAR-BoomIslandRace-[TEST]",TypeRace:"Classic",LobbyID:0, RaceID:50,PlayerCreated:"Myami"},{LobbyName:"test2",NumberofPlayer:0,MapName:"Airplane-AirfieldRace",TypeRace:"Classic",LobbyID:1,RaceID:1,PlayerCreated:"Btje"}],
         currentSelected: null,
         oldSelected: null
     };
@@ -13,7 +12,7 @@ var LobbyMain = new Vue({
       selectLobby: function(raceid) {
           this.currentSelected = raceid;
           console.log("RaceId: "+raceid);
-          jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid); //for testing it's remove need to be add again
+          jcmp.CallEvent('Client/Player_Join_Lobby_Test',raceid);
           $("#DivServerLobbyList").hide();
           jcmp.CallEvent('ShowLobbyList');
       },
@@ -39,10 +38,9 @@ jcmp.AddEvent('CEF/LobbyCreated',function(Obj){ // show the lobby on the server 
     RaceID:data.RaceID,
     PlayerCreated: data.PlayerCreated,
   }
-  console.log("CEF/LobbyCreated NewLobby" + NewLobby);
+
   LobbyMain.LobbyServerList.push(NewLobby);
-  console.log("LobbyServerList " + JSON.stringify(LobbyMain.LobbyServerList));
-//LobbyServerList is an array with all the lobby create on the server
+
 });
 
 
@@ -51,7 +49,6 @@ jcmp.AddEvent('CEF/UpdateLengthLobby',function(id,newlength){
     let lobby = LobbyMain.LobbyServerList[i];
     if(lobby.LobbyID == id){
       lobby.NumberofPlayer = newlength;
-      console.log("CEF/UpdateLengthLobby" +  lobby.NumberofPlayer);
       // show to everyone that are on the main menu the new lenght
     }
   }
@@ -68,7 +65,7 @@ jcmp.AddEvent('CEF/TypeOfRaceSelected',function(id,type){    // update the UI on
     if(lobby.LobbyID == id){
       lobby.TypeRace = type;
       // change on the LobbyServerList the type
-      console.log("CEF/TypeOfRaceSelected NewType for serverlists" + lobby.TypeRace);
+
     }
   }
 });
@@ -81,7 +78,7 @@ jcmp.AddEvent('CEF/MapOfRaceSelected',function(id,map,int){      // update the U
       lobby.MapName = map;
       // change on the LobbyServerList the map
       lobby.RaceID = int;
-      console.log("CEF/MapOfRaceSelected Newmap for the serverlists" + lobby.MapName);
+      
     }
   }
 });

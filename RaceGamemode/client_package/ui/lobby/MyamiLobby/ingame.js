@@ -31,9 +31,6 @@ var InGame = new Vue({
             }
             if (InGame.StartTimer == 15) {
 
-
-            //  jcmp.CallEvent('AddPlayerLeaderboard');
-            console.log("15 seconds");
             }
             if (InGame.StartTimer == 0) {
               if (!InGame.isTTS) {
@@ -41,7 +38,7 @@ var InGame = new Vue({
                 InGame.RaceTimer = 0;
                 countdownrace(true);
               } else {
-                console.log("RaceisTTS");
+
                 jcmp.CallEvent('TTS_race_countdown_end');
                 InGame.RaceTimer = 0;
                 countdownrace(true);
@@ -71,7 +68,7 @@ var InGame = new Vue({
     });
 
     function countdownrace(status) {
-      console.log("Countdown" + status);
+
       toggleContainer("timergame", status);
       if (status) {
         timers = setInterval(function() {
@@ -84,7 +81,7 @@ var InGame = new Vue({
       } else {
         clearInterval(timers);
         jcmp.CallEvent('Timer_Client', InGame.RaceTimer);
-        console.log("TimerFinish" + InGame.RaceTimer);
+      
         setTimeout(function() {
             toggleContainer("timergame", false);
           InGame.RaceTimer = 0;

@@ -3,7 +3,7 @@ jcmp.events.AddRemoteCallable('race_Freeze_player_wait', function() {
   // Maybe have the UI say : Wait it's you're turn to see the checkpoint
   jcmp.ui.CallEvent('WaityoutimeTTS',true);
   jcmp.ui.CallEvent('IsTTS',true);
-  jcmp.events.CallRemote('race_debug', "race_Freeze_player_wait" + jcmp.localPlayer.networkId);
+//  jcmp.events.CallRemote('race_debug', "race_Freeze_player_wait" + jcmp.localPlayer.networkId);
 
 });
 
@@ -12,7 +12,7 @@ jcmp.events.AddRemoteCallable('TTS_race_Freeze_player', function() {
   jcmp.ui.CallEvent('WaityoutimeTTS',false);
   jcmp.ui.CallEvent('Race_Timer_container', true);
   jcmp.ui.CallEvent('Countdown_start');
-    jcmp.events.CallRemote('race_debug', "TTS_race_Freeze_player " + jcmp.localPlayer.networkId );
+//    jcmp.events.CallRemote('race_debug', "TTS_race_Freeze_player " + jcmp.localPlayer.networkId );
 
   //doing the countdown for the race to start
 });
@@ -20,7 +20,7 @@ jcmp.events.AddRemoteCallable('TTS_race_Freeze_player', function() {
 jcmp.ui.AddEvent('TTS_race_countdown_end', function() {
     jcmp.localPlayer.controlsEnabled = true;
       countdowninprogress = false;
-  jcmp.events.CallRemote('race_debug', "TTS_race_countdown_end " + jcmp.localPlayer.networkId);
+//  jcmp.events.CallRemote('race_debug', "TTS_race_countdown_end " + jcmp.localPlayer.networkId);
   jcmp.events.CallRemote('TTS_Race_player_Start_New_Player');
-  jcmp.events.CallRemote('race_debug', "CountdownEND");
+//  jcmp.events.CallRemote('race_debug', "CountdownEND");
 });

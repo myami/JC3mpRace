@@ -5,7 +5,7 @@ jcmp.events.AddRemoteCallable('race_checkpoint_client_Beta', function(data) {
     poi.minDistance = 10.0;
     poi.maxDistance = 100000.0;
     poi.clampedToScreen = false;
-    poi.text = "Next Checkpoint";
+    poi.text = "Next Checkpoints";
     poi.id = DataR.FirstCheckpoint.id;
     poi.dimension = DataR.Dimension; //Race.id
     pois[DataR.FirstCheckpoint.id] = poi;

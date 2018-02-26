@@ -23,7 +23,7 @@ jcmp.AddEvent('CEF/MapList',function(obj){
   let mapobj = {
     raceid: mapdata.raceid, name: mapdata.name, type: mapdata.type,
   }
-  console.log(mapobj);
+
   MapSelected.raceList.push(mapobj);
 });
 

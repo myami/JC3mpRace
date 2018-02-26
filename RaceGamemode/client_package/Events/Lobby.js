@@ -18,9 +18,9 @@ jcmp.events.AddRemoteCallable('Client/AddPlayerOnLobbyMenu',function(id,playerna
   jcmp.ui.CallEvent('CEF/AddPlayerOnLobbyMenu', id,playername); // Add player to the lobby UI
 
 });
-jcmp.events.AddRemoteCallable('Client/PlayerRemoveLobby',function(playername){
+jcmp.events.AddRemoteCallable('Client/PlayerRemoveLobby',function(id,playername){
 
-  jcmp.ui.CallEvent('CEF/PlayerRemoveLobby',playername); // Remove player from the lobby ui
+  jcmp.ui.CallEvent('CEF/PlayerRemoveLobby',id,playername); // Remove player from the lobby ui
 
 });
 jcmp.events.AddRemoteCallable('Client/ShowLobbyList',function(boolean){

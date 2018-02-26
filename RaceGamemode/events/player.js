@@ -70,14 +70,6 @@ jcmp.events.AddRemoteCallable('race_debug', function(player, text) {
 
 jcmp.events.AddRemoteCallable('race_clientside_ready', function(player) {
 
-  setTimeout(() => {
-    Object.keys(race.game.lobbys).forEach((index) => {
-          const l = race.game.lobbys[index];
-          jcmp.events.Call('PlayerJoinSeeOldLobby',player,JSON.stringify(l));
-      });
-  }, 5000);
-
-
 
 
 
@@ -102,11 +94,25 @@ player.respawnPosition = new Vector3f(-13196,1326,14827);
         }))
       };
 
+      for (let i = 0; i < race.game.lobbys.length; i++) {
+
+        let lobby = race.game.lobbys[i];
+
+            let lobbytosendtoclient = {
+              LobbyName: lobby.LobbyName,
+              NumberofPlayer: lobby.NumberofPlayer,
+              MapName: lobby.MapName,
+              TypeRace: lobby.TypeRace,
+              LobbyID: lobby.LobbyID,
+              RaceID: lobby.RaceID,
+              PlayerCreated: lobby.PlayerCreated,
+              PlayerListName: lobby.PlayerListName
+            }
+          jcmp.events.CallRemote('Client/LobbyCreated', player, JSON.stringify(lobbytosendtoclient));
+      }
 
 
 
-
-        console.log(data);
 
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
@@ -127,16 +133,14 @@ jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
 
   if (player.race.ingame) {
     jcmp.events.Call('race_player_checkpoint_respawn', player);
+      jcmp.events.CallRemote('race_deathui_show', player);
+    return;
 
   }
 
 
-  if (!player.race.ingame) {
-  console.log("NotIngame");
-    }
 
 
-    jcmp.events.CallRemote('race_deathui_show', player);
 
     race.chat.send(player, "Respawning in 5 seconds ...")
 

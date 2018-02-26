@@ -14,9 +14,7 @@ global.race = {
       onlobby: [],
       ingame: []
     },
-    lobbys:{
-
-    },
+    lobbys:[],
     lobbycount:0,
     toStart: false,
     StartTimer: null,
@@ -26,8 +24,7 @@ global.race = {
     RaceList: [],
     timeToStart: 0,
     RacePeopleDie: [],
-    respawntimer: 1000, // 5 seconds
-    RaceLaunch: true,
+    RaceLaunch: true
 
   }
 };

@@ -17,6 +17,7 @@ module.exports = class RaceBeta {
     }
     console.log("Id of the race: " + this.id);
     console.log("type of the race: " + this.type);
+    console.log("Map of the race : " + this.racedata.Name);
 
     if (this.type == 0) {
       console.log("ClassicRace!!!");
@@ -54,7 +55,7 @@ module.exports = class RaceBeta {
       player.race.ready = false;
 
       jcmp.events.CallRemote('Client/LobbyPlayerIngame',null,player.race.lobbyid,player.name);
-      
+
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
@@ -112,7 +113,7 @@ module.exports = class RaceBeta {
         vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
         //  race.game.RacePeopleDie.removePlayer(player);
         player.race.spawningdouble = false;
-      }, race.game.respawntimer + 1000);
+      }, 2000);
     } else {
       //Wingsuit race
     }
@@ -184,7 +185,7 @@ module.exports = class RaceBeta {
         vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
         //  race.game.RacePeopleDie.removePlayer(player);
         player.race.spawningdouble = false;
-      }, race.game.respawntimer + 1000);
+      }, 2000);
     } else {
       //Wingsuit race
     }
@@ -266,7 +267,7 @@ module.exports = class RaceBeta {
         vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early
         //  race.game.RacePeopleDie.removePlayer(player);
         player.race.spawningdouble = false;
-      }, race.game.respawntimer + 1000);
+      },  2000);
     } else {
       //Wingsuit race
     }

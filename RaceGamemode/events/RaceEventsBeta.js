@@ -6,13 +6,13 @@ jcmp.events.AddRemoteCallable('race_checkpoint_Beta', function(player) {
     jcmp.events.Call('C_Race_Checkpoint', player);
   }
 
-  if (Race.type == 2) {
+  if (Race.type == 2) { //tts
   jcmp.events.Call('TTS_Race_Checkpoint', player);
-  console.log("TTS_Race_Checkpoint");
+
 }
-if (Race.type == 4){
+if (Race.type == 4){ // MultiplePath
   jcmp.events.Call('MP_Race_Checkpoint', player);
-  console.log("MP_Race_Checkpoint");
+
 
 }
 });
@@ -78,38 +78,32 @@ jcmp.events.CallRemote('Race_end_Loading_Page',player);
 jcmp.events.Add('race_player_checkpoint_respawn', function(player, vehicleold) {
   if (!player.race.spawningdouble) {
     player.race.spawningdouble = true;
+    if (vehicleold != undefined) {
+      vehicleold.Destroy();
+    }
 
     jcmp.events.CallRemote('race_deathui_show', player, "Out of the vehicle");
     race.chat.send(player, "Respawning in 3 seconds ...");
     const done = race.workarounds.watchPlayer(player, setTimeout(() => {
       done();
-      console.log("Respawning player");
+      console.log("Respawning player" + player.name);
 
       player.Respawn();
 
     }, race.game.respawntimer));
     setTimeout(function() {
-      player.race.spawningdouble = false;
+
       if (player.race.game.type == 0 || player.race.game.type == 3) {
         player.race.game.CRRespawnCar(player);
-        if (vehicleold != undefined) {
-          vehicleold.Destroy();
-        }
       }
 
       if (player.race.game.type == 2) {
         player.race.game.TTSRespawnCar(player);
-        if (vehicleold != undefined) {
-          vehicleold.Destroy();
-        }
       }
       if (player.race.game.type == 4) {
         player.race.game.MPRespawnCar(player);
-        if (vehicleold != undefined) {
-          vehicleold.Destroy();
-        }
       }
-    }, race.game.respawntimer + 2000);
+    },  2500);
   }
 
 });
@@ -131,7 +125,7 @@ jcmp.events.Add('race_start_index_Beta', function(player) {
     race.game.timeToStart = race.config.game.timeToStart;
 
     const races = race.game.RaceList[player.race.raceselect];
-    const PlayerArray = race.game.lobbys[player.race.lobbyid][0].PlayerList;
+    const PlayerArray = race.game.lobbys[player.race.lobbyid].PlayerList;
     const Raceid = race.game.games.length + 1;
 
 
@@ -150,6 +144,6 @@ jcmp.events.Add('race_start_index_Beta', function(player) {
 
 
 jcmp.events.AddRemoteCallable('ResetPlayer_Server', function(player) { // B button for reset player
-  player.health = 0;
+    jcmp.events.Call('race_player_checkpoint_respawn', player);
   race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
 });
