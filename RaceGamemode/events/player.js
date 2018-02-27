@@ -53,7 +53,7 @@ jcmp.events.Add('PlayerDestroyed', function(player) {
   }
   jcmp.events.CallRemote('Lobby_remove_player', null, player.name);
   jcmp.events.CallRemote('race_player_destroyed', null, player.networkId);
-  jcmp.events.Call('DeletePlayerOnTheserver',player);
+
 
   if (player.race.ingame) {
     jcmp.events.Call('race_player_leave_game', player, true);
@@ -116,7 +116,6 @@ player.respawnPosition = new Vector3f(-13196,1326,14827);
 
 
       jcmp.events.CallRemote('race_ready', player, JSON.stringify(data));
-      jcmp.events.Call('PlayerJoinServer',player);
       jcmp.events.CallRemote('PlayerMeLobby',player,player.name);
 
       jcmp.events.CallRemote('PlayerCameraHome',player);
