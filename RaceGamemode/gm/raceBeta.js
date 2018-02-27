@@ -16,11 +16,11 @@ module.exports = class RaceBeta {
       this.IsWingsuit = true;
     }
     console.log("Id of the race: " + this.id);
-    console.log("type of the race: " + this.type);
     console.log("Map of the race : " + this.racedata.Name);
 
     if (this.type == 0) {
       console.log("ClassicRace!!!");
+
       this.ClassicRace();
       return;
     }
@@ -49,6 +49,7 @@ module.exports = class RaceBeta {
   //////////////////////////////////////////////// CLASSIC RACE ///////////////////////////////////////////////////////
   ClassicRace() {
     for (var i = 0; i < this.Players.length; i++) {
+
       const player = this.Players[i];
       player.race.game = this;
       player.race.ingame = true;
@@ -72,7 +73,12 @@ module.exports = class RaceBeta {
         player.race.vehicle = this.racedata.defaultVehicle;
         setTimeout(function() {
           const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-      //    vehicle.nitroEnabled = this.racedata.nitroenabled;
+
+         if (player.race.game.racedata.nitroenabled){
+      //  player.vehicle.nitroEnabled = enabled;
+          console.log("nitro");
+        }
+
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 4000);
@@ -106,7 +112,10 @@ module.exports = class RaceBeta {
   CRRespawnCar(player) {
     if (player.race.vehicle != 0) {
       const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = player.race.nitro;
+      if (player.race.game.racedata.nitroenabled){
+      //  player.vehicle.nitroEnabled = enabled;
+       console.log("nitro");
+     }
       console.log("Vehicle spawning");
       vehicle.dimension = player.race.game.id;
       setTimeout(function() {
@@ -143,7 +152,10 @@ module.exports = class RaceBeta {
         player.race.vehicle = this.racedata.defaultVehicle;
         setTimeout(function() {
           const vehicle = new Vehicle(player.race.vehicle, player.position, player.rotation);
-      //    vehicle.nitroEnabled = this.racedata.nitroenabled;
+          if (player.race.game.racedata.nitroenabled){
+          //  player.vehicle.nitroEnabled = enabled;
+           console.log("nitro");
+         }
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 4000);
@@ -178,7 +190,10 @@ module.exports = class RaceBeta {
   MPRespawnCar(player) {
     if (player.race.vehicle != 0) {
       const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = player.race.nitro;
+      if (player.race.game.racedata.nitroenabled){
+      //  player.vehicle.nitroEnabled = enabled;
+       console.log("nitro");
+     }
       console.log("Vehicle spawning");
       vehicle.dimension = player.race.game.id;
       setTimeout(function() {
@@ -223,7 +238,10 @@ module.exports = class RaceBeta {
         player.race.vehicle = this.racedata.defaultVehicle;
         setTimeout(function() {
           const vehicle = new Vehicle(player.race.vehicle, player.position, rotation);
-      //    vehicle.nitroEnabled = this.nitro;
+          if (player.race.game.racedata.nitroenabled){
+          //  player.vehicle.nitroEnabled = enabled;
+           console.log("nitro");
+         }
           vehicle.dimension = player.race.game.id;
           vehicle.SetOccupant(0, player);
         }, 4000);
@@ -260,7 +278,10 @@ module.exports = class RaceBeta {
   TTSRespawnCar(player) {
     if (player.race.vehicle != 0) {
       const vehicle = new Vehicle(player.race.vehicle, player.position, player.race.playerrotationspawn);
-      vehicle.nitroEnabled = player.race.nitro;
+      if (player.race.game.racedata.nitroenabled){
+      //  player.vehicle.nitroEnabled = enabled;
+       console.log("nitro");
+     }
       console.log("Vehicle spawning");
       vehicle.dimension = player.race.game.id;
       setTimeout(function() {

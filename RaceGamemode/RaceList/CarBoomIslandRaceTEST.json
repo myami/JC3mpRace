@@ -2,7 +2,7 @@
   "Name":"CAR-BoomIslandRace-[TEST]",
   "NameWithoutSpace":"CarBoomIslandRaceTEST",
   "VehicleType": "car",
-  "time" : {"hour":11, "minute":30},
+  "time" : {"hour":23, "minute":30},
   "weather": "fog",
   "defaultVehicle": 4225384683,
   "AddingYatrespawn": 0,
