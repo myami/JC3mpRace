@@ -49,22 +49,8 @@ jcmp.events.AddRemoteCallable('Client/MapOfRace',function(map,int){
 
 });
 
-jcmp.events.AddRemoteCallable('Client/AddPlayerOnTheList',function(obj){
-  jcmp.ui.CallEvent('CEF/AddPlayerOnTheList',obj);
 
-});
-jcmp.events.AddRemoteCallable('Client/AddPlayerOnTheListJoin',function(obj){
-  jcmp.ui.CallEvent('CEF/AddPlayerOnTheListJoin',obj);
 
-});
-jcmp.events.AddRemoteCallable('Client/UpdatePlayerOnTheServer',function(networkid,IsinLobby,lobbyid){
-  jcmp.ui.CallEvent('CEF/UpdatePlayerOnTheServer',networkid,IsinLobby,lobbyid);
-
-});
-jcmp.events.AddRemoteCallable('Client/RemovePlayer',function(networkid){
-  jcmp.ui.CallEvent('CEF/RemovePlayer',networkid);
-
-});
 
 jcmp.ui.AddEvent('Client/Player_Remove_Lobby_Test', function() { // Remove the player to the lobby
   jcmp.events.CallRemote('Server/Player_Remove_Lobby_Test');
@@ -86,23 +72,7 @@ jcmp.ui.AddEvent('Client/NewTypeSelected', function(int) { // Admin change type
   jcmp.events.CallRemote('Server/TypeOfRace_Test',int);
 });
 
-jcmp.events.AddRemoteCallable('Client/AddPlayerOnTheListJoin',function(obj){
-  jcmp.ui.CallEvent('CEF/AddPlayerOnTheListJoin',obj);
 
-});
-jcmp.events.AddRemoteCallable('Client/AddPlayerOnTheList',function(obj){
-  jcmp.ui.CallEvent('CEF/AddPlayerOnTheList',obj);
-
-});
-jcmp.events.AddRemoteCallable('Client/UpdatePlayerOnTheServer',function(networkid,boolean,id){
-  jcmp.ui.CallEvent('CEF/UpdatePlayerOnTheServer',networkid,boolean,id);
-
-});
-
-jcmp.events.AddRemoteCallable('Client/RemovePlayer',function(networkid){
-  jcmp.ui.CallEvent('CEF/RemovePlayer',networkid);
-
-});
 
 jcmp.ui.AddEvent('LaunchRace', function() { // Launch the race
   jcmp.events.CallRemote('LaunchRace');

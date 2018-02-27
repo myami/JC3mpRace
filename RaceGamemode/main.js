@@ -8,7 +8,6 @@ global.race = {
   workarounds: require('./gm/_workarounds'),
   workarounds2: require('./gm/_workarounds2.js'),
   RaceBeta: require('./gm/raceBeta.js'),
-  AllPlayerOnTheServer:[],
   game: {
     players: {
       onlobby: [],

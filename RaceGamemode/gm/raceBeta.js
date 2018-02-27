@@ -55,8 +55,6 @@ module.exports = class RaceBeta {
       player.race.ingame = true;
       player.race.ready = false;
 
-      jcmp.events.CallRemote('Client/LobbyPlayerIngame',null,player.race.lobbyid,player.name);
-
       player.dimension = this.id;
       player.race.time = 0;
       player.race.hasfinish = false;
