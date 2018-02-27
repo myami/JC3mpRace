@@ -411,3 +411,12 @@ player.respawnPosition = new Vector3f(957,1617,-5782);
 
 
 });
+
+
+jcmp.events.Add('PlayerDeath', function(player, killer, reason) {
+player.Respawn();
+
+  }
+
+
+);
