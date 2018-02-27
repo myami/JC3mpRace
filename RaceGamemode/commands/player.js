@@ -15,6 +15,15 @@ module.exports = ({
       }
     }))
 
+    .add(new Command('JoinRacePackage').description('Join The Gamemode Race').handler(function(player) {
+      jcmp.events.CallRemote('ShowRaceMenu',player,true);
+        jcmp.events.CallRemote('PlayerCameraHome',player);
+    }))
+
+    .add(new Command('LeaveRacePackage').description('Leave The Gamemode Race').handler(function(player) {
+      jcmp.events.CallRemote('ShowRaceMenu',player,false);
+    }))
+
 
 
     .add(new Command('reset').description('Reset to the last checkpoint').handler(function(player) {

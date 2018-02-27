@@ -119,7 +119,7 @@ player.respawnPosition = new Vector3f(-13196,1326,14827);
       jcmp.events.Call('PlayerJoinServer',player);
       jcmp.events.CallRemote('PlayerMeLobby',player,player.name);
 
-      jcmp.events.CallRemote('PlayerCameraHome',player);
+    
 
 
 }, 4000);

@@ -196,3 +196,14 @@ jcmp.events.AddRemoteCallable('Client/PlayerIsNotReady',function(id,name){
   jcmp.ui.CallEvent('CEF/PlayerIsNotReady',id,name);
 
 });
+
+jcmp.events.AddRemoteCallable('ShowRaceMenu',function(bool){
+  jcmp.ui.CallEvent('ShowRaceMenu',bool);
+  if (bool == false){
+    jcmp.localPlayer.camera.position = jcmp.localPlayer.position;
+     jcmp.localPlayer.camera.attachedToPlayer = true;
+     jcmp.localPlayer.frozen = false;
+
+  }
+
+});

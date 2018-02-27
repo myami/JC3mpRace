@@ -11,16 +11,33 @@ $("#Leaderboard").hide();
 $("#MultiCrewDiv").hide();
 $("#LoadingPage").hide();
 $("#NReadyB").hide();
-
-
-jcmp.ShowCursor();
-
+$("#DivServerLobbyList").hide(); // freeroam only
 
 
 
 
 
 
+
+
+
+
+jcmp.AddEvent('ShowRaceMenu',function(bool){
+  if (bool){
+    $("#DivServerLobbyList").show();
+    jcmp.ShowCursor();
+  }else{
+    $("#TypeSelect").hide();
+    $("#MapSelectdiv").hide();
+    $("#DivLobbyJoined").hide();
+    $("#Leaderboard").hide();
+    $("#MultiCrewDiv").hide();
+    $("#LoadingPage").hide();
+    $("#NReadyB").hide();
+    $("#DivServerLobbyList").hide();
+      jcmp.HideCursor();
+  }
+});
 
 
 
