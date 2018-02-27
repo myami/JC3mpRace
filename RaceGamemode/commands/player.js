@@ -27,8 +27,10 @@ module.exports = ({
 
 
     .add(new Command('reset').description('Reset to the last checkpoint').handler(function(player) {
+      if (player.race.ingame) {
       jcmp.events.Call('race_player_checkpoint_respawn', player);
       race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
+    }
     }));
 
 
