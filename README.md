@@ -4,7 +4,7 @@
 ## Installation
 
 ##### For Creating race :
-Copy : chat,command-manager,CreateRace into the server/packages files
+Copy : command-manager,CreateRace into the server/packages files
 
 ##### For playing race gamemode :
 Copy : Chat,command-manager,RaceGamemode into the server/packages files
@@ -16,12 +16,10 @@ Copy : Chat,command-manager,RaceGamemode into the server/packages files
 3. Different type of race ( Classic,Time Trial Solo,MultiplePath)
 4. Lobby System
 
-## Next Feature
-1. Update the Menu to create Race
-2. Add a Ready button and launch the race after x seconds when everyone is Ready
-3. Add more race
-4. Add more type of race (Apocalypse now : Falling barrel explosive around the player )
 
+### Change on chat package:
+
+Check the events chat_input_state it avoid that people can move during the countdown of the race
 
 ### Credits
 

@@ -10,7 +10,8 @@ var InGame = new Vue({
         Hour:0,
       },
       TotalOfCheckpoint:0,
-      CurrentCheckpoint:0
+      CurrentCheckpoint:0,
+      InRace:false
     },
     methods: {
 
@@ -23,6 +24,7 @@ var InGame = new Vue({
       setTimeout(function() {
         jcmp.CallEvent('LoadingHide',true);
     //    $("#LoadingPage").hide();
+  InGame.InRace = true;
 
         toggleContainer("TimerContainer", true);
           let inter = setInterval(function() {
@@ -81,7 +83,7 @@ var InGame = new Vue({
       } else {
         clearInterval(timers);
         jcmp.CallEvent('Timer_Client', InGame.RaceTimer);
-      
+
         setTimeout(function() {
             toggleContainer("timergame", false);
           InGame.RaceTimer = 0;
@@ -91,6 +93,7 @@ var InGame = new Vue({
     }
     jcmp.AddEvent('Stop_Timer', function() {
       countdownrace(false);
+      InGame.InRace = false;
     });
 
     jcmp.AddEvent('Checkpoint_Sound', () => {
@@ -137,10 +140,10 @@ var InGame = new Vue({
       const key = event.which;
       //  if (key === 32) {event.preventDefault();}
 
-      if (key === 77 && $is_text_key_down && !$chat_input_visible) { // m
+      if (key === 77 && $is_text_key_down && !$chat_input_visible  ) { // m
         toggleContainer("Onclickexplained", false);
         $is_text_key_down = false;
-      } else if (key === 66 && !$chat_input_visible) { //b
+      } else if (key === 66 && !$chat_input_visible && InGame.InRace) { //b
         jcmp.CallEvent('ResetPlayer_client');
       }
     });
