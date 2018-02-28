@@ -67,51 +67,10 @@ function createCache(id, name, colour,isadmin) {
     colour_rgb: hex2rgba(colour),
     flags: {
       isAdmin: isadmin
-    },
-    nametag: {
-      textMetric: null,
-      textPos: null,
-      shadowPos: null,
-      iconPos: null,
-      healthBarPos: null,
-      healthBarBackPos: null,
-      healthBarShadowPos: null
     }
+
   };
 
   return playersCache[id];
 
-}
-
-
-function RenderNametag(renderer, playerCache, distance) {
-
-  if (typeof playerCache !== 'undefined') {
-    let distscale = (distance * 2.4);
-
-    // build the name metric if needed
-    if (playerCache.nametag.textMetric === null) {
-
-      const metric = renderer.MeasureText(playerCache.name, 100, 'Arial');
-      playerCache.nametag.textMetric = metric;
-      playerCache.nametag.textPos = new Vector3f(-(metric.x / 2), -400, 0);
-      playerCache.nametag.shadowPos = new Vector3f(-(metric.x / 2) + 5, -395, 1);
-      playerCache.nametag.iconPos = new Vector3f(-(metric.x / 2) - 100, -363, 0);
-
-    }
-
-    if (distscale >= 350) {
-      distscale = 350;
-    }
-    // adjust position based on distance
-    playerCache.nametag.textPos.y = (-400 + distscale);
-    playerCache.nametag.shadowPos.y = (-395 + distscale);
-    playerCache.nametag.iconPos.y = (-363 + distscale);
-
-    // draw player name
-    renderer.DrawText(playerCache.name, playerCache.nametag.textPos, nameTagTextSize, playerCache.colour_rgb, 100, 'Arial');
-    renderer.DrawText(playerCache.name, playerCache.nametag.shadowPos, nameTagTextSize, black, 100, 'Arial');
-
-
-  }
 }

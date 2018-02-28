@@ -1,5 +1,5 @@
 jcmp.events.AddRemoteCallable('race_set_time', function(hour, minute,seconds) {
-  jcmp.world.SetTime(hour, minute,seconds);
+  jcmp.world.SetTime(hour, minute,0);
 });
 
 jcmp.events.AddRemoteCallable('race_set_weather', function(weather) {
