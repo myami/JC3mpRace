@@ -146,3 +146,16 @@ jcmp.events.AddRemoteCallable('ResetPlayer_Server', function(player) { // B butt
     jcmp.events.Call('race_player_checkpoint_respawn', player);
   race.chat.send(player, "[SERVER] You were reset to the last checkpoint");
 });
+
+jcmp.events.Add('Leaderboard_push_Player',function(player){
+  for (var i = 0; i < race.game.games.length; i++) {
+    let game = race.game.games[i];
+   if (game.id == player.race.game.id)
+   {
+      game.leaderboard.push(player);
+      jcmp.events.CallRemote('Race_Leaderboard_Rank',null,player.race.lobbyid,player.name,game.leaderboard.length);
+
+    }
+
+  }
+});

@@ -177,3 +177,14 @@ jcmp.events.AddRemoteCallable('ShowRaceMenu',function(bool){
   }
 
 });
+
+
+jcmp.events.AddRemoteCallable('race_end_timer_lobby',function(id,name,minute,seconde){
+  jcmp.ui.CallEvent('CEF/race_end_timer_lobby',id,name,minute,seconde);
+
+});
+
+jcmp.events.AddRemoteCallable('Race_Leaderboard_Rank',function(id,name,rank){
+  jcmp.ui.CallEvent('CEF/Race_Leaderboard_Rank',id,name,rank);
+
+});
