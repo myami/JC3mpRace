@@ -9,8 +9,7 @@ var LobbyJoined = new Vue({
           TypeRace:undefined,
           LobbyID: undefined,
           PlayerListName:[]
-          // PlayerListName : [Myami,Btje,CharleyTank]
-          // PlayerListName : [{Name:"Myami",Ready:true,Ingame:False},{Name:"Btje",Ready:true,Ingame:False},{Name:"CharleyTank",Ready:true,Ingame:False}]
+
 
         },
 
@@ -117,7 +116,12 @@ jcmp.AddEvent('CEF/PlayerJoinLobby',function(id,obj){ // Player joining the lobb
       let object = {
         Name: playername,
         Ready:false,
-        Ingame:false
+        Ingame:false,
+        Rank: 0,
+        Time: {
+          Minutes: 0,
+          Secondes: 0
+        }
       }
       LobbyJoined.PlayerLobbyData.PlayerListName.push(object)
 
@@ -139,7 +143,12 @@ jcmp.AddEvent('CEF/AddPlayerOnLobbyMenu',function(id,playername){
     let object = {
       Name: playername,
       Ready:false,
-      Ingame:false
+      Ingame:false,
+      Rank: 0,
+      Time: {
+        Minutes: 0,
+        Secondes: 0
+      }
     }
     LobbyJoined.PlayerLobbyData.PlayerListName.push(object);
     // show to everyone that are on the lobby the new guy
@@ -264,6 +273,37 @@ jcmp.AddEvent('CEF/PlayerIsNotReady',function(id,name){
     let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
     if (playerlist.Name == name){
       playerlist.Ready = false;
+    }
+  }
+
+
+});
+
+jcmp.AddEvent('CEF/race_end_timer_lobby',function(id,name,minute,second){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Time.Minutes = minute;
+      playerlist.Time.Secondes = second;
+
+    }
+  }
+
+
+});
+
+jcmp.AddEvent('CEF/Race_Leaderboard_Rank',function(id,name,rank){
+  if (id != LobbyJoined.PlayerLobbyData.LobbyID){
+    return;
+  }
+  for (let i = 0; i < LobbyJoined.PlayerLobbyData.PlayerListName.length; i++) {
+    let playerlist = LobbyJoined.PlayerLobbyData.PlayerListName[i];
+    if (playerlist.Name == name){
+      playerlist.Rank = rank;
+
     }
   }
 

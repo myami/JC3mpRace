@@ -9,6 +9,7 @@ module.exports = class RaceBeta {
     this.type = typeselect;
     this.IsWingsuit = false;
     this.TtsIndex = 0;
+    this.leaderboard = [];
   }
 
   Start() {

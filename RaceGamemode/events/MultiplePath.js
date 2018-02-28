@@ -104,6 +104,8 @@ jcmp.events.Add('MP_race_end_point', function(player) {
   let seconds = player.race.time % 60
   let playername = player.name;
   race.chat.broadcast(`[SERVER] ${playername} as done the race with a time of ${minute} minutes and ${seconds} seconds!`, race.config.colours.red);
+  jcmp.events.CallRemote('race_end_timer_lobby',null,player.race.lobbyid,player.name,minute,seconds);
+  jcmp.events.Call('Leaderboard_push_Player',player);
 
 
 
