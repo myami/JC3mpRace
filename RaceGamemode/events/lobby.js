@@ -1,8 +1,5 @@
 jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player) {
 
-  if (!race.utils.isAdmin(player)) {
-    return;
-  }
   if (player.race.lobbyid == undefined) {
     jcmp.events.CallRemote('Client/isAdmin', player); // send to everyone the new lobby object for the array in cef
     let id = race.game.lobbys.length;
