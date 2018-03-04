@@ -1,6 +1,10 @@
 .hidden {
   display: none;
 }
+body {
+
+     user-select: none;
+}
 
       #TimerContainer {
         position: fixed;
