@@ -56,7 +56,7 @@ button:hover {
     transition: all .2s;
 }
 
-#DivServerLobbyList, #DivLobbyJoined {
+#DivServerLobbyList, #DivLobbyJoined,#TypeSelect,#MapSelectdiv {
     background: rgba(0,0,0,.7);
     width: 80%;
     height: 80%;
