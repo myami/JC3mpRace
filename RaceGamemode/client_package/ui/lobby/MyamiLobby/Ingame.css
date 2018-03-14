@@ -6,6 +6,7 @@ body {
      user-select: none;
 }
 
+
       #TimerContainer {
         position: fixed;
                 top: 20%;
@@ -25,9 +26,13 @@ body {
             top: 2%;
             right: 49%;
             font-family: 'Roboto', sans-serif;
-            color: white;
+            color: black;
             font-size: 27pt;
-              display: none;
+
+          }
+
+          #chkimgcircle{
+              vertical-align: middle;
           }
 
           #timergame {
