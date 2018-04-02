@@ -24,7 +24,6 @@
 </head>
 
 <body>
-<h1>WIP</h1>
 
 <div id= "DivLobbyJoined">
   <h2 v-show="!imhost">Waiting for the host to start the race...</h2>
@@ -51,16 +50,15 @@
   <ul class="raceInfoList">
   <li><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
   <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
-    <li><img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="15%" height="10%"></li>
+    <li><img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="80%" height="30%"></li>
   </ul>
 
   <div class = "HostButton">
     <button type="button" class="btn btn-danger" v-on:click="StartRace()" v-show="imhost"> Start Race</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()" v-show="imhost">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()" v-show="imhost">Type List</button>
-
-
   </div>
+
   <div class = "Commands">
     <button type="button" class="btn btn-danger" v-on:click="Ready()" id="ReadyB">Ready</button>
     <button type="button" class="btn btn-danger" v-on:click="NotReady()" id="NReadyB">NotReady</button>

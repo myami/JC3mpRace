@@ -87,15 +87,26 @@ button:hover {
     list-style: none;
 }
 
-#DivLobbyJoined .MapThumbnail {
-    position: fixed;
-    right: 25px;
-    top: 500px;
-}
+
 
 #DivLobbyJoined .raceInfoList {
     list-style: none;
     position: fixed;
-    right: 200px;
-    top: 400px;
+    right: 150px;
+    top: 100px;
+    width: 300px;
+    height: 300px;
+}
+
+
+#DivLobbyJoined .HostButton {
+    position: fixed;
+    right: 850px;
+    top: 150px;
+}
+
+#DivLobbyJoined .Commands {
+    position: fixed;
+    right: 300px;
+    top: 300px;
 }
