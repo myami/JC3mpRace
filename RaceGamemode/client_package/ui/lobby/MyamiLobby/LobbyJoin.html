@@ -46,23 +46,24 @@
 
 
 
-  <div class="MapThumbnail">
-    <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="15%" height="10%">
-  </div>
+
 
   <ul class="raceInfoList">
   <li><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
-    <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+  <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+    <li><img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="15%" height="10%"></li>
   </ul>
 
-  <div>
+  <div class = "HostButton">
     <button type="button" class="btn btn-danger" v-on:click="StartRace()" v-show="imhost"> Start Race</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()" v-show="imhost">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()" v-show="imhost">Type List</button>
+
+
+  </div>
+  <div class = "Commands">
     <button type="button" class="btn btn-danger" v-on:click="Ready()" id="ReadyB">Ready</button>
     <button type="button" class="btn btn-danger" v-on:click="NotReady()" id="NReadyB">NotReady</button>
-
-
   </div>
   <div class="modal-footer">
     <button type="button" id="btnLeave" class="leavelobby" v-on:click="leaveLobby()">LeaveLobby</button>
