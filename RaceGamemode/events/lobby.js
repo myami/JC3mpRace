@@ -1,5 +1,8 @@
 jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player) {
 
+  if (!race.utils.isAdmin(player)) {
+    return;
+  }
   if (player.race.lobbyid == undefined) {
     jcmp.events.CallRemote('Client/isAdmin', player); // send to everyone the new lobby object for the array in cef
     let id = race.game.lobbys.length;
@@ -20,10 +23,10 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let lobbytosendtoclient = {
       LobbyName: `Lobby ${player.name}`, //LobbyNameReceived
       NumberofPlayer: 1,
-      MapName: "CarRaceBoomIsland",
+      MapName: "Car-BetweenIslands",
       TypeRace: "Classic",
       LobbyID: id,
-      RaceID: 50, // CarRaceBoomIsland
+      RaceID: 12,
       PlayerCreated: player.name,
       PlayerListName: [player.name]
     }
@@ -34,7 +37,7 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     let havefind = false;
     for (var i = 0; i < race.game.RaceList.length; i++) {
       let racetofind = race.game.RaceList[i];
-      if (racetofind.raceid == 50) { // should be 12 . 50 is testing
+      if (racetofind.raceid == 12) { // should be 12 . 50 is testing
         races = racetofind;
         havefind = true;
         player.race.raceselect = i;
@@ -42,7 +45,6 @@ jcmp.events.AddRemoteCallable('Server/Player_Create_Lobby_Test', function(player
     }
     player.race.typeselect = 0; // setting the type
     jcmp.events.Call('Server/MapList', player);
-
 
 
   } else {
@@ -189,6 +191,7 @@ jcmp.events.AddRemoteCallable('Server/MapRace_Test', function(player, int) { //r
 
 
 
+
 jcmp.events.AddRemoteCallable('LaunchRace', function(player) {
   jcmp.events.Call('race_start_index_Beta', player)
 });
@@ -212,7 +215,7 @@ jcmp.events.Add('Server/MapList', function(player) { // call when a player is a 
       let map = {
         raceid: races.raceid,
         name: races.Name,
-        type: "Classic,TTS,Apo"
+        type: "Classic"
       }
       jcmp.events.CallRemote('Client/MapList', player, JSON.stringify(map));
     }

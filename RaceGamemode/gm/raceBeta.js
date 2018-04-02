@@ -115,7 +115,7 @@ module.exports = class RaceBeta {
       //  player.vehicle.nitroEnabled = enabled;
        console.log("nitro");
      }
-      console.log("Vehicle spawning");
+      console.log("Vehicle spawning for player : " + player.name);
       vehicle.dimension = player.race.game.id;
       setTimeout(function() {
         vehicle.SetOccupant(0, player); // sometime the player don't go inside or vehicle is destroy to early

@@ -30,11 +30,11 @@
 
 <div id="Ingame">
 
-  <div id="TimerContainer" >
+  <div id="TimerContainer" class= "hidden" >
     <span id="timer">{{ StartTimer }}</span>
   </div>
 
-  <div id="CheckpointContainer" >
+  <div id="CheckpointContainer" class= "hidden">
     <img src="./img/CircleCheckpoint.png" height="42" width="42" id="chkimgcircle"> <span id="playercheckpointis">{{ CurrentCheckpoint }}</span> | <span id="allcheckpoint">{{ TotalOfCheckpoint }}</span>
   </div>
 
@@ -58,6 +58,7 @@
 <script src="./ingame.js"></script>
 
 
+<script src="./global.js"></script>
 
   <script>
 

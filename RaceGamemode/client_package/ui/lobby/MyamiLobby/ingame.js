@@ -27,6 +27,7 @@ var InGame = new Vue({
   InGame.InRace = true;
 
         toggleContainer("TimerContainer", true);
+          toggleContainer("CheckpointContainer", true);
           let inter = setInterval(function() {
             if (InGame.StartTimer > 0) {
               InGame.StartTimer--;
@@ -92,6 +93,7 @@ var InGame = new Vue({
       }
     }
     jcmp.AddEvent('Stop_Timer', function() {
+        toggleContainer("CheckpointContainer", false);
       countdownrace(false);
       InGame.InRace = false;
     });

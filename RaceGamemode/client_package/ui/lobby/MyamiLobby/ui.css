@@ -1,7 +1,6 @@
 body {
     font-family: sans-serif;
     /*background: url('http://cdn.akamai.steamstatic.com/steam/apps/225540/ss_3f7f935e42ab9a7816a6e0f9442da5a5a6362789.1920x1080.jpg?t=1515663874');*/
-     user-select: none;
 }
 
 table {
@@ -88,15 +87,26 @@ button:hover {
     list-style: none;
 }
 
-#DivLobbyJoined .MapThumbnail {
-    position: fixed;
-    right: 25px;
-    top: 500px;
-}
+
 
 #DivLobbyJoined .raceInfoList {
     list-style: none;
     position: fixed;
-    right: 200px;
-    top: 400px;
+    right: 150px;
+    top: 100px;
+    width: 300px;
+    height: 300px;
+}
+
+
+#DivLobbyJoined .HostButton {
+    position: fixed;
+    right: 850px;
+    top: 150px;
+}
+
+#DivLobbyJoined .Commands {
+    position: fixed;
+    right: 300px;
+    top: 300px;
 }

@@ -13,7 +13,7 @@
     <script src="./vue.js"></script>
 
     <link rel="stylesheet" type="text/css" href="ui.css">
-     <link rel="stylesheet" type="text/css" href="LobbyJoin.css">
+    <link rel="stylesheet" type="text/css" href="LobbyJoin.css">
 
 
 
@@ -24,7 +24,6 @@
 </head>
 
 <body>
-<h1>WIP</h1>
 
 <div id= "DivLobbyJoined">
   <h2 v-show="!imhost">Waiting for the host to start the race...</h2>
@@ -37,6 +36,8 @@
       <span v-show="!player.Ready" ><img src="./img/RedCircle.png"  height="20" width="20"/> </span> <!-- Player is not ready-->
       <span v-show="player.Ingame" > <img src="./img/PurpleCircle.png" height="20" width="20" /> </span> <!-- Player is still in a race -->
     </div>
+    <!-- TODO :Tooltip on top of each circle to explain what it is-->
+
 
 
   </li>
@@ -44,23 +45,23 @@
 
 
 
-  <div class="MapThumbnail">
-    <img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="15%" height="10%">
-  </div>
+
 
   <ul class="raceInfoList">
   <li><span class="info"> Map:</span> {{ PlayerLobbyData.MapName }}</li>
-    <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+  <li><span class="info"> Type:</span> {{ PlayerLobbyData.TypeRace }}</li>
+    <li><img :src="generateThumbUrl(PlayerLobbyData.RaceID)" width="80%" height="30%"></li>
   </ul>
 
-  <div>
+  <div class = "HostButton">
     <button type="button" class="btn btn-danger" v-on:click="StartRace()" v-show="imhost"> Start Race</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowMapList()" v-show="imhost">Map List</button>
     <button type="button" class="btn btn-danger" v-on:click="ShowTypeList()" v-show="imhost">Type List</button>
+  </div>
+
+  <div class = "Commands">
     <button type="button" class="btn btn-danger" v-on:click="Ready()" id="ReadyB">Ready</button>
     <button type="button" class="btn btn-danger" v-on:click="NotReady()" id="NReadyB">NotReady</button>
-
-
   </div>
   <div class="modal-footer">
     <button type="button" id="btnLeave" class="leavelobby" v-on:click="leaveLobby()">LeaveLobby</button>
@@ -81,8 +82,6 @@
 
 
   <script>
-
-
   </script>
 </body>
 
